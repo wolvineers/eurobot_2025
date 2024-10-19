@@ -1,0 +1,20 @@
+[0.027s] Invoking command in '/wolvi/build/tests': CMAKE_PREFIX_PATH=/wolvi/install/utils:/wolvi/install/tests:/wolvi/install/robot_01:/wolvi/install/computation_zone:/opt/ros/humble /usr/bin/cmake --build /wolvi/build/tests -- -j16 -l16
+[0.112s] Invoked command in '/wolvi/build/tests' returned '0': CMAKE_PREFIX_PATH=/wolvi/install/utils:/wolvi/install/tests:/wolvi/install/robot_01:/wolvi/install/computation_zone:/opt/ros/humble /usr/bin/cmake --build /wolvi/build/tests -- -j16 -l16
+[0.153s] Invoking command in '/wolvi/build/tests': CMAKE_PREFIX_PATH=/wolvi/install/utils:/wolvi/install/tests:/wolvi/install/robot_01:/wolvi/install/computation_zone:/opt/ros/humble /usr/bin/cmake --install /wolvi/build/tests
+[0.169s] -- Install configuration: ""
+[0.169s] -- Up-to-date: /wolvi/install/tests/share/ament_index/resource_index/package_run_dependencies/tests
+[0.169s] -- Up-to-date: /wolvi/install/tests/share/ament_index/resource_index/parent_prefix_path/tests
+[0.170s] -- Up-to-date: /wolvi/install/tests/share/tests/environment/ament_prefix_path.sh
+[0.170s] -- Up-to-date: /wolvi/install/tests/share/tests/environment/ament_prefix_path.dsv
+[0.171s] -- Up-to-date: /wolvi/install/tests/share/tests/environment/path.sh
+[0.171s] -- Up-to-date: /wolvi/install/tests/share/tests/environment/path.dsv
+[0.171s] -- Up-to-date: /wolvi/install/tests/share/tests/local_setup.bash
+[0.171s] -- Up-to-date: /wolvi/install/tests/share/tests/local_setup.sh
+[0.172s] -- Up-to-date: /wolvi/install/tests/share/tests/local_setup.zsh
+[0.172s] -- Up-to-date: /wolvi/install/tests/share/tests/local_setup.dsv
+[0.172s] -- Up-to-date: /wolvi/install/tests/share/tests/package.dsv
+[0.172s] -- Up-to-date: /wolvi/install/tests/share/ament_index/resource_index/packages/tests
+[0.172s] -- Up-to-date: /wolvi/install/tests/share/tests/cmake/testsConfig.cmake
+[0.172s] -- Up-to-date: /wolvi/install/tests/share/tests/cmake/testsConfig-version.cmake
+[0.172s] -- Up-to-date: /wolvi/install/tests/share/tests/package.xml
+[0.175s] Invoked command in '/wolvi/build/tests' returned '0': CMAKE_PREFIX_PATH=/wolvi/install/utils:/wolvi/install/tests:/wolvi/install/robot_01:/wolvi/install/computation_zone:/opt/ros/humble /usr/bin/cmake --install /wolvi/build/tests

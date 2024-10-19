@@ -1,0 +1,15 @@
+/wolvi/install/computation_zone/share/ament_index/resource_index/package_run_dependencies/computation_zone
+/wolvi/install/computation_zone/share/ament_index/resource_index/parent_prefix_path/computation_zone
+/wolvi/install/computation_zone/share/computation_zone/environment/ament_prefix_path.sh
+/wolvi/install/computation_zone/share/computation_zone/environment/ament_prefix_path.dsv
+/wolvi/install/computation_zone/share/computation_zone/environment/path.sh
+/wolvi/install/computation_zone/share/computation_zone/environment/path.dsv
+/wolvi/install/computation_zone/share/computation_zone/local_setup.bash
+/wolvi/install/computation_zone/share/computation_zone/local_setup.sh
+/wolvi/install/computation_zone/share/computation_zone/local_setup.zsh
+/wolvi/install/computation_zone/share/computation_zone/local_setup.dsv
+/wolvi/install/computation_zone/share/computation_zone/package.dsv
+/wolvi/install/computation_zone/share/ament_index/resource_index/packages/computation_zone
+/wolvi/install/computation_zone/share/computation_zone/cmake/computation_zoneConfig.cmake
+/wolvi/install/computation_zone/share/computation_zone/cmake/computation_zoneConfig-version.cmake
+/wolvi/install/computation_zone/share/computation_zone/package.xml
