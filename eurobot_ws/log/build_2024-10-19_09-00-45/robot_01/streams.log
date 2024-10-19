@@ -1,0 +1,20 @@
+[0.036s] Invoking command in '/wolvi/build/robot_01': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /wolvi/build/robot_01 -- -j16 -l16
+[0.096s] Invoked command in '/wolvi/build/robot_01' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /wolvi/build/robot_01 -- -j16 -l16
+[0.157s] Invoking command in '/wolvi/build/robot_01': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /wolvi/build/robot_01
+[0.174s] -- Install configuration: ""
+[0.174s] -- Up-to-date: /wolvi/install/robot_01/share/ament_index/resource_index/package_run_dependencies/robot_01
+[0.174s] -- Up-to-date: /wolvi/install/robot_01/share/ament_index/resource_index/parent_prefix_path/robot_01
+[0.174s] -- Up-to-date: /wolvi/install/robot_01/share/robot_01/environment/ament_prefix_path.sh
+[0.174s] -- Up-to-date: /wolvi/install/robot_01/share/robot_01/environment/ament_prefix_path.dsv
+[0.174s] -- Up-to-date: /wolvi/install/robot_01/share/robot_01/environment/path.sh
+[0.174s] -- Up-to-date: /wolvi/install/robot_01/share/robot_01/environment/path.dsv
+[0.174s] -- Up-to-date: /wolvi/install/robot_01/share/robot_01/local_setup.bash
+[0.174s] -- Up-to-date: /wolvi/install/robot_01/share/robot_01/local_setup.sh
+[0.174s] -- Up-to-date: /wolvi/install/robot_01/share/robot_01/local_setup.zsh
+[0.175s] -- Up-to-date: /wolvi/install/robot_01/share/robot_01/local_setup.dsv
+[0.175s] -- Installing: /wolvi/install/robot_01/share/robot_01/package.dsv
+[0.175s] -- Up-to-date: /wolvi/install/robot_01/share/ament_index/resource_index/packages/robot_01
+[0.175s] -- Up-to-date: /wolvi/install/robot_01/share/robot_01/cmake/robot_01Config.cmake
+[0.175s] -- Up-to-date: /wolvi/install/robot_01/share/robot_01/cmake/robot_01Config-version.cmake
+[0.175s] -- Up-to-date: /wolvi/install/robot_01/share/robot_01/package.xml
+[0.196s] Invoked command in '/wolvi/build/robot_01' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /wolvi/build/robot_01

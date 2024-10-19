@@ -1,0 +1,15 @@
+/wolvi/install/tests/share/ament_index/resource_index/package_run_dependencies/tests
+/wolvi/install/tests/share/ament_index/resource_index/parent_prefix_path/tests
+/wolvi/install/tests/share/tests/environment/ament_prefix_path.sh
+/wolvi/install/tests/share/tests/environment/ament_prefix_path.dsv
+/wolvi/install/tests/share/tests/environment/path.sh
+/wolvi/install/tests/share/tests/environment/path.dsv
+/wolvi/install/tests/share/tests/local_setup.bash
+/wolvi/install/tests/share/tests/local_setup.sh
+/wolvi/install/tests/share/tests/local_setup.zsh
+/wolvi/install/tests/share/tests/local_setup.dsv
+/wolvi/install/tests/share/tests/package.dsv
+/wolvi/install/tests/share/ament_index/resource_index/packages/tests
+/wolvi/install/tests/share/tests/cmake/testsConfig.cmake
+/wolvi/install/tests/share/tests/cmake/testsConfig-version.cmake
+/wolvi/install/tests/share/tests/package.xml
