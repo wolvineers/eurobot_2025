@@ -10,6 +10,7 @@ from frames.camera_frame import close_camera, camera_open
 
 
 os.system("clear")
+current_directory = os.path.dirname(os.path.abspath(__file__))
 
 #Start the window for the interface
 window = tk.Tk()
@@ -59,23 +60,28 @@ def main_frame():
 
     menu_font = tkFont.Font(family="Courier", size=15)
 
-    background_image = Image.open("eurobot_ws/src/gui/img/background.jpg")
+    background_path = os.path.join(current_directory, "../img/background.jpg")
+    background_image = Image.open(background_path)
     background_image = background_image.resize((screen_width, screen_height), Image.LANCZOS)
     background_photo = ImageTk.PhotoImage(background_image)
 
-    wolvi_image = Image.open("eurobot_ws/src/gui/img/wolve.png")
+    wolvi_path = os.path.join(current_directory, "../img/wolve.png")
+    wolvi_image = Image.open(wolvi_path)
     wolvi_image = wolvi_image.resize((250, 300), Image.LANCZOS)
     wolvi_photo = ImageTk.PhotoImage(wolvi_image)
 
-    button_image = Image.open("eurobot_ws/src/gui/img/white-button.png")
+    button_path = os.path.join(current_directory, "../img/white-button.png")
+    button_image = Image.open(button_path)
     button_image = button_image.resize((250, 35), Image.LANCZOS)
     button_photo = ImageTk.PhotoImage(button_image)
 
-    ppal_frame_left_image = Image.open("eurobot_ws/src/gui/img/ppal-frame-left.png")
+    ppal_frame_left_path = os.path.join(current_directory, "../img/ppal-frame-left.png")
+    ppal_frame_left_image = Image.open(ppal_frame_left_path)
     ppal_frame_left_image = ppal_frame_left_image.resize((20, 500), Image.LANCZOS)
     ppal_frame_left_photo = ImageTk.PhotoImage(ppal_frame_left_image)
 
-    ppal_frame_right_image = Image.open("eurobot_ws/src/gui/img/ppal-frame-right.png")
+    ppal_frame_right_path = os.path.join(current_directory, "../img/ppal-frame-right.png")
+    ppal_frame_right_image = Image.open(ppal_frame_right_path)
     ppal_frame_right_image = ppal_frame_right_image.resize((20, 500), Image.LANCZOS)
     ppal_frame_right_photo = ImageTk.PhotoImage(ppal_frame_right_image)
 

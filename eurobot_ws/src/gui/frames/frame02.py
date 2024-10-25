@@ -3,6 +3,8 @@ from PIL import Image, ImageTk
 import os
 
 os.system("clear")
+current_directory = os.path.dirname(os.path.abspath(__file__))
+
 
 #Set the function to design the frame02 (Competition Frame)
 def frame02(canvas):
@@ -10,11 +12,13 @@ def frame02(canvas):
 
     courirer_font = tkFont.Font(family="Courier", size=22)
 
-    field_image = Image.open("eurobot_ws/src/gui/img/field.png")
+    field_path = os.path.join(current_directory, "../img/field.png")
+    field_image = Image.open(field_path)
     field_image = field_image.resize((400, 250), Image.LANCZOS)
     field_photo = ImageTk.PhotoImage(field_image)
 
-    frame_image = Image.open("eurobot_ws/src/gui/img/frame.png")
+    frame_path = os.path.join(current_directory, "../img/frame.png")
+    frame_image = Image.open(frame_path)
     frame_image = frame_image.resize((440, 280), Image.LANCZOS)
     frame_photo = ImageTk.PhotoImage(frame_image)
 

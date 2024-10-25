@@ -1,7 +1,12 @@
 import tkinter.font as tkFont
+import os
 from PIL import Image, ImageTk
 
+
+
 #Set the global variables
+current_directory = os.path.dirname(os.path.abspath(__file__))
+
 green_photo = None
 red_photo = None
 green_square_photo = None
@@ -13,15 +18,18 @@ def frame00(canvas):
     courirer_font = tkFont.Font(family="Courier", size=35)
     esp_font = tkFont.Font(family="Courier", size=20)
 
-    green_image = Image.open("eurobot_ws/src/gui/img/green.png")
+    green_path = os.path.join(current_directory, "../img/green.png")
+    green_image = Image.open(green_path)
     green_image = green_image.resize((150, 150), Image.LANCZOS)
     green_photo = ImageTk.PhotoImage(green_image)
 
-    red_image = Image.open("eurobot_ws/src/gui/img/red.png")
+    red_path = os.path.join(current_directory, "../img/red.png")
+    red_image = Image.open(red_path)
     red_image = red_image.resize((150, 150), Image.LANCZOS)
     red_photo = ImageTk.PhotoImage(red_image)
 
-    green_square_image = Image.open("eurobot_ws/src/gui/img/green_square.png")
+    green_square_path = os.path.join(current_directory, "../img/green_square.png")
+    green_square_image = Image.open(green_square_path)
     green_square_image = green_square_image.resize((150, 150), Image.LANCZOS)
     green_square_photo = ImageTk.PhotoImage(green_square_image)
 

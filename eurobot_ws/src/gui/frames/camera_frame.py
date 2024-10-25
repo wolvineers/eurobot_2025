@@ -5,6 +5,7 @@ import cv2
 import os
 
 os.system("clear")
+current_directory = os.path.dirname(os.path.abspath(__file__))
 
 # Set global variables
 cap = None
@@ -19,7 +20,8 @@ def camera_frame(canvas, width=460, height=380):
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 
-    frame_image = Image.open("eurobot_ws/src/gui/img/frame.png")
+    frame_path = os.path.join(current_directory, "../img/frame.png")
+    frame_image = Image.open(frame_path)
     frame_image = frame_image.resize((460, 290), Image.LANCZOS)
     frame_photo = ImageTk.PhotoImage(frame_image)
 
