@@ -1,0 +1,12 @@
+# Ignore everything inside 'esp32_utils' except 'src' and 'test'
+esp32_utils/*
+!esp32_utils/src/
+!esp32_utils/test/
+
+# Ignore everything inside 'rosws' except 'src'
+eurobot_ws/*
+!eurobot_ws/src/
+
+# Ignore other unnecessary files that may be generated in various directories
+**/*.pyc
+**/*.o
