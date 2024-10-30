@@ -63,6 +63,8 @@ def verify_serial_message(message):
 
     # Split the message into parts using the comma as a delimiter
     message_parts = message.split(',')
+
+    print(message_parts)
     
     # Validate if the message has minimum three parts
     if len(message_parts) < 3:
@@ -74,6 +76,9 @@ def verify_serial_message(message):
         # Extract the message content by joining all parts except the checksum 
         msg_content = ','.join(message_parts[:-1])
         received_checksum = int(message_parts[-1])
+
+        print(msg_content)
+        print(received_checksum)
 
         # Calculate the expected checksum
         calculated_checksum = calculate_checksum(msg_content)
@@ -128,6 +133,7 @@ def read_message(serial_port):
                     print("Correct checksum.")
                 else:
                     print("Incorrect checksum.")
+            break
     
     except KeyboardInterrupt:
         print("Read operation interrupted.")

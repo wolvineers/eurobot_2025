@@ -47,7 +47,7 @@ String prepareSerialMessage(String message) {
     int checksum = calculateChecksum(message);
 
     // Return the complete message with checksum
-    return (message + "," + String(checksum) + "\n");
+    return (message + "," + String(checksum));
 }
 
 String readMessage() {
@@ -71,7 +71,12 @@ void sendMessage(String message) {
         message (string): Message to be sent in the format "type,value".
     */  
 
-    Serial.println(prepareSerialMessage(message));
+    String serial_message = prepareSerialMessage(message);
+    //Serial.write(serial_message.c_str(), serial_message.length());
+
+    Serial.println(serial_message);
+    fflush(stdout);
+    delay(1000);
 }
 
 bool verifyChecksum(String message) {
