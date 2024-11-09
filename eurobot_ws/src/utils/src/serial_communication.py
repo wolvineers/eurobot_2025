@@ -1,4 +1,4 @@
-import serial
+import serial, time
 
 def open_serial_port(port, baudrate, timeout=1):
     """
@@ -63,8 +63,6 @@ def verify_serial_message(message):
 
     # Split the message into parts using the comma as a delimiter
     message_parts = message.split(',')
-
-    print(message_parts)
     
     # Validate if the message has minimum three parts
     if len(message_parts) < 3:
@@ -76,9 +74,6 @@ def verify_serial_message(message):
         # Extract the message content by joining all parts except the checksum 
         msg_content = ','.join(message_parts[:-1])
         received_checksum = int(message_parts[-1])
-
-        print(msg_content)
-        print(received_checksum)
 
         # Calculate the expected checksum
         calculated_checksum = calculate_checksum(msg_content)
@@ -104,7 +99,7 @@ def read_serial_data(serial_port):
     # If there is data read a line from the serial port, decode it from ASCII, and strip any extra whitespace
     if serial_port.in_waiting > 0:
         return serial_port.readline().decode('utf-8').strip()
-
+    
     # Otherwise return None
     return None
 
@@ -123,7 +118,7 @@ def read_message(serial_port):
         while True:
             # Read a message from the serial port
             message = read_serial_data(serial_port)
-            
+
             # If a message is received
             if message:
                 print(f"Received message: {message}")
@@ -133,7 +128,8 @@ def read_message(serial_port):
                     print("Correct checksum.")
                 else:
                     print("Incorrect checksum.")
-            break
+                
+                break
     
     except KeyboardInterrupt:
         print("Read operation interrupted.")
