@@ -4,7 +4,7 @@ import time
 def main():
     # Configure the serial port
     port = '/dev/ttyUSB0'
-    baudrate = 9600
+    baudrate = 115200
 
     # Open the serial port using the specified port and baud rate
     serial_port = open_serial_port(port, baudrate)
@@ -15,15 +15,17 @@ def main():
         return
 
     for count_msg in range(10):
+
         # Send messages to the opened serial port
         start_time = time.time()
 
         message = "M," + str(count_msg)
         send_message(serial_port, message)
+        
         read_message(serial_port)
 
         elapsed_time = time.time() - start_time
-        print("Ping: " + str(elapsed_time*1000*1000) + "us")
+        print("Ping: " + str(elapsed_time*1000) + "ms" + "\n")  
 
 if __name__ == "__main__":
     main()

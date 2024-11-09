@@ -76,7 +76,7 @@ void sendMessage(String message) {
 
     Serial.println(serial_message);
     fflush(stdout);
-    delay(1000);
+    //delay(1000);
 }
 
 bool verifyChecksum(String message) {

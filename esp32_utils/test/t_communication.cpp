@@ -8,9 +8,10 @@ void setup() {
 void loop() {
     String message = readMessage();
 
-    if (message != "") {
-        
+    if (message != "") {        
         if (verifyChecksum(message)) sendMessage("R,OK");
         else sendMessage("R,Error");
     }
+
+    message = "";
 }
