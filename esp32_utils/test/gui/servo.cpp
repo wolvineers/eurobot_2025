@@ -20,7 +20,7 @@ void loop() {
         int firstComma = message.indexOf(',');
         int secondComma = message.indexOf(',', firstComma + 1);
         if (firstComma != -1 && secondComma != -1) {
-            String servoNumberStr = message.substring(6, firstComma);
+            String servoNumberStr = message.substring(2, firstComma);
             String servoAngleStr = message.substring(firstComma + 1, secondComma);
             String checksumStr = message.substring(secondComma + 1);
             int servoNumber = servoNumberStr.toInt() - 1;

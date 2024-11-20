@@ -6,7 +6,7 @@ from utils.src.serial_communication import open_serial_port, send_message
 
 os.system("clear")
 
-#Set the function to print the servo angle i    n real time
+#Set the function to print the servo angle in real time
 def set_servo_position(value, servo):
 
     port = '/dev/ttyUSB0'
@@ -16,7 +16,7 @@ def set_servo_position(value, servo):
 
     if not serial_port:
         print("Could not open serial port.")
-        return 
+        return
 
     print(f"Position {servo}: {value}°")
 
@@ -42,7 +42,7 @@ def servo_frame(canvas):
         to=180,
         orient=tk.HORIZONTAL,
         length=300,
-        command=lambda value: set_servo_position(value, "Servo 1")  
+        command=lambda value: set_servo_position(value, "S01")  
     )
     canvas.create_window(900, 165, window=slider1)
 
@@ -52,7 +52,7 @@ def servo_frame(canvas):
         to=180,
         orient=tk.HORIZONTAL,
         length=300,
-        command=lambda value: set_servo_position(value, "Servo 2")  
+        command=lambda value: set_servo_position(value, "S02")  
     )
     canvas.create_window(900, 240, window=slider2)
 
@@ -62,7 +62,7 @@ def servo_frame(canvas):
         to=180,
         orient=tk.HORIZONTAL,
         length=300,
-        command=lambda value: set_servo_position(value, "Servo 3")  
+        command=lambda value: set_servo_position(value, "S03")  
     )
     canvas.create_window(900, 320, window=slider3)
 
@@ -72,6 +72,6 @@ def servo_frame(canvas):
         to=180,
         orient=tk.HORIZONTAL,
         length=300,
-        command=lambda value: set_servo_position(value, "Servo 4")  
+        command=lambda value: set_servo_position(value, "S04")  
     )
     canvas.create_window(900, 400, window=slider4)
