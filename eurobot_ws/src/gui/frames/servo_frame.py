@@ -6,7 +6,7 @@ from utils.src.serial_communication import open_serial_port, send_message
 
 os.system("clear")
 
-#Set the function to print the servo angle in real time
+#Set the function to send the servo angle to the ESP32
 def set_servo_position(value, servo):
 
     port = '/dev/ttyUSB0'

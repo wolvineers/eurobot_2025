@@ -6,7 +6,7 @@ from utils.src.serial_communication import open_serial_port, send_message
 
 os.system("clear")
 
-#Set the function to print the motor veolocity in real time
+#Set the function to send the motor veolocity to the ESP32
 def set_motor_velocity(value, motor):
 
     port = '/dev/ttyUSB0'
