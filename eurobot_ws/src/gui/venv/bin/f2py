@@ -1,4 +1,4 @@
-#!/home/marti/EUROBOT/eurobot_2025/eurobot_ws/src/gui/venv/bin/python3
+#!/wolvi/src/gui/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
