@@ -4,21 +4,28 @@ from PIL import Image, ImageTk
 
 
 
-#Set the global variables
+# Set the global variables
 current_directory = os.path.dirname(os.path.abspath(__file__))
 
 green_photo = None
 red_photo = None
 green_square_photo = None
 
-#Set the function to design the frame00 (Control Systems Frame)
+
 def frame00(canvas):
-    global green_photo, red_photo, green_square_photo  # Usar las variables globales para las imágenes
+    """ 
+    Set the function to design the frame00 (Control Systems Frame)
 
-    courirer_font = tkFont.Font(family="Courier", size=35)
-    esp_font = tkFont.Font(family="Courier", size=20)
+    Args:
+        (canvas): Variable that set the shape of the window
+    """
+    global green_photo, red_photo, green_square_photo  # Set the global variables
 
-    green_path = os.path.join(current_directory, "../img/green.png")
+    courirer_font = tkFont.Font(family="Courier", size=35) # Set the font for the default text
+    esp_font = tkFont.Font(family="Courier", size=20) # Set the font for the ESP text
+
+    # Set the variable that contains the path of the image
+    green_path = os.path.join(current_directory, "../img/green.png") 
     green_image = Image.open(green_path)
     green_image = green_image.resize((150, 150), Image.LANCZOS)
     green_photo = ImageTk.PhotoImage(green_image)
@@ -33,6 +40,7 @@ def frame00(canvas):
     green_square_image = green_square_image.resize((150, 150), Image.LANCZOS)
     green_square_photo = ImageTk.PhotoImage(green_square_image)
 
+    # Display all the content (text and images) on the frame
     canvas.create_text(750, 100, text="CONTROL SYSTEMS", font=courirer_font, fill="White")
     canvas.create_text(750, 130, text="_" * 30, font=esp_font, fill="White")
 
