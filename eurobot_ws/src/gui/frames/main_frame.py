@@ -32,6 +32,7 @@ wolvi_photo = None
 button_photo = None
 ppal_frame_left_photo = None
 ppal_frame_right_photo = None
+close_photo = None
 
 #Set the function to switch the frames
 def switch_frame(frame_function, frame_name):
@@ -57,7 +58,7 @@ def switch_to_frame03():
 
 #Set the main function (The main design for the interface)
 def main_frame():
-    global background_photo, wolvi_photo, button_photo, ppal_frame_left_photo, ppal_frame_right_photo
+    global background_photo, wolvi_photo, button_photo, ppal_frame_left_photo, ppal_frame_right_photo, close_photo
 
     menu_font = tkFont.Font(family="Courier", size=15)
 
@@ -65,6 +66,12 @@ def main_frame():
     background_image = Image.open(background_path)
     background_image = background_image.resize((screen_width, screen_height), Image.LANCZOS)
     background_photo = ImageTk.PhotoImage(background_image)
+
+    close_path = os.path.join(current_directory, "../img/close.png")
+    close_image = Image.open(close_path)
+    close_image = close_image.resize((70, 70), Image.LANCZOS)
+    close_photo = ImageTk.PhotoImage(close_image)
+
 
     wolvi_path = os.path.join(current_directory, "../img/wolve.png")
     wolvi_image = Image.open(wolvi_path)
@@ -92,6 +99,7 @@ def main_frame():
     button2 = canvas.create_image(70, 420, image=button_photo, anchor="nw")
     button3 = canvas.create_image(70, 490, image=button_photo, anchor="nw")
     button4 = canvas.create_image(100, 0, image=wolvi_photo, anchor="nw")
+    button5 = canvas.create_image(10, 10, image=close_photo, anchor="nw")
 
     text1 = canvas.create_text(195, 370, text="SETTINGS", font=menu_font, fill="White")
     text2 = canvas.create_text(195, 440, text="COMPETITION", font=menu_font, fill="White")
@@ -108,11 +116,13 @@ def main_frame():
 
     canvas.tag_bind(button4, "<Button-1>", lambda e: switch_to_frame00())
 
+    canvas.tag_bind(button5, "<Button-1>", lambda e: close_program())
+
     canvas.create_image(400, 50, image=ppal_frame_left_photo, anchor="nw")
     canvas.create_image(1100, 50, image=ppal_frame_right_photo, anchor="nw")
 
 #Set the function to close the interface
-def close_program(event):
+def close_program():
     window.destroy()
 
 window.bind("<Escape>", close_program)
