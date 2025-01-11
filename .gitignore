@@ -12,4 +12,4 @@ eurobot_ws/*
 **/*.o
 
 # Ignore venv
-eurobot_ws/gui/venv/*
+eurobot_ws/src/gui/venv/*
