@@ -31,43 +31,52 @@ def motor_frame(canvas):
     canvas.create_text(550, 330, text="MOTOR 3", font=courirer_font, fill="White")
     canvas.create_text(550, 410, text="MOTOR 4", font=courirer_font, fill="White")
 
+    #Customize the slider for a better look
+    def customize_slider(slider):
+        slider.config(
+            orient=tk.HORIZONTAL, 
+            length=300,
+            width=20,
+            bg="#222222",
+            activebackground="#Ff8c00",
+            bd=0,
+        )
+        
+        slider.tk.call(slider._w, 'configure', '-troughcolor', '#d7d7d7')
+        slider.tk.call(slider._w, 'configure', '-sliderrelief', 'flat')
 
     slider1 = tk.Scale(
         canvas,
         from_=-100,
         to=100,
-        orient=tk.HORIZONTAL,
-        length=300,
-        command=lambda value: set_motor_velocity(value, "M01")  
+        command=lambda value: set_motor_velocity(value, "M01"),
     )
-    canvas.create_window(900, 165, window=slider1)
+    customize_slider(slider1)
+    canvas.create_window(850, 165, window=slider1)
 
     slider2 = tk.Scale(
         canvas,
         from_=-100,
         to=100,
-        orient=tk.HORIZONTAL,
-        length=300,
-        command=lambda value: set_motor_velocity(value, "M02")  
+        command=lambda value: set_motor_velocity(value, "M02"),
     )
-    canvas.create_window(900, 240, window=slider2)
+    customize_slider(slider2)
+    canvas.create_window(850, 240, window=slider2)
 
     slider3 = tk.Scale(
         canvas,
         from_=-100,
         to=100,
-        orient=tk.HORIZONTAL,
-        length=300,
-        command=lambda value: set_motor_velocity(value, "M03")  
+        command=lambda value: set_motor_velocity(value, "M03"),
     )
-    canvas.create_window(900, 320, window=slider3)
+    customize_slider(slider3)
+    canvas.create_window(850, 320, window=slider3)
 
     slider4 = tk.Scale(
         canvas,
         from_=-100,
         to=100,
-        orient=tk.HORIZONTAL,
-        length=300,
-        command=lambda value: set_motor_velocity(value, "M04")  
+        command=lambda value: set_motor_velocity(value, "M04"),
     )
-    canvas.create_window(900, 400, window=slider4)
+    customize_slider(slider4)
+    canvas.create_window(850, 400, window=slider4)
