@@ -8,7 +8,6 @@ os.system("clear")
 
 #Set the function to send the motor veolocity to the ESP32
 def set_motor_velocity(value, motor):
-
     port = '/dev/ttyUSB0'
     baudrate = 115200
 
@@ -37,8 +36,6 @@ def motor_frame(canvas):
             orient=tk.HORIZONTAL, 
             length=300,
             width=20,
-            bg="#222222",
-            activebackground="#Ff8c00",
             bd=0,
         )
         
@@ -52,7 +49,7 @@ def motor_frame(canvas):
         command=lambda value: set_motor_velocity(value, "M01"),
     )
     customize_slider(slider1)
-    canvas.create_window(850, 165, window=slider1)
+    canvas.create_window(850, 170, window=slider1)
 
     slider2 = tk.Scale(
         canvas,
@@ -61,7 +58,7 @@ def motor_frame(canvas):
         command=lambda value: set_motor_velocity(value, "M02"),
     )
     customize_slider(slider2)
-    canvas.create_window(850, 240, window=slider2)
+    canvas.create_window(850, 250, window=slider2)
 
     slider3 = tk.Scale(
         canvas,
@@ -70,7 +67,7 @@ def motor_frame(canvas):
         command=lambda value: set_motor_velocity(value, "M03"),
     )
     customize_slider(slider3)
-    canvas.create_window(850, 320, window=slider3)
+    canvas.create_window(850, 330, window=slider3)
 
     slider4 = tk.Scale(
         canvas,
@@ -79,4 +76,4 @@ def motor_frame(canvas):
         command=lambda value: set_motor_velocity(value, "M04"),
     )
     customize_slider(slider4)
-    canvas.create_window(850, 400, window=slider4)
+    canvas.create_window(850, 410, window=slider4)

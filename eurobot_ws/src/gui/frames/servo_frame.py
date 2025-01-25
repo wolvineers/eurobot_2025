@@ -39,8 +39,6 @@ def servo_frame(canvas):
             orient=tk.HORIZONTAL, 
             length=300,
             width=20,
-            bg="#222222",
-            activebackground="#Ff8c00",
             bd=0,
         )
         
@@ -55,7 +53,7 @@ def servo_frame(canvas):
         command=lambda value: set_servo_position(value, "S01")  
     )
     customize_slider(slider1)
-    canvas.create_window(850, 165, window=slider1)
+    canvas.create_window(850, 170, window=slider1)
 
     slider2 = tk.Scale(
         canvas,
@@ -64,7 +62,7 @@ def servo_frame(canvas):
         command=lambda value: set_servo_position(value, "S02")  
     )
     customize_slider(slider2)
-    canvas.create_window(850, 240, window=slider2)
+    canvas.create_window(850, 250, window=slider2)
 
     slider3 = tk.Scale(
         canvas,
@@ -73,7 +71,7 @@ def servo_frame(canvas):
         command=lambda value: set_servo_position(value, "S03")  
     )
     customize_slider(slider3)
-    canvas.create_window(850, 320, window=slider3)
+    canvas.create_window(850, 330, window=slider3)
 
     slider4 = tk.Scale(
         canvas,
@@ -82,4 +80,4 @@ def servo_frame(canvas):
         command=lambda value: set_servo_position(value, "S04")  
     )
     customize_slider(slider4)
-    canvas.create_window(850, 400, window=slider4)
+    canvas.create_window(850, 410, window=slider4)
