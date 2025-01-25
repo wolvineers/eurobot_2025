@@ -6,6 +6,7 @@ from frames.frame00 import frame00
 from frames.frame01 import frame01
 from frames.frame02 import frame02
 from frames.frame03 import frame03
+from frames.camera_frame import camera_frame
 from frames.camera_frame import close_camera, camera_open
 
 
@@ -128,6 +129,6 @@ def close_program():
 window.bind("<Escape>", close_program)
 
 main_frame()
-frame00(canvas)
+camera_frame(canvas)
 
 window.mainloop()
