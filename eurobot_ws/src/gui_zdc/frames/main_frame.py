@@ -2,20 +2,23 @@ import tkinter as tk
 import tkinter.font as tkFont
 from PIL import Image, ImageTk
 import os
-from frames.frame00 import frame00
-from frames.frame01 import frame01
-from frames.frame02 import frame02
-from frames.frame03 import frame03
-from frames.camera_frame import camera_frame
-from frames.camera_frame import close_camera, camera_open
-
+from frames.competition_frame import competition_frame
+from frames.welcome_frame import welcome_frame
+from frames.panel_frame import panel_frame
+from frames.net_status_frame import net_status_frame
+from frames.strategy_frame import strategy_frame
+from frames.trajectory_frame import trajectory_frame
+from frames.camera_1_frame import camera_1_frame,camera_open_1, close_camera_1
+from frames.camera_2_frame import camera_2_frame, camera_open_2, close_camera_2
+from frames.control_zone_frame import control_zone_frame
+from frames.cameras_frame import cameras_frame, camera_open, close_camera
 
 os.system("clear")
 current_directory = os.path.dirname(os.path.abspath(__file__))
 
 #Start the window for the interface
 window = tk.Tk()
-window.title("Interfaz con fondo y transparencias")
+window.title("Aplicació Pantalla Zona de Computació")
 window.geometry("1204x600")
     #window.attributes('-fullscreen', True)
 
@@ -36,41 +39,49 @@ ppal_frame_right_photo = None
 close_photo = None
 
 #Set the function to switch the frames
-def switch_frame(frame_function, frame_name):
-    print(f"Switching to {frame_name}...")
+def switch_frame(frame_function):
+    print(f"Switching to {frame_function}...")
+
+    # Delete all drawn items
     canvas.delete("all")
-    if camera_open == True:
+
+    # Destroy all widgets inside the canvas
+    for item in canvas.find_all():
+        if canvas.type(item) == "window":
+            widget = canvas.itemcget(item, "window")  # Get widget name
+            if widget:
+                widget = canvas.nametowidget(widget)  # Convert to actual widget object
+                widget.destroy()  # Destroy the widget
+
+    # Close any open cameras
+    if camera_open or camera_open_1 or camera_open_2:
         close_camera()
+        close_camera_1()
+        close_camera_2()
+
     main_frame()
     frame_function(canvas)
     print("Done!")
-
-def switch_to_frame00():
-    switch_frame(frame00, "HOME")
-
-def switch_to_frame01():
-    switch_frame(frame01, "SETTINGS")
-
-def switch_to_frame02():
-    switch_frame(frame02, "COMPETITION")
-
-def switch_to_frame03():
-    switch_frame(frame03, "MANUAL CONTROL")
 
 #Set the main function (The main design for the interface)
 def main_frame():
     global background_photo, wolvi_photo, button_photo, ppal_frame_left_photo, ppal_frame_right_photo, close_photo
 
-    menu_font = tkFont.Font(family="Courier", size=15)
+    font_1 = tkFont.Font(family="Courier", size=24)
+    font_2 = tkFont.Font(family="Courier", size=20)
+    font_3 = tkFont.Font(family="Courier", size=16)
+    font_4 = tkFont.Font(family="Courier", size=14)
+    numbers_big = tkFont.Font(family="Orbitron", size=14)
+
 
     background_path = os.path.join(current_directory, "../img/background.jpg")
     background_image = Image.open(background_path)
-    background_image = background_image.resize((screen_width, screen_height), Image.LANCZOS)
+    background_image = background_image.resize((int(screen_width*0.5), int(screen_height*0.5)), Image.LANCZOS)
     background_photo = ImageTk.PhotoImage(background_image)
 
-    close_path = os.path.join(current_directory, "../img/close.png")
+    close_path = os.path.join(current_directory, "../img/icons8-close-24.png")
     close_image = Image.open(close_path)
-    close_image = close_image.resize((70, 70), Image.LANCZOS)
+    close_image = close_image.resize((36, 36), Image.LANCZOS)
     close_photo = ImageTk.PhotoImage(close_image)
 
 
@@ -81,7 +92,7 @@ def main_frame():
 
     button_path = os.path.join(current_directory, "../img/white-button.png")
     button_image = Image.open(button_path)
-    button_image = button_image.resize((250, 35), Image.LANCZOS)
+    button_image = button_image.resize((250, 45), Image.LANCZOS)
     button_photo = ImageTk.PhotoImage(button_image)
 
     ppal_frame_left_path = os.path.join(current_directory, "../img/ppal-frame-left.png")
@@ -98,28 +109,23 @@ def main_frame():
 
     button1 = canvas.create_image(70, 350, image=button_photo, anchor="nw")
     button2 = canvas.create_image(70, 420, image=button_photo, anchor="nw")
-    button3 = canvas.create_image(70, 490, image=button_photo, anchor="nw")
-    button4 = canvas.create_image(100, 0, image=wolvi_photo, anchor="nw")
-    button5 = canvas.create_image(10, 10, image=close_photo, anchor="nw")
+    button4 = canvas.create_image(70, 0, image=wolvi_photo, anchor="nw")
+    button5 = canvas.create_image(24, 24, image=close_photo, anchor="nw")
 
-    text1 = canvas.create_text(195, 370, text="SETTINGS", font=menu_font, fill="White")
-    text2 = canvas.create_text(195, 440, text="COMPETITION", font=menu_font, fill="White")
-    text3 = canvas.create_text(195, 510, text="MANUAL CONTROL", font=menu_font, fill="White")
+    text1 = canvas.create_text(195, 372, text="COMPETITION", font=font_2, fill="White")
+    text2 = canvas.create_text(195, 442, text="CONTROL ZONE", font=font_2, fill="White")
 
-    canvas.tag_bind(button1, "<Button-1>", lambda e: switch_to_frame01())
-    canvas.tag_bind(text1, "<Button-1>", lambda e: switch_to_frame01())
+    canvas.tag_bind(button1, "<Button-1>", lambda e: switch_frame(competition_frame))
+    canvas.tag_bind(text1, "<Button-1>", lambda e: switch_frame(competition_frame))
 
-    canvas.tag_bind(button2, "<Button-1>", lambda e: switch_to_frame02())
-    canvas.tag_bind(text2, "<Button-1>", lambda e: switch_to_frame02())
+    canvas.tag_bind(button2, "<Button-1>", lambda e: switch_frame(control_zone_frame))
+    canvas.tag_bind(text2, "<Button-1>", lambda e: switch_frame(control_zone_frame))
 
-    canvas.tag_bind(button3, "<Button-1>", lambda e: switch_to_frame03())
-    canvas.tag_bind(text3, "<Button-1>", lambda e: switch_to_frame03())
-
-    canvas.tag_bind(button4, "<Button-1>", lambda e: switch_to_frame00())
+    canvas.tag_bind(button4, "<Button-1>", lambda e: switch_frame(welcome_frame))
 
     canvas.tag_bind(button5, "<Button-1>", lambda e: close_program())
 
-    canvas.create_image(400, 50, image=ppal_frame_left_photo, anchor="nw")
+    canvas.create_image(400, 50, image=ppal_frame_left_photo, anchor="ne")
     canvas.create_image(1100, 50, image=ppal_frame_right_photo, anchor="nw")
 
 #Set the function to close the interface
@@ -129,6 +135,6 @@ def close_program():
 window.bind("<Escape>", close_program)
 
 main_frame()
-camera_frame(canvas)
+switch_frame(welcome_frame)
 
 window.mainloop()

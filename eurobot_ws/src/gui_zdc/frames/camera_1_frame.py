@@ -4,17 +4,22 @@ from PIL import Image, ImageTk
 import cv2
 import os
 
-os.system("clear")
+# Set the global variables
 current_directory = os.path.dirname(os.path.abspath(__file__))
 
 # Set global variables
 cap = None
 update_running = False
-camera_open = True
+camera_open_1 = True
 
-#Set the function to open the camera
-def camera_frame(canvas, width=460, height=380):
-    global cap, update_running, frame_photo, camera_open
+def camera_1_frame(canvas, width=460, height=380):
+    """ 
+    Set the function to design the frame00 (Control Systems Frame)
+
+    Args:
+        (canvas): Variable that set the shape of the window
+    """
+    global cap, update_running, frame_photo, camera_open, button
 
     #Get data to resize frame.png
     cap = cv2.VideoCapture(0)
@@ -27,6 +32,12 @@ def camera_frame(canvas, width=460, height=380):
     _imgW, _imgH = _img.size
     _imgRatio = _imgW/_imgH
     _imgBaseSize = 450
+
+    # Set the variable that contains the path of the image
+    button_path = os.path.join(current_directory, "../img/white-button.png")
+    button_image = Image.open(button_path)
+    button_image = button_image.resize((600, 60), Image.LANCZOS)
+    button_photo = ImageTk.PhotoImage(button_image)
 
     frame_path = os.path.join(current_directory, "../img/frame.png")
     frame_image = Image.open(frame_path)
@@ -56,8 +67,7 @@ def camera_frame(canvas, width=460, height=380):
 
     update_frame()
 
-#Set the function to close the camera
-def close_camera():
+def close_camera_1():
     global update_running, cap
     if update_running:
         update_running = False 
