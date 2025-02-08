@@ -2,7 +2,7 @@ import tkinter.font as tkFont
 import os
 from PIL import Image, ImageTk
 import time 
-
+import psutil
 
 # Set the global variables
 current_directory = os.path.dirname(os.path.abspath(__file__))
@@ -14,6 +14,14 @@ def get_local_ip():
         return local_ip
     except Exception as e:
         return f"Error fetching local IP: {e}"
+
+
+def get_battery_percentage():
+    battery = psutil.sensors_battery()
+    if battery:
+        return f"{battery.percent}%"
+    return "No Battery"
+
 
 def welcome_frame(canvas):
     """ 
@@ -47,8 +55,8 @@ def welcome_frame(canvas):
 
     # Show Local Battery (Left Side)
     canvas.create_image(500, 350, image=battery_photo, anchor="center")
-    canvas.create_text(530, 350, text=f"xx% (R)", font=font_1, fill="White", anchor="w")
-
+    canvas.create_text(530, 350, text=f"{get_battery_percentage()} (R)", font=font_1, fill="White", anchor="w")
+    
     # Show ZDC Battery (Right Side)
     canvas.create_image(850, 350, image=battery_photo, anchor="center")
     canvas.create_text(880, 350, text=f"xx% (ZDC)", font=font_1, fill="White", anchor="w")
