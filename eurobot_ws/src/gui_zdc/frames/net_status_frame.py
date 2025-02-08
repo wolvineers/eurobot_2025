@@ -30,12 +30,12 @@ def net_status_frame(canvas):
     red_image = red_image.resize((24, 24), Image.LANCZOS)
     red_photo = ImageTk.PhotoImage(red_image)
     
-    font_1 = tkFont.Font(family="Courier", size=32)
-    font_2 = tkFont.Font(family="Courier", size=28)
+    font_1 = tkFont.Font(family="Courier", size=24)
+    font_2 = tkFont.Font(family="Courier", size=20)
     font_3 = tkFont.Font(family="Orbitron", size=22)
     font_4 = tkFont.Font(family="Courier", size=14)
     font_title = tkFont.Font(family="Courier", size=64)
-    numbers_big = tkFont.Font(family="Orbitron", size=96)
+    numbers_big = tkFont.Font(family="Orbitron", size=86)
 
     canvas.create_text(750, 100, text="NET STATUS", font=font_title, fill="White", anchor="center")
 
@@ -51,13 +51,13 @@ def net_status_frame(canvas):
     canvas.create_image(675, 320, image=red_photo, anchor="w")
 
     canvas.create_text(650, 380, text="Robot STATUS", font=font_1, fill="White", anchor="e")
-    canvas.create_text(650, 420, text="127.0.0.1", font=font_2, fill="White", anchor="e")
-    canvas.create_image(675, 420, image=red_photo, anchor="w")
+    canvas.create_text(650, 410, text="127.0.0.1", font=font_2, fill="White", anchor="e")
+    canvas.create_image(675, 410, image=red_photo, anchor="w")
 
-    canvas.create_text(650, 480, text="ZdC STATUS", font=font_1, fill="White", anchor="e")
-    canvas.create_text(650, 510, text="127.0.0.1", font=font_2, fill="White", anchor="e")
-    canvas.create_image(675, 510, image=green_photo, anchor="w")
+    canvas.create_text(650, 470, text="ZdC STATUS", font=font_1, fill="White", anchor="e")
+    canvas.create_text(650, 500, text="127.0.0.1", font=font_2, fill="White", anchor="e")
+    canvas.create_image(675, 500, image=green_photo, anchor="w")
 
     canvas.create_text(1050, 300, text="66%", font=numbers_big, fill="White", anchor="e")
 
-    canvas.create_text(1050, 385, text="of the devices \nare running", font=font_3, fill="White", anchor="e")
+    canvas.create_text(1050, 390, text="of the devices \nare running", font=font_3, fill="White", anchor="e")

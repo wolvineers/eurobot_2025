@@ -7,7 +7,7 @@ from frames.welcome_frame import welcome_frame
 from frames.control_zone_frame import control_zone_frame
 from frames.groups_frame import groups_frame
 from frames.motor_frame import motor_frame
-from frames.sensors_frame import sensors_frame
+from frames.servo_frame import servo_frame
 from frames.strategy_frame import strategy_frame
 from frames.trajectory_frame import trajectory_frame
 
@@ -18,7 +18,7 @@ current_directory = os.path.dirname(os.path.abspath(__file__))
 window = tk.Tk()
 window.title("Aplicació Pantalla Robot")
 window.geometry("1204x600")
-window.attributes('-fullscreen', True)
+    #window.attributes('-fullscreen', True)
 
 #Set the shape of the window
 screen_width = window.winfo_screenwidth()
@@ -37,10 +37,22 @@ ppal_frame_right_photo = None
 close_photo = None
 
 #Set the function to switch the frames
-def switch_frame(frame_function):
+def switch_frame(frame_function, fullscreen=False):
     print(f"Switching to {frame_function}...")
+
+    # Delete all drawn items
     canvas.delete("all")
-    main_frame()
+
+    # Destroy all widgets inside the canvas
+    for item in canvas.find_all():
+        if canvas.type(item) == "window":
+            widget = canvas.itemcget(item, "window")  # Get widget name
+            if widget:
+                widget = canvas.nametowidget(widget)  # Convert to actual widget object
+                widget.destroy()  # Destroy the widget
+
+    if not fullscreen:
+        main_frame()
     frame_function(canvas)
     print("Done!")
 
@@ -57,7 +69,7 @@ def main_frame():
 
     background_path = os.path.join(current_directory, "../img/background.jpg")
     background_image = Image.open(background_path)
-    background_image = background_image.resize((int(screen_width*1.5), int(screen_height*1.5)), Image.LANCZOS)
+    background_image = background_image.resize((int(screen_width), int(screen_height)), Image.LANCZOS)
     background_photo = ImageTk.PhotoImage(background_image)
 
     close_path = os.path.join(current_directory, "../img/icons8-close-24.png")
@@ -91,20 +103,17 @@ def main_frame():
     button1 = canvas.create_image(70, 350, image=button_photo, anchor="nw")
     button2 = canvas.create_image(70, 420, image=button_photo, anchor="nw")
     button4 = canvas.create_image(70, 0, image=wolvi_photo, anchor="nw")
-    button5 = canvas.create_image(24, 24, image=close_photo, anchor="nw")
 
     text1 = canvas.create_text(195, 372, text="COMPETITION", font=font_2, fill="White")
     text2 = canvas.create_text(195, 442, text="CONTROL ZONE", font=font_2, fill="White")
 
-    canvas.tag_bind(button1, "<Button-1>", lambda e: switch_frame(competition_frame))
-    canvas.tag_bind(text1, "<Button-1>", lambda e: switch_frame(competition_frame))
+    canvas.tag_bind(button1, "<Button-1>", lambda e: switch_frame(competition_frame, True))
+    canvas.tag_bind(text1, "<Button-1>", lambda e: switch_frame(competition_frame, True))
 
     canvas.tag_bind(button2, "<Button-1>", lambda e: switch_frame(control_zone_frame))
     canvas.tag_bind(text2, "<Button-1>", lambda e: switch_frame(control_zone_frame))
 
     canvas.tag_bind(button4, "<Button-1>", lambda e: switch_frame(welcome_frame))
-
-    canvas.tag_bind(button5, "<Button-1>", lambda e: close_program())
 
     canvas.create_image(400, 50, image=ppal_frame_left_photo, anchor="ne")
     canvas.create_image(1100, 50, image=ppal_frame_right_photo, anchor="nw")

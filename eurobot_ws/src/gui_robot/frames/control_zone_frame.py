@@ -2,7 +2,7 @@ import tkinter.font as tkFont
 import os
 from PIL import Image, ImageTk
 from frames.groups_frame import groups_frame
-from frames.sensors_frame import sensors_frame
+from frames.servo_frame import servo_frame
 from frames.motor_frame import motor_frame
 
 
@@ -39,8 +39,8 @@ def control_zone_frame(canvas):
     button_image = button_image.resize((300, 60), Image.LANCZOS)
     button_photo = ImageTk.PhotoImage(button_image)
 
-    img_sensors = canvas.create_image(750, 225, image=button_photo, anchor="center")
-    txt_sensors = canvas.create_text(750, 225, text="SENSORS", font=font_1, fill="White", anchor="center")
+    img_servos = canvas.create_image(750, 225, image=button_photo, anchor="center")
+    txt_servos = canvas.create_text(750, 225, text="SERVOS", font=font_1, fill="White", anchor="center")
 
     img_motors = canvas.create_image(750, 325, image=button_photo, anchor="center")
     txt_motors = canvas.create_text(750, 325, text="MOTORS", font=font_1, fill="White", anchor="center")
@@ -48,8 +48,8 @@ def control_zone_frame(canvas):
     img_groups = canvas.create_image(750, 425, image=button_photo, anchor="center")
     txt_groups = canvas.create_text(750, 425, text="GROUPS", font=font_1, fill="White", anchor="center")
 
-    canvas.tag_bind(img_sensors, "<Button-1>", lambda e: switch_frame(sensors_frame))
-    canvas.tag_bind(txt_sensors, "<Button-1>", lambda e: switch_frame(sensors_frame))
+    canvas.tag_bind(img_servos, "<Button-1>", lambda e: switch_frame(servo_frame))
+    canvas.tag_bind(txt_servos, "<Button-1>", lambda e: switch_frame(servo_frame))
 
     canvas.tag_bind(img_motors, "<Button-1>", lambda e: switch_frame(motor_frame))
     canvas.tag_bind(txt_motors, "<Button-1>", lambda e: switch_frame(motor_frame))

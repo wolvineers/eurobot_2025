@@ -3,6 +3,8 @@ import tkinter.font as tkFont
 from PIL import Image, ImageTk
 import cv2
 import os
+from frames.welcome_frame import welcome_frame
+
 
 # Set the global variables
 current_directory = os.path.dirname(os.path.abspath(__file__))
@@ -19,7 +21,8 @@ def camera_2_frame(canvas, width=460, height=380):
     Args:
         (canvas): Variable that set the shape of the window
     """
-    global cap, update_running, frame_photo, camera_open, button
+    global cap, update_running, frame_photo, camera_open, button, back_photo
+    from frames.main_frame import switch_frame
 
     #Get data to resize frame.png
     cap = cv2.VideoCapture(0)
@@ -43,6 +46,14 @@ def camera_2_frame(canvas, width=460, height=380):
     frame_image = Image.open(frame_path)
     frame_image = frame_image.resize((int(_imgBaseSize*_imgRatio), _imgBaseSize), Image.LANCZOS)
     frame_photo = ImageTk.PhotoImage(frame_image)
+
+    back_path = os.path.join(current_directory, "../img/icons8-back-24.png")
+    back_image = Image.open(back_path)
+    back_image = back_image.resize((48, 48), Image.LANCZOS)
+    back_photo = ImageTk.PhotoImage(back_image)
+
+    img_back = canvas.create_image(425, 50, image=back_photo, anchor="nw")
+    canvas.tag_bind(img_back, "<Button-1>", lambda e: switch_frame(welcome_frame))
 
     canvas.create_image(465, 75, image=frame_photo, anchor="nw")
 

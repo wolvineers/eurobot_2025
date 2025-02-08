@@ -37,7 +37,7 @@ def panel_frame(canvas):
     font_1 = tkFont.Font(family="Courier", size=32)
     font_2 = tkFont.Font(family="Courier", size=28)
     font_3 = tkFont.Font(family="Courier", size=22)
-    font_4 = tkFont.Font(family="Courier", size=14)
+    font_4 = tkFont.Font(family="Courier", size=10)
     font_title = tkFont.Font(family="Courier", size=64)
     numbers_big = tkFont.Font(family="Orbitron", size=96)
 
@@ -101,6 +101,6 @@ def panel_frame(canvas):
 
     data_text = tk.Text(
         canvas,
-        width=36, height=12, font=font_4, wrap=tk.WORD, fg="white", bg="black")
+        width=36, height=13, font=font_4, wrap=tk.WORD, fg="white", bg="black")
     
     canvas.create_window(675, 150, window=data_text, anchor="nw")
