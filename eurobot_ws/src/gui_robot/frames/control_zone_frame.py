@@ -32,7 +32,7 @@ def control_zone_frame(canvas):
     font_title = tkFont.Font(family="Courier", size=64)
     numbers_big = tkFont.Font(family="Orbitron", size=126)
 
-    canvas.create_text(750, 100, text="STRATEGY", font=font_title, fill="White", anchor="center")
+    canvas.create_text(750, 100, text="CONTROL ZONE", font=font_title, fill="White", anchor="center")
    
     button_path = os.path.join(current_directory, "../img/white-button.png")
     button_image = Image.open(button_path)

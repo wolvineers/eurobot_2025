@@ -76,7 +76,7 @@ def main_frame():
 
     background_path = os.path.join(current_directory, "../img/background.jpg")
     background_image = Image.open(background_path)
-    background_image = background_image.resize((int(screen_width*0.5), int(screen_height*0.5)), Image.LANCZOS)
+    background_image = background_image.resize((int(screen_width), int(screen_height)), Image.LANCZOS)
     background_photo = ImageTk.PhotoImage(background_image)
 
     close_path = os.path.join(current_directory, "../img/icons8-close-24.png")
