@@ -25,7 +25,7 @@ def control_zone_frame(canvas):
 
     from frames.main_frame import switch_frame
 
-    font_1 = tkFont.Font(family="Courier", size=36)
+    font_1 = tkFont.Font(family="Courier", size=32)
     font_2 = tkFont.Font(family="Courier", size=20)
     font_3 = tkFont.Font(family="Courier", size=16)
     font_4 = tkFont.Font(family="Courier", size=14)
