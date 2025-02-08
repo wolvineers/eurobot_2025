@@ -1,2 +1,1 @@
-source;share/computation_zone/environment/ament_prefix_path.sh
-source;share/computation_zone/environment/path.sh
+/wolvi/build/computation_zone/ament_cmake_environment_hooks/local_setup.dsv
