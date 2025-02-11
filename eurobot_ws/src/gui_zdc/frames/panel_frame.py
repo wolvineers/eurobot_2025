@@ -101,6 +101,6 @@ def panel_frame(canvas):
 
     data_text = tk.Text(
         canvas,
-        width=36, height=13, font=font_4, wrap=tk.WORD, fg="white", bg="black")
+        width=48, height=17, font=font_4, wrap=tk.WORD, fg="white", bg="black")
     
     canvas.create_window(675, 150, window=data_text, anchor="nw")
