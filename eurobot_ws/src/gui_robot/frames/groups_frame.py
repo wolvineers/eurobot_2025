@@ -80,6 +80,10 @@ def set_servo_velocity(value, servos, mode_data, offset_data):
         adjusted_value = int(value) + offset
         adjusted_value = max(0, min(360, adjusted_value))  # Ensure it's within bounds
 
+        # If the offset is -1, reverse the direction (180 - value)
+        if offset == -1:
+            adjusted_value = 180 - adjusted_value  # Reverse direction
+        
         print(f"Servo {servo} - Sending value {adjusted_value}% (with offset {offset})")
         send_message(serial_port, f"{servo},{adjusted_value}")
 
@@ -170,13 +174,3 @@ def groups_frame(canvas):
         create_slider(canvas, 900, y_position, motors, mode_data, offset_data)
         # Add spacing between groups
         y_position += 180
-
-'''
-# Create arrows and buttons as previously defined
-        canvas.create_image(850, y_position - 40, image=up_photo, anchor="center")
-        canvas.create_image(950, y_position - 40, image=down_photo, anchor="center")
-        canvas.create_image(850, y_position + 60, image=left_photo, anchor="center")
-        canvas.create_image(950, y_position + 60, image=right_photo, anchor="center")
-        canvas.create_image(900, y_position + 120, image=button_photo, anchor="center")
-        canvas.create_text(900, y_position + 120, text="MOVE", font=font_2, fill="White", anchor="center")
-'''
