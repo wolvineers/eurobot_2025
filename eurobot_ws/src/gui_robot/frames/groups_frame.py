@@ -77,7 +77,7 @@ def set_servo_velocity(value, servos, mode_data, offset_data):
         offset = offsets.get(servo, 0)  # Default to 0 if the servo is not in the offset data
 
         # Add offset to the value
-        adjusted_value = int(abs(value)) + offset
+        adjusted_value = int(value) + abs(offset)
         adjusted_value = max(0, min(360, adjusted_value))  # Ensure it's within bounds
 
         # If the offset is -1, reverse the direction (180 - value)
