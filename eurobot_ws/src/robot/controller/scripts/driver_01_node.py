@@ -5,6 +5,7 @@ import rclpy
 from rclpy.node import Node
 from utils.msg import MotorPower
 from std_msgs.msg import Float32
+from serial_communication import open_serial_port, send_message, read_message
 
 
 ## *************************
@@ -12,6 +13,11 @@ from std_msgs.msg import Float32
 ## *************************
 
 class FirstDriverNode(Node):
+    
+    port = '/dev/ttyUSB0'
+    baudrate = 115200
+
+    serial_port = open_serial_port(port, baudrate)
     
     def __init__(self):
         """
@@ -35,14 +41,16 @@ class FirstDriverNode(Node):
         self.encoders_tim_ = self.create_timer(self.timer_period_, self.encoders_callback)
 
 
-    def set_motor_vel():
+
+    def set_motor_vel(self):
         """
         Assigns the corresponding power to each motor taken from the motors_pow_ array.
         """
+        send_message(self.motors_pow_)
+        self.get_logger().info(self.motors_pow_)
 
-        # TO DO: Implement the code to assign the power to each motor taken from the motors_pow_ array
-        # motors_pow_ is an array where each position corresponds to the motor number in the esp32
-        ...
+        
+        
 
     def move_callback(self, motor_pow):
         """
@@ -53,25 +61,26 @@ class FirstDriverNode(Node):
         """
 
         if len(motor_pow.motor_power) == 4:
+            self.get_logger().info(f'Received motor powers: {motor_pow.motor_power}')
             self.motors_pow_ = motor_pow.motor_power
             self.get_logger().info('Motor powers: %s' % str(self.motors_pow_.tolist()))
         else:
             self.get_logger().warn('Invalid data. Expected 4 values, got %d.' % len(motor_pow.motor_power))
 
 
-        # set_motor_vel()
+        self.set_motor_vel()
 
     def encoders_callback(self):
-        """
-        Gets the encoder values and publish to its topic
-        """
+        encoder_left = 0.0
+        encoder_right = 0.0
 
-        # Get the motors distance with the port serie communication
-        # ** The values must be in centimeters
-        encoder_left = ...      # TO DO: read the encoder left value with the functions implemented in file utils/src/serial_communication.py
-        encoder_right = ...     # TO DO: read the encoder right value with the functions implemented in file utils/src/serial_communication.py
+        message = read_message(self.serial_port)
 
-        # Publish the robot distance
+        if message == "e_L":
+            encoder_left = float(read_message())
+        elif message == "e_R":
+            encoder_right = float(read_message())
+
         encoder_left_msg = Float32()
         encoder_right_msg = Float32()
 
@@ -81,7 +90,8 @@ class FirstDriverNode(Node):
         self.encoder_left_pub_.publish(encoder_left_msg)
         self.encoder_right_pub_.publish(encoder_right_msg)
 
-        self.get_logger().info(f'Encoder left: {encoder_left_msg.data:.2f}  |  Encoder right: {encoder_right_msg.data:.2f}')
+        self.get_logger().info(f'Encoder left: {encoder_left_msg.data[0]:.2f} | Encoder right: {encoder_right_msg.data[0]:.2f}')
+
 
 
 

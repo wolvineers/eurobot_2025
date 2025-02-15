@@ -17,6 +17,7 @@ ament_python_install_package(${PROJECT_NAME})
 install( PROGRAMS
   scripts/controller_node.py
   scripts/driver_01_node.py
+  scripts/serial_communication.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
