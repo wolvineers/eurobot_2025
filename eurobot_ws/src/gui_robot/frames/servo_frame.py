@@ -141,8 +141,8 @@ def create_angle_buttons(canvas, x, y):
     button1 = canvas.create_image(x + 100, y, image=button_photo, anchor="center")
     text1 = canvas.create_text(x + 100, y, text="0º", font=tkFont.Font(family="Courier", size=20), fill="White", anchor="center")
 
-    canvas.tag_bind(button1, "<Button-1>", lambda e: set_angle(90))
-    canvas.tag_bind(text1, "<Button-1>", lambda e: set_angle(90))
+    canvas.tag_bind(button1, "<Button-1>", lambda e: set_angle(0))
+    canvas.tag_bind(text1, "<Button-1>", lambda e: set_angle(0))
 
     
     button2 = canvas.create_image(x + 200, y, image=button_photo, anchor="center")
