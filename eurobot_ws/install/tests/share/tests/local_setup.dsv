@@ -1,1 +1,2 @@
-/wolvi/build/tests/ament_cmake_environment_hooks/local_setup.dsv
+source;share/tests/environment/ament_prefix_path.sh
+source;share/tests/environment/path.sh

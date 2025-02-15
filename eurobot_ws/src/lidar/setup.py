@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            "lidar_node = lidar.lidar_publisher:main"
+            "lidar_node = lidar.lidar_publisher:main",
+            "lidar_subscriber_node = lidar.lidar_subscriber:main"
         ],
     },
 )
