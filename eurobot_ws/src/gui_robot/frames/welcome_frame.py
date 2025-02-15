@@ -1,11 +1,27 @@
+import tkinter as tk
 import tkinter.font as tkFont
+from tkinter import ttk
 import os
 from PIL import Image, ImageTk
-import time 
+import time
 import psutil
 
 # Set the global variables
 current_directory = os.path.dirname(os.path.abspath(__file__))
+
+# Function to save the selected option to a file
+def save_selector_value(value):
+    with open("selector_data.txt", "w") as file:
+        file.write(str(value))  # Save '1' for Insomnious or '2' for Torete
+
+# Function to load the selected option from the file
+def load_selector_value():
+    try:
+        with open("selector_data.txt", "r") as file:
+            value = file.read().strip()
+            return value
+    except FileNotFoundError:
+        return None  # No value saved yet
 
 def get_local_ip():
     try:
@@ -15,13 +31,11 @@ def get_local_ip():
     except Exception as e:
         return f"Error fetching local IP: {e}"
 
-
 def get_battery_percentage():
     battery = psutil.sensors_battery()
     if battery:
         return f"{battery.percent}%"
     return "No Battery"
-
 
 def welcome_frame(canvas):
     """ 
@@ -62,7 +76,35 @@ def welcome_frame(canvas):
     canvas.create_text(880, 350, text=f"xx% (ZDC)", font=font_1, fill="White", anchor="w")
 
     # Show IP Address (Centered Below Batteries)
-    canvas.create_image(650, 470, image=ip_photo, anchor="center")
-    canvas.create_text(680, 470, text=get_local_ip(), font=font_1, fill="White", anchor="w")
+    canvas.create_image(620, 470, image=ip_photo, anchor="center")
+    canvas.create_text(650, 470, text=get_local_ip(), font=font_1, fill="White", anchor="w")
 
-    
+    # Define the options for the dropdown
+    options = ["Insomnious", "Torete"]
+    selected_value = load_selector_value()  # Load the previous selection
+
+    # Set the default value of the dropdown
+    if selected_value == "1":
+        default_value = "Insomnious"
+    elif selected_value == "2":
+        default_value = "Torete"
+    else:
+        default_value = "Insomnious"
+
+    # Crear el OptionMenu
+    selector_var = tk.StringVar()
+    selector_var.set(default_value)  # Esto establece el valor predeterminado
+
+    selector = tk.OptionMenu(canvas, selector_var, *options)
+    canvas.create_window(750, 525, window=selector, anchor="center")
+
+    # Función para manejar el cambio de valor en el selector
+    def on_selector_change(event):
+        selected_option = selector_var.get()  # Obtenemos el valor seleccionado usando selector_var
+        if selected_option == "Insomnious":
+            save_selector_value("1")
+        elif selected_option == "Torete":
+            save_selector_value("2")
+
+    # Asociar la función de cambio al evento del selector
+    selector.bind("<Configure>", on_selector_change)  # O usa otro evento según tu necesidad

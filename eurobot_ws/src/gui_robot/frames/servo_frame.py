@@ -82,20 +82,6 @@ def create_slider(canvas, x, y, servo_id):
     servo_sliders[servo_id] = slider  # Store the slider in the global mapping
     return slider
 
-# Function to handle button press for continuous update
-def on_button_press(motor_id, increment):
-    global current_action, canvas  # Use the global canvas variable
-    change_slider_value(motor_id, increment)
-    # Continuously call the function every 100ms while button is pressed
-    current_action = canvas.after(100, on_button_press, motor_id, increment)
-
-# Function to stop the continuous action when button is released
-def on_button_release(event=None):
-    global current_action, canvas  # Use the global canvas variable
-    if current_action:
-        canvas.after_cancel(current_action)
-        current_action = None
-
 # Function to set the servo to a specific angle
 def set_servo_angle(servo, angle):
     if servo in servo_slider_values:
