@@ -16,26 +16,9 @@ from utils.src.serial_communication import open_serial_port, send_message
 os.system("clear")
 current_directory = os.path.dirname(os.path.abspath(__file__))
 
-# Set the function to send the servo velocity to the ESP32 (comentada por ahora)
-def set_servo_velocity(value, servos):
-    port = '/dev/ttyUSB0'
-    baudrate = 115200
-
-    serial_port = open_serial_port(port, baudrate)
-
-    if not serial_port:
-        print("Could not open serial port.")
-        return 
-    for servo in servos:
-        print(f"Position {servo}: {value}%")
-        send_message(serial_port, servo+","+value)
-
-green_photo = None
-red_photo = None
-green_square_photo = None
-
-# Path to the JSON file containing motor group data
+# Path to the JSON files
 modes_data_path = os.path.join("modes_data.json")
+offset_data_path = os.path.join("servo_offsets.json")
 
 # Function to load the mode data from the JSON file
 def load_mode_data():
@@ -45,6 +28,16 @@ def load_mode_data():
         return data
     except FileNotFoundError:
         print("Error: modes_data.json not found.")
+        return {}
+
+# Function to load the servo offset data from the JSON file
+def load_servo_offsets():
+    try:
+        with open(offset_data_path, "r") as file:
+            data = json.load(file)
+        return data
+    except FileNotFoundError:
+        print("Error: servo_offsets.json not found.")
         return {}
 
 # Function to get the current mode (1 or 2) from selector_data.txt
@@ -57,6 +50,40 @@ def get_current_mode():
     except FileNotFoundError:
         print("Error: selector_data.txt not found.")
         return "1"  # Default to mode 1 if the file doesn't exist
+
+# Set the function to send the servo velocity to the ESP32
+def set_servo_velocity(value, servos, mode_data, offset_data):
+    port = '/dev/ttyUSB0'
+    baudrate = 115200
+    serial_port = open_serial_port(port, baudrate)
+
+    if not serial_port:
+        print("Could not open serial port.")
+        return
+
+    # Get the current mode (1 or 2)
+    current_mode = get_current_mode()
+    
+    # Get the servo offsets for the current mode
+    if current_mode in offset_data:
+        offsets = offset_data[current_mode]
+    else:
+        print("Error: Mode not found in offset data.")
+        return
+
+    # Loop through servos and send values with offset
+    for servo in servos:
+        # Get the offset for the current servo
+        offset = offsets.get(servo, 0)  # Default to 0 if the servo is not in the offset data
+
+        # Add offset to the value
+        adjusted_value = int(value) + offset
+        adjusted_value = max(0, min(360, adjusted_value))  # Ensure it's within bounds
+
+        print(f"Servo {servo} - Sending value {adjusted_value}% (with offset {offset})")
+        send_message(serial_port, f"{servo},{adjusted_value}")
+
+# Function to update the slider value visually
 servo_slider_values = {
     "S01": 0,
     "S02": 0,
@@ -68,7 +95,6 @@ servo_slider_values = {
     "S08": 0
 }
 
-# Function to update the slider value visually
 def change_slider_value(motor_id, increment):
     if motor_id in servo_slider_values:
         # Update the motor value
@@ -81,9 +107,8 @@ def change_slider_value(motor_id, increment):
         if slider:
             slider.set(servo_slider_values[motor_id])  # Update the slider visually
 
-
 # Function to create a slider and store it in the servo_sliders mapping
-def create_slider(canvas, x, y, servos_id):
+def create_slider(canvas, x, y, servos_id, mode_data, offset_data):
     slider = tk.Scale(
         canvas,
         from_=0,
@@ -92,22 +117,18 @@ def create_slider(canvas, x, y, servos_id):
         length=200,
         width=15,
         bd=0,
-        command=lambda value: set_servo_velocity(value, servos_id),
+        command=lambda value: set_servo_velocity(value, servos_id, mode_data, offset_data),
     )
     canvas.create_window(x, y, window=slider, anchor="center")
     return slider
 
+# Function to set the frame (Groups Frame)
 def groups_frame(canvas):
-    """ 
-    Set the function to design the frame00 (Control Systems Frame)
+    global button_photo, up_photo, down_photo, left_photo, right_photo
 
-    Args:
-        (canvas): Variable that set the shape of the window
-    """
-    global button_photo, up_photo, down_photo, left_photo, right_photo  # Set the global variables
-
-    # Load motor group data
+    # Load mode data (for groups) and servo offsets data (for servo adjustments)
     mode_data = load_mode_data()
+    offset_data = load_servo_offsets()
     current_mode = get_current_mode()  # Get the current mode (1 or 2)
     
     # Get the groups for the current mode
@@ -145,8 +166,8 @@ def groups_frame(canvas):
     for group_name, motors in groups.items():
         canvas.create_text(450, y_position, text=group_name, font=font_1, fill="White", anchor="w")
         x_position = 450
-        # List motors under the group
-        create_slider(canvas, 900, y_position, motors)
+        # List motors under the group, pass both mode_data and offset_data to the slider creation
+        create_slider(canvas, 900, y_position, motors, mode_data, offset_data)
         # Add spacing between groups
         y_position += 180
 
