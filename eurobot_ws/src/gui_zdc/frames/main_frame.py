@@ -19,7 +19,7 @@ current_directory = os.path.dirname(os.path.abspath(__file__))
 #Start the window for the interface
 window = tk.Tk()
 window.title("Aplicació Pantalla Zona de Computació")
-window.geometry("1204x600")
+window.geometry("1204x624")
     #window.attributes('-fullscreen', True)
 
 #Set the shape of the window
