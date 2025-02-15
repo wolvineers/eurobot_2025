@@ -96,28 +96,90 @@ def on_button_release(event=None):
         canvas.after_cancel(current_action)
         current_action = None
 
+# Function to set the servo to a specific angle
+def set_servo_angle(servo, angle):
+    if servo in servo_slider_values:
+        # Update the slider value visually
+        servo_slider_values[servo] = angle
+        slider = servo_sliders.get(servo)
+        if slider:
+            slider.set(angle)  # Update the slider visually
+        # Send the message to set the servo to the desired angle
+        set_servo_velocity(angle, servo)
+
+# Function to handle the servo selection and angle setting
+def on_angle_button_press():
+    selected_servo = servo_var.get()
+    if selected_servo:
+        if selected_servo in servo_slider_values:
+            # Setting the angle based on the button clicked
+            if current_angle == 0:
+                set_servo_angle(selected_servo, 0)
+            elif current_angle == 90:
+                set_servo_angle(selected_servo, 90)
+            elif current_angle == 180:
+                set_servo_angle(selected_servo, 180)
+            elif current_angle == 270:
+                set_servo_angle(selected_servo, 270)
+
+# Create the drop-down menu to select the servo
+def create_servo_selector(canvas, x, y):
+    global servo_var  # Define the global variable for the selected servo
+
+    servo_var = tk.StringVar()
+    servo_var.set("S01")  # Default selected servo
+
+    # Create the OptionMenu (drop-down selector)
+    servo_selector = tk.OptionMenu(canvas, servo_var, *servo_slider_values.keys())
+    canvas.create_window(x, y, window=servo_selector, anchor="center")
+
+# Set angle buttons for 0º, 90º, 180º, 270º
+def create_angle_buttons(canvas, x, y):
+    global current_angle
+    current_angle = 0  # Default angle set to 0º
+
+    button1 = canvas.create_image(x + 100, y, image=button_photo, anchor="center")
+    text1 = canvas.create_text(x + 100, y, text="0º", font=tkFont.Font(family="Courier", size=20), fill="White", anchor="center")
+
+    canvas.tag_bind(button1, "<Button-1>", lambda e: set_angle(90))
+    canvas.tag_bind(text1, "<Button-1>", lambda e: set_angle(90))
+
+    
+    button2 = canvas.create_image(x + 200, y, image=button_photo, anchor="center")
+    text2 = canvas.create_text(x + 200, y, text="90º", font=tkFont.Font(family="Courier", size=20), fill="White", anchor="center")
+
+    
+    canvas.tag_bind(button2, "<Button-1>", lambda e: set_angle(90))
+    canvas.tag_bind(text2, "<Button-1>", lambda e: set_angle(90))
+
+    button3 = canvas.create_image(x + 300, y, image=button_photo, anchor="center")
+    text3 = canvas.create_text(x + 300, y, text="180º", font=tkFont.Font(family="Courier", size=20), fill="White", anchor="center")
+
+    canvas.tag_bind(button3, "<Button-1>", lambda e: set_angle(180))
+    canvas.tag_bind(text3, "<Button-1>", lambda e: set_angle(180))
+
+    
+    button4 = canvas.create_image(x + 400, y, image=button_photo, anchor="center")
+    text4 = canvas.create_text(x + 400, y, text="270º", font=tkFont.Font(family="Courier", size=20), fill="White", anchor="center")
+
+    
+    canvas.tag_bind(button4, "<Button-1>", lambda e: set_angle(270))
+    canvas.tag_bind(text4, "<Button-1>", lambda e: set_angle(270))
+
+# Function to set the selected servo's angle
+def set_angle(angle):
+    global current_angle
+    current_angle = angle
+    on_angle_button_press()
+
 def servo_frame(canvas_ref):
-    global canvas, green_photo, red_photo, left_photo, right_photo  # Set the global variables
+    global canvas, button_photo  # Set the global variables
     canvas = canvas_ref  # Assign the canvas to the global variable
 
-    arrow_path = os.path.join(current_directory, "../img/icons8-arrow-96.png")
-    arrow_image = Image.open(arrow_path)
-    arrow_image = arrow_image.resize((24, 24), Image.LANCZOS)
-    up_photo = ImageTk.PhotoImage(arrow_image)
-    down_photo = ImageTk.PhotoImage(arrow_image.rotate(180))
-    right_photo = ImageTk.PhotoImage(arrow_image.rotate(270))
-    left_photo = ImageTk.PhotoImage(arrow_image.rotate(90))
-
-    # Define paths for servo status icons
-    green_path = os.path.join(current_directory, "../img/green.png")
-    green_image = Image.open(green_path)
-    green_image = green_image.resize((24, 24), Image.LANCZOS)
-    green_photo = ImageTk.PhotoImage(green_image)
-
-    red_path = os.path.join(current_directory, "../img/red.png")
-    red_image = Image.open(red_path)
-    red_image = red_image.resize((24, 24), Image.LANCZOS)
-    red_photo = ImageTk.PhotoImage(red_image)
+    button_path = os.path.join(current_directory, "../img/white-button.png")
+    button_image = Image.open(button_path)
+    button_image = button_image.resize((75, 35), Image.LANCZOS)
+    button_photo = ImageTk.PhotoImage(button_image)
 
     font_1 = tkFont.Font(family="Courier", size=36)
     font_2 = tkFont.Font(family="Courier", size=24)
@@ -128,9 +190,10 @@ def servo_frame(canvas_ref):
     numbers_big = tkFont.Font(family="Orbitron", size=126)
 
     # Creating text and arrows
+    font_title = tkFont.Font(family="Courier", size=64)
     canvas.create_text(750, 100, text="SERVOS", font=font_title, fill="White", anchor="center")
 
-    # Motor 1
+     # Motor 1
     canvas.create_text(600, 180, text="SERVO 1", font=font_2, fill="White", anchor="center")
     
     # Motor 2
@@ -163,3 +226,9 @@ def servo_frame(canvas_ref):
     create_slider(canvas, 900, 290, "S06")
     create_slider(canvas, 900, 365, "S07")
     create_slider(canvas, 900, 440, "S08")
+
+    # Add the servo selector dropdown menu
+    create_servo_selector(canvas, 540, 525)
+
+    # Add the angle buttons to set the servo angle
+    create_angle_buttons(canvas, 550, 525)
