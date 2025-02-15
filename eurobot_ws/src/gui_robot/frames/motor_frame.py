@@ -2,14 +2,20 @@ import tkinter as tk
 import tkinter.font as tkFont
 from PIL import Image, ImageTk
 import os
-#from utils.src.serial_communication import open_serial_port, send_message
+import sys
+
+# Get the absolute path of the project root (one level up from gui_zdc_base)
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+
+# Now import from utils
+from utils.src.serial_communication import open_serial_port, send_message
 
 os.system("clear")
 current_directory = os.path.dirname(os.path.abspath(__file__))
 
 # Set the function to send the motor velocity to the ESP32
 def set_motor_velocity(value, motor):
-    '''port = '/dev/ttyUSB0'
+    port = '/dev/ttyUSB0'
     baudrate = 115200
 
     serial_port = open_serial_port(port, baudrate)
@@ -20,7 +26,7 @@ def set_motor_velocity(value, motor):
 
     print(f"Position {motor}: {value}%")
 
-    send_message(serial_port, motor+","+value)'''
+    send_message(serial_port, motor+","+value)
 
 
 # Global variables to store slider values and slider objects
@@ -38,7 +44,7 @@ motor_sliders = {
     "M04": None
 }
 
-# Function to update the slider value visually
+# Function to update the slider value visually and send command
 def change_slider_value(motor_id, increment):
     if motor_id in motor_slider_values:
         # Update the motor value
@@ -50,6 +56,9 @@ def change_slider_value(motor_id, increment):
         slider = motor_sliders.get(motor_id)
         if slider:
             slider.set(motor_slider_values[motor_id])  # Update the slider visually
+            
+        # Send updated value to the motor
+        set_motor_velocity(str(motor_slider_values[motor_id]), motor_id)
 
 # Function to handle button press for continuous update
 def on_button_press(motor_id, increment):
@@ -66,12 +75,12 @@ def on_button_release(event=None):
         current_action = None
 
 # Function to create a slider and store it in the motor_sliders mapping
-def create_slider(canvas, x, y, motor_id, command_function):
+def create_slider(canvas, x, y, motor_id):
     slider = tk.Scale(
         canvas,
         from_=-100,
         to=100,
-        command=lambda value: command_function(value, motor_id),
+        command=lambda value: set_motor_velocity(value, motor_id),  # Directly call set_motor_velocity
     )
     customize_slider(slider)
     canvas.create_window(x, y, window=slider, anchor="center")
@@ -86,8 +95,6 @@ def customize_slider(slider):
         width=15,
         bd=0,
     )
-    slider.tk.call(slider._w, 'configure', '-troughcolor', '#d7d7d7')
-    slider.tk.call(slider._w, 'configure', '-sliderrelief', 'flat')
 
 def motor_frame(canvas_ref):
     global canvas, green_photo, red_photo, left_photo, right_photo  # Set the global variables
@@ -121,53 +128,25 @@ def motor_frame(canvas_ref):
     numbers_big = tkFont.Font(family="Orbitron", size=126)
 
     # Creating text and arrows
-    canvas.create_text(750, 10, text="MOTORS", font=font_title, fill="White", anchor="center")
+    canvas.create_text(750, 100, text="MOTORS", font=font_title, fill="White", anchor="center")
 
     # Motor 1
     canvas.create_text(600, 180, text="MOTOR 1", font=font_2, fill="White", anchor="center")
-    arrowleft1 = canvas.create_image(475, 215, image=left_photo, anchor="center")
-    arrowright1 = canvas.create_image(725, 215, image=right_photo, anchor="center")
 
     # Motor 2
     canvas.create_text(600, 255, text="MOTOR 2", font=font_2, fill="White", anchor="center")
-    arrowleft2 = canvas.create_image(475, 290, image=left_photo, anchor="center")
-    arrowright2 = canvas.create_image(725, 290, image=right_photo, anchor="center")
 
     # Motor 3
     canvas.create_text(600, 330, text="MOTOR 3", font=font_2, fill="White", anchor="center")
-    arrowleft3 = canvas.create_image(475, 365, image=left_photo, anchor="center")
-    arrowright3 = canvas.create_image(725, 365, image=right_photo, anchor="center")
 
     # Motor 4
     canvas.create_text(600, 405, text="MOTOR 4", font=font_2, fill="White", anchor="center")
-    arrowleft4 = canvas.create_image(475, 440, image=left_photo, anchor="center")
-    arrowright4 = canvas.create_image(725, 440, image=right_photo, anchor="center")
 
     # Create sliders using the helper function
-    create_slider(canvas, 600, 215, "M01", change_slider_value)
-    create_slider(canvas, 600, 290, "M02", change_slider_value)
-    create_slider(canvas, 600, 365, "M03", change_slider_value)
-    create_slider(canvas, 600, 440, "M04", change_slider_value)
-
-    # Binding button presses for continuous action for each motor
-    canvas.tag_bind(arrowleft1, "<ButtonPress-1>", lambda e: on_button_press("M01", -1))
-    canvas.tag_bind(arrowright1, "<ButtonPress-1>", lambda e: on_button_press("M01", 1))
-    canvas.tag_bind(arrowleft2, "<ButtonPress-1>", lambda e: on_button_press("M02", -1))
-    canvas.tag_bind(arrowright2, "<ButtonPress-1>", lambda e: on_button_press("M02", 1))
-    canvas.tag_bind(arrowleft3, "<ButtonPress-1>", lambda e: on_button_press("M03", -1))
-    canvas.tag_bind(arrowright3, "<ButtonPress-1>", lambda e: on_button_press("M03", 1))
-    canvas.tag_bind(arrowleft4, "<ButtonPress-1>", lambda e: on_button_press("M04", -1))
-    canvas.tag_bind(arrowright4, "<ButtonPress-1>", lambda e: on_button_press("M04", 1))
-
-    # Stop on release for each motor
-    canvas.tag_bind(arrowleft1, "<ButtonRelease-1>", on_button_release)
-    canvas.tag_bind(arrowright1, "<ButtonRelease-1>", on_button_release)
-    canvas.tag_bind(arrowleft2, "<ButtonRelease-1>", on_button_release)
-    canvas.tag_bind(arrowright2, "<ButtonRelease-1>", on_button_release)
-    canvas.tag_bind(arrowleft3, "<ButtonRelease-1>", on_button_release)
-    canvas.tag_bind(arrowright3, "<ButtonRelease-1>", on_button_release)
-    canvas.tag_bind(arrowleft4, "<ButtonRelease-1>", on_button_release)
-    canvas.tag_bind(arrowright4, "<ButtonRelease-1>", on_button_release)
+    create_slider(canvas, 600, 215, "M01")
+    create_slider(canvas, 600, 290, "M02")
+    create_slider(canvas, 600, 365, "M03")
+    create_slider(canvas, 600, 440, "M04")
 
     canvas.create_text(900, 220, text="FdC 1", font=font_2, fill="White", anchor="w")
     canvas.create_text(900, 260, text="FdC 2", font=font_2, fill="White", anchor="w")
