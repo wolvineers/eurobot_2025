@@ -76,14 +76,14 @@ def set_servo_velocity(value, servos, mode_data, offset_data):
         # Get the offset for the current servo
         offset = offsets.get(servo, 0)  # Default to 0 if the servo is not in the offset data
 
-        # If the offset is negative, it means the servo is reversed, and the absolute value is the offset to add
-        if offset < 0:
-            adjusted_value = int(value) + abs(offset)  # Reverse direction and add the absolute offset
-        else:
-            adjusted_value = int(value) + offset  # Add the positive offset
-
+        # Add offset to the value
+        adjusted_value = int(abs(value)) + offset
         adjusted_value = max(0, min(360, adjusted_value))  # Ensure it's within bounds
 
+        # If the offset is -1, reverse the direction (180 - value)
+        if offset < 0:
+            adjusted_value = 180 - adjusted_value  # Reverse direction
+        
         print(f"Servo {servo} - Sending value {adjusted_value}% (with offset {offset})")
         send_message(serial_port, f"{servo},{adjusted_value}")
 
