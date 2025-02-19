@@ -14,11 +14,6 @@ from serial_communication import open_serial_port, send_message, read_message
 
 class FirstDriverNode(Node):
     
-    port = '/dev/ttyUSB0'
-    baudrate = 115200
-
-    serial_port = open_serial_port(port, baudrate)
-    
     def __init__(self):
         """
         Initializes all the attributes and the subscribers of the node.
@@ -27,6 +22,10 @@ class FirstDriverNode(Node):
         super().__init__('first_driver')
 
         # Attributes
+        self.port = '/dev/ttyUSB0'
+        self.baudrate = 115200
+        self.serial_port = open_serial_port(self.port, self.baudrate)
+
         self.motors_pow_ = [0] * 4
         self.timer_period_ = 0.03
 
@@ -38,19 +37,21 @@ class FirstDriverNode(Node):
         self.encoder_right_pub_ = self.create_publisher(Float32, '/controller/encoder_right', 10)
 
         # Timers
-        self.encoders_tim_ = self.create_timer(self.timer_period_, self.encoders_callback)
-
+        #self.encoders_tim_ = self.create_timer(self.timer_period_, self.encoders_callback)
 
 
     def set_motor_vel(self):
         """
         Assigns the corresponding power to each motor taken from the motors_pow_ array.
         """
-        send_message(self.motors_pow_)
-        self.get_logger().info(self.motors_pow_)
+        motor1, motor2, motor3, motor4 = self.motors_pow_
+        send_message(self.serial_port, f"ML,{(motor1)}")
+        send_message(self.serial_port, f"MR,{(motor2)}")
+        send_message(self.serial_port, f"M3,{(motor3)}")
+        send_message(self.serial_port, f"M4,{(motor4)}")
 
-        
-        
+
+
 
     def move_callback(self, motor_pow):
         """
@@ -61,7 +62,7 @@ class FirstDriverNode(Node):
         """
 
         if len(motor_pow.motor_power) == 4:
-            self.get_logger().info(f'Received motor powers: {motor_pow.motor_power}')
+            self.get_logger().info('Received motor powers: %s' % str(motor_pow.motor_power.tolist()))
             self.motors_pow_ = motor_pow.motor_power
             self.get_logger().info('Motor powers: %s' % str(self.motors_pow_.tolist()))
         else:
@@ -70,27 +71,27 @@ class FirstDriverNode(Node):
 
         self.set_motor_vel()
 
-    def encoders_callback(self):
-        encoder_left = 0.0
-        encoder_right = 0.0
+    #def encoders_callback(self):
+        #encoder_left = 0.0
+        #encoder_right = 0.0
 
-        message = read_message(self.serial_port)
+        # message = read_message(self.serial_port)
 
-        if message == "e_L":
-            encoder_left = float(read_message())
-        elif message == "e_R":
-            encoder_right = float(read_message())
+        # if message == "e_L":
+        #     encoder_left = float(read_message())
+        # elif message == "e_R":
+        #     encoder_right = float(read_message())
 
-        encoder_left_msg = Float32()
-        encoder_right_msg = Float32()
+        # encoder_left_msg = Float32()
+        # encoder_right_msg = Float32()
 
-        encoder_left_msg.data = encoder_left
-        encoder_right_msg.data = encoder_right
+        # encoder_left_msg.data = encoder_left
+        # encoder_right_msg.data = encoder_right
 
-        self.encoder_left_pub_.publish(encoder_left_msg)
-        self.encoder_right_pub_.publish(encoder_right_msg)
+        # self.encoder_left_pub_.publish(encoder_left_msg)
+        # self.encoder_right_pub_.publish(encoder_right_msg)
 
-        self.get_logger().info(f'Encoder left: {encoder_left_msg.data[0]:.2f} | Encoder right: {encoder_right_msg.data[0]:.2f}')
+        # self.get_logger().info(f'Encoder left: {encoder_left_msg.data[0]:.2f} | Encoder right: {encoder_right_msg.data[0]:.2f}')
 
 
 
