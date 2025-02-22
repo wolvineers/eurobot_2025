@@ -71,27 +71,27 @@ class FirstDriverNode(Node):
 
         self.set_motor_vel()
 
-    #def encoders_callback(self):
-        #encoder_left = 0.0
-        #encoder_right = 0.0
+    # def encoders_callback(self):
+        
+    #     encoder_left = 0.0
+    # #     #encoder_right = 0.0
+    #     self.get_logger().info('Hola')
+    #     encoder_left = float(read_message(self.serial_port))
+    #     self.get_logger().info('Hola')
 
-        # message = read_message(self.serial_port)
+    # #     #elif message == "e_R":
+    # #     #    encoder_right = float(read_message())
 
-        # if message == "e_L":
-        #     encoder_left = float(read_message())
-        # elif message == "e_R":
-        #     encoder_right = float(read_message())
+    # #     encoder_left_msg = Float32()
+    # #     #encoder_right_msg = Float32()
 
-        # encoder_left_msg = Float32()
-        # encoder_right_msg = Float32()
+    # #     encoder_left_msg.data = encoder_left
+    # #     #encoder_right_msg.data = encoder_right
 
-        # encoder_left_msg.data = encoder_left
-        # encoder_right_msg.data = encoder_right
+    # #     self.encoder_left_pub_.publish(encoder_left_msg)
+    # #     #self.encoder_right_pub_.publish(encoder_right_msg)
 
-        # self.encoder_left_pub_.publish(encoder_left_msg)
-        # self.encoder_right_pub_.publish(encoder_right_msg)
-
-        # self.get_logger().info(f'Encoder left: {encoder_left_msg.data[0]:.2f} | Encoder right: {encoder_right_msg.data[0]:.2f}')
+    # #     self.get_logger().info(f'Encoder left: {encoder_left_msg.data[0]:.2f}')
 
 
 

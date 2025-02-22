@@ -2,9 +2,14 @@ import tkinter as tk
 import tkinter.font as tkFont
 from PIL import Image, ImageTk
 import os
-from utils.src.serial_communication import open_serial_port, send_message
+
+import serial_communication
+
+#from serial_communication import open_serial_port, send_message
 
 os.system("clear")
+
+
 
 #Set the function to send the servo angle to the ESP32
 def set_servo_position(value, servo):
@@ -12,7 +17,7 @@ def set_servo_position(value, servo):
     port = '/dev/ttyUSB0'
     baudrate = 115200
 
-    serial_port = open_serial_port(port, baudrate)
+    serial_port = serial_communication.open_serial_port(port, baudrate)
 
     if not serial_port:
         print("Could not open serial port.")
@@ -20,7 +25,7 @@ def set_servo_position(value, servo):
 
     print(f"Position {servo}: {value}°")
 
-    send_message(serial_port, servo+","+value)
+    serial_communication.send_message(serial_port, servo+","+value)
 
 
 #Set the function to design the servo_frame
