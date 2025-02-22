@@ -12,11 +12,15 @@ find_package(rclpy REQUIRED)
 find_package(ament_cmake_python REQUIRED)
 find_package(utils REQUIRED)
 
+find_package(rosidl_default_generators REQUIRED)
+
+
 ament_python_install_package(${PROJECT_NAME})
 
 install( PROGRAMS
   scripts/controller_node.py
   scripts/driver_01_node.py
+  scripts/serial_communication.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

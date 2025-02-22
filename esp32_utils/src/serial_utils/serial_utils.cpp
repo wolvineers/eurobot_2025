@@ -76,6 +76,7 @@ void sendMessage(String message) {
 
     Serial.println(serial_message);
     fflush(stdout);
+    fsync(fileno(stdout));
     //delay(1000);
 }
 

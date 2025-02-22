@@ -38,7 +38,6 @@ float set_PID_speed(int64_t current_pulses, int64_t previous_pulses){
 
 
 // Variable to set the motor speed
-float motor_speed = 0.0;
 
 
 PID_Motor_params motor_paramsl = {
@@ -73,7 +72,7 @@ PID_Motor_params motor_paramsr = {
  .motor_direction = true,                 // Motor direction, inverts the encoder and direction of the motor. For example, two motors on opposite sides.
 
 
- .speed_input_var = NULL,          // The variable has to be passed as reference. Has priority over the function. When using the speed curve, it gets overriden.
+ .speed_input_var = NULL,//&motor_speed_r,          // The variable has to be passed as reference. Has priority over the function. When using the speed curve, it gets overriden.
  //.speed_input_function = set_PID_speed,  // The fuction that controls the speed. Has less priority than the variable. Not used in this example
  .speed_input_function = NULL,             // If not used, set the value to NULL. If both are NULL, it can be controlled directly modifying setpoint, but using the variable is recommended
 
@@ -95,7 +94,7 @@ PID_Motor_params motor_params3 = {
  .motor_direction = true,                 // Motor direction, inverts the encoder and direction of the motor. For example, two motors on opposite sides.
 
 
- .speed_input_var = &motor_speed,          // The variable has to be passed as reference. Has priority over the function. When using the speed curve, it gets overriden.
+ .speed_input_var = NULL,          // The variable has to be passed as reference. Has priority over the function. When using the speed curve, it gets overriden.
  //.speed_input_function = set_PID_speed,  // The fuction that controls the speed. Has less priority than the variable. Not used in this example
  .speed_input_function = NULL,             // If not used, set the value to NULL. If both are NULL, it can be controlled directly modifying setpoint, but using the variable is recommended
 
@@ -137,71 +136,54 @@ PID_Motor motorR(motor_paramsr);
 PID_Motor motor3(motor_params3);
 PID_Motor motor4(motor_params4);
 
-
-
-
 void setup() {
+    setupSerial();
+    Serial.begin(115200);
 
+    
+     
+    pinMode(22, OUTPUT);
+    digitalWrite(22, 0);
 
-   setupSerial();
-   Serial.begin(115200);
-
-
- // If the driver has to be enabled, do it here
- pinMode(22, OUTPUT);
- digitalWrite(22, 0);
-
-
- // Create a speed curve, that will move the motor 2050 pulses, at a maximum speed of 50 pulses / cycle, and with an acceleration of 10 pulses / cycle^2 (example)
- //motorR.move_distance(4000, 0, 50, 10);
- //motorL.move_distance(4000, 0, 50, 10);
-
-
- // Start the motor timer, which starts the speed control
- motorR.initialize_timer();
- motorL.initialize_timer();
- motor3.initialize_timer();
- motor4.initialize_timer();
+    motorR.initialize_timer();
+    motorL.initialize_timer();
+    motor3.initialize_timer();
+    motor4.initialize_timer();
 }
 
-
 void loop() {
-    //Read the message recibed and split the content in 3 different variables
-   String message = readMessage();  
-   if (message.length() > 0) {
-       int firstComma = message.indexOf(',');
-       int secondComma = message.indexOf(',', firstComma + 1);
-       if (firstComma != -1 && secondComma != -1) {
-           String motorNumberStr = message.substring(2, firstComma);
-           String motorAngleStr = message.substring(firstComma + 1, secondComma);
-           String checksumStr = message.substring(secondComma + 1);
-           int motorNumber = motorNumberStr.toInt();
-           int motorPower = motorAngleStr.toInt(); 
-           int checksum = checksumStr.toInt();
+    String message = readMessage();
+    
+    String encoder_l = String(motorL.get_pulses());
 
-            //Check the motor number and set the power for the selected motor
-           if (motorNumber >= 1 && motorNumber < 5){
-             Serial.println("Motor Number: " + String(motorNumber));
-             Serial.println("Motor %: " + String(motorPower));
-             Serial.println("Checksum: " + String(checksum));
+    if (encoder_l != "0"){
+        sendMessage(encoder_l);
+    }
+
+    if (message.length() > 0) {
 
 
-             if (motorNumber == 1) {
-                 motorL.setpoint = motorPower; 
-             } else if (motorNumber == 2) {
-                 motorR.setpoint = motorPower; 
-             }
-             else if (motorNumber == 3) {
-                 motor3.setpoint = motorPower; 
-             }
-             else if (motorNumber == 4) {
-                 motor4.setpoint = motorPower; 
-             }
-         } else {
-             Serial.println("Error: Invalid servo number");
-         }
-           } else{
-             Serial.println("Error: Invalid message format");
-       }
-   }
+        int commaPos = message.indexOf(',');
+        if (commaPos != -1) {
+            String motor = message.substring(0, commaPos);
+            String value = message.substring(commaPos + 1);
+            float speed = value.substring(0, value.indexOf(',')).toInt();
+
+            Serial.println(speed);
+
+            if (motor == "ML") {
+                motorL.setpoint = speed;
+            } else if (motor == "MR") {
+                motorR.setpoint = speed;  
+            } else if (motor == "M3") {
+                motor3.setpoint = speed;  
+            } else if (motor == "M4") {
+                motor4.setpoint = speed;  
+            }
+
+
+        }
+    }
+
+
 }
