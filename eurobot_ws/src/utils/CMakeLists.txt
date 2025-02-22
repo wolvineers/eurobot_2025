@@ -5,39 +5,33 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-# Find dependencies
+# find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_python REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(rosidl_default_generators REQUIRED)
+find_package(rclpy REQUIRED)
 
-rosidl_generate_interfaces(${PROJECT_NAME}
-  "msg/MotorPower.msg"
-)
-
-# Add C++ code
-# add_library(utils_cpp src/utils.cpp)
-# ament_target_dependencies(utils_cpp rclcpp)
-
-
-# Install files .py
-install(
-  DIRECTORY src/
+# Install Python executables
+install(PROGRAMS
+  scripts/serial_communication.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
-# Install library .cpp
-# install(TARGETS
-#   utils_cpp
-#   DESTINATION lib/${PROJECT_NAME}
-# )
+install(
+  DIRECTORY utils/
+  DESTINATION lib/python3.X/site-packages
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
+  # the following line skips the linter which checks for copyrights
+  # comment the line when a copyright and license is added to all source files
   set(ament_cmake_copyright_FOUND TRUE)
+  # the following line skips cpplint (only works in a git repo)
+  # comment the line when this package is in a git repo and when
+  # a copyright and license is added to all source files
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
-
-ament_export_dependencies(rosidl_default_runtime)
 
 ament_package()
