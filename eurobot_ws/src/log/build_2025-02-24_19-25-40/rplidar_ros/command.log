@@ -1,0 +1,6 @@
+Invoking command in '/wolvi/src/build/rplidar_ros': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/wolvi/install/lidar:/opt/ros/humble /usr/bin/cmake /wolvi/src/rplidar_ros -DCMAKE_INSTALL_PREFIX=/wolvi/src/install/rplidar_ros
+Invoked command in '/wolvi/src/build/rplidar_ros' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/wolvi/install/lidar:/opt/ros/humble /usr/bin/cmake /wolvi/src/rplidar_ros -DCMAKE_INSTALL_PREFIX=/wolvi/src/install/rplidar_ros
+Invoking command in '/wolvi/src/build/rplidar_ros': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/wolvi/install/lidar:/opt/ros/humble /usr/bin/cmake --build /wolvi/src/build/rplidar_ros -- -j8 -l8
+Invoked command in '/wolvi/src/build/rplidar_ros' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/wolvi/install/lidar:/opt/ros/humble /usr/bin/cmake --build /wolvi/src/build/rplidar_ros -- -j8 -l8
+Invoking command in '/wolvi/src/build/rplidar_ros': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/wolvi/install/lidar:/opt/ros/humble /usr/bin/cmake --install /wolvi/src/build/rplidar_ros
+Invoked command in '/wolvi/src/build/rplidar_ros' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/wolvi/install/lidar:/opt/ros/humble /usr/bin/cmake --install /wolvi/src/build/rplidar_ros
