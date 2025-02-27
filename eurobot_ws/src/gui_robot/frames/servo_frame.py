@@ -159,8 +159,15 @@ def set_angle(angle):
     on_angle_button_press()
 
 def servo_frame(canvas_ref):
-    global canvas, button_photo  # Set the global variables
+    global canvas, button_photo, img_back, background_photo, back_photo  # Set the global variables
     canvas = canvas_ref  # Assign the canvas to the global variable
+
+    from frames.main_frame import switch_frame, window
+    from frames.control_zone_frame import control_zone_frame
+    
+    #Set the shape of the window
+    screen_width = window.winfo_screenwidth()
+    screen_height = window.winfo_screenheight()
 
     button_path = os.path.join(current_directory, "../img/white-button.png")
     button_image = Image.open(button_path)
@@ -168,53 +175,59 @@ def servo_frame(canvas_ref):
     button_photo = ImageTk.PhotoImage(button_image)
 
     font_1 = tkFont.Font(family="Courier", size=36)
-    font_2 = tkFont.Font(family="Courier", size=24)
+    font_2 = tkFont.Font(family="Courier", size=48)
     font_2_orb = tkFont.Font(family="Orbitron", size=20)
     font_3 = tkFont.Font(family="Courier", size=16)
     font_4 = tkFont.Font(family="Courier", size=14)
-    font_title = tkFont.Font(family="Courier", size=64)
+    font_title = tkFont.Font(family="Courier", size=76)
     numbers_big = tkFont.Font(family="Orbitron", size=126)
+
+    back_path = os.path.join(current_directory, "../img/icons8-back-24.png")
+    back_image = Image.open(back_path)
+    back_image = back_image.resize((48, 48), Image.LANCZOS)
+    back_photo = ImageTk.PhotoImage(back_image)
+
+
+    background_path = os.path.join(current_directory, "../img/background.jpg")
+    background_image = Image.open(background_path)
+    background_image = background_image.resize((int(screen_width), int(screen_height)), Image.LANCZOS)
+    background_photo = ImageTk.PhotoImage(background_image)
+
+    canvas.create_image(0, 0, image=background_photo, anchor="nw")
+    img_back = canvas.create_image(24, 24, image=back_photo, anchor="nw")
 
     # Creating text and arrows
     font_title = tkFont.Font(family="Courier", size=64)
-    canvas.create_text(750, 100, text="SERVOS", font=font_title, fill="White", anchor="center")
+    canvas.create_text(600, 50, text="SERVOS", font=font_title, fill="White", anchor="center")
 
      # Motor 1
-    canvas.create_text(600, 180, text="SERVO 1", font=font_2, fill="White", anchor="center")
+    canvas.create_text(250, 175, text="SERVO 1", font=font_2, fill="White", anchor="center")
     
     # Motor 2
-    canvas.create_text(600, 255, text="SERVO 2", font=font_2, fill="White", anchor="center")
+    canvas.create_text(250, 250, text="SERVO 2", font=font_2, fill="White", anchor="center")
     
     # Motor 3
-    canvas.create_text(600, 330, text="SERVO 3", font=font_2, fill="White", anchor="center")
+    canvas.create_text(250, 325, text="SERVO 3", font=font_2, fill="White", anchor="center")
     
     # Motor 4
-    canvas.create_text(600, 405, text="SERVO 4", font=font_2, fill="White", anchor="center")
+    canvas.create_text(250, 400, text="SERVO 4", font=font_2, fill="White", anchor="center")
     
     # Motor 5
-    canvas.create_text(900, 180, text="SERVO 5", font=font_2, fill="White", anchor="center")
+    canvas.create_text(550, 175, text="SERVO 5", font=font_2, fill="White", anchor="center")
     
     # Motor 6
-    canvas.create_text(900, 255, text="SERVO 6", font=font_2, fill="White", anchor="center")
+    canvas.create_text(550, 250, text="SERVO 6", font=font_2, fill="White", anchor="center")
     
     # Motor 7
-    canvas.create_text(900, 330, text="SERVO 7", font=font_2, fill="White", anchor="center")
+    canvas.create_text(550, 325, text="SERVO 7", font=font_2, fill="White", anchor="center")
     
     # Motor 8
-    canvas.create_text(900, 405, text="SERVO 8", font=font_2, fill="White", anchor="center")
-
-    # Create sliders for 8 servos
-    create_slider(canvas, 600, 215, "S01")
-    create_slider(canvas, 600, 290, "S02")
-    create_slider(canvas, 600, 365, "S03")
-    create_slider(canvas, 600, 440, "S04")
-    create_slider(canvas, 900, 215, "S05")
-    create_slider(canvas, 900, 290, "S06")
-    create_slider(canvas, 900, 365, "S07")
-    create_slider(canvas, 900, 440, "S08")
+    canvas.create_text(550, 400, text="SERVO 8", font=font_2, fill="White", anchor="center")
 
     # Add the servo selector dropdown menu
     create_servo_selector(canvas, 540, 525)
 
     # Add the angle buttons to set the servo angle
     create_angle_buttons(canvas, 550, 525)
+
+    canvas.tag_bind(img_back, "<Button-1>", lambda e: switch_frame(control_zone_frame))

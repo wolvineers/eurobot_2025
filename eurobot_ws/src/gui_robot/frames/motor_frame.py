@@ -97,8 +97,16 @@ def customize_slider(slider):
     )
 
 def motor_frame(canvas_ref):
-    global canvas, green_photo, red_photo, left_photo, right_photo  # Set the global variables
+    global canvas, green_photo, red_photo, left_photo, right_photo, background_photo, back_photo  # Set the global variables
     canvas = canvas_ref  # Assign the canvas to the global variable
+
+    from frames.main_frame import switch_frame, window
+    from frames.control_zone_frame import control_zone_frame
+    
+    #Set the shape of the window
+    screen_width = window.winfo_screenwidth()
+    screen_height = window.winfo_screenheight()
+
 
     arrow_path = os.path.join(current_directory, "../img/icons8-arrow-96.png")
     arrow_image = Image.open(arrow_path)
@@ -119,6 +127,21 @@ def motor_frame(canvas_ref):
     red_image = red_image.resize((24, 24), Image.LANCZOS)
     red_photo = ImageTk.PhotoImage(red_image)
 
+
+    back_path = os.path.join(current_directory, "../img/icons8-back-24.png")
+    back_image = Image.open(back_path)
+    back_image = back_image.resize((48, 48), Image.LANCZOS)
+    back_photo = ImageTk.PhotoImage(back_image)
+
+
+    background_path = os.path.join(current_directory, "../img/background.jpg")
+    background_image = Image.open(background_path)
+    background_image = background_image.resize((int(screen_width), int(screen_height)), Image.LANCZOS)
+    background_photo = ImageTk.PhotoImage(background_image)
+
+    canvas.create_image(0, 0, image=background_photo, anchor="nw")
+    img_back = canvas.create_image(24, 24, image=back_photo, anchor="nw")
+
     font_1 = tkFont.Font(family="Courier", size=36)
     font_2 = tkFont.Font(family="Courier", size=24)
     font_2_orb = tkFont.Font(family="Orbitron", size=20)
@@ -128,36 +151,38 @@ def motor_frame(canvas_ref):
     numbers_big = tkFont.Font(family="Orbitron", size=126)
 
     # Creating text and arrows
-    canvas.create_text(750, 100, text="MOTORS", font=font_title, fill="White", anchor="center")
+    canvas.create_text(600, 100, text="MOTORS", font=font_title, fill="White", anchor="center")
 
     # Motor 1
-    canvas.create_text(600, 180, text="MOTOR 1", font=font_2, fill="White", anchor="center")
+    canvas.create_text(450, 180, text="MOTOR 1", font=font_2, fill="White", anchor="center")
 
     # Motor 2
-    canvas.create_text(600, 255, text="MOTOR 2", font=font_2, fill="White", anchor="center")
+    canvas.create_text(450, 255, text="MOTOR 2", font=font_2, fill="White", anchor="center")
 
     # Motor 3
-    canvas.create_text(600, 330, text="MOTOR 3", font=font_2, fill="White", anchor="center")
+    canvas.create_text(450, 330, text="MOTOR 3", font=font_2, fill="White", anchor="center")
 
     # Motor 4
-    canvas.create_text(600, 405, text="MOTOR 4", font=font_2, fill="White", anchor="center")
+    canvas.create_text(450, 405, text="MOTOR 4", font=font_2, fill="White", anchor="center")
 
     # Create sliders using the helper function
-    create_slider(canvas, 600, 215, "M01")
-    create_slider(canvas, 600, 290, "M02")
-    create_slider(canvas, 600, 365, "M03")
-    create_slider(canvas, 600, 440, "M04")
+    create_slider(canvas, 450, 215, "M01")
+    create_slider(canvas, 450, 290, "M02")
+    create_slider(canvas, 450, 365, "M03")
+    create_slider(canvas, 450, 440, "M04")
 
-    canvas.create_text(900, 220, text="FdC 1", font=font_2, fill="White", anchor="w")
-    canvas.create_text(900, 260, text="FdC 2", font=font_2, fill="White", anchor="w")
-    canvas.create_text(900, 300, text="FdC 3", font=font_2, fill="White", anchor="w")
-    canvas.create_text(900, 340, text="FdC 4", font=font_2, fill="White", anchor="w")
-    canvas.create_text(900, 380, text="Encoder 1", font=font_2, fill="White", anchor="w")
-    canvas.create_text(900, 420, text="Encoder 2", font=font_2, fill="White", anchor="w")
+    canvas.create_text(750, 220, text="FdC 1", font=font_2, fill="White", anchor="w")
+    canvas.create_text(750, 260, text="FdC 2", font=font_2, fill="White", anchor="w")
+    canvas.create_text(750, 300, text="FdC 3", font=font_2, fill="White", anchor="w")
+    canvas.create_text(750, 340, text="FdC 4", font=font_2, fill="White", anchor="w")
+    canvas.create_text(750, 380, text="Encoder 1", font=font_2, fill="White", anchor="w")
+    canvas.create_text(750, 420, text="Encoder 2", font=font_2, fill="White", anchor="w")
 
-    canvas.create_image(875, 220, image=green_photo, anchor="e")
-    canvas.create_image(875, 260, image=red_photo, anchor="e")
-    canvas.create_image(875, 300, image=red_photo, anchor="e")
-    canvas.create_image(875, 340, image=red_photo, anchor="e")
-    canvas.create_text(875, 380, text="(16)", font=font_2_orb, fill="White", anchor="e")
-    canvas.create_text(875, 420, text="(24)", font=font_2_orb, fill="White", anchor="e")
+    canvas.create_image(725, 220, image=green_photo, anchor="e")
+    canvas.create_image(725, 260, image=red_photo, anchor="e")
+    canvas.create_image(725, 300, image=red_photo, anchor="e")
+    canvas.create_image(725, 340, image=red_photo, anchor="e")
+    canvas.create_text(725, 380, text="(16)", font=font_2_orb, fill="White", anchor="e")
+    canvas.create_text(725, 420, text="(24)", font=font_2_orb, fill="White", anchor="e")
+
+    canvas.tag_bind(img_back, "<Button-1>", lambda e: switch_frame(control_zone_frame))

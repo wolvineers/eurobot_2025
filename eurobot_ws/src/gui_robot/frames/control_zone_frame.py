@@ -2,7 +2,6 @@ import tkinter.font as tkFont
 import os
 from PIL import Image, ImageTk
 from frames.groups_frame import groups_frame
-from frames.servo_frame import servo_frame
 from frames.motor_frame import motor_frame
 
 
@@ -45,14 +44,8 @@ def control_zone_frame(canvas):
     img_motors = canvas.create_image(750, 325, image=button_photo, anchor="center")
     txt_motors = canvas.create_text(750, 325, text="MOTORS", font=font_1, fill="White", anchor="center")
 
-    img_groups = canvas.create_image(750, 425, image=button_photo, anchor="center")
-    txt_groups = canvas.create_text(750, 425, text="GROUPS", font=font_1, fill="White", anchor="center")
-
-    canvas.tag_bind(img_servos, "<Button-1>", lambda e: switch_frame(servo_frame))
-    canvas.tag_bind(txt_servos, "<Button-1>", lambda e: switch_frame(servo_frame))
+    canvas.tag_bind(img_servos, "<Button-1>", lambda e: switch_frame(groups_frame))
+    canvas.tag_bind(txt_servos, "<Button-1>", lambda e: switch_frame(groups_frame))
 
     canvas.tag_bind(img_motors, "<Button-1>", lambda e: switch_frame(motor_frame))
     canvas.tag_bind(txt_motors, "<Button-1>", lambda e: switch_frame(motor_frame))
-
-    canvas.tag_bind(img_groups, "<Button-1>", lambda e: switch_frame(groups_frame))
-    canvas.tag_bind(txt_groups, "<Button-1>", lambda e: switch_frame(groups_frame))

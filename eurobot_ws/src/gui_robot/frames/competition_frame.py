@@ -21,13 +21,13 @@ def competition_frame(canvas):
     screen_width = window.winfo_screenwidth()
     screen_height = window.winfo_screenheight()
 
-    font_1 = tkFont.Font(family="Courier", size=24)
+    font_1 = tkFont.Font(family="Courier", size=46)
     font_2 = tkFont.Font(family="Courier", size=18)
-    font_3 = tkFont.Font(family="Courier", size=16)
+    font_3 = tkFont.Font(family="Courier", size=36)
     font_4 = tkFont.Font(family="Courier", size=14)
     font_title = tkFont.Font(family="Courier", size=64)
     numbers = tkFont.Font(family="Orbitron", size=64)
-    font_points = tkFont.Font(family="Orbitron", size=164)
+    font_points = tkFont.Font(family="Orbitron", size=324)
 
     button_path = os.path.join(current_directory, "../img/white-button.png")
     button_image = Image.open(button_path)
@@ -49,21 +49,21 @@ def competition_frame(canvas):
     img_back = canvas.create_image(24, 24, image=back_photo, anchor="nw")
 
     # Create and place images and text on the canvas
-    canvas.create_text(602, 100, text="COMPETITION", font=font_title, fill="White", anchor="center")
-
     canvas.create_text(602, 275, text="000", font=font_points, fill="White", anchor="center")
 
-    canvas.create_text(602, 400, text="POINTS", font=font_1, fill="White", anchor="center")
+    canvas.create_text(602, 450, text="POINTS", font=font_1, fill="White", anchor="center")
 
-    img_traj = canvas.create_image(300, 550, image=button_photo, anchor="center")
-    txt_traj = canvas.create_text(300, 550, text="SEE TRAJECTORY", font=font_2, fill="White", anchor="center")
+    img_traj = canvas.create_image(300, 50, image=button_photo, anchor="center")
+    txt_traj = canvas.create_text(300, 50, text="SEE TRAJECTORY", font=font_2, fill="White", anchor="center")
 
     #TO-DO: PROGRAM FUNCTIONALITY
-    canvas.create_image(600, 550, image=button_photo, anchor="center")
-    canvas.create_text(600, 550, text="INITIALIZE", font=font_2, fill="White", anchor="center")
+    canvas.create_image(600, 50, image=button_photo, anchor="center")
+    canvas.create_text(600, 50, text="INITIALIZE", font=font_2, fill="White", anchor="center")
 
-    img_strategy = canvas.create_image(900, 550, image=button_photo, anchor="center")
-    txt_strategy = canvas.create_text(900, 550, text="CHANGE STRATEGY", font=font_2, fill="White", anchor="center")
+    img_strategy = canvas.create_image(900, 50, image=button_photo, anchor="center")
+    txt_strategy = canvas.create_text(900, 50, text="CHANGE STRATEGY", font=font_2, fill="White", anchor="center")
+
+    canvas.create_text(600, 530, text="TIME REST: xx:xx", font=font_3, fill="White", anchor="center")
 
     canvas.tag_bind(img_traj, "<Button-1>", lambda e: switch_frame(trajectory_frame))
     canvas.tag_bind(txt_traj, "<Button-1>", lambda e: switch_frame(trajectory_frame))
