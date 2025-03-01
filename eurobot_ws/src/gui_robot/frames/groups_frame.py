@@ -103,7 +103,6 @@ def update_angle(value, canvas, increment=False):
 def send_angle():
     selected_servos = [servo for servo, state in checkbox_states.items() if state]
     if selected_servos:
-        print("kjadsflksd")
         set_servo_velocity(angle, selected_servos, load_mode_data(), load_servo_offsets())
 
 empty_checkbox_path = os.path.join(current_directory, "../img/checkbox_empty.png")
@@ -146,7 +145,7 @@ def create_checkbox(canvas, x, y, servo_id):
     # Set initial checkbox image (unchecked state)
     update_checkbox_image(servo_id, x, y, canvas, checkbox_empty_photo, checkbox_selected_photo)
 
-    canvas.create_text(x+30, y, text=servo_id, font=tkFont.Font(family="Courier", size=32), fill="White", anchor="w")
+    canvas.create_text(x+30, y+5, text=servo_id, font=tkFont.Font(family="Courier", size=32), fill="White", anchor="w")
     # Bind the click event to toggle the checkbox state
     canvas.tag_bind(servo_id, "<Button-1>", lambda e: toggle_checkbox(servo_id, x, y, canvas, checkbox_empty_photo, checkbox_selected_photo))
 
@@ -157,7 +156,7 @@ def create_angle_buttons(canvas):
 
     button_path = os.path.join(current_directory, "../img/white-button.png")
     button_image = Image.open(button_path)
-    button_image_2 = button_image.resize((280, 50), Image.LANCZOS)
+    button_image_2 = button_image.resize((350, 65), Image.LANCZOS)
     button_image = button_image.resize((100, 50), Image.LANCZOS)
     button_photo = ImageTk.PhotoImage(button_image)
 

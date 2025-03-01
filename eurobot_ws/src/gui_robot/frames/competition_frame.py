@@ -27,7 +27,7 @@ def competition_frame(canvas):
     font_4 = tkFont.Font(family="Courier", size=14)
     font_title = tkFont.Font(family="Courier", size=64)
     numbers = tkFont.Font(family="Orbitron", size=64)
-    font_points = tkFont.Font(family="Orbitron", size=324)
+    font_points = tkFont.Font(family="Orbitron", size=290)
 
     button_path = os.path.join(current_directory, "../img/white-button.png")
     button_image = Image.open(button_path)
