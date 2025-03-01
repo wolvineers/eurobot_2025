@@ -292,15 +292,15 @@ def create_servo_buttons(canvas):
     button_path = os.path.join(current_directory, "../img/white-button.png")
     button_image = Image.open(button_path)
     button_image_2 = button_image.resize((350, 65), Image.LANCZOS)
-    button_image = button_image.resize((100, 50), Image.LANCZOS)
+    button_image = button_image.resize((250, 85), Image.LANCZOS)
     button_photo = ImageTk.PhotoImage(button_image)
 
     button_photo_2 = ImageTk.PhotoImage(button_image_2)
     
     font_1 = tkFont.Font(family="Courier", size=36)
     
-    img_btn = canvas.create_image(700, 400, image=button_photo, anchor="center")
-    txt_btn = canvas.create_text(700, 400, text=f"STOP", font=font_1, fill="white", anchor="center")
+    img_btn = canvas.create_image(800, 425, image=button_photo, anchor="center")
+    txt_btn = canvas.create_text(800, 425, text=f"STOP", font=font_1, fill="white", anchor="center")
     
     # Vincular clics al botón
     canvas.tag_bind(img_btn, "<Button-1>", lambda e: send_angle(0))
@@ -314,7 +314,7 @@ def create_servo_buttons(canvas):
     )
     slider.config(
         orient=tk.HORIZONTAL, 
-        length=250,
+        length=500,
         width=40,
         bd=0,
     )
