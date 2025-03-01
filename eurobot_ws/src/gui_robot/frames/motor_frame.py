@@ -1,4 +1,4 @@
-import tkinter as tk
+'''import tkinter as tk
 import tkinter.font as tkFont
 from PIL import Image, ImageTk
 import os
@@ -186,3 +186,196 @@ def motor_frame(canvas_ref):
     canvas.create_text(725, 420, text="(24)", font=font_2_orb, fill="White", anchor="e")
 
     canvas.tag_bind(img_back, "<Button-1>", lambda e: switch_frame(control_zone_frame))
+
+
+
+
+
+
+
+
+
+'''
+import tkinter.font as tkFont
+import tkinter as tk
+import os
+import json
+from PIL import Image, ImageTk
+import os
+import sys
+
+# Get the absolute path of the project root (one level up from gui_zdc_base)
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+
+# Now import from utils
+from utils.src.serial_communication import open_serial_port, send_message
+
+# Limpiar terminal (no necesario si no se está usando)
+os.system("clear")
+current_directory = os.path.dirname(os.path.abspath(__file__))
+
+# Set the function to send the servo velocity to the ESP32
+def set_servo_velocity(value, servos):
+    port = '/dev/ttyUSB0'
+    baudrate = 115200
+    serial_port = open_serial_port(port, baudrate)
+
+    if not serial_port:
+        print("Could not open serial port.")
+        return
+    
+    # Loop through servos and send values with offset
+    for servo in servos:
+        # If the offset is -1, reverse the direction (180 - value)
+        print(f"Motor {servo} - Sending value {value}%")
+        send_message(serial_port, f"{servo},{value}")
+
+# Create a dictionary to store the checkbox states (True for checked, False for unchecked)
+# Initialize global angle variable
+checkbox_states = {f"M0{i+1}": False for i in range(5)}
+
+def send_angle(velocity):
+    selected_motors = [motor for motor, state in checkbox_states.items() if state]
+    if selected_motors:
+        set_servo_velocity(velocity, selected_motors)
+
+empty_checkbox_path = os.path.join(current_directory, "../img/checkbox_empty.png")
+selected_checkbox_path = os.path.join(current_directory, "../img/checkbox_selected.png")
+
+empty_checkbox_image = Image.open(empty_checkbox_path)
+selected_checkbox_image = Image.open(selected_checkbox_path)
+empty_checkbox_image = empty_checkbox_image.resize((40, 40), Image.LANCZOS)
+selected_checkbox_image = selected_checkbox_image.resize((40, 40), Image.LANCZOS)
+# Function to toggle the checkbox state
+# Function to toggle the checkbox state
+def update_checkbox_image(motor_id, x, y, canvas, checkbox_empty_photo, checkbox_selected_photo):
+    existing_image = canvas.find_withtag(motor_id)
+    if checkbox_states[motor_id]:
+        image_to_display = checkbox_selected_photo
+    else:
+        image_to_display = checkbox_empty_photo
+
+    # If the image already exists, just update it
+    if existing_image:
+        canvas.itemconfig(existing_image[0], image=image_to_display)
+    else:
+        canvas.create_image(x, y, image=image_to_display, anchor="center", tags=motor_id)
+
+def toggle_checkbox(motor_id, x, y, canvas, checkbox_empty_photo, checkbox_selected_photo):
+    checkbox_states[motor_id] = not checkbox_states[motor_id]
+    update_checkbox_image(motor_id, x, y, canvas, checkbox_empty_photo, checkbox_selected_photo)
+    print(checkbox_states)
+
+def create_checkbox(canvas, x, y, motor_id):
+    # Load images for this specific checkbox (instead of using global variables)
+    empty_checkbox_image = Image.open(empty_checkbox_path)
+    selected_checkbox_image = Image.open(selected_checkbox_path)
+    empty_checkbox_image = empty_checkbox_image.resize((40, 40), Image.LANCZOS)
+    selected_checkbox_image = selected_checkbox_image.resize((40, 40), Image.LANCZOS)
+
+    checkbox_empty_photo = ImageTk.PhotoImage(empty_checkbox_image)
+    checkbox_selected_photo = ImageTk.PhotoImage(selected_checkbox_image)
+
+    # Set initial checkbox image (unchecked state)
+    update_checkbox_image(motor_id, x, y, canvas, checkbox_empty_photo, checkbox_selected_photo)
+
+    canvas.create_text(x+30, y+5, text=motor_id, font=tkFont.Font(family="Courier", size=32), fill="White", anchor="w")
+    # Bind the click event to toggle the checkbox state
+    canvas.tag_bind(motor_id, "<Button-1>", lambda e: toggle_checkbox(motor_id, x, y, canvas, checkbox_empty_photo, checkbox_selected_photo))
+
+def create_servo_buttons(canvas):
+    global angle_label, button_photo, button_photo_2
+    font_btn = tkFont.Font(family="Courier", size=20)
+    font_title = tkFont.Font(family="Courier", size=32)
+
+    button_path = os.path.join(current_directory, "../img/white-button.png")
+    button_image = Image.open(button_path)
+    button_image_2 = button_image.resize((350, 65), Image.LANCZOS)
+    button_image = button_image.resize((100, 50), Image.LANCZOS)
+    button_photo = ImageTk.PhotoImage(button_image)
+
+    button_photo_2 = ImageTk.PhotoImage(button_image_2)
+    
+    font_1 = tkFont.Font(family="Courier", size=36)
+    
+    img_btn = canvas.create_image(700, 400, image=button_photo, anchor="center")
+    txt_btn = canvas.create_text(700, 400, text=f"STOP", font=font_1, fill="white", anchor="center")
+    
+    # Vincular clics al botón
+    canvas.tag_bind(img_btn, "<Button-1>", lambda e: send_angle(0))
+    canvas.tag_bind(txt_btn, "<Button-1>", lambda e: send_angle(0))
+
+    slider = tk.Scale(
+        canvas,
+        from_=-100,
+        to=100,
+        command=lambda value: send_angle(value),  # Directly call set_motor_velocity
+    )
+    slider.config(
+        orient=tk.VERTICAL, 
+        length=200,
+        width=40,
+        bd=0,
+    )
+    canvas.create_window(800, 300, window=slider, anchor="center")
+
+# Function to set the frame (Groups Frame)
+def motor_frame(canvas):
+    global button_photo, up_photo, down_photo, left_photo, right_photo, back_photo, background_photo
+    from frames.main_frame import switch_frame, window
+    from frames.control_zone_frame import control_zone_frame
+
+    # Set the shape of the window
+    screen_width = window.winfo_screenwidth()
+    screen_height = window.winfo_screenheight()
+
+    back_path = os.path.join(current_directory, "../img/icons8-back-24.png")
+    back_image = Image.open(back_path)
+    back_image = back_image.resize((48, 48), Image.LANCZOS)
+    back_photo = ImageTk.PhotoImage(back_image)
+
+
+    background_path = os.path.join(current_directory, "../img/background.jpg")
+    background_image = Image.open(background_path)
+    background_image = background_image.resize((int(screen_width), int(screen_height)), Image.LANCZOS)
+    background_photo = ImageTk.PhotoImage(background_image)
+
+    canvas.create_image(0, 0, image=background_photo, anchor="nw")
+    img_back = canvas.create_image(24, 24, image=back_photo, anchor="nw")
+
+    # Images for arrows and buttons
+    arrow_path = os.path.join(current_directory, "../img/icons8-arrow-96.png")
+    arrow_image = Image.open(arrow_path)
+    arrow_image = arrow_image.resize((75, 75), Image.LANCZOS)
+    up_photo = ImageTk.PhotoImage(arrow_image)
+    down_photo = ImageTk.PhotoImage(arrow_image.rotate(180))
+    right_photo = ImageTk.PhotoImage(arrow_image.rotate(270))
+    left_photo = ImageTk.PhotoImage(arrow_image.rotate(90))
+
+    button_path = os.path.join(current_directory, "../img/white-button.png")
+    button_image = Image.open(button_path)
+    button_image = button_image.resize((250, 45), Image.LANCZOS)
+    button_photo = ImageTk.PhotoImage(button_image)
+
+    font_1 = tkFont.Font(family="Courier", size=36)
+    font_2 = tkFont.Font(family="Courier", size=32)
+    font_3 = tkFont.Font(family="Courier", size=16)
+    font_4 = tkFont.Font(family="Courier", size=14)
+    font_title = tkFont.Font(family="Courier", size=64)
+    numbers_big = tkFont.Font(family="Orbitron", size=126)
+
+    # Set the frame title
+    # Creating text and arrows
+    font_title = tkFont.Font(family="Courier", size=64)
+    canvas.create_text(600, 100, text="MOTORS", font=font_title, fill="White", anchor="center")
+
+    # Create checkboxes for each servo using images
+    create_checkbox(canvas, 250, 175, "M01")
+    create_checkbox(canvas, 250, 250, "M02")
+    create_checkbox(canvas, 250, 325, "M03")
+    create_checkbox(canvas, 250, 400, "M04")
+    create_checkbox(canvas, 250, 400, "M05")
+
+    canvas.tag_bind(img_back, "<Button-1>", lambda e: switch_frame(control_zone_frame))
+
+    create_servo_buttons(canvas)
