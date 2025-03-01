@@ -280,7 +280,7 @@ def create_checkbox(canvas, x, y, motor_id):
     update_checkbox_image(motor_id, x, y, canvas, checkbox_empty_photo, checkbox_selected_photo)
 
     canvas.create_text(x+30, y+5, text=motor_id, font=tkFont.Font(family="Courier", size=32), fill="White", anchor="w")
-    canvas.create_text(x+100, y+5, text="(00)", font=tkFont.Font(family="Orbitron", size=32), fill="White", anchor="w")
+    canvas.create_text(x+130, y+5, text="("+"000"+"cm)", font=tkFont.Font(family="Courier", size=32), fill="White", anchor="w")
     # Bind the click event to toggle the checkbox state
     canvas.tag_bind(motor_id, "<Button-1>", lambda e: toggle_checkbox(motor_id, x, y, canvas, checkbox_empty_photo, checkbox_selected_photo))
 
@@ -300,7 +300,7 @@ def create_servo_buttons(canvas):
     font_1 = tkFont.Font(family="Courier", size=36)
     
     img_btn = canvas.create_image(800, 425, image=button_photo, anchor="center")
-    txt_btn = canvas.create_text(800, 425, text=f"STOP", font=font_1, fill="white", anchor="center")
+    txt_btn = canvas.create_text(800, 430, text=f"STOP", font=font_1, fill="white", anchor="center")
     
     # Vincular clics al botón
     canvas.tag_bind(img_btn, "<Button-1>", lambda e: send_angle(0))
@@ -371,11 +371,11 @@ def motor_frame(canvas):
     canvas.create_text(600, 100, text="MOTORS", font=font_title, fill="White", anchor="center")
 
     # Create checkboxes for each servo using images
-    create_checkbox(canvas, 250, 175, "M01")
-    create_checkbox(canvas, 250, 250, "M02")
-    create_checkbox(canvas, 250, 325, "M03")
-    create_checkbox(canvas, 250, 400, "M04")
-    create_checkbox(canvas, 250, 475, "M05")
+    create_checkbox(canvas, 200, 200, "M01")
+    create_checkbox(canvas, 200, 275, "M02")
+    create_checkbox(canvas, 200, 350, "M03")
+    create_checkbox(canvas, 200, 425, "M04")
+    create_checkbox(canvas, 200, 500, "M05")
 
     canvas.tag_bind(img_back, "<Button-1>", lambda e: switch_frame(control_zone_frame))
 

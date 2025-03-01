@@ -104,8 +104,8 @@ def main_frame():
     button2 = canvas.create_image(70, 420, image=button_photo, anchor="nw")
     button4 = canvas.create_image(70, 0, image=wolvi_photo, anchor="nw")
 
-    text1 = canvas.create_text(195, 372, text="COMPETITION", font=font_2, fill="White")
-    text2 = canvas.create_text(195, 442, text="CONTROL ZONE", font=font_2, fill="White")
+    text1 = canvas.create_text(195, 376, text="COMPETITION", font=font_2, fill="White")
+    text2 = canvas.create_text(195, 446, text="CONTROL ZONE", font=font_2, fill="White")
 
     canvas.tag_bind(button1, "<Button-1>", lambda e: switch_frame(competition_frame, True))
     canvas.tag_bind(text1, "<Button-1>", lambda e: switch_frame(competition_frame, True))

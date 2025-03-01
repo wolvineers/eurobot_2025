@@ -39,10 +39,10 @@ def control_zone_frame(canvas):
     button_photo = ImageTk.PhotoImage(button_image)
 
     img_servos = canvas.create_image(750, 225, image=button_photo, anchor="center")
-    txt_servos = canvas.create_text(750, 225, text="SERVOS", font=font_1, fill="White", anchor="center")
+    txt_servos = canvas.create_text(750, 232, text="SERVOS", font=font_1, fill="White", anchor="center")
 
     img_motors = canvas.create_image(750, 325, image=button_photo, anchor="center")
-    txt_motors = canvas.create_text(750, 325, text="MOTORS", font=font_1, fill="White", anchor="center")
+    txt_motors = canvas.create_text(750, 332, text="MOTORS", font=font_1, fill="White", anchor="center")
 
     canvas.tag_bind(img_servos, "<Button-1>", lambda e: switch_frame(groups_frame))
     canvas.tag_bind(txt_servos, "<Button-1>", lambda e: switch_frame(groups_frame))

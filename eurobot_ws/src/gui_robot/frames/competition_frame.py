@@ -49,19 +49,19 @@ def competition_frame(canvas):
     img_back = canvas.create_image(24, 24, image=back_photo, anchor="nw")
 
     # Create and place images and text on the canvas
-    canvas.create_text(602, 275, text="000", font=font_points, fill="White", anchor="center")
+    canvas.create_text(602, 225, text="000", font=font_points, fill="White", anchor="center")
 
     canvas.create_text(602, 450, text="POINTS", font=font_1, fill="White", anchor="center")
 
     img_traj = canvas.create_image(300, 50, image=button_photo, anchor="center")
-    txt_traj = canvas.create_text(300, 50, text="SEE TRAJECTORY", font=font_2, fill="White", anchor="center")
+    txt_traj = canvas.create_text(300, 54, text="SEE TRAJECTORY", font=font_2, fill="White", anchor="center")
 
     #TO-DO: PROGRAM FUNCTIONALITY
     canvas.create_image(600, 50, image=button_photo, anchor="center")
-    canvas.create_text(600, 50, text="INITIALIZE", font=font_2, fill="White", anchor="center")
+    canvas.create_text(600, 54, text="INITIALIZE", font=font_2, fill="White", anchor="center")
 
     img_strategy = canvas.create_image(900, 50, image=button_photo, anchor="center")
-    txt_strategy = canvas.create_text(900, 50, text="CHANGE STRATEGY", font=font_2, fill="White", anchor="center")
+    txt_strategy = canvas.create_text(900, 54, text="CHANGE STRATEGY", font=font_2, fill="White", anchor="center")
 
     canvas.create_text(600, 530, text="TIME REST: xx:xx", font=font_3, fill="White", anchor="center")
 

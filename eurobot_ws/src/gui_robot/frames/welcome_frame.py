@@ -76,8 +76,8 @@ def welcome_frame(canvas):
     canvas.create_text(880, 350, text=f"xx% (ZDC)", font=font_1, fill="White", anchor="w")
 
     # Show IP Address (Centered Below Batteries)
-    canvas.create_image(620, 470, image=ip_photo, anchor="center")
-    canvas.create_text(650, 470, text=get_local_ip(), font=font_1, fill="White", anchor="w")
+    canvas.create_image(620, 425, image=ip_photo, anchor="center")
+    canvas.create_text(650, 425, text=get_local_ip(), font=font_1, fill="White", anchor="w")
 
     # Define the options for the dropdown
     options = ["Insomnious", "Torete"]

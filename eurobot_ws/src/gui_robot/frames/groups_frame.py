@@ -157,7 +157,7 @@ def create_angle_buttons(canvas):
     button_path = os.path.join(current_directory, "../img/white-button.png")
     button_image = Image.open(button_path)
     button_image_2 = button_image.resize((350, 65), Image.LANCZOS)
-    button_image = button_image.resize((100, 50), Image.LANCZOS)
+    button_image = button_image.resize((135, 50), Image.LANCZOS)
     button_photo = ImageTk.PhotoImage(button_image)
 
     button_photo_2 = ImageTk.PhotoImage(button_image_2)
@@ -165,14 +165,14 @@ def create_angle_buttons(canvas):
     font_1 = tkFont.Font(family="Courier", size=36)
     
     # Display selected angle
-    angle_label = canvas.create_text(800, 535, text=f"Angle: {angle}º", font=font_title, fill="white")
+    angle_label = canvas.create_text(800, 550, text=f"Angle: {angle}º", font=font_title, fill="white")
 
     # Botones de ángulos preestablecidos
     preset_angles = [45, 90, 135, 180]
     for i, preset in enumerate(preset_angles):
         y_pos = 175 + (i * 75)
         img_btn = canvas.create_image(700, y_pos, image=button_photo, anchor="center")
-        txt_btn = canvas.create_text(700, y_pos, text=f"{preset}º", font=font_1, fill="white", anchor="center")
+        txt_btn = canvas.create_text(700, y_pos+8, text=f"{preset}º", font=font_1, fill="white", anchor="center")
         
         # Vincular clics al botón
         canvas.tag_bind(img_btn, "<Button-1>", lambda e, p=preset: update_angle(p, canvas))
@@ -183,7 +183,7 @@ def create_angle_buttons(canvas):
     for i, (label, inc) in enumerate(increments):
         y_pos = 175 + (i * 75)
         img_btn = canvas.create_image(900, y_pos, image=button_photo, anchor="center")
-        txt_btn = canvas.create_text(900, y_pos, text=label, font=font_1, fill="white", anchor="center")
+        txt_btn = canvas.create_text(900, y_pos+8, text=label, font=font_1, fill="white", anchor="center")
 
         # Vincular clics al botón
         canvas.tag_bind(img_btn, "<Button-1>", lambda e, inc=inc: update_angle(inc, canvas, True))
@@ -192,7 +192,7 @@ def create_angle_buttons(canvas):
 
     # Crear botón como imagen y texto en el Canvas
     img_button = canvas.create_image(800, 485, image=button_photo_2, anchor="center")
-    txt_button = canvas.create_text(800, 485, text="Send Angle", font=font_1, fill="white", anchor="center")
+    txt_button = canvas.create_text(800, 495, text="Send Angle", font=font_1, fill="white", anchor="center")
 
     # Asignar evento de clic
     canvas.tag_bind(img_button, "<Button-1>", lambda e: send_angle())
@@ -250,7 +250,7 @@ def groups_frame(canvas):
     # Set the frame title
     # Creating text and arrows
     font_title = tkFont.Font(family="Courier", size=64)
-    canvas.create_text(600, 50, text="SERVOS", font=font_title, fill="White", anchor="center")
+    canvas.create_text(600, 100, text="SERVOS", font=font_title, fill="White", anchor="center")
 
     # Create checkboxes for each servo using images
     create_checkbox(canvas, 250, 175, "S01")
