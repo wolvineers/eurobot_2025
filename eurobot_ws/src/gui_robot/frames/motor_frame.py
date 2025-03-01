@@ -280,6 +280,7 @@ def create_checkbox(canvas, x, y, motor_id):
     update_checkbox_image(motor_id, x, y, canvas, checkbox_empty_photo, checkbox_selected_photo)
 
     canvas.create_text(x+30, y+5, text=motor_id, font=tkFont.Font(family="Courier", size=32), fill="White", anchor="w")
+    canvas.create_text(x+100, y+5, text="(00)", font=tkFont.Font(family="Orbitron", size=32), fill="White", anchor="w")
     # Bind the click event to toggle the checkbox state
     canvas.tag_bind(motor_id, "<Button-1>", lambda e: toggle_checkbox(motor_id, x, y, canvas, checkbox_empty_photo, checkbox_selected_photo))
 
@@ -312,8 +313,8 @@ def create_servo_buttons(canvas):
         command=lambda value: send_angle(value),  # Directly call set_motor_velocity
     )
     slider.config(
-        orient=tk.VERTICAL, 
-        length=200,
+        orient=tk.HORIZONTAL, 
+        length=250,
         width=40,
         bd=0,
     )
@@ -374,7 +375,7 @@ def motor_frame(canvas):
     create_checkbox(canvas, 250, 250, "M02")
     create_checkbox(canvas, 250, 325, "M03")
     create_checkbox(canvas, 250, 400, "M04")
-    create_checkbox(canvas, 250, 400, "M05")
+    create_checkbox(canvas, 250, 475, "M05")
 
     canvas.tag_bind(img_back, "<Button-1>", lambda e: switch_frame(control_zone_frame))
 
