@@ -25,7 +25,6 @@ def load_selector_value():
 
 def get_local_ip():
     try:
-        # Use os to run ifconfig with grep and awk to extract local IP
         local_ip = os.popen("ifconfig | grep 'inet ' | grep -v '127.0.0.1' | awk '{print $2}'").read().strip()
         return local_ip
     except Exception as e:
@@ -33,78 +32,76 @@ def get_local_ip():
 
 def get_battery_percentage():
     battery = psutil.sensors_battery()
-    if battery:
-        return f"{battery.percent}%"
-    return "No Battery"
+    return f"{battery.percent}%" if battery else "No Battery"
+
+empty_checkbox_path = os.path.join(current_directory, "../img/checkbox_empty.png")
+selected_checkbox_path = os.path.join(current_directory, "../img/checkbox_selected.png")
+
+empty_checkbox_image = Image.open(empty_checkbox_path).resize((40, 40), Image.LANCZOS)
+selected_checkbox_image = Image.open(selected_checkbox_path).resize((40, 40), Image.LANCZOS)
+
+checkbox_states = {"Insomnious": False, "Torete": False}
+
+def update_checkbox_image(canvas, selected_id, other_id):
+    for checkbox_id in [selected_id, other_id]:
+        image_to_display = ImageTk.PhotoImage(selected_checkbox_image if checkbox_states[checkbox_id] else empty_checkbox_image)
+        canvas.itemconfig(canvas.find_withtag(checkbox_id)[0], image=image_to_display)
+        canvas.image_cache[checkbox_id] = image_to_display  # Prevent garbage collection
+
+def toggle_checkbox(selected_id, canvas):
+    other_id = "Insomnious" if selected_id == "Torete" else "Torete"
+    checkbox_states[selected_id] = True
+    checkbox_states[other_id] = False
+    update_checkbox_image(canvas, selected_id, other_id)
+    selector_var.set(selected_id)
+    save_selector_value("1" if selected_id == "Insomnious" else "2")
+
+def create_checkbox(canvas, x, y, selected_id):
+    empty_photo = ImageTk.PhotoImage(empty_checkbox_image)
+    selected_photo = ImageTk.PhotoImage(selected_checkbox_image)
+    canvas.image_cache[selected_id] = empty_photo  # Prevent garbage collection
+
+    canvas.create_image(x, y, image=empty_photo, anchor="center", tags=selected_id)
+    canvas.create_text(x + 30, y + 5, text=selected_id, font=tkFont.Font(family="Courier", size=16), fill="White", anchor="w")
+    canvas.tag_bind(selected_id, "<Button-1>", lambda e: toggle_checkbox(selected_id, canvas))
+
+def on_selector_change(selected_option):
+    toggle_checkbox(selected_option, canvas)
 
 def welcome_frame(canvas):
-    """ 
-    Set the function to design the Welcome Frame
-
-    Args:
-        (canvas): Variable that set the shape of the window
-    """
-    global battery_photo, ip_photo  # Set the global variables
+    global selector_var
+    canvas.image_cache = {}
 
     font_1 = tkFont.Font(family="Courier", size=24)
-    font_2 = tkFont.Font(family="Courier", size=20)
-    font_3 = tkFont.Font(family="Courier", size=16)
-    font_4 = tkFont.Font(family="Courier", size=14)
     numbers_big = tkFont.Font(family="Orbitron", size=126)
 
-    # Set the variable that contains the path of the image
-    battery_path = os.path.join(current_directory, "../img/icons8-battery-24.png") 
-    battery_image = Image.open(battery_path)
-    battery_image = battery_image.resize((36, 36), Image.LANCZOS)
+    battery_path = os.path.join(current_directory, "../img/icons8-battery-24.png")
+    battery_image = Image.open(battery_path).resize((36, 36), Image.LANCZOS)
     battery_photo = ImageTk.PhotoImage(battery_image)
+    canvas.image_cache["battery"] = battery_photo
 
-    # Set the variable that contains the path of the image
-    ip_path = os.path.join(current_directory, "../img/icons8-ip-24.png") 
-    ip_image = Image.open(ip_path)
-    ip_image = ip_image.resize((36, 36), Image.LANCZOS)
+    ip_path = os.path.join(current_directory, "../img/icons8-ip-24.png")
+    ip_image = Image.open(ip_path).resize((36, 36), Image.LANCZOS)
     ip_photo = ImageTk.PhotoImage(ip_image)
+    canvas.image_cache["ip"] = ip_photo
 
-    # Center the Clock
     canvas.create_text(750, 200, text=time.strftime("%H:%M"), font=numbers_big, fill="White", anchor="center")
-
-    # Show Local Battery (Left Side)
     canvas.create_image(500, 350, image=battery_photo, anchor="center")
     canvas.create_text(530, 350, text=f"{get_battery_percentage()} (R)", font=font_1, fill="White", anchor="w")
-    
-    # Show ZDC Battery (Right Side)
     canvas.create_image(850, 350, image=battery_photo, anchor="center")
-    canvas.create_text(880, 350, text=f"xx% (ZDC)", font=font_1, fill="White", anchor="w")
-
-    # Show IP Address (Centered Below Batteries)
+    canvas.create_text(880, 350, text="xx% (ZDC)", font=font_1, fill="White", anchor="w")
     canvas.create_image(620, 425, image=ip_photo, anchor="center")
     canvas.create_text(650, 425, text=get_local_ip(), font=font_1, fill="White", anchor="w")
 
-    # Define the options for the dropdown
     options = ["Insomnious", "Torete"]
-    selected_value = load_selector_value()  # Load the previous selection
+    selected_value = load_selector_value()
+    default_value = "Insomnious" if selected_value != "2" else "Torete"
 
-    # Set the default value of the dropdown
-    if selected_value == "1":
-        default_value = "Insomnious"
-    elif selected_value == "2":
-        default_value = "Torete"
-    else:
-        default_value = "Insomnious"
-
-    # Crear el OptionMenu
     selector_var = tk.StringVar()
-    selector_var.set(default_value)  # Esto establece el valor predeterminado
+    selector_var.set(default_value)
 
-    selector = tk.OptionMenu(canvas, selector_var, *options)
-    canvas.create_window(750, 525, window=selector, anchor="center")
+    create_checkbox(canvas, 500, 500, "Insomnious")
+    create_checkbox(canvas, 850, 500, "Torete")
 
-    # Función para manejar el cambio de valor en el selector
-    def on_selector_change(event):
-        selected_option = selector_var.get()  # Obtenemos el valor seleccionado usando selector_var
-        if selected_option == "Insomnious":
-            save_selector_value("1")
-        elif selected_option == "Torete":
-            save_selector_value("2")
+    toggle_checkbox(default_value, canvas)
 
-    # Asociar la función de cambio al evento del selector
-    selector.bind("<Configure>", on_selector_change)  # O usa otro evento según tu necesidad
