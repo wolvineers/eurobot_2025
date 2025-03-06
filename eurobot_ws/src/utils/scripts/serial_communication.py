@@ -1,6 +1,6 @@
 import serial, time
 
-def open_serial_port(port, baudrate, timeout=1):
+def open_serial_port(port, baudrate, timeout=0.01):
     """
     Opens the serial port with the specified parameters.
     
@@ -125,14 +125,15 @@ def read_message(serial_port):
 
                 # Verify the integrity of the message
                 if verify_serial_message(message):
-                    print("Correct checksum.")
+                    # print("Correct checksum.")
+                    return message
                 else:
                     print("Incorrect checksum.")
-                
-                break
+                    return None
     
     except KeyboardInterrupt:
         print("Read operation interrupted.")
+        return None
 
 
 def send_message(serial_port, message):
@@ -148,7 +149,7 @@ def send_message(serial_port, message):
     try:
         serial_message = prepare_serial_message(message)
         serial_port.write(serial_message.encode('ascii'))
-        print(f"Sended: {serial_message.strip()}")
+        # print(f"Sended: {serial_message.strip()}")
 
     except Exception as e:
         print(f"Error sending message: {e}")
