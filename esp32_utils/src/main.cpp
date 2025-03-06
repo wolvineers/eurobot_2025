@@ -136,12 +136,13 @@ PID_Motor motorR(motor_paramsr);
 PID_Motor motor3(motor_params3);
 PID_Motor motor4(motor_params4);
 
-void setup() {
-    setupSerial();
-    Serial.begin(115200);
+float power_left, power_right;
+int   loop_counter;
 
+void setup() {
+    setupSerial();  
+    Serial.begin(115200);
     
-     
     pinMode(22, OUTPUT);
     digitalWrite(22, 0);
 
@@ -149,41 +150,57 @@ void setup() {
     motorL.initialize_timer();
     motor3.initialize_timer();
     motor4.initialize_timer();
+
+    motorL.restart_pulses();
+    motor3.restart_pulses();
+
+    power_left  = 0.0;
+    power_right = 0.0;
+
+    loop_counter = 0;
 }
 
 void loop() {
-    String message = readMessage();
-    
-    String encoder_l = String(motorL.get_pulses());
 
-    if (encoder_l != "0"){
+    // Send messages
+
+    /// Prepare the message to send with the encoder value expressed in centimeters
+    char encoder_l[20]; snprintf(encoder_l, sizeof(encoder_l), "EL,%ld", (int)(motorL.get_pulses() / MOTOR_POLSOS_PER_CM));
+    char encoder_r[20]; snprintf(encoder_r, sizeof(encoder_r), "ER,%ld", (int)(motor3.get_pulses() / MOTOR_POLSOS_PER_CM));
+
+    /// Send less messages per second to avoid delays in communication
+    loop_counter ++;
+    if (loop_counter % 15 == 0) {   
         sendMessage(encoder_l);
+        sendMessage(encoder_r);
     }
 
+
+    // Read message
+
+    String message = readMessage();
+
+    /// Get each value of the message and assign motors power
     if (message.length() > 0) {
+        int firstComma = message.indexOf(',');
+        int secondComma = message.indexOf(',', firstComma + 1);
+        if (firstComma > 0 && secondComma > firstComma) {
+            String motorStr    = message.substring(0, firstComma);
+            String motorPowStr = message.substring(firstComma + 1, secondComma);
+            
+            float power = motorPowStr.toInt(); 
 
+            if      (motorStr == "ML") { power_left  = power; }
+            else if (motorStr == "MR") { power_right = power; }
 
-        int commaPos = message.indexOf(',');
-        if (commaPos != -1) {
-            String motor = message.substring(0, commaPos);
-            String value = message.substring(commaPos + 1);
-            float speed = value.substring(0, value.indexOf(',')).toInt();
-
-            Serial.println(speed);
-
-            if (motor == "ML") {
-                motorL.setpoint = speed;
-            } else if (motor == "MR") {
-                motorR.setpoint = speed;  
-            } else if (motor == "M3") {
-                motor3.setpoint = speed;  
-            } else if (motor == "M4") {
-                motor4.setpoint = speed;  
-            }
-
-
+            motorL.setpoint = power_left;
+            motor3.setpoint = power_right;
         }
     }
 
+    delay(20); /// Receive 10 messages per second
 
+    /// Reset encoders value at the end of the move
+    if (power_left  == 0.0) { motorL.restart_pulses(); }
+    if (power_right == 0.0) { motor3.restart_pulses(); }
 }
