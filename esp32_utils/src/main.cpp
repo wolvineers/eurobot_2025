@@ -40,14 +40,14 @@ float set_PID_speed(int64_t current_pulses, int64_t previous_pulses){
 // Variable to set the motor speed
 
 
-PID_Motor_params motor_paramsl = {
+PID_Motor_params motor_params1 = {
  .gpio_en = (gpio_num_t) GPIO_INA1,               // Motor enable, driver input to control with PWM and turns on and off the motor.
  .gpio_ph = (gpio_num_t) GPIO_INA2,               // Motor phase, driver input to set the direction to drive the motor.
  .gpio_enc_a = (gpio_num_t) GPIO_ENCA1,            // Encoder first output
  .gpio_enc_b = (gpio_num_t) GPIO_ENCA2,             // Encoder second output
 
 
- .motor_direction = false,                 // Motor direction, inverts the encoder and direction of the motor. For example, two motors on opposite sides.
+ .motor_direction = true,                 // Motor direction, inverts the encoder and direction of the motor. For example, two motors on opposite sides.
 
 
  .speed_input_var = NULL,          // The variable has to be passed as reference. Has priority over the function. When using the speed curve, it gets overriden.
@@ -62,7 +62,7 @@ PID_Motor_params motor_paramsl = {
 };
 
 
-PID_Motor_params motor_paramsr = {
+PID_Motor_params motor_params2 = {
  .gpio_en = (gpio_num_t) GPIO_INB1,               // Motor enable, driver input to control with PWM and turns on and off the motor.
  .gpio_ph = (gpio_num_t) GPIO_INB2,               // Motor phase, driver input to set the direction to drive the motor.
  .gpio_enc_a = (gpio_num_t) GPIO_ENCB1,            // Encoder first output
@@ -91,7 +91,7 @@ PID_Motor_params motor_params3 = {
  .gpio_enc_b = (gpio_num_t) GPIO_ENCC2,             // Encoder second output
 
 
- .motor_direction = true,                 // Motor direction, inverts the encoder and direction of the motor. For example, two motors on opposite sides.
+ .motor_direction = false,                 // Motor direction, inverts the encoder and direction of the motor. For example, two motors on opposite sides.
 
 
  .speed_input_var = NULL,          // The variable has to be passed as reference. Has priority over the function. When using the speed curve, it gets overriden.
@@ -131,10 +131,10 @@ PID_Motor_params motor_params4 = {
 
 
 // We create the motor object
-PID_Motor motorL(motor_paramsl);
-PID_Motor motorR(motor_paramsr);
-PID_Motor motor3(motor_params3);
-PID_Motor motor4(motor_params4);
+PID_Motor motor1(motor_params1);
+PID_Motor motor2(motor_params2);
+PID_Motor motorR(motor_params3);
+PID_Motor motorL(motor_params4);
 
 float power_left, power_right;
 int   loop_counter;
@@ -146,13 +146,13 @@ void setup() {
     pinMode(22, OUTPUT);
     digitalWrite(22, 0);
 
+    motor1.initialize_timer();
+    motor2.initialize_timer();
     motorR.initialize_timer();
     motorL.initialize_timer();
-    motor3.initialize_timer();
-    motor4.initialize_timer();
 
+    motorR.restart_pulses();
     motorL.restart_pulses();
-    motor3.restart_pulses();
 
     power_left  = 0.0;
     power_right = 0.0;
@@ -166,7 +166,7 @@ void loop() {
 
     /// Prepare the message to send with the encoder value expressed in centimeters
     char encoder_l[20]; snprintf(encoder_l, sizeof(encoder_l), "EL,%ld", (int)(motorL.get_pulses() / MOTOR_POLSOS_PER_CM));
-    char encoder_r[20]; snprintf(encoder_r, sizeof(encoder_r), "ER,%ld", (int)(motor3.get_pulses() / MOTOR_POLSOS_PER_CM));
+    char encoder_r[20]; snprintf(encoder_r, sizeof(encoder_r), "ER,%ld", (int)(motorR.get_pulses() / MOTOR_POLSOS_PER_CM));
 
     /// Send less messages per second to avoid delays in communication
     loop_counter ++;
@@ -194,7 +194,7 @@ void loop() {
             else if (motorStr == "MR") { power_right = power; }
 
             motorL.setpoint = power_left;
-            motor3.setpoint = power_right;
+            motorR.setpoint = power_right;
         }
     }
 
@@ -202,5 +202,5 @@ void loop() {
 
     /// Reset encoders value at the end of the move
     if (power_left  == 0.0) { motorL.restart_pulses(); }
-    if (power_right == 0.0) { motor3.restart_pulses(); }
+    if (power_right == 0.0) { motorR.restart_pulses(); }
 }
