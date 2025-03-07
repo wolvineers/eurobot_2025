@@ -21,7 +21,7 @@ class ControllerNode(Node):
 
         super().__init__('controller')
 
-        ## Attributes
+        # Attributes
         self.encoder_left_  = 0
         self.encoder_right_ = 0
 
@@ -32,18 +32,20 @@ class ControllerNode(Node):
         
         self.timer_period_ = 0.1
 
-        ## Publishers
+        self.robot_movements = []
+
+        # Publishers
         self.velocities_pub_ = self.create_publisher(Twist, '/controller/motors_pow', 10)
 
-        ## Subscribers
+        # Subscribers
         self.movement_sub_      = self.create_subscription(Vector3, '/movement', self.movement_callback, 10)
         self.encoder_left_sub_  = self.create_subscription(Float32, '/controller/encoder_left', self.encoder_left_callback, 10)
         self.encoder_right_sub_ = self.create_subscription(Float32, '/controller/encoder_right', self.encoder_right_callback, 10)
 
-        ## Timers
+        # Timers
         self.controller_tim_ = self.create_timer(self.timer_period_, self.control_velocities)
 
-        ## Differential drive object
+        # Differential drive object
         self.robot = DifferentialWheel(l=0.25, radius=0.0475)
 
     
@@ -73,7 +75,7 @@ class ControllerNode(Node):
 
     def movement_callback(self, movement):
         """
-        Gets the values of movement and and stores them before calculating the power of each motor.
+        Gets the values of movement and and stores them int the robot_movement queue.
 
         Args:
             movement (Vector3): The message received by the subscriber, containing movement data.
@@ -83,19 +85,31 @@ class ControllerNode(Node):
                 *   z --> movement time
         """
 
-        self.mov_time     = movement.z
-        self.elapsed_time = 0
-
-        self.vel_left, self.vel_right = self.robot.get_motor_velocities(movement.x, movement.y)
+        self.robot_movements.append((movement.x, movement.y, movement.z))
+        self.get_logger().info("New movement added")
 
 
     def control_velocities(self):
         """
-        For each elapsed time publishes the power of each motor to the corresponding topic.
+        At each elapsed time publishes the power of each motor for the current movement to the respective topic.
         """
-        
-        if self.mov_time != 0:
-            # If there is movement time left update the robot state
+
+        ## --- TO DO ---
+        ##  - Change the robot_movement queue to an action server
+        ##  - Add the lidar detection in the first condition
+        ##  - Remove the delay to avoid shaking and control it in the basic_routine.py
+
+        if self.robot_movements:
+            # Check if there are pending movements to be processed
+
+            if self.mov_time == 0:
+                # If the last movement has finished, fetch the values for the new movement
+                time.sleep(1)  # Delay to avoid robot shaking
+
+                self.mov_time = self.robot_movements[0][2]
+                self.vel_left, self.vel_right = self.robot.get_motor_velocities(self.robot_movements[0][0], self.robot_movements[0][1])
+
+            # Update the robot's state
             dt = 0.1
             self.robot.update_state(self.vel_left, self.vel_right, dt)
             self.elapsed_time += dt
@@ -105,7 +119,10 @@ class ControllerNode(Node):
                 self.vel_left = 0.0
                 self.vel_right = 0.0
                 self.mov_time = 0
+                self.elapsed_time = 0.0
 
+                # Remove the completed movement from the queue of pending movements
+                self.robot_movements.pop(0)
 
         # Publish the message with each motor power
         motor_vel_msg = Twist()
@@ -113,8 +130,7 @@ class ControllerNode(Node):
         motor_vel_msg.linear.y = self.vel_left
         motor_vel_msg.linear.z = self.vel_right
 
-        self.get_logger().info("Velocity left: " + str(self.vel_left))
-        self.get_logger().info("Velocity right: " + str(self.vel_right))
+        self.get_logger().info("Velocity left: " + str(self.vel_left) + " | Velocity right: " + str(self.vel_right))
         
         self.velocities_pub_.publish(motor_vel_msg)      
 

@@ -199,8 +199,4 @@ void loop() {
     }
 
     delay(20); /// Receive 10 messages per second
-
-    /// Reset encoders value at the end of the move
-    if (power_left  == 0.0) { motorL.restart_pulses(); }
-    if (power_right == 0.0) { motorR.restart_pulses(); }
 }
