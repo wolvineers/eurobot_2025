@@ -1,0 +1,17 @@
+# Target labels
+ Extra
+ opencv_signal
+ AccuracyTest
+# Source files and their labels
+/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv_contrib-4.x/modules/signal/test/test_main.cpp
+ Extra
+ opencv_signal
+ AccuracyTest
+/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv_contrib-4.x/modules/signal/test/test_signal.cpp
+ Extra
+ opencv_signal
+ AccuracyTest
+/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv_contrib-4.x/modules/signal/test/test_precomp.hpp
+ Extra
+ opencv_signal
+ AccuracyTest
