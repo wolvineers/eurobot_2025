@@ -6,12 +6,18 @@ os.system("clear")
 current_directory = os.path.dirname(os.path.abspath(__file__))
 
 
-#Set the function to design the frame02 (Competition Frame)
 def frame02(canvas):
-    global field_photo, frame_photo
+    """ 
+    Set the function to design the frame02 (Cometition Frame)
 
-    courirer_font = tkFont.Font(family="Courier", size=22)
+    Args:
+        (canvas): Variable that set the shape of the window
+    """
+    global field_photo, frame_photo # Set the global variables
 
+    courirer_font = tkFont.Font(family="Courier", size=22) # Set the font for the default text
+   
+    # Set the variable that contains the path of the image
     field_path = os.path.join(current_directory, "../img/field.png")
     field_image = Image.open(field_path)
     field_image = field_image.resize((400, 250), Image.LANCZOS)
@@ -22,6 +28,7 @@ def frame02(canvas):
     frame_image = frame_image.resize((440, 280), Image.LANCZOS)
     frame_photo = ImageTk.PhotoImage(frame_image)
 
+    # Display all the content (text and images) on the frame
     canvas.create_image(560, 100, image=field_photo, anchor="nw")
     canvas.create_image(540, 85, image=frame_photo, anchor="nw")
 
