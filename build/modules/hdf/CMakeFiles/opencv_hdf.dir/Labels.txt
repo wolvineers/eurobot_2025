@@ -1,0 +1,23 @@
+# Target labels
+ Extra
+ opencv_hdf
+ Module
+# Source files and their labels
+/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv_contrib-4.x/modules/hdf/include/opencv2/hdf.hpp
+ Extra
+ opencv_hdf
+ Module
+/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv_contrib-4.x/modules/hdf/include/opencv2/hdf/hdf5.hpp
+ Extra
+ opencv_hdf
+ Module
+/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv_contrib-4.x/modules/hdf/src/hdf5.cpp
+ Extra
+ opencv_hdf
+ Module
+/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv_contrib-4.x/modules/hdf/src/precomp.hpp
+ Extra
+ opencv_hdf
+ Module
+/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/cvconfig.h
+/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/opencv2/opencv_modules.hpp

@@ -1,0 +1,57 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv_contrib-4.x/modules/intensity_transform/include/opencv2/intensity_transform.hpp",
+			"labels" : 
+			[
+				"Extra",
+				"opencv_intensity_transform",
+				"Module"
+			]
+		},
+		{
+			"file" : "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv_contrib-4.x/modules/intensity_transform/src/bimef.cpp",
+			"labels" : 
+			[
+				"Extra",
+				"opencv_intensity_transform",
+				"Module"
+			]
+		},
+		{
+			"file" : "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv_contrib-4.x/modules/intensity_transform/src/intensity_transform.cpp",
+			"labels" : 
+			[
+				"Extra",
+				"opencv_intensity_transform",
+				"Module"
+			]
+		},
+		{
+			"file" : "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv_contrib-4.x/modules/intensity_transform/src/precomp.hpp",
+			"labels" : 
+			[
+				"Extra",
+				"opencv_intensity_transform",
+				"Module"
+			]
+		},
+		{
+			"file" : "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/cvconfig.h"
+		},
+		{
+			"file" : "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/opencv2/opencv_modules.hpp"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"Extra",
+			"opencv_intensity_transform",
+			"Module"
+		],
+		"name" : "opencv_intensity_transform"
+	}
+}

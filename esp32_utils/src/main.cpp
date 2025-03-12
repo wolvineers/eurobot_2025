@@ -38,17 +38,27 @@ float set_PID_speed(int64_t current_pulses, int64_t previous_pulses){
 
 
 // Variable to set the motor speed
+<<<<<<< HEAD
 float motor_speed = 0.0;
 
 
 PID_Motor_params motor_paramsl = {
+=======
+
+
+PID_Motor_params motor_params1 = {
+>>>>>>> development
  .gpio_en = (gpio_num_t) GPIO_INA1,               // Motor enable, driver input to control with PWM and turns on and off the motor.
  .gpio_ph = (gpio_num_t) GPIO_INA2,               // Motor phase, driver input to set the direction to drive the motor.
  .gpio_enc_a = (gpio_num_t) GPIO_ENCA1,            // Encoder first output
  .gpio_enc_b = (gpio_num_t) GPIO_ENCA2,             // Encoder second output
 
 
+<<<<<<< HEAD
  .motor_direction = false,                 // Motor direction, inverts the encoder and direction of the motor. For example, two motors on opposite sides.
+=======
+ .motor_direction = true,                 // Motor direction, inverts the encoder and direction of the motor. For example, two motors on opposite sides.
+>>>>>>> development
 
 
  .speed_input_var = NULL,          // The variable has to be passed as reference. Has priority over the function. When using the speed curve, it gets overriden.
@@ -63,7 +73,11 @@ PID_Motor_params motor_paramsl = {
 };
 
 
+<<<<<<< HEAD
 PID_Motor_params motor_paramsr = {
+=======
+PID_Motor_params motor_params2 = {
+>>>>>>> development
  .gpio_en = (gpio_num_t) GPIO_INB1,               // Motor enable, driver input to control with PWM and turns on and off the motor.
  .gpio_ph = (gpio_num_t) GPIO_INB2,               // Motor phase, driver input to set the direction to drive the motor.
  .gpio_enc_a = (gpio_num_t) GPIO_ENCB1,            // Encoder first output
@@ -73,7 +87,11 @@ PID_Motor_params motor_paramsr = {
  .motor_direction = true,                 // Motor direction, inverts the encoder and direction of the motor. For example, two motors on opposite sides.
 
 
+<<<<<<< HEAD
  .speed_input_var = NULL,          // The variable has to be passed as reference. Has priority over the function. When using the speed curve, it gets overriden.
+=======
+ .speed_input_var = NULL,//&motor_speed_r,          // The variable has to be passed as reference. Has priority over the function. When using the speed curve, it gets overriden.
+>>>>>>> development
  //.speed_input_function = set_PID_speed,  // The fuction that controls the speed. Has less priority than the variable. Not used in this example
  .speed_input_function = NULL,             // If not used, set the value to NULL. If both are NULL, it can be controlled directly modifying setpoint, but using the variable is recommended
 
@@ -92,10 +110,17 @@ PID_Motor_params motor_params3 = {
  .gpio_enc_b = (gpio_num_t) GPIO_ENCC2,             // Encoder second output
 
 
+<<<<<<< HEAD
  .motor_direction = true,                 // Motor direction, inverts the encoder and direction of the motor. For example, two motors on opposite sides.
 
 
  .speed_input_var = &motor_speed,          // The variable has to be passed as reference. Has priority over the function. When using the speed curve, it gets overriden.
+=======
+ .motor_direction = false,                 // Motor direction, inverts the encoder and direction of the motor. For example, two motors on opposite sides.
+
+
+ .speed_input_var = NULL,          // The variable has to be passed as reference. Has priority over the function. When using the speed curve, it gets overriden.
+>>>>>>> development
  //.speed_input_function = set_PID_speed,  // The fuction that controls the speed. Has less priority than the variable. Not used in this example
  .speed_input_function = NULL,             // If not used, set the value to NULL. If both are NULL, it can be controlled directly modifying setpoint, but using the variable is recommended
 
@@ -132,6 +157,7 @@ PID_Motor_params motor_params4 = {
 
 
 // We create the motor object
+<<<<<<< HEAD
 PID_Motor motorL(motor_paramsl);
 PID_Motor motorR(motor_paramsr);
 PID_Motor motor3(motor_params3);
@@ -205,3 +231,74 @@ void loop() {
        }
    }
 }
+=======
+PID_Motor motor1(motor_params1);
+PID_Motor motor2(motor_params2);
+PID_Motor motorR(motor_params3);
+PID_Motor motorL(motor_params4);
+
+float power_left, power_right;
+int   loop_counter;
+
+void setup() {
+    setupSerial();  
+    Serial.begin(115200);
+    
+    pinMode(22, OUTPUT);
+    digitalWrite(22, 0);
+
+    motor1.initialize_timer();
+    motor2.initialize_timer();
+    motorR.initialize_timer();
+    motorL.initialize_timer();
+
+    motorR.restart_pulses();
+    motorL.restart_pulses();
+
+    power_left  = 0.0;
+    power_right = 0.0;
+
+    loop_counter = 0;
+}
+
+void loop() {
+
+    // Send messages
+
+    /// Prepare the message to send with the encoder value expressed in centimeters
+    char encoder_l[20]; snprintf(encoder_l, sizeof(encoder_l), "EL,%ld", (int)(motorL.get_pulses() / MOTOR_POLSOS_PER_CM));
+    char encoder_r[20]; snprintf(encoder_r, sizeof(encoder_r), "ER,%ld", (int)(motorR.get_pulses() / MOTOR_POLSOS_PER_CM));
+
+    /// Send less messages per second to avoid delays in communication
+    loop_counter ++;
+    if (loop_counter % 15 == 0) {   
+        sendMessage(encoder_l);
+        sendMessage(encoder_r);
+    }
+
+
+    // Read message
+
+    String message = readMessage();
+
+    /// Get each value of the message and assign motors power
+    if (message.length() > 0) {
+        int firstComma = message.indexOf(',');
+        int secondComma = message.indexOf(',', firstComma + 1);
+        if (firstComma > 0 && secondComma > firstComma) {
+            String motorStr    = message.substring(0, firstComma);
+            String motorPowStr = message.substring(firstComma + 1, secondComma);
+            
+            float power = motorPowStr.toInt(); 
+
+            if      (motorStr == "ML") { power_left  = power; }
+            else if (motorStr == "MR") { power_right = power; }
+
+            motorL.setpoint = power_left;
+            motorR.setpoint = power_right;
+        }
+    }
+
+    delay(20); /// Receive 10 messages per second
+}
+>>>>>>> development
