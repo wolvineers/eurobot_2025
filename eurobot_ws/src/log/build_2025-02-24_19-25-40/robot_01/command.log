@@ -1,0 +1,6 @@
+Invoking command in '/wolvi/src/build/robot_01': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/wolvi/install/lidar:/opt/ros/humble /usr/bin/cmake /wolvi/src/robot_01 -DCMAKE_INSTALL_PREFIX=/wolvi/src/install/robot_01
+Invoked command in '/wolvi/src/build/robot_01' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/wolvi/install/lidar:/opt/ros/humble /usr/bin/cmake /wolvi/src/robot_01 -DCMAKE_INSTALL_PREFIX=/wolvi/src/install/robot_01
+Invoking command in '/wolvi/src/build/robot_01': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/wolvi/install/lidar:/opt/ros/humble /usr/bin/cmake --build /wolvi/src/build/robot_01 -- -j8 -l8
+Invoked command in '/wolvi/src/build/robot_01' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/wolvi/install/lidar:/opt/ros/humble /usr/bin/cmake --build /wolvi/src/build/robot_01 -- -j8 -l8
+Invoking command in '/wolvi/src/build/robot_01': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/wolvi/install/lidar:/opt/ros/humble /usr/bin/cmake --install /wolvi/src/build/robot_01
+Invoked command in '/wolvi/src/build/robot_01' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/wolvi/install/lidar:/opt/ros/humble /usr/bin/cmake --install /wolvi/src/build/robot_01

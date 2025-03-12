@@ -129,8 +129,7 @@ def read_message(serial_port):
                     return message
                 else:
                     print("Incorrect checksum.")
-                    return None
-    
+                    return None    
     except KeyboardInterrupt:
         print("Read operation interrupted.")
         return None

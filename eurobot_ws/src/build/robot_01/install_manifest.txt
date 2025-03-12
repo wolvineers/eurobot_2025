@@ -1,0 +1,15 @@
+/wolvi/src/install/robot_01/share/ament_index/resource_index/package_run_dependencies/robot_01
+/wolvi/src/install/robot_01/share/ament_index/resource_index/parent_prefix_path/robot_01
+/wolvi/src/install/robot_01/share/robot_01/environment/ament_prefix_path.sh
+/wolvi/src/install/robot_01/share/robot_01/environment/ament_prefix_path.dsv
+/wolvi/src/install/robot_01/share/robot_01/environment/path.sh
+/wolvi/src/install/robot_01/share/robot_01/environment/path.dsv
+/wolvi/src/install/robot_01/share/robot_01/local_setup.bash
+/wolvi/src/install/robot_01/share/robot_01/local_setup.sh
+/wolvi/src/install/robot_01/share/robot_01/local_setup.zsh
+/wolvi/src/install/robot_01/share/robot_01/local_setup.dsv
+/wolvi/src/install/robot_01/share/robot_01/package.dsv
+/wolvi/src/install/robot_01/share/ament_index/resource_index/packages/robot_01
+/wolvi/src/install/robot_01/share/robot_01/cmake/robot_01Config.cmake
+/wolvi/src/install/robot_01/share/robot_01/cmake/robot_01Config-version.cmake
+/wolvi/src/install/robot_01/share/robot_01/package.xml

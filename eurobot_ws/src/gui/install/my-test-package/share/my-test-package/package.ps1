@@ -110,6 +110,12 @@ function colcon_package_source_powershell_script {
 # the prefix is two levels up from the package specific share directory
 $env:COLCON_CURRENT_PREFIX=(Get-Item $PSCommandPath).Directory.Parent.Parent.FullName
 
+<<<<<<< HEAD:eurobot_ws/install/utils/share/utils/package.ps1
+colcon_package_source_powershell_script "$env:COLCON_CURRENT_PREFIX\share/utils/hook/cmake_prefix_path.ps1"
+colcon_package_source_powershell_script "$env:COLCON_CURRENT_PREFIX\share/utils/hook/ld_library_path_lib.ps1"
+colcon_package_source_powershell_script "$env:COLCON_CURRENT_PREFIX\share/utils/local_setup.ps1"
+=======
 colcon_package_source_powershell_script "$env:COLCON_CURRENT_PREFIX\share/my-test-package/hook/pythonpath.ps1"
+>>>>>>> development:eurobot_ws/src/gui/install/my-test-package/share/my-test-package/package.ps1
 
 Remove-Item Env:\COLCON_CURRENT_PREFIX
