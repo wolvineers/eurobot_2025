@@ -34,17 +34,29 @@ class StartUp(Node):
 
     def callback_startup(self):
         """
-        Gets de value of the limit switch and publish another message to start all in the robot.
+        Gets the value of the limit switch and publishes another message to start all in the robot.
 
         Args:
-            startup_msg (Bool): The message recived by serial port, containing the limit switch data
+            startup_msg (Bool): The message received by serial port, containing the limit switch data
         """
+        
+        data = read_message(self.serial_port)
 
-        startup_msg = read_message(self.serial_port)
+        data = data.split(',')
+
+        startup_msg = data[1]
+
+        if startup_msg.lower() == "true":
+            msg_data = True
+        elif startup_msg.lower() == "false":
+            msg_data = False
 
         msg = Bool()
-        msg.data = startup_msg
+        msg.data = msg_data
         self.startup_pub.publish(msg)
+
+        self.get_logger().info(f"Sending {msg}")
+
 
 
 ## *************************
