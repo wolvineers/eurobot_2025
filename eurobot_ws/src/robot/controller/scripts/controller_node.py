@@ -3,8 +3,9 @@
 import rclpy, time
 
 from rclpy.node import Node
-from std_msgs.msg import Float32
+from std_msgs.msg import Float32, Int32, Bool
 from geometry_msgs.msg import Vector3, Twist
+from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from differential_drive import DifferentialWheel
 
 
@@ -34,16 +35,25 @@ class ControllerNode(Node):
 
         self.robot_movements = []
 
+        self.num_action_   = 0
+        self.state_action_ = 0
+
         # Publishers
         self.velocities_pub_ = self.create_publisher(Twist, '/controller/motors_pow', 10)
+        self.end_order_pub_  = self.create_publisher(Bool, '/controller/end_order', 10)
+        self.action_pub_     = self.create_publisher(JointTrajectory, '/controller/action_commands', 10)
+
 
         # Subscribers
-        self.movement_sub_      = self.create_subscription(Vector3, '/movement', self.movement_callback, 10)
         self.encoder_left_sub_  = self.create_subscription(Float32, '/controller/encoder_left', self.encoder_left_callback, 10)
         self.encoder_right_sub_ = self.create_subscription(Float32, '/controller/encoder_right', self.encoder_right_callback, 10)
+        self.movement_sub_      = self.create_subscription(Vector3, '/movement', self.movement_callback, 10)
+        self.t_action_sub_      = self.create_subscription(Int32, '/t_action', self.t_action_callback, 10)
+        self.i_action_sub_      = self.create_subscription(Int32, '/i_action', self.i_action_callback, 10)
 
         # Timers
         self.controller_tim_ = self.create_timer(self.timer_period_, self.control_velocities)
+        self.action_tim_     = self.create_timer(1.0, self.control_actuators)
 
         # Differential drive object
         self.robot = DifferentialWheel(l=0.25, radius=0.0475)
@@ -88,6 +98,43 @@ class ControllerNode(Node):
         self.robot_movements.append((movement.x, movement.y, movement.z))
         self.get_logger().info("New movement added")
 
+    
+    def t_action_callback(self, num_action):
+        """
+        Gets the Torete action number, stores them in the num_action_ variable and initializes state_action_.
+
+        Args:
+            num_action (Int32): The message received by the subscriber, containing the action number.
+        """
+
+        ''' --- TORETE ACTIONS LIST ---
+        *   
+        * Action 01: Init actuators
+        * Action 02: Pick up material
+        * Action 03: Build tribune
+        *
+        '''
+
+        self.num_action_   = num_action.data
+        self.state_action_ = 0
+
+    
+    def i_action_callback(self, num_action):
+        """
+        Gets the Insomnious action number and sends all the orders to execute it to the ESP32.
+
+        Args:
+            num_action (Int32): The message received by the subscriber, containing the action number.
+        """
+        
+        ''' --- INSOMNIOUS ACTIONS LIST ---
+        *   
+        * Action 01: Init actuators
+        *
+        '''
+
+        ...
+
 
     def control_velocities(self):
         """
@@ -130,9 +177,91 @@ class ControllerNode(Node):
         motor_vel_msg.linear.y = self.vel_left
         motor_vel_msg.linear.z = self.vel_right
 
-        self.get_logger().info("Velocity left: " + str(self.vel_left) + " | Velocity right: " + str(self.vel_right))
+        #self.get_logger().info("Velocity left: " + str(self.vel_left) + " | Velocity right: " + str(self.vel_right))
         
-        self.velocities_pub_.publish(motor_vel_msg)      
+        self.velocities_pub_.publish(motor_vel_msg)   
+
+
+    def control_actuators(self):
+        """
+        Every second gets the Torete action number and publishes the servos positions depending on the action_state_ or the end of the action.
+        """
+
+        ''' --- SERVOS POSITIONS MESSAGE ---
+        *   
+        * 
+        *
+        '''
+
+        action_msg = JointTrajectory()
+        point      = JointTrajectoryPoint()
+
+        if self.num_action_ == 1:
+            ...
+
+        elif self.num_action_ == 2: # Pick up material
+
+            if self.state_action_ == 0: # Raise platforms
+                point.positions = [140.0, 45.0, 140.0]
+
+                action_msg.joint_names = ["S04", "S05", "S06"]
+                action_msg.points.append(point)
+
+                self.action_pub_.publish(action_msg)
+
+                self.state_action_ += 1
+                self.get_logger().info("Raising platforms")
+            
+            elif self.state_action_ == 1: # Take columns
+                point.positions = [30.0, 30.0]
+
+                action_msg.joint_names = ["S07", "S08"]
+                action_msg.points.append(point)
+
+                self.action_pub_.publish(action_msg)
+
+                self.state_action_ += 1
+                self.get_logger().info("Taking columns")
+
+            else:   # End action
+                self.num_action_ = 0
+
+                end_action = Bool()
+                end_action.data = True
+                self.end_order_pub_.publish(end_action)
+                self.get_logger().info("Action 2 (pick up material) ended")
+
+        elif self.num_action_ == 3: # Build tribune
+            
+            if self.state_action_ == 0: # Leave columns
+                point.positions = [150.0, 125.0]
+
+                action_msg.joint_names = ["S07", "S08"]
+                action_msg.points.append(point)
+
+                self.action_pub_.publish(action_msg)
+
+                self.state_action_ += 1
+                self.get_logger().info("Leaving columns")
+            
+            elif self.state_action_ == 1: # Leave platform
+                point.positions = [20.0, 160.0, 20.0]
+
+                action_msg.joint_names = ["S04", "S05", "S06"]
+                action_msg.points.append(point)
+
+                self.action_pub_.publish(action_msg)
+
+                self.state_action_ += 1
+                self.get_logger().info("Leaving platforms")
+
+            else:   # End action
+                self.num_action_ = 0
+
+                end_action = Bool()
+                end_action.data = True
+                self.end_order_pub_.publish(end_action)
+                self.get_logger().info("Action 3 (build tribune) ended")
 
 
 ## *************************
