@@ -1,20 +1,25 @@
 import RPi.GPIO as GPIO
 import time
+import subprocess
+import os
 
-pin_sensor = None
-
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(pin_sensor, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
-def sensor_callback(channel):
-    if GPIO.input(pin_sensor) == GPIO.LOW:
-        print("Start")
-
-GPIO.add_event_detect(pin_sensor, GPIO.BOTH, callback=sensor_callback, bouncetime=200)
+BUTTON_PIN = 8
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 try:
+
     while True:
-        time.sleep(1)
     
-except KeyboardInterrupt:
+	    button_state = GPIO.input(BUTTON_PIN)
+	    if (button_state == GPIO.HIGH):
+		    print("Activat")
+	    else:
+		    print("No actiu")
+	    time.sleep(0.1)
+
+except Exception as e:
+    print(f"ERROR {e}")
+
+finally:
     GPIO.cleanup()
