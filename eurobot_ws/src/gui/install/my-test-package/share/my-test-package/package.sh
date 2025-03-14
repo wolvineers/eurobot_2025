@@ -78,7 +78,13 @@ _colcon_package_sh_source_script() {
 }
 
 # source sh hooks
+<<<<<<< HEAD:eurobot_ws/install/utils/share/utils/package.sh
+_colcon_package_sh_source_script "$COLCON_CURRENT_PREFIX/share/utils/hook/cmake_prefix_path.sh"
+_colcon_package_sh_source_script "$COLCON_CURRENT_PREFIX/share/utils/hook/ld_library_path_lib.sh"
+_colcon_package_sh_source_script "$COLCON_CURRENT_PREFIX/share/utils/local_setup.sh"
+=======
 _colcon_package_sh_source_script "$COLCON_CURRENT_PREFIX/share/my-test-package/hook/pythonpath.sh"
+>>>>>>> development:eurobot_ws/src/gui/install/my-test-package/share/my-test-package/package.sh
 
 unset _colcon_package_sh_source_script
 unset COLCON_CURRENT_PREFIX
