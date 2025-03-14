@@ -1,0 +1,9 @@
+/wolvi/src/build/computation_zone/CMakeFiles/uninstall.dir
+/wolvi/src/build/computation_zone/CMakeFiles/computation_zone_uninstall.dir
+/wolvi/src/build/computation_zone/CMakeFiles/test.dir
+/wolvi/src/build/computation_zone/CMakeFiles/edit_cache.dir
+/wolvi/src/build/computation_zone/CMakeFiles/rebuild_cache.dir
+/wolvi/src/build/computation_zone/CMakeFiles/list_install_components.dir
+/wolvi/src/build/computation_zone/CMakeFiles/install.dir
+/wolvi/src/build/computation_zone/CMakeFiles/install/local.dir
+/wolvi/src/build/computation_zone/CMakeFiles/install/strip.dir

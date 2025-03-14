@@ -1,0 +1,9 @@
+/wolvi/src/build/tests/CMakeFiles/uninstall.dir
+/wolvi/src/build/tests/CMakeFiles/tests_uninstall.dir
+/wolvi/src/build/tests/CMakeFiles/test.dir
+/wolvi/src/build/tests/CMakeFiles/edit_cache.dir
+/wolvi/src/build/tests/CMakeFiles/rebuild_cache.dir
+/wolvi/src/build/tests/CMakeFiles/list_install_components.dir
+/wolvi/src/build/tests/CMakeFiles/install.dir
+/wolvi/src/build/tests/CMakeFiles/install/local.dir
+/wolvi/src/build/tests/CMakeFiles/install/strip.dir

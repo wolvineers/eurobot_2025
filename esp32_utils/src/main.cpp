@@ -38,16 +38,27 @@ float set_PID_speed(int64_t current_pulses, int64_t previous_pulses){
 
 
 // Variable to set the motor speed
+<<<<<<< HEAD
+float motor_speed = 0.0;
+
+
+PID_Motor_params motor_paramsl = {
+=======
 
 
 PID_Motor_params motor_params1 = {
+>>>>>>> development
  .gpio_en = (gpio_num_t) GPIO_INA1,               // Motor enable, driver input to control with PWM and turns on and off the motor.
  .gpio_ph = (gpio_num_t) GPIO_INA2,               // Motor phase, driver input to set the direction to drive the motor.
  .gpio_enc_a = (gpio_num_t) GPIO_ENCA1,            // Encoder first output
  .gpio_enc_b = (gpio_num_t) GPIO_ENCA2,             // Encoder second output
 
 
+<<<<<<< HEAD
+ .motor_direction = false,                 // Motor direction, inverts the encoder and direction of the motor. For example, two motors on opposite sides.
+=======
  .motor_direction = true,                 // Motor direction, inverts the encoder and direction of the motor. For example, two motors on opposite sides.
+>>>>>>> development
 
 
  .speed_input_var = NULL,          // The variable has to be passed as reference. Has priority over the function. When using the speed curve, it gets overriden.
@@ -62,7 +73,11 @@ PID_Motor_params motor_params1 = {
 };
 
 
+<<<<<<< HEAD
+PID_Motor_params motor_paramsr = {
+=======
 PID_Motor_params motor_params2 = {
+>>>>>>> development
  .gpio_en = (gpio_num_t) GPIO_INB1,               // Motor enable, driver input to control with PWM and turns on and off the motor.
  .gpio_ph = (gpio_num_t) GPIO_INB2,               // Motor phase, driver input to set the direction to drive the motor.
  .gpio_enc_a = (gpio_num_t) GPIO_ENCB1,            // Encoder first output
@@ -72,7 +87,11 @@ PID_Motor_params motor_params2 = {
  .motor_direction = true,                 // Motor direction, inverts the encoder and direction of the motor. For example, two motors on opposite sides.
 
 
+<<<<<<< HEAD
+ .speed_input_var = NULL,          // The variable has to be passed as reference. Has priority over the function. When using the speed curve, it gets overriden.
+=======
  .speed_input_var = NULL,//&motor_speed_r,          // The variable has to be passed as reference. Has priority over the function. When using the speed curve, it gets overriden.
+>>>>>>> development
  //.speed_input_function = set_PID_speed,  // The fuction that controls the speed. Has less priority than the variable. Not used in this example
  .speed_input_function = NULL,             // If not used, set the value to NULL. If both are NULL, it can be controlled directly modifying setpoint, but using the variable is recommended
 
@@ -91,10 +110,17 @@ PID_Motor_params motor_params3 = {
  .gpio_enc_b = (gpio_num_t) GPIO_ENCC2,             // Encoder second output
 
 
+<<<<<<< HEAD
+ .motor_direction = true,                 // Motor direction, inverts the encoder and direction of the motor. For example, two motors on opposite sides.
+
+
+ .speed_input_var = &motor_speed,          // The variable has to be passed as reference. Has priority over the function. When using the speed curve, it gets overriden.
+=======
  .motor_direction = false,                 // Motor direction, inverts the encoder and direction of the motor. For example, two motors on opposite sides.
 
 
  .speed_input_var = NULL,          // The variable has to be passed as reference. Has priority over the function. When using the speed curve, it gets overriden.
+>>>>>>> development
  //.speed_input_function = set_PID_speed,  // The fuction that controls the speed. Has less priority than the variable. Not used in this example
  .speed_input_function = NULL,             // If not used, set the value to NULL. If both are NULL, it can be controlled directly modifying setpoint, but using the variable is recommended
 
@@ -131,6 +157,81 @@ PID_Motor_params motor_params4 = {
 
 
 // We create the motor object
+<<<<<<< HEAD
+PID_Motor motorL(motor_paramsl);
+PID_Motor motorR(motor_paramsr);
+PID_Motor motor3(motor_params3);
+PID_Motor motor4(motor_params4);
+
+
+
+
+void setup() {
+
+
+   setupSerial();
+   Serial.begin(115200);
+
+
+ // If the driver has to be enabled, do it here
+ pinMode(22, OUTPUT);
+ digitalWrite(22, 0);
+
+
+ // Create a speed curve, that will move the motor 2050 pulses, at a maximum speed of 50 pulses / cycle, and with an acceleration of 10 pulses / cycle^2 (example)
+ //motorR.move_distance(4000, 0, 50, 10);
+ //motorL.move_distance(4000, 0, 50, 10);
+
+
+ // Start the motor timer, which starts the speed control
+ motorR.initialize_timer();
+ motorL.initialize_timer();
+ motor3.initialize_timer();
+ motor4.initialize_timer();
+}
+
+
+void loop() {
+    //Read the message recibed and split the content in 3 different variables
+   String message = readMessage();  
+   if (message.length() > 0) {
+       int firstComma = message.indexOf(',');
+       int secondComma = message.indexOf(',', firstComma + 1);
+       if (firstComma != -1 && secondComma != -1) {
+           String motorNumberStr = message.substring(2, firstComma);
+           String motorAngleStr = message.substring(firstComma + 1, secondComma);
+           String checksumStr = message.substring(secondComma + 1);
+           int motorNumber = motorNumberStr.toInt();
+           int motorPower = motorAngleStr.toInt(); 
+           int checksum = checksumStr.toInt();
+
+            //Check the motor number and set the power for the selected motor
+           if (motorNumber >= 1 && motorNumber < 5){
+             Serial.println("Motor Number: " + String(motorNumber));
+             Serial.println("Motor %: " + String(motorPower));
+             Serial.println("Checksum: " + String(checksum));
+
+
+             if (motorNumber == 1) {
+                 motorL.setpoint = motorPower; 
+             } else if (motorNumber == 2) {
+                 motorR.setpoint = motorPower; 
+             }
+             else if (motorNumber == 3) {
+                 motor3.setpoint = motorPower; 
+             }
+             else if (motorNumber == 4) {
+                 motor4.setpoint = motorPower; 
+             }
+         } else {
+             Serial.println("Error: Invalid servo number");
+         }
+           } else{
+             Serial.println("Error: Invalid message format");
+       }
+   }
+}
+=======
 PID_Motor motor1(motor_params1);
 PID_Motor motor2(motor_params2);
 PID_Motor motorR(motor_params3);
@@ -200,3 +301,4 @@ void loop() {
 
     delay(20); /// Receive 10 messages per second
 }
+>>>>>>> development
