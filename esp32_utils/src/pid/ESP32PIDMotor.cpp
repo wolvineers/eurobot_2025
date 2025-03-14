@@ -176,7 +176,6 @@ void PID_Motor::pre_cycle_method(float * input, float * setpoint){
 
   // Save the pulses
   previous_pulses = pulses;
-  ESP_EARLY_LOGI("PID", "i: %d, s: %d, p: %d", *input, *setpoint, *pulses);
 }
 
 // Method to act on the motor according to the output
@@ -227,13 +226,12 @@ void PID_Motor::end_move_distance(){
 
 // Ouputs the motor encoder pulses
 int64_t PID_Motor::get_pulses(){
-  // int64_t var = motor_encoder.getCount();
-  //printf("Pulses: %li %li\n", var, previous_pulses);
+  int64_t var = motor_encoder.getCount();
+  printf("Pulses: %li %li\n", var, previous_pulses);
   return motor_encoder.getCount();
 }
 
 // Restarts the encoder pulses, sets them to zero
 void PID_Motor::restart_pulses(){
   motor_encoder.clearCount();
-  previous_pulses = 0;
 }

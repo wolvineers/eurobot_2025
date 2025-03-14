@@ -95,6 +95,9 @@ class PID_Motor : public PID_timer{
                                                  .motor_direction = false, .speed_input_var = NULL, .speed_input_function = NULL, .PID_parameters = {0},
                                                  .timer_period_us = 0};
 
+        // Encoder object
+        ESP32Encoder motor_encoder;
+
         // Pulses of the encoder on the last PID cycle
         int64_t previous_pulses = 0;
 
@@ -111,10 +114,6 @@ class PID_Motor : public PID_timer{
 
     
     public:
-
-        // Encoder object
-        ESP32Encoder motor_encoder;
-
         /**
          * @brief Motor with digital PID constructor.
          * 
@@ -171,7 +170,7 @@ class PID_Motor : public PID_timer{
         int64_t get_pulses();
 
         /**
-         * @brief Restart the encoder's pulses to zero and PID
+         * @brief Restart the encoder's pulses to zero
          */
         void restart_pulses();
 };
