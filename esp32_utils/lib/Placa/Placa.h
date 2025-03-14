@@ -3,21 +3,21 @@
 
 // Definicions físiques
 // Rodes
-#define DIAMETRE_RODES_MM       65.0
-#define PERIMETRE_RODES_CM      DIAMETRE_RODES_MM/10.0*3.14159265358979323846
+#define DIAMETRE_RODES_MM       95.0
+#define PERIMETRE_RODES_CM      (DIAMETRE_RODES_MM/10.0*3.14159265358979323846)
 // Motors
-/* Configuration for 350RP 12V Motors
-#define MOTOR_REDUCCIO          34.0
-#define MOTOR_POLSOS_PER_REV    11.0 * 4 * MOTOR_REDUCCIO                           // Polsos simples * 4 canvis/simple * reducció
-#define MOTOR_POLSOS_PER_CM     MOTOR_POLSOS_PER_REV / PERIMETRE_RODES_CM           // Polsos/rev / cm/rev
+// Configuration for 350RP 12V Motors
+/*#define MOTOR_REDUCCIO          34.0
+#define MOTOR_POLSOS_PER_REV    (11.0 * 4 * MOTOR_REDUCCIO)                           // Polsos simples * 4 canvis/simple * reducció
+#define MOTOR_POLSOS_PER_CM     (MOTOR_POLSOS_PER_REV / PERIMETRE_RODES_CM)           // Polsos/rev / cm/rev
 #define MOTOR_VEL_MAX_RPM       350     
 #define MOTOR_VEL_MAX_CM_S      MOTOR_VEL_MAX_RPM / 60.0 * PERIMETRE_RODES_CM       // Màxim rpm / 60s/min / cm/rev
 #define MOTOR_VEL_MAX_POLS_S    MOTOR_VEL_MAX_RPM / 60.0 * MOTOR_POLSOS_PER_REV     // Màxim rpm / 60s/min * pols/rev
 */
 // Bernat 6V 100RPM Motors
 #define MOTOR_REDUCCIO          74.83
-#define MOTOR_POLSOS_PER_REV    11.0 * 4 * MOTOR_REDUCCIO                           // Polsos simples * 4 canvis/simple * reducció
-#define MOTOR_POLSOS_PER_CM     MOTOR_POLSOS_PER_REV / PERIMETRE_RODES_CM           // Polsos/rev / cm/rev
+#define MOTOR_POLSOS_PER_REV    (11.0 * 4 * MOTOR_REDUCCIO)                           // Polsos simples * 4 canvis/simple * reducció
+#define MOTOR_POLSOS_PER_CM     (MOTOR_POLSOS_PER_REV / PERIMETRE_RODES_CM)          // Polsos/rev / cm/rev
 #define MOTOR_VEL_MAX_RPM       100     
 #define MOTOR_VEL_MAX_CM_S      MOTOR_VEL_MAX_RPM / 60.0 * PERIMETRE_RODES_CM       // Màxim rpm / 60s/min / cm/rev
 #define MOTOR_VEL_MAX_POLS_S    MOTOR_VEL_MAX_RPM / 60.0 * MOTOR_POLSOS_PER_REV     // Màxim rpm / 60s/min * pols/rev

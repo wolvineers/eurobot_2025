@@ -1,0 +1,5142 @@
+#use_cache "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache"
+#do_unpack "ippicv_2021.12.0_lnx_intel64_20240425_general.tgz" "d06e6d44ece88f7f17a6cd9216761186" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/7f55c0c26be418d494615afca15218566775c725/ippicv/ippicv_2021.12.0_lnx_intel64_20240425_general.tgz" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/3rdparty/ippicv"
+#cmake_download "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/ippicv/d06e6d44ece88f7f17a6cd9216761186-ippicv_2021.12.0_lnx_intel64_20240425_general.tgz" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/7f55c0c26be418d494615afca15218566775c725/ippicv/ippicv_2021.12.0_lnx_intel64_20240425_general.tgz"
+#try 1
+#check_md5 "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/ippicv/d06e6d44ece88f7f17a6cd9216761186-ippicv_2021.12.0_lnx_intel64_20240425_general.tgz"
+#mkdir "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/3rdparty/ippicv"
+#unpack "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/3rdparty/ippicv" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/ippicv/d06e6d44ece88f7f17a6cd9216761186-ippicv_2021.12.0_lnx_intel64_20240425_general.tgz"
+#do_unpack "v0.1.2e.zip" "962ce79e0b95591f226431f7b5f152cd" "https://github.com/opencv/ade/archive/v0.1.2e.zip" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/3rdparty/ade"
+#cmake_download "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/ade/962ce79e0b95591f226431f7b5f152cd-v0.1.2e.zip" "https://github.com/opencv/ade/archive/v0.1.2e.zip"
+#try 1
+#   Trying 140.82.121.4:443...
+# TCP_NODELAY set
+# Connected to github.com (140.82.121.4) port 443 (#0)
+# ALPN, offering h2
+# ALPN, offering http/1.1
+# successfully set certificate verify locations:
+#   CAfile: /etc/ssl/certs/ca-certificates.crt
+#   CApath: /etc/ssl/certs
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Client hello (1):
+# [512 bytes data]
+# [5 bytes data]
+# TLSv1.3 (IN), TLS handshake, Server hello (2):
+# [122 bytes data]
+# [5 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+# [19 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Certificate (11):
+# [3137 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, CERT verify (15):
+# [79 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Finished (20):
+# [36 bytes data]
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Finished (20):
+# [36 bytes data]
+# SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+# ALPN, server accepted to use h2
+# Server certificate:
+#  subject: CN=github.com
+#  start date: Mar  7 00:00:00 2024 GMT
+#  expire date: Mar  7 23:59:59 2025 GMT
+#  subjectAltName: host "github.com" matched cert's "github.com"
+#  issuer: C=GB; ST=Greater Manchester; L=Salford; O=Sectigo Limited; CN=Sectigo ECC Domain Validation Secure Server CA
+#  SSL certificate verify ok.
+# Using HTTP2, server supports multi-use
+# Connection state changed (HTTP/2 confirmed)
+# Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Using Stream ID: 1 (easy handle 0x5575ae1e35f0)
+# [5 bytes data]
+# [1 bytes data]
+# GET /opencv/ade/archive/v0.1.2e.zip HTTP/2
+# Host: github.com
+# user-agent: curl/7.68.0
+# accept: */*
+# 
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [57 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [57 bytes data]
+# old SSL session ID is stale, removing
+# [5 bytes data]
+# [1 bytes data]
+# Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# HTTP/2 302 
+# server: GitHub.com
+# date: Wed, 30 Oct 2024 17:59:19 GMT
+# content-type: text/html; charset=utf-8
+# vary: X-PJAX, X-PJAX-Container, Turbo-Visit, Turbo-Frame, Accept-Encoding, Accept, X-Requested-With
+# location: https://codeload.github.com/opencv/ade/zip/refs/tags/v0.1.2e
+# cache-control: max-age=0, private
+# strict-transport-security: max-age=31536000; includeSubdomains; preload
+# x-frame-options: deny
+# x-content-type-options: nosniff
+# x-xss-protection: 0
+# referrer-policy: no-referrer-when-downgrade
+# content-security-policy: default-src 'none'; base-uri 'self'; child-src github.com/assets-cdn/worker/ github.com/webpack/ github.com/assets/ gist.github.com/assets-cdn/worker/; connect-src 'self' uploads.github.com www.githubstatus.com collector.github.com raw.githubusercontent.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com *.rel.tunnels.api.visualstudio.com wss://*.rel.tunnels.api.visualstudio.com objects-origin.githubusercontent.com copilot-proxy.githubusercontent.com proxy.individual.githubcopilot.com proxy.business.githubcopilot.com proxy.enterprise.githubcopilot.com *.actions.githubusercontent.com wss://*.actions.githubusercontent.com productionresultssa0.blob.core.windows.net/ productionresultssa1.blob.core.windows.net/ productionresultssa2.blob.core.windows.net/ productionresultssa3.blob.core.windows.net/ productionresultssa4.blob.core.windows.net/ productionresultssa5.blob.core.windows.net/ productionresultssa6.blob.core.windows.net/ productionresultssa7.blob.core.windows.net/ productionresultssa8.blob.core.windows.net/ productionresultssa9.blob.core.windows.net/ productionresultssa10.blob.core.windows.net/ productionresultssa11.blob.core.windows.net/ productionresultssa12.blob.core.windows.net/ productionresultssa13.blob.core.windows.net/ productionresultssa14.blob.core.windows.net/ productionresultssa15.blob.core.windows.net/ productionresultssa16.blob.core.windows.net/ productionresultssa17.blob.core.windows.net/ productionresultssa18.blob.core.windows.net/ productionresultssa19.blob.core.windows.net/ github-production-repository-image-32fea6.s3.amazonaws.com github-production-release-asset-2e65be.s3.amazonaws.com insights.github.com wss://alive.github.com api.githubcopilot.com api.individual.githubcopilot.com api.business.githubcopilot.com api.enterprise.githubcopilot.com; font-src github.githubassets.com; form-action 'self' github.com gist.github.com copilot-workspace.githubnext.com objects-origin.githubusercontent.com; frame-ancestors 'none'; frame-src viewscreen.githubusercontent.com notebooks.githubusercontent.com; img-src 'self' data: blob: github.githubassets.com media.githubusercontent.com camo.githubusercontent.com identicons.github.com avatars.githubusercontent.com private-avatars.githubusercontent.com github-cloud.s3.amazonaws.com objects.githubusercontent.com secured-user-images.githubusercontent.com/ user-images.githubusercontent.com/ private-user-images.githubusercontent.com opengraph.githubassets.com github-production-user-asset-6210df.s3.amazonaws.com customer-stories-feed.github.com spotlights-feed.github.com objects-origin.githubusercontent.com *.githubusercontent.com; manifest-src 'self'; media-src github.com user-images.githubusercontent.com/ secured-user-images.githubusercontent.com/ private-user-images.githubusercontent.com github-production-user-asset-6210df.s3.amazonaws.com gist.github.com; script-src github.githubassets.com; style-src 'unsafe-inline' github.githubassets.com; upgrade-insecure-requests; worker-src github.com/assets-cdn/worker/ github.com/webpack/ github.com/assets/ gist.github.com/assets-cdn/worker/
+# content-length: 0
+# x-github-request-id: 78B4:284B68:3B65466:3C52A1B:672273F7
+# 
+# [0 bytes data]
+# Connection #0 to host github.com left intact
+# Issue another request to this URL: 'https://codeload.github.com/opencv/ade/zip/refs/tags/v0.1.2e'
+#   Trying 140.82.121.9:443...
+# TCP_NODELAY set
+# Connected to codeload.github.com (140.82.121.9) port 443 (#1)
+# ALPN, offering h2
+# ALPN, offering http/1.1
+# successfully set certificate verify locations:
+#   CAfile: /etc/ssl/certs/ca-certificates.crt
+#   CApath: /etc/ssl/certs
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Client hello (1):
+# [512 bytes data]
+# [5 bytes data]
+# TLSv1.3 (IN), TLS handshake, Server hello (2):
+# [122 bytes data]
+# [5 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+# [19 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Certificate (11):
+# [3136 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, CERT verify (15):
+# [79 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Finished (20):
+# [36 bytes data]
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Finished (20):
+# [36 bytes data]
+# SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+# ALPN, server accepted to use h2
+# Server certificate:
+#  subject: CN=*.github.com
+#  start date: Mar  7 00:00:00 2024 GMT
+#  expire date: Mar  7 23:59:59 2025 GMT
+#  subjectAltName: host "codeload.github.com" matched cert's "*.github.com"
+#  issuer: C=GB; ST=Greater Manchester; L=Salford; O=Sectigo Limited; CN=Sectigo ECC Domain Validation Secure Server CA
+#  SSL certificate verify ok.
+# Using HTTP2, server supports multi-use
+# Connection state changed (HTTP/2 confirmed)
+# Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Using Stream ID: 1 (easy handle 0x5575ae1e35f0)
+# [5 bytes data]
+# [1 bytes data]
+# GET /opencv/ade/zip/refs/tags/v0.1.2e HTTP/2
+# Host: codeload.github.com
+# user-agent: curl/7.68.0
+# accept: */*
+# 
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [57 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [57 bytes data]
+# old SSL session ID is stale, removing
+# [5 bytes data]
+# [1 bytes data]
+# Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# HTTP/2 200 
+# access-control-allow-origin: https://render.githubusercontent.com
+# content-disposition: attachment; filename=ade-0.1.2e.zip
+# content-length: 168179
+# content-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
+# content-type: application/zip
+# cross-origin-resource-policy: cross-origin
+# etag: "e189b56b00748bd1bcaeff03b89378523462617e588eed784f94329c593d02a6"
+# strict-transport-security: max-age=31536000
+# vary: Authorization,Accept-Encoding,Origin
+# x-content-type-options: nosniff
+# x-frame-options: deny
+# x-xss-protection: 1; mode=block
+# date: Wed, 30 Oct 2024 17:59:20 GMT
+# x-github-request-id: 78BF:24E4FB:ADA589:D0B062:672273F8
+# 
+# [831 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [409 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1361 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1323 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1361 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1323 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1361 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1323 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1361 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1323 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1361 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1323 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1361 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1323 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1361 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1323 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1361 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1323 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1361 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1323 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1361 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [312 bytes data]
+# Connection #1 to host codeload.github.com left intact
+# 
+
+#check_md5 "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/ade/962ce79e0b95591f226431f7b5f152cd-v0.1.2e.zip"
+#mkdir "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/3rdparty/ade"
+#unpack "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/3rdparty/ade" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/ade/962ce79e0b95591f226431f7b5f152cd-v0.1.2e.zip"
+#do_copy "detect.caffemodel" "238e2b2d6f3c18d6c3a30de0c31e23cf" "https://raw.githubusercontent.com/WeChatCV/opencv_3rdparty/a8b69ccc738421293254aec5ddb38bd523503252/detect.caffemodel" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/wechat_qrcode"
+#missing "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/wechat_qrcode/detect.caffemodel"
+#cmake_download "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/wechat_qrcode/238e2b2d6f3c18d6c3a30de0c31e23cf-detect.caffemodel" "https://raw.githubusercontent.com/WeChatCV/opencv_3rdparty/a8b69ccc738421293254aec5ddb38bd523503252/detect.caffemodel"
+#try 1
+#   Trying 2606:50c0:8001::154:443...
+# TCP_NODELAY set
+#   Trying 185.199.109.133:443...
+# TCP_NODELAY set
+# Connected to raw.githubusercontent.com (2606:50c0:8001::154) port 443 (#0)
+# ALPN, offering h2
+# ALPN, offering http/1.1
+# successfully set certificate verify locations:
+#   CAfile: /etc/ssl/certs/ca-certificates.crt
+#   CApath: /etc/ssl/certs
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Client hello (1):
+# [512 bytes data]
+# [5 bytes data]
+# TLSv1.3 (IN), TLS handshake, Server hello (2):
+# [122 bytes data]
+# [5 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+# [19 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Certificate (11):
+# [3099 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, CERT verify (15):
+# [264 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Finished (20):
+# [36 bytes data]
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Finished (20):
+# [36 bytes data]
+# SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+# ALPN, server accepted to use h2
+# Server certificate:
+#  subject: C=US; ST=California; L=San Francisco; O=GitHub, Inc.; CN=*.github.io
+#  start date: Mar 15 00:00:00 2024 GMT
+#  expire date: Mar 14 23:59:59 2025 GMT
+#  subjectAltName: host "raw.githubusercontent.com" matched cert's "*.githubusercontent.com"
+#  issuer: C=US; O=DigiCert Inc; CN=DigiCert Global G2 TLS RSA SHA256 2020 CA1
+#  SSL certificate verify ok.
+# Using HTTP2, server supports multi-use
+# Connection state changed (HTTP/2 confirmed)
+# Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Using Stream ID: 1 (easy handle 0x5575b166d7d0)
+# [5 bytes data]
+# [1 bytes data]
+# GET /WeChatCV/opencv_3rdparty/a8b69ccc738421293254aec5ddb38bd523503252/detect.caffemodel HTTP/2
+# Host: raw.githubusercontent.com
+# user-agent: curl/7.68.0
+# accept: */*
+# 
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [193 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# HTTP/2 200 
+# cache-control: max-age=300
+# content-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
+# content-type: application/octet-stream
+# etag: "f0806e172250a9d17d06b605e17faf6897ec23c3e8c61d7db10dbfef137c435c"
+# strict-transport-security: max-age=31536000
+# x-content-type-options: nosniff
+# x-frame-options: deny
+# x-xss-protection: 1; mode=block
+# x-github-request-id: 3D10:38B0F2:1CF5DF1:1E25C68:672273FC
+# accept-ranges: bytes
+# date: Wed, 30 Oct 2024 17:59:25 GMT
+# via: 1.1 varnish
+# x-served-by: cache-mad2200102-MAD
+# x-cache: MISS
+# x-cache-hits: 0
+# x-timer: S1730311165.831468,VS0,VE1049
+# vary: Authorization,Accept-Encoding,Origin
+# access-control-allow-origin: *
+# cross-origin-resource-policy: cross-origin
+# x-fastly-request-id: 2fb3dd5523682234a6ccc94a126491f50b3f7d7b
+# expires: Wed, 30 Oct 2024 18:04:25 GMT
+# source-age: 1
+# content-length: 965430
+# 
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [403 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [15176 bytes data]
+# Connection #0 to host raw.githubusercontent.com left intact
+# 
+
+#check_md5 "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/wechat_qrcode/238e2b2d6f3c18d6c3a30de0c31e23cf-detect.caffemodel"
+#copy "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/wechat_qrcode/detect.caffemodel" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/wechat_qrcode/238e2b2d6f3c18d6c3a30de0c31e23cf-detect.caffemodel"
+#do_copy "detect.prototxt" "6fb4976b32695f9f5c6305c19f12537d" "https://raw.githubusercontent.com/WeChatCV/opencv_3rdparty/a8b69ccc738421293254aec5ddb38bd523503252/detect.prototxt" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/wechat_qrcode"
+#missing "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/wechat_qrcode/detect.prototxt"
+#cmake_download "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/wechat_qrcode/6fb4976b32695f9f5c6305c19f12537d-detect.prototxt" "https://raw.githubusercontent.com/WeChatCV/opencv_3rdparty/a8b69ccc738421293254aec5ddb38bd523503252/detect.prototxt"
+#try 1
+#   Trying 2606:50c0:8001::154:443...
+# TCP_NODELAY set
+# Connected to raw.githubusercontent.com (2606:50c0:8001::154) port 443 (#0)
+# ALPN, offering h2
+# ALPN, offering http/1.1
+# successfully set certificate verify locations:
+#   CAfile: /etc/ssl/certs/ca-certificates.crt
+#   CApath: /etc/ssl/certs
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Client hello (1):
+# [512 bytes data]
+# [5 bytes data]
+# TLSv1.3 (IN), TLS handshake, Server hello (2):
+# [122 bytes data]
+# [5 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+# [19 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Certificate (11):
+# [3099 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, CERT verify (15):
+# [264 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Finished (20):
+# [36 bytes data]
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Finished (20):
+# [36 bytes data]
+# SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+# ALPN, server accepted to use h2
+# Server certificate:
+#  subject: C=US; ST=California; L=San Francisco; O=GitHub, Inc.; CN=*.github.io
+#  start date: Mar 15 00:00:00 2024 GMT
+#  expire date: Mar 14 23:59:59 2025 GMT
+#  subjectAltName: host "raw.githubusercontent.com" matched cert's "*.githubusercontent.com"
+#  issuer: C=US; O=DigiCert Inc; CN=DigiCert Global G2 TLS RSA SHA256 2020 CA1
+#  SSL certificate verify ok.
+# Using HTTP2, server supports multi-use
+# Connection state changed (HTTP/2 confirmed)
+# Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Using Stream ID: 1 (easy handle 0x5575b16d4310)
+# [5 bytes data]
+# [1 bytes data]
+# GET /WeChatCV/opencv_3rdparty/a8b69ccc738421293254aec5ddb38bd523503252/detect.prototxt HTTP/2
+# Host: raw.githubusercontent.com
+# user-agent: curl/7.68.0
+# accept: */*
+# 
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [193 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# HTTP/2 200 
+# cache-control: max-age=300
+# content-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
+# content-type: text/plain; charset=utf-8
+# etag: "786db7f27d00b1b38f03aad9fb6889870aed59bed48093133b19f639931444ad"
+# strict-transport-security: max-age=31536000
+# x-content-type-options: nosniff
+# x-frame-options: deny
+# x-xss-protection: 1; mode=block
+# x-github-request-id: B3A9:36C185:1E4F340:1F91E1A:672273FF
+# accept-ranges: bytes
+# date: Wed, 30 Oct 2024 17:59:27 GMT
+# via: 1.1 varnish
+# x-served-by: cache-mad22077-MAD
+# x-cache: MISS
+# x-cache-hits: 0
+# x-timer: S1730311167.424639,VS0,VE200
+# vary: Authorization,Accept-Encoding,Origin
+# access-control-allow-origin: *
+# cross-origin-resource-policy: cross-origin
+# x-fastly-request-id: daaeaf9351784b0a787c175e59c2906885398390
+# expires: Wed, 30 Oct 2024 18:04:27 GMT
+# source-age: 0
+# content-length: 42656
+# 
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [518 bytes data]
+# Connection #0 to host raw.githubusercontent.com left intact
+# 
+
+#check_md5 "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/wechat_qrcode/6fb4976b32695f9f5c6305c19f12537d-detect.prototxt"
+#copy "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/wechat_qrcode/detect.prototxt" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/wechat_qrcode/6fb4976b32695f9f5c6305c19f12537d-detect.prototxt"
+#do_copy "sr.caffemodel" "cbfcd60361a73beb8c583eea7e8e6664" "https://raw.githubusercontent.com/WeChatCV/opencv_3rdparty/a8b69ccc738421293254aec5ddb38bd523503252/sr.caffemodel" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/wechat_qrcode"
+#missing "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/wechat_qrcode/sr.caffemodel"
+#cmake_download "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/wechat_qrcode/cbfcd60361a73beb8c583eea7e8e6664-sr.caffemodel" "https://raw.githubusercontent.com/WeChatCV/opencv_3rdparty/a8b69ccc738421293254aec5ddb38bd523503252/sr.caffemodel"
+#try 1
+#   Trying 2606:50c0:8001::154:443...
+# TCP_NODELAY set
+# Connected to raw.githubusercontent.com (2606:50c0:8001::154) port 443 (#0)
+# ALPN, offering h2
+# ALPN, offering http/1.1
+# successfully set certificate verify locations:
+#   CAfile: /etc/ssl/certs/ca-certificates.crt
+#   CApath: /etc/ssl/certs
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Client hello (1):
+# [512 bytes data]
+# [5 bytes data]
+# TLSv1.3 (IN), TLS handshake, Server hello (2):
+# [122 bytes data]
+# [5 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+# [19 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Certificate (11):
+# [3099 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, CERT verify (15):
+# [264 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Finished (20):
+# [36 bytes data]
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Finished (20):
+# [36 bytes data]
+# SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+# ALPN, server accepted to use h2
+# Server certificate:
+#  subject: C=US; ST=California; L=San Francisco; O=GitHub, Inc.; CN=*.github.io
+#  start date: Mar 15 00:00:00 2024 GMT
+#  expire date: Mar 14 23:59:59 2025 GMT
+#  subjectAltName: host "raw.githubusercontent.com" matched cert's "*.githubusercontent.com"
+#  issuer: C=US; O=DigiCert Inc; CN=DigiCert Global G2 TLS RSA SHA256 2020 CA1
+#  SSL certificate verify ok.
+# Using HTTP2, server supports multi-use
+# Connection state changed (HTTP/2 confirmed)
+# Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Using Stream ID: 1 (easy handle 0x5575b16f03e0)
+# [5 bytes data]
+# [1 bytes data]
+# GET /WeChatCV/opencv_3rdparty/a8b69ccc738421293254aec5ddb38bd523503252/sr.caffemodel HTTP/2
+# Host: raw.githubusercontent.com
+# user-agent: curl/7.68.0
+# accept: */*
+# 
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [193 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# HTTP/2 200 
+# cache-control: max-age=300
+# content-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
+# content-type: application/octet-stream
+# etag: "c85ba72b31f07ae61f1a207fd2ea347063ded4b717ff6dc3cb47b17dc23b2966"
+# strict-transport-security: max-age=31536000
+# x-content-type-options: nosniff
+# x-frame-options: deny
+# x-xss-protection: 1; mode=block
+# x-github-request-id: 77BC:2F40C7:231D130:24A184D:672273FE
+# accept-ranges: bytes
+# date: Wed, 30 Oct 2024 17:59:28 GMT
+# via: 1.1 varnish
+# x-served-by: cache-mad22072-MAD
+# x-cache: MISS
+# x-cache-hits: 0
+# x-timer: S1730311168.896688,VS0,VE182
+# vary: Authorization,Accept-Encoding,Origin
+# access-control-allow-origin: *
+# cross-origin-resource-policy: cross-origin
+# x-fastly-request-id: 77924b5aa8ba6da909f30f6ba4c059a4d5c01715
+# expires: Wed, 30 Oct 2024 18:04:28 GMT
+# source-age: 0
+# content-length: 23929
+# 
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [943 bytes data]
+# Connection #0 to host raw.githubusercontent.com left intact
+# 
+
+#check_md5 "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/wechat_qrcode/cbfcd60361a73beb8c583eea7e8e6664-sr.caffemodel"
+#copy "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/wechat_qrcode/sr.caffemodel" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/wechat_qrcode/cbfcd60361a73beb8c583eea7e8e6664-sr.caffemodel"
+#do_copy "sr.prototxt" "69db99927a70df953b471daaba03fbef" "https://raw.githubusercontent.com/WeChatCV/opencv_3rdparty/a8b69ccc738421293254aec5ddb38bd523503252/sr.prototxt" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/wechat_qrcode"
+#missing "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/wechat_qrcode/sr.prototxt"
+#cmake_download "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/wechat_qrcode/69db99927a70df953b471daaba03fbef-sr.prototxt" "https://raw.githubusercontent.com/WeChatCV/opencv_3rdparty/a8b69ccc738421293254aec5ddb38bd523503252/sr.prototxt"
+#try 1
+#   Trying 2606:50c0:8001::154:443...
+# TCP_NODELAY set
+# Connected to raw.githubusercontent.com (2606:50c0:8001::154) port 443 (#0)
+# ALPN, offering h2
+# ALPN, offering http/1.1
+# successfully set certificate verify locations:
+#   CAfile: /etc/ssl/certs/ca-certificates.crt
+#   CApath: /etc/ssl/certs
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Client hello (1):
+# [512 bytes data]
+# [5 bytes data]
+# TLSv1.3 (IN), TLS handshake, Server hello (2):
+# [122 bytes data]
+# [5 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+# [19 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Certificate (11):
+# [3099 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, CERT verify (15):
+# [264 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Finished (20):
+# [36 bytes data]
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Finished (20):
+# [36 bytes data]
+# SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+# ALPN, server accepted to use h2
+# Server certificate:
+#  subject: C=US; ST=California; L=San Francisco; O=GitHub, Inc.; CN=*.github.io
+#  start date: Mar 15 00:00:00 2024 GMT
+#  expire date: Mar 14 23:59:59 2025 GMT
+#  subjectAltName: host "raw.githubusercontent.com" matched cert's "*.githubusercontent.com"
+#  issuer: C=US; O=DigiCert Inc; CN=DigiCert Global G2 TLS RSA SHA256 2020 CA1
+#  SSL certificate verify ok.
+# Using HTTP2, server supports multi-use
+# Connection state changed (HTTP/2 confirmed)
+# Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Using Stream ID: 1 (easy handle 0x5575b16f03e0)
+# [5 bytes data]
+# [1 bytes data]
+# GET /WeChatCV/opencv_3rdparty/a8b69ccc738421293254aec5ddb38bd523503252/sr.prototxt HTTP/2
+# Host: raw.githubusercontent.com
+# user-agent: curl/7.68.0
+# accept: */*
+# 
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [193 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# HTTP/2 200 
+# cache-control: max-age=300
+# content-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
+# content-type: text/plain; charset=utf-8
+# etag: "c9e68fb6f26d02ce6efd596b98bd56a3fdb21bf0b0b57b25e4ad522dac2e2528"
+# strict-transport-security: max-age=31536000
+# x-content-type-options: nosniff
+# x-frame-options: deny
+# x-xss-protection: 1; mode=block
+# x-github-request-id: 6BC5:30FFC0:31CAED0:33EA9ED:67227400
+# accept-ranges: bytes
+# date: Wed, 30 Oct 2024 17:59:28 GMT
+# via: 1.1 varnish
+# x-served-by: cache-mad22049-MAD
+# x-cache: MISS
+# x-cache-hits: 0
+# x-timer: S1730311168.275975,VS0,VE132
+# vary: Authorization,Accept-Encoding,Origin
+# access-control-allow-origin: *
+# cross-origin-resource-policy: cross-origin
+# x-fastly-request-id: 92531282c5a5b8cc74c0d00173f91979a0dce208
+# expires: Wed, 30 Oct 2024 18:04:28 GMT
+# source-age: 0
+# content-length: 5984
+# 
+# [724 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [148 bytes data]
+# Connection #0 to host raw.githubusercontent.com left intact
+# 
+
+#check_md5 "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/wechat_qrcode/69db99927a70df953b471daaba03fbef-sr.prototxt"
+#copy "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/wechat_qrcode/sr.prototxt" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/wechat_qrcode/69db99927a70df953b471daaba03fbef-sr.prototxt"
+#do_copy "boostdesc_bgm.i" "0ea90e7a8f3f7876d450e4149c97c74f" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_bgm.i" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d"
+#missing "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d/boostdesc_bgm.i"
+#cmake_download "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/boostdesc/0ea90e7a8f3f7876d450e4149c97c74f-boostdesc_bgm.i" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_bgm.i"
+#try 1
+#   Trying 2606:50c0:8001::154:443...
+# TCP_NODELAY set
+# Connected to raw.githubusercontent.com (2606:50c0:8001::154) port 443 (#0)
+# ALPN, offering h2
+# ALPN, offering http/1.1
+# successfully set certificate verify locations:
+#   CAfile: /etc/ssl/certs/ca-certificates.crt
+#   CApath: /etc/ssl/certs
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Client hello (1):
+# [512 bytes data]
+# [5 bytes data]
+# TLSv1.3 (IN), TLS handshake, Server hello (2):
+# [122 bytes data]
+# [5 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+# [19 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Certificate (11):
+# [3099 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, CERT verify (15):
+# [264 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Finished (20):
+# [36 bytes data]
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Finished (20):
+# [36 bytes data]
+# SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+# ALPN, server accepted to use h2
+# Server certificate:
+#  subject: C=US; ST=California; L=San Francisco; O=GitHub, Inc.; CN=*.github.io
+#  start date: Mar 15 00:00:00 2024 GMT
+#  expire date: Mar 14 23:59:59 2025 GMT
+#  subjectAltName: host "raw.githubusercontent.com" matched cert's "*.githubusercontent.com"
+#  issuer: C=US; O=DigiCert Inc; CN=DigiCert Global G2 TLS RSA SHA256 2020 CA1
+#  SSL certificate verify ok.
+# Using HTTP2, server supports multi-use
+# Connection state changed (HTTP/2 confirmed)
+# Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Using Stream ID: 1 (easy handle 0x5575b16be230)
+# [5 bytes data]
+# [1 bytes data]
+# GET /opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_bgm.i HTTP/2
+# Host: raw.githubusercontent.com
+# user-agent: curl/7.68.0
+# accept: */*
+# 
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [193 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# HTTP/2 200 
+# cache-control: max-age=300
+# content-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
+# content-type: text/plain; charset=utf-8
+# etag: "f4d39876234931f4cd9f46e84414d4b9c69717d391e989a93bb66948fb6c2512"
+# strict-transport-security: max-age=31536000
+# x-content-type-options: nosniff
+# x-frame-options: deny
+# x-xss-protection: 1; mode=block
+# x-github-request-id: 4C87:284D9E:4D7B4:5427B:6721BC51
+# accept-ranges: bytes
+# date: Wed, 30 Oct 2024 17:59:28 GMT
+# via: 1.1 varnish
+# x-served-by: cache-mad2200085-MAD
+# x-cache: HIT
+# x-cache-hits: 0
+# x-timer: S1730311169.603860,VS0,VE239
+# vary: Authorization,Accept-Encoding,Origin
+# access-control-allow-origin: *
+# cross-origin-resource-policy: cross-origin
+# x-fastly-request-id: d233d50ec2967a7d4e23258669151481bf4b5287
+# expires: Wed, 30 Oct 2024 18:04:28 GMT
+# source-age: 0
+# content-length: 14852
+# 
+# [5 bytes data]
+# [1 bytes data]
+# [1369 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1081 bytes data]
+# Connection #0 to host raw.githubusercontent.com left intact
+# 
+
+#check_md5 "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/boostdesc/0ea90e7a8f3f7876d450e4149c97c74f-boostdesc_bgm.i"
+#copy "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d/boostdesc_bgm.i" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/boostdesc/0ea90e7a8f3f7876d450e4149c97c74f-boostdesc_bgm.i"
+#do_copy "boostdesc_bgm_bi.i" "232c966b13651bd0e46a1497b0852191" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_bgm_bi.i" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d"
+#missing "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d/boostdesc_bgm_bi.i"
+#cmake_download "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/boostdesc/232c966b13651bd0e46a1497b0852191-boostdesc_bgm_bi.i" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_bgm_bi.i"
+#try 1
+#   Trying 2606:50c0:8001::154:443...
+# TCP_NODELAY set
+# Connected to raw.githubusercontent.com (2606:50c0:8001::154) port 443 (#0)
+# ALPN, offering h2
+# ALPN, offering http/1.1
+# successfully set certificate verify locations:
+#   CAfile: /etc/ssl/certs/ca-certificates.crt
+#   CApath: /etc/ssl/certs
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Client hello (1):
+# [512 bytes data]
+# [5 bytes data]
+# TLSv1.3 (IN), TLS handshake, Server hello (2):
+# [122 bytes data]
+# [5 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+# [19 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Certificate (11):
+# [3099 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, CERT verify (15):
+# [264 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Finished (20):
+# [36 bytes data]
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Finished (20):
+# [36 bytes data]
+# SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+# ALPN, server accepted to use h2
+# Server certificate:
+#  subject: C=US; ST=California; L=San Francisco; O=GitHub, Inc.; CN=*.github.io
+#  start date: Mar 15 00:00:00 2024 GMT
+#  expire date: Mar 14 23:59:59 2025 GMT
+#  subjectAltName: host "raw.githubusercontent.com" matched cert's "*.githubusercontent.com"
+#  issuer: C=US; O=DigiCert Inc; CN=DigiCert Global G2 TLS RSA SHA256 2020 CA1
+#  SSL certificate verify ok.
+# Using HTTP2, server supports multi-use
+# Connection state changed (HTTP/2 confirmed)
+# Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Using Stream ID: 1 (easy handle 0x5575b0329380)
+# [5 bytes data]
+# [1 bytes data]
+# GET /opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_bgm_bi.i HTTP/2
+# Host: raw.githubusercontent.com
+# user-agent: curl/7.68.0
+# accept: */*
+# 
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [193 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# HTTP/2 200 
+# cache-control: max-age=300
+# content-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
+# content-type: text/plain; charset=utf-8
+# etag: "63c9f081e31c588e64e041aa89dc8f400709d026f201608ac8e7266545cc7baa"
+# strict-transport-security: max-age=31536000
+# x-content-type-options: nosniff
+# x-frame-options: deny
+# x-xss-protection: 1; mode=block
+# x-github-request-id: 54B0:38B0F2:1CF6046:1E25ED9:67227401
+# accept-ranges: bytes
+# date: Wed, 30 Oct 2024 17:59:29 GMT
+# via: 1.1 varnish
+# x-served-by: cache-mad22081-MAD
+# x-cache: MISS
+# x-cache-hits: 0
+# x-timer: S1730311169.013926,VS0,VE250
+# vary: Authorization,Accept-Encoding,Origin
+# access-control-allow-origin: *
+# cross-origin-resource-policy: cross-origin
+# x-fastly-request-id: d6d80614e5b4c85a320b9edac78e0c4557bf7dd9
+# expires: Wed, 30 Oct 2024 18:04:29 GMT
+# source-age: 0
+# content-length: 14864
+# 
+# [5 bytes data]
+# [1 bytes data]
+# [1369 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1093 bytes data]
+# Connection #0 to host raw.githubusercontent.com left intact
+# 
+
+#check_md5 "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/boostdesc/232c966b13651bd0e46a1497b0852191-boostdesc_bgm_bi.i"
+#copy "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d/boostdesc_bgm_bi.i" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/boostdesc/232c966b13651bd0e46a1497b0852191-boostdesc_bgm_bi.i"
+#do_copy "boostdesc_bgm_hd.i" "324426a24fa56ad9c5b8e3e0b3e5303e" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_bgm_hd.i" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d"
+#missing "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d/boostdesc_bgm_hd.i"
+#cmake_download "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/boostdesc/324426a24fa56ad9c5b8e3e0b3e5303e-boostdesc_bgm_hd.i" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_bgm_hd.i"
+#try 1
+#   Trying 2606:50c0:8001::154:443...
+# TCP_NODELAY set
+# Connected to raw.githubusercontent.com (2606:50c0:8001::154) port 443 (#0)
+# ALPN, offering h2
+# ALPN, offering http/1.1
+# successfully set certificate verify locations:
+#   CAfile: /etc/ssl/certs/ca-certificates.crt
+#   CApath: /etc/ssl/certs
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Client hello (1):
+# [512 bytes data]
+# [5 bytes data]
+# TLSv1.3 (IN), TLS handshake, Server hello (2):
+# [122 bytes data]
+# [5 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+# [19 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Certificate (11):
+# [3099 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, CERT verify (15):
+# [264 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Finished (20):
+# [36 bytes data]
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Finished (20):
+# [36 bytes data]
+# SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+# ALPN, server accepted to use h2
+# Server certificate:
+#  subject: C=US; ST=California; L=San Francisco; O=GitHub, Inc.; CN=*.github.io
+#  start date: Mar 15 00:00:00 2024 GMT
+#  expire date: Mar 14 23:59:59 2025 GMT
+#  subjectAltName: host "raw.githubusercontent.com" matched cert's "*.githubusercontent.com"
+#  issuer: C=US; O=DigiCert Inc; CN=DigiCert Global G2 TLS RSA SHA256 2020 CA1
+#  SSL certificate verify ok.
+# Using HTTP2, server supports multi-use
+# Connection state changed (HTTP/2 confirmed)
+# Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Using Stream ID: 1 (easy handle 0x5575b0329380)
+# [5 bytes data]
+# [1 bytes data]
+# GET /opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_bgm_hd.i HTTP/2
+# Host: raw.githubusercontent.com
+# user-agent: curl/7.68.0
+# accept: */*
+# 
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [193 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# HTTP/2 200 
+# cache-control: max-age=300
+# content-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
+# content-type: text/plain; charset=utf-8
+# etag: "3f65138873460a77b397eba6720e2a19ac426dd8bc715e1eb0b718904ee672cd"
+# strict-transport-security: max-age=31536000
+# x-content-type-options: nosniff
+# x-frame-options: deny
+# x-xss-protection: 1; mode=block
+# x-github-request-id: DCF9:38B0F2:1CF6089:1E25F22:67227401
+# accept-ranges: bytes
+# date: Wed, 30 Oct 2024 17:59:29 GMT
+# via: 1.1 varnish
+# x-served-by: cache-mad22033-MAD
+# x-cache: MISS
+# x-cache-hits: 0
+# x-timer: S1730311169.461910,VS0,VE134
+# vary: Authorization,Accept-Encoding,Origin
+# access-control-allow-origin: *
+# cross-origin-resource-policy: cross-origin
+# x-fastly-request-id: 710a2ddf5c6db68b1afb6066bac88dd3a96eca4c
+# expires: Wed, 30 Oct 2024 18:04:29 GMT
+# source-age: 0
+# content-length: 7832
+# 
+# [723 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [719 bytes data]
+# Connection #0 to host raw.githubusercontent.com left intact
+# 
+
+#check_md5 "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/boostdesc/324426a24fa56ad9c5b8e3e0b3e5303e-boostdesc_bgm_hd.i"
+#copy "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d/boostdesc_bgm_hd.i" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/boostdesc/324426a24fa56ad9c5b8e3e0b3e5303e-boostdesc_bgm_hd.i"
+#do_copy "boostdesc_binboost_064.i" "202e1b3e9fec871b04da31f7f016679f" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_binboost_064.i" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d"
+#missing "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d/boostdesc_binboost_064.i"
+#cmake_download "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/boostdesc/202e1b3e9fec871b04da31f7f016679f-boostdesc_binboost_064.i" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_binboost_064.i"
+#try 1
+#   Trying 2606:50c0:8001::154:443...
+# TCP_NODELAY set
+# Connected to raw.githubusercontent.com (2606:50c0:8001::154) port 443 (#0)
+# ALPN, offering h2
+# ALPN, offering http/1.1
+# successfully set certificate verify locations:
+#   CAfile: /etc/ssl/certs/ca-certificates.crt
+#   CApath: /etc/ssl/certs
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Client hello (1):
+# [512 bytes data]
+# [5 bytes data]
+# TLSv1.3 (IN), TLS handshake, Server hello (2):
+# [122 bytes data]
+# [5 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+# [19 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Certificate (11):
+# [3099 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, CERT verify (15):
+# [264 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Finished (20):
+# [36 bytes data]
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Finished (20):
+# [36 bytes data]
+# SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+# ALPN, server accepted to use h2
+# Server certificate:
+#  subject: C=US; ST=California; L=San Francisco; O=GitHub, Inc.; CN=*.github.io
+#  start date: Mar 15 00:00:00 2024 GMT
+#  expire date: Mar 14 23:59:59 2025 GMT
+#  subjectAltName: host "raw.githubusercontent.com" matched cert's "*.githubusercontent.com"
+#  issuer: C=US; O=DigiCert Inc; CN=DigiCert Global G2 TLS RSA SHA256 2020 CA1
+#  SSL certificate verify ok.
+# Using HTTP2, server supports multi-use
+# Connection state changed (HTTP/2 confirmed)
+# Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Using Stream ID: 1 (easy handle 0x5575b0329380)
+# [5 bytes data]
+# [1 bytes data]
+# GET /opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_binboost_064.i HTTP/2
+# Host: raw.githubusercontent.com
+# user-agent: curl/7.68.0
+# accept: */*
+# 
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [193 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# HTTP/2 200 
+# cache-control: max-age=300
+# content-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
+# content-type: text/plain; charset=utf-8
+# etag: "bae205040ca21f82923433b5f0f55997208065bde7c22407eaad6b80d7c54a63"
+# strict-transport-security: max-age=31536000
+# x-content-type-options: nosniff
+# x-frame-options: deny
+# x-xss-protection: 1; mode=block
+# x-github-request-id: DD41:1E22D9:3956108:3BDCDBC:67227401
+# accept-ranges: bytes
+# date: Wed, 30 Oct 2024 17:59:30 GMT
+# via: 1.1 varnish
+# x-served-by: cache-mad2200102-MAD
+# x-cache: MISS
+# x-cache-hits: 0
+# x-timer: S1730311170.801374,VS0,VE311
+# vary: Authorization,Accept-Encoding,Origin
+# access-control-allow-origin: *
+# cross-origin-resource-policy: cross-origin
+# x-fastly-request-id: d9b3bc1bae2b058933b1217a2981ac95d5cd7aba
+# expires: Wed, 30 Oct 2024 18:04:30 GMT
+# source-age: 0
+# content-length: 138093
+# 
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [403 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [4918 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [7021 bytes data]
+# Connection #0 to host raw.githubusercontent.com left intact
+# 
+
+#check_md5 "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/boostdesc/202e1b3e9fec871b04da31f7f016679f-boostdesc_binboost_064.i"
+#copy "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d/boostdesc_binboost_064.i" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/boostdesc/202e1b3e9fec871b04da31f7f016679f-boostdesc_binboost_064.i"
+#do_copy "boostdesc_binboost_128.i" "98ea99d399965c03d555cef3ea502a0b" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_binboost_128.i" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d"
+#missing "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d/boostdesc_binboost_128.i"
+#cmake_download "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/boostdesc/98ea99d399965c03d555cef3ea502a0b-boostdesc_binboost_128.i" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_binboost_128.i"
+#try 1
+#   Trying 2606:50c0:8001::154:443...
+# TCP_NODELAY set
+# Connected to raw.githubusercontent.com (2606:50c0:8001::154) port 443 (#0)
+# ALPN, offering h2
+# ALPN, offering http/1.1
+# successfully set certificate verify locations:
+#   CAfile: /etc/ssl/certs/ca-certificates.crt
+#   CApath: /etc/ssl/certs
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Client hello (1):
+# [512 bytes data]
+# [5 bytes data]
+# TLSv1.3 (IN), TLS handshake, Server hello (2):
+# [122 bytes data]
+# [5 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+# [19 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Certificate (11):
+# [3099 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, CERT verify (15):
+# [264 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Finished (20):
+# [36 bytes data]
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Finished (20):
+# [36 bytes data]
+# SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+# ALPN, server accepted to use h2
+# Server certificate:
+#  subject: C=US; ST=California; L=San Francisco; O=GitHub, Inc.; CN=*.github.io
+#  start date: Mar 15 00:00:00 2024 GMT
+#  expire date: Mar 14 23:59:59 2025 GMT
+#  subjectAltName: host "raw.githubusercontent.com" matched cert's "*.githubusercontent.com"
+#  issuer: C=US; O=DigiCert Inc; CN=DigiCert Global G2 TLS RSA SHA256 2020 CA1
+#  SSL certificate verify ok.
+# Using HTTP2, server supports multi-use
+# Connection state changed (HTTP/2 confirmed)
+# Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Using Stream ID: 1 (easy handle 0x5575b0329380)
+# [5 bytes data]
+# [1 bytes data]
+# GET /opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_binboost_128.i HTTP/2
+# Host: raw.githubusercontent.com
+# user-agent: curl/7.68.0
+# accept: */*
+# 
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [193 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# HTTP/2 200 
+# cache-control: max-age=300
+# content-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
+# content-type: text/plain; charset=utf-8
+# etag: "54f58724d17670b7702ef9695e137286b17516af293a9761ea422d0d63ef750c"
+# strict-transport-security: max-age=31536000
+# x-content-type-options: nosniff
+# x-frame-options: deny
+# x-xss-protection: 1; mode=block
+# x-github-request-id: 8330:2F40C7:231D39B:24A1ACA:67227401
+# accept-ranges: bytes
+# date: Wed, 30 Oct 2024 17:59:30 GMT
+# via: 1.1 varnish
+# x-served-by: cache-mad2200087-MAD
+# x-cache: MISS
+# x-cache-hits: 0
+# x-timer: S1730311170.418287,VS0,VE218
+# vary: Authorization,Accept-Encoding,Origin
+# access-control-allow-origin: *
+# cross-origin-resource-policy: cross-origin
+# x-fastly-request-id: 80bb75c1f47c141174a4d9ae1064aec34b1b4e9f
+# expires: Wed, 30 Oct 2024 18:04:30 GMT
+# source-age: 0
+# content-length: 275322
+# 
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [565 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [5587 bytes data]
+# Connection #0 to host raw.githubusercontent.com left intact
+# 
+
+#check_md5 "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/boostdesc/98ea99d399965c03d555cef3ea502a0b-boostdesc_binboost_128.i"
+#copy "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d/boostdesc_binboost_128.i" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/boostdesc/98ea99d399965c03d555cef3ea502a0b-boostdesc_binboost_128.i"
+#do_copy "boostdesc_binboost_256.i" "e6dcfa9f647779eb1ce446a8d759b6ea" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_binboost_256.i" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d"
+#missing "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d/boostdesc_binboost_256.i"
+#cmake_download "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/boostdesc/e6dcfa9f647779eb1ce446a8d759b6ea-boostdesc_binboost_256.i" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_binboost_256.i"
+#try 1
+#   Trying 2606:50c0:8001::154:443...
+# TCP_NODELAY set
+# Connected to raw.githubusercontent.com (2606:50c0:8001::154) port 443 (#0)
+# ALPN, offering h2
+# ALPN, offering http/1.1
+# successfully set certificate verify locations:
+#   CAfile: /etc/ssl/certs/ca-certificates.crt
+#   CApath: /etc/ssl/certs
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Client hello (1):
+# [512 bytes data]
+# [5 bytes data]
+# TLSv1.3 (IN), TLS handshake, Server hello (2):
+# [122 bytes data]
+# [5 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+# [19 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Certificate (11):
+# [3099 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, CERT verify (15):
+# [264 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Finished (20):
+# [36 bytes data]
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Finished (20):
+# [36 bytes data]
+# SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+# ALPN, server accepted to use h2
+# Server certificate:
+#  subject: C=US; ST=California; L=San Francisco; O=GitHub, Inc.; CN=*.github.io
+#  start date: Mar 15 00:00:00 2024 GMT
+#  expire date: Mar 14 23:59:59 2025 GMT
+#  subjectAltName: host "raw.githubusercontent.com" matched cert's "*.githubusercontent.com"
+#  issuer: C=US; O=DigiCert Inc; CN=DigiCert Global G2 TLS RSA SHA256 2020 CA1
+#  SSL certificate verify ok.
+# Using HTTP2, server supports multi-use
+# Connection state changed (HTTP/2 confirmed)
+# Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Using Stream ID: 1 (easy handle 0x5575b0329380)
+# [5 bytes data]
+# [1 bytes data]
+# GET /opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_binboost_256.i HTTP/2
+# Host: raw.githubusercontent.com
+# user-agent: curl/7.68.0
+# accept: */*
+# 
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [193 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# HTTP/2 200 
+# cache-control: max-age=300
+# content-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
+# content-type: text/plain; charset=utf-8
+# etag: "5170441d0b803cfdb9971e7164637d566ed19f3e692c9d40ecc41bfad6b9cc56"
+# strict-transport-security: max-age=31536000
+# x-content-type-options: nosniff
+# x-frame-options: deny
+# x-xss-protection: 1; mode=block
+# x-github-request-id: 0845:255C0E:1D56C36:1E8E95F:67227403
+# accept-ranges: bytes
+# date: Wed, 30 Oct 2024 17:59:31 GMT
+# via: 1.1 varnish
+# x-served-by: cache-mad22071-MAD
+# x-cache: MISS
+# x-cache-hits: 0
+# x-timer: S1730311171.964096,VS0,VE415
+# vary: Authorization,Accept-Encoding,Origin
+# access-control-allow-origin: *
+# cross-origin-resource-policy: cross-origin
+# x-fastly-request-id: f46767eef3f7ca6526366ed879c834ff953506ea
+# expires: Wed, 30 Oct 2024 18:04:31 GMT
+# source-age: 0
+# content-length: 549754
+# 
+# [721 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [678 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [8522 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [10009 bytes data]
+# Connection #0 to host raw.githubusercontent.com left intact
+# 
+
+#check_md5 "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/boostdesc/e6dcfa9f647779eb1ce446a8d759b6ea-boostdesc_binboost_256.i"
+#copy "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d/boostdesc_binboost_256.i" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/boostdesc/e6dcfa9f647779eb1ce446a8d759b6ea-boostdesc_binboost_256.i"
+#do_copy "boostdesc_lbgm.i" "0ae0675534aa318d9668f2a179c2a052" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_lbgm.i" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d"
+#missing "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d/boostdesc_lbgm.i"
+#cmake_download "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/boostdesc/0ae0675534aa318d9668f2a179c2a052-boostdesc_lbgm.i" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_lbgm.i"
+#try 1
+#   Trying 2606:50c0:8001::154:443...
+# TCP_NODELAY set
+# Connected to raw.githubusercontent.com (2606:50c0:8001::154) port 443 (#0)
+# ALPN, offering h2
+# ALPN, offering http/1.1
+# successfully set certificate verify locations:
+#   CAfile: /etc/ssl/certs/ca-certificates.crt
+#   CApath: /etc/ssl/certs
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Client hello (1):
+# [512 bytes data]
+# [5 bytes data]
+# TLSv1.3 (IN), TLS handshake, Server hello (2):
+# [122 bytes data]
+# [5 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+# [19 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Certificate (11):
+# [3099 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, CERT verify (15):
+# [264 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Finished (20):
+# [36 bytes data]
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Finished (20):
+# [36 bytes data]
+# SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+# ALPN, server accepted to use h2
+# Server certificate:
+#  subject: C=US; ST=California; L=San Francisco; O=GitHub, Inc.; CN=*.github.io
+#  start date: Mar 15 00:00:00 2024 GMT
+#  expire date: Mar 14 23:59:59 2025 GMT
+#  subjectAltName: host "raw.githubusercontent.com" matched cert's "*.githubusercontent.com"
+#  issuer: C=US; O=DigiCert Inc; CN=DigiCert Global G2 TLS RSA SHA256 2020 CA1
+#  SSL certificate verify ok.
+# Using HTTP2, server supports multi-use
+# Connection state changed (HTTP/2 confirmed)
+# Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Using Stream ID: 1 (easy handle 0x5575b0329380)
+# [5 bytes data]
+# [1 bytes data]
+# GET /opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_lbgm.i HTTP/2
+# Host: raw.githubusercontent.com
+# user-agent: curl/7.68.0
+# accept: */*
+# 
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [193 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# HTTP/2 200 
+# cache-control: max-age=300
+# content-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
+# content-type: text/plain; charset=utf-8
+# etag: "f3d4a74705b7df4677383f120dc191d41412bcc2a9d68182483d1fcaa8c6f3ee"
+# strict-transport-security: max-age=31536000
+# x-content-type-options: nosniff
+# x-frame-options: deny
+# x-xss-protection: 1; mode=block
+# x-github-request-id: E06A:3203D9:48560FF:4B8B04F:67227403
+# accept-ranges: bytes
+# date: Wed, 30 Oct 2024 17:59:32 GMT
+# via: 1.1 varnish
+# x-served-by: cache-mad22023-MAD
+# x-cache: MISS
+# x-cache-hits: 0
+# x-timer: S1730311172.893954,VS0,VE306
+# vary: Authorization,Accept-Encoding,Origin
+# access-control-allow-origin: *
+# cross-origin-resource-policy: cross-origin
+# x-fastly-request-id: e1a50e48dea1bcd6a92d38221443418bd077b3fc
+# expires: Wed, 30 Oct 2024 18:04:32 GMT
+# source-age: 0
+# content-length: 426280
+# 
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [412 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [4918 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [314 bytes data]
+# Connection #0 to host raw.githubusercontent.com left intact
+# 
+
+#check_md5 "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/boostdesc/0ae0675534aa318d9668f2a179c2a052-boostdesc_lbgm.i"
+#copy "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d/boostdesc_lbgm.i" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/boostdesc/0ae0675534aa318d9668f2a179c2a052-boostdesc_lbgm.i"
+#do_copy "vgg_generated_48.i" "e8d0dcd54d1bcfdc29203d011a797179" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/fccf7cd6a4b12079f73bbfb21745f9babcd4eb1d/vgg_generated_48.i" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d"
+#missing "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d/vgg_generated_48.i"
+#cmake_download "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/vgg/e8d0dcd54d1bcfdc29203d011a797179-vgg_generated_48.i" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/fccf7cd6a4b12079f73bbfb21745f9babcd4eb1d/vgg_generated_48.i"
+#try 1
+#   Trying 2606:50c0:8001::154:443...
+# TCP_NODELAY set
+# Connected to raw.githubusercontent.com (2606:50c0:8001::154) port 443 (#0)
+# ALPN, offering h2
+# ALPN, offering http/1.1
+# successfully set certificate verify locations:
+#   CAfile: /etc/ssl/certs/ca-certificates.crt
+#   CApath: /etc/ssl/certs
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Client hello (1):
+# [512 bytes data]
+# [5 bytes data]
+# TLSv1.3 (IN), TLS handshake, Server hello (2):
+# [122 bytes data]
+# [5 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+# [19 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Certificate (11):
+# [3099 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, CERT verify (15):
+# [264 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Finished (20):
+# [36 bytes data]
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Finished (20):
+# [36 bytes data]
+# SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+# ALPN, server accepted to use h2
+# Server certificate:
+#  subject: C=US; ST=California; L=San Francisco; O=GitHub, Inc.; CN=*.github.io
+#  start date: Mar 15 00:00:00 2024 GMT
+#  expire date: Mar 14 23:59:59 2025 GMT
+#  subjectAltName: host "raw.githubusercontent.com" matched cert's "*.githubusercontent.com"
+#  issuer: C=US; O=DigiCert Inc; CN=DigiCert Global G2 TLS RSA SHA256 2020 CA1
+#  SSL certificate verify ok.
+# Using HTTP2, server supports multi-use
+# Connection state changed (HTTP/2 confirmed)
+# Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Using Stream ID: 1 (easy handle 0x5575b0329380)
+# [5 bytes data]
+# [1 bytes data]
+# GET /opencv/opencv_3rdparty/fccf7cd6a4b12079f73bbfb21745f9babcd4eb1d/vgg_generated_48.i HTTP/2
+# Host: raw.githubusercontent.com
+# user-agent: curl/7.68.0
+# accept: */*
+# 
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [193 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# HTTP/2 200 
+# cache-control: max-age=300
+# content-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
+# content-type: text/plain; charset=utf-8
+# etag: "9712a2b00f558a6635e1c65f92e7b796fa4ac9e7824a0e4e38081647489047d8"
+# strict-transport-security: max-age=31536000
+# x-content-type-options: nosniff
+# x-frame-options: deny
+# x-xss-protection: 1; mode=block
+# x-github-request-id: 4737:2E26CA:11EDD89:12A30AB:67227405
+# accept-ranges: bytes
+# date: Wed, 30 Oct 2024 17:59:34 GMT
+# via: 1.1 varnish
+# x-served-by: cache-mad2200095-MAD
+# x-cache: MISS
+# x-cache-hits: 0
+# x-timer: S1730311174.507961,VS0,VE1009
+# vary: Authorization,Accept-Encoding,Origin
+# access-control-allow-origin: *
+# cross-origin-resource-policy: cross-origin
+# x-fastly-request-id: eb2fb877636e9bf101b3f1929ac9c6f035ec337d
+# expires: Wed, 30 Oct 2024 18:04:34 GMT
+# source-age: 1
+# content-length: 773330
+# 
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [9570 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [3309 bytes data]
+# Connection #0 to host raw.githubusercontent.com left intact
+# 
+
+#check_md5 "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/vgg/e8d0dcd54d1bcfdc29203d011a797179-vgg_generated_48.i"
+#copy "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d/vgg_generated_48.i" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/vgg/e8d0dcd54d1bcfdc29203d011a797179-vgg_generated_48.i"
+#do_copy "vgg_generated_64.i" "7126a5d9a8884ebca5aea5d63d677225" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/fccf7cd6a4b12079f73bbfb21745f9babcd4eb1d/vgg_generated_64.i" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d"
+#missing "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d/vgg_generated_64.i"
+#cmake_download "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/vgg/7126a5d9a8884ebca5aea5d63d677225-vgg_generated_64.i" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/fccf7cd6a4b12079f73bbfb21745f9babcd4eb1d/vgg_generated_64.i"
+#try 1
+#   Trying 2606:50c0:8001::154:443...
+# TCP_NODELAY set
+# Connected to raw.githubusercontent.com (2606:50c0:8001::154) port 443 (#0)
+# ALPN, offering h2
+# ALPN, offering http/1.1
+# successfully set certificate verify locations:
+#   CAfile: /etc/ssl/certs/ca-certificates.crt
+#   CApath: /etc/ssl/certs
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Client hello (1):
+# [512 bytes data]
+# [5 bytes data]
+# TLSv1.3 (IN), TLS handshake, Server hello (2):
+# [122 bytes data]
+# [5 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+# [19 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Certificate (11):
+# [3099 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, CERT verify (15):
+# [264 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Finished (20):
+# [36 bytes data]
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Finished (20):
+# [36 bytes data]
+# SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+# ALPN, server accepted to use h2
+# Server certificate:
+#  subject: C=US; ST=California; L=San Francisco; O=GitHub, Inc.; CN=*.github.io
+#  start date: Mar 15 00:00:00 2024 GMT
+#  expire date: Mar 14 23:59:59 2025 GMT
+#  subjectAltName: host "raw.githubusercontent.com" matched cert's "*.githubusercontent.com"
+#  issuer: C=US; O=DigiCert Inc; CN=DigiCert Global G2 TLS RSA SHA256 2020 CA1
+#  SSL certificate verify ok.
+# Using HTTP2, server supports multi-use
+# Connection state changed (HTTP/2 confirmed)
+# Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Using Stream ID: 1 (easy handle 0x5575b0329380)
+# [5 bytes data]
+# [1 bytes data]
+# GET /opencv/opencv_3rdparty/fccf7cd6a4b12079f73bbfb21745f9babcd4eb1d/vgg_generated_64.i HTTP/2
+# Host: raw.githubusercontent.com
+# user-agent: curl/7.68.0
+# accept: */*
+# 
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [193 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# HTTP/2 200 
+# cache-control: max-age=300
+# content-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
+# content-type: text/plain; charset=utf-8
+# etag: "6080244e3d6fdff679f450da04af4a0d32d5bdaf3bc30d3ca432ed7e99d0caf5"
+# strict-transport-security: max-age=31536000
+# x-content-type-options: nosniff
+# x-frame-options: deny
+# x-xss-protection: 1; mode=block
+# x-github-request-id: A486:2D8839:B95131:C16569:67227406
+# accept-ranges: bytes
+# date: Wed, 30 Oct 2024 17:59:35 GMT
+# via: 1.1 varnish
+# x-served-by: cache-mad22082-MAD
+# x-cache: MISS
+# x-cache-hits: 0
+# x-timer: S1730311176.594789,VS0,VE344
+# vary: Authorization,Accept-Encoding,Origin
+# access-control-allow-origin: *
+# cross-origin-resource-policy: cross-origin
+# x-fastly-request-id: af0e22f3a815112bb27188a526e2203828acb5e8
+# expires: Wed, 30 Oct 2024 18:04:35 GMT
+# source-age: 0
+# content-length: 915012
+# 
+# [723 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [678 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [2968 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [14835 bytes data]
+# Connection #0 to host raw.githubusercontent.com left intact
+# 
+
+#check_md5 "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/vgg/7126a5d9a8884ebca5aea5d63d677225-vgg_generated_64.i"
+#copy "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d/vgg_generated_64.i" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/vgg/7126a5d9a8884ebca5aea5d63d677225-vgg_generated_64.i"
+#do_copy "vgg_generated_80.i" "7cd47228edec52b6d82f46511af325c5" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/fccf7cd6a4b12079f73bbfb21745f9babcd4eb1d/vgg_generated_80.i" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d"
+#missing "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d/vgg_generated_80.i"
+#cmake_download "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/vgg/7cd47228edec52b6d82f46511af325c5-vgg_generated_80.i" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/fccf7cd6a4b12079f73bbfb21745f9babcd4eb1d/vgg_generated_80.i"
+#try 1
+#   Trying 2606:50c0:8001::154:443...
+# TCP_NODELAY set
+# Connected to raw.githubusercontent.com (2606:50c0:8001::154) port 443 (#0)
+# ALPN, offering h2
+# ALPN, offering http/1.1
+# successfully set certificate verify locations:
+#   CAfile: /etc/ssl/certs/ca-certificates.crt
+#   CApath: /etc/ssl/certs
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Client hello (1):
+# [512 bytes data]
+# [5 bytes data]
+# TLSv1.3 (IN), TLS handshake, Server hello (2):
+# [122 bytes data]
+# [5 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+# [19 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Certificate (11):
+# [3099 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, CERT verify (15):
+# [264 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Finished (20):
+# [36 bytes data]
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Finished (20):
+# [36 bytes data]
+# SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+# ALPN, server accepted to use h2
+# Server certificate:
+#  subject: C=US; ST=California; L=San Francisco; O=GitHub, Inc.; CN=*.github.io
+#  start date: Mar 15 00:00:00 2024 GMT
+#  expire date: Mar 14 23:59:59 2025 GMT
+#  subjectAltName: host "raw.githubusercontent.com" matched cert's "*.githubusercontent.com"
+#  issuer: C=US; O=DigiCert Inc; CN=DigiCert Global G2 TLS RSA SHA256 2020 CA1
+#  SSL certificate verify ok.
+# Using HTTP2, server supports multi-use
+# Connection state changed (HTTP/2 confirmed)
+# Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Using Stream ID: 1 (easy handle 0x5575b0329380)
+# [5 bytes data]
+# [1 bytes data]
+# GET /opencv/opencv_3rdparty/fccf7cd6a4b12079f73bbfb21745f9babcd4eb1d/vgg_generated_80.i HTTP/2
+# Host: raw.githubusercontent.com
+# user-agent: curl/7.68.0
+# accept: */*
+# 
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [193 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# HTTP/2 200 
+# cache-control: max-age=300
+# content-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
+# content-type: text/plain; charset=utf-8
+# etag: "41b934aa1655bb7609e81243de0568fac0682d633a52dd881ef7ccd5a80fc425"
+# strict-transport-security: max-age=31536000
+# x-content-type-options: nosniff
+# x-frame-options: deny
+# x-xss-protection: 1; mode=block
+# x-github-request-id: 7CC0:30FFC0:31CB3A2:33EAEF1:67227405
+# accept-ranges: bytes
+# date: Wed, 30 Oct 2024 17:59:36 GMT
+# via: 1.1 varnish
+# x-served-by: cache-mad2200098-MAD
+# x-cache: MISS
+# x-cache-hits: 0
+# x-timer: S1730311176.451814,VS0,VE341
+# vary: Authorization,Accept-Encoding,Origin
+# access-control-allow-origin: *
+# cross-origin-resource-policy: cross-origin
+# x-fastly-request-id: 4475febd2b0029875b863f4b23eec7f30bad6410
+# expires: Wed, 30 Oct 2024 18:04:36 GMT
+# source-age: 0
+# content-length: 1012932
+# 
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1369 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1378 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [446 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [13511 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [18 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [13493 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [8197 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [9 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [5305 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [7875 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [5636 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [9 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [13502 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [9 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [13502 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [9 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [13502 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [8948 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [9 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [18 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [4536 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [27 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [13484 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [9 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [13502 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [8948 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [4563 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [8948 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [9 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [4554 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [2056 bytes data]
+# Connection #0 to host raw.githubusercontent.com left intact
+# 
+
+#check_md5 "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/vgg/7cd47228edec52b6d82f46511af325c5-vgg_generated_80.i"
+#copy "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d/vgg_generated_80.i" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/vgg/7cd47228edec52b6d82f46511af325c5-vgg_generated_80.i"
+#do_copy "vgg_generated_120.i" "151805e03568c9f490a5e3a872777b75" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/fccf7cd6a4b12079f73bbfb21745f9babcd4eb1d/vgg_generated_120.i" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d"
+#missing "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d/vgg_generated_120.i"
+#cmake_download "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/vgg/151805e03568c9f490a5e3a872777b75-vgg_generated_120.i" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/fccf7cd6a4b12079f73bbfb21745f9babcd4eb1d/vgg_generated_120.i"
+#try 1
+#   Trying 2606:50c0:8001::154:443...
+# TCP_NODELAY set
+# Connected to raw.githubusercontent.com (2606:50c0:8001::154) port 443 (#0)
+# ALPN, offering h2
+# ALPN, offering http/1.1
+# successfully set certificate verify locations:
+#   CAfile: /etc/ssl/certs/ca-certificates.crt
+#   CApath: /etc/ssl/certs
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Client hello (1):
+# [512 bytes data]
+# [5 bytes data]
+# TLSv1.3 (IN), TLS handshake, Server hello (2):
+# [122 bytes data]
+# [5 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+# [19 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Certificate (11):
+# [3099 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, CERT verify (15):
+# [264 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Finished (20):
+# [36 bytes data]
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Finished (20):
+# [36 bytes data]
+# SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+# ALPN, server accepted to use h2
+# Server certificate:
+#  subject: C=US; ST=California; L=San Francisco; O=GitHub, Inc.; CN=*.github.io
+#  start date: Mar 15 00:00:00 2024 GMT
+#  expire date: Mar 14 23:59:59 2025 GMT
+#  subjectAltName: host "raw.githubusercontent.com" matched cert's "*.githubusercontent.com"
+#  issuer: C=US; O=DigiCert Inc; CN=DigiCert Global G2 TLS RSA SHA256 2020 CA1
+#  SSL certificate verify ok.
+# Using HTTP2, server supports multi-use
+# Connection state changed (HTTP/2 confirmed)
+# Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Using Stream ID: 1 (easy handle 0x5575b1763520)
+# [5 bytes data]
+# [1 bytes data]
+# GET /opencv/opencv_3rdparty/fccf7cd6a4b12079f73bbfb21745f9babcd4eb1d/vgg_generated_120.i HTTP/2
+# Host: raw.githubusercontent.com
+# user-agent: curl/7.68.0
+# accept: */*
+# 
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [193 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+# [5 bytes data]
+# [1 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# HTTP/2 200 
+# cache-control: max-age=300
+# content-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
+# content-type: text/plain; charset=utf-8
+# etag: "0497dfb95e9b1f2612c03e3862e51b0b10de8cd899a78d2dc72d6103dae12799"
+# strict-transport-security: max-age=31536000
+# x-content-type-options: nosniff
+# x-frame-options: deny
+# x-xss-protection: 1; mode=block
+# x-github-request-id: DBE0:30FFC0:31CB467:33EAFC9:67227409
+# accept-ranges: bytes
+# date: Wed, 30 Oct 2024 17:59:38 GMT
+# via: 1.1 varnish
+# x-served-by: cache-mad22066-MAD
+# x-cache: MISS
+# x-cache-hits: 0
+# x-timer: S1730311178.733974,VS0,VE381
+# vary: Authorization,Accept-Encoding,Origin
+# access-control-allow-origin: *
+# cross-origin-resource-policy: cross-origin
+# x-fastly-request-id: 0e0d0f9c68374ca108531040002202056cf61317
+# expires: Wed, 30 Oct 2024 18:04:38 GMT
+# source-age: 0
+# content-length: 1257733
+# 
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1269 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [1278 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [8071 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [16375 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [36 bytes data]
+# [5 bytes data]
+# [1 bytes data]
+# [12549 bytes data]
+# Connection #0 to host raw.githubusercontent.com left intact
+# 
+
+#check_md5 "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/vgg/151805e03568c9f490a5e3a872777b75-vgg_generated_120.i"
+#copy "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/downloads/xfeatures2d/vgg_generated_120.i" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/xfeatures2d/vgg/151805e03568c9f490a5e3a872777b75-vgg_generated_120.i"
+#do_copy "face_landmark_model.dat" "7505c44ca4eb54b4ab1e4777cb96ac05" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/8afa57abc8229d611c4937165d20e2a2d9fc5a12/face_landmark_model.dat" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/share/opencv4/testdata/cv/face/"
+#missing "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/share/opencv4/testdata/cv/face//face_landmark_model.dat"
+#cmake_download "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/data/7505c44ca4eb54b4ab1e4777cb96ac05-face_landmark_model.dat" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/8afa57abc8229d611c4937165d20e2a2d9fc5a12/face_landmark_model.dat"
+#try 1
+#check_md5 "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/data/7505c44ca4eb54b4ab1e4777cb96ac05-face_landmark_model.dat"
+#copy "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/build/share/opencv4/testdata/cv/face//face_landmark_model.dat" "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv-4.x/.cache/data/7505c44ca4eb54b4ab1e4777cb96ac05-face_landmark_model.dat"

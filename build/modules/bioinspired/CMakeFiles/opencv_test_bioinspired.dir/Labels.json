@@ -1,0 +1,42 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv_contrib-4.x/modules/bioinspired/test/test_main.cpp",
+			"labels" : 
+			[
+				"Extra",
+				"opencv_bioinspired",
+				"AccuracyTest"
+			]
+		},
+		{
+			"file" : "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv_contrib-4.x/modules/bioinspired/test/test_retina_ocl.cpp",
+			"labels" : 
+			[
+				"Extra",
+				"opencv_bioinspired",
+				"AccuracyTest"
+			]
+		},
+		{
+			"file" : "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv_contrib-4.x/modules/bioinspired/test/test_precomp.hpp",
+			"labels" : 
+			[
+				"Extra",
+				"opencv_bioinspired",
+				"AccuracyTest"
+			]
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"Extra",
+			"opencv_bioinspired",
+			"AccuracyTest"
+		],
+		"name" : "opencv_test_bioinspired"
+	}
+}
