@@ -167,12 +167,14 @@ class ControllerNode(Node):
         if self.distance_ != 0:
 
             distance_moved    = (abs(self.encoder_left_) + abs(self.encoder_right_)) / 2
+            self.get_logger().info("Distance moved: " + str(distance_moved))
+
             straight_distance = self.distance_ - self.dist_accel_ - self.dist_desaccel_
 
             # Acceleration
             if distance_moved < self.dist_accel_:
-                self.get_logger().info("Dins d'acceleracio | linear vel, init vel, dist_accel: " + str(self.linear_vel_) + ", " + str(self.init_vel_) + ", " + str(self.dist_accel_))
-                self.get_logger().info("Res operacio: " + str(self.linear_vel_ - self.init_vel_))
+                # self.get_logger().info("Dins d'acceleracio | linear vel, init vel, dist_accel: " + str(self.linear_vel_) + ", " + str(self.init_vel_) + ", " + str(self.dist_accel_))
+                # self.get_logger().info("Res operacio: " + str(self.linear_vel_ - self.init_vel_))
 
                 n_accel   = self.init_vel_
                 m_accel_v = (self.linear_vel_ - self.init_vel_) / self.dist_accel_
@@ -183,17 +185,17 @@ class ControllerNode(Node):
 
                 vel_left, vel_right = self.robot.get_motor_velocities(v, w)
 
-                self.get_logger().info("Dins d'acceleracio | m, vl, vr: " + str(m_accel_v) + ", " + str(vel_left) + ", " + str(vel_right))
+                # self.get_logger().info("Dins d'acceleracio | m, vl, vr: " + str(m_accel_v) + ", " + str(vel_left) + ", " + str(vel_right))
 
             # Straight
             elif distance_moved < straight_distance:
-                self.get_logger().info("Dins de straight")
-                vel_left, vel_right = self.robot.get_motor_velocities(self.linear_vel_, self.angular_vel_)
+                # self.get_logger().info("Dins de straight")
+                vel_left, vel_right = self.robot.get_motor_velocities(self.linear_vel_ * self.direction_, self.angular_vel_ * self.direction_)
 
             # Desacceleration
             elif distance_moved < self.distance_:
-                self.get_logger().info("Dins de desaccel | m, linear vel, init vel, dist_desaccel: " + str(self.linear_vel_) + ", " + str(self.init_vel_) + ", " + str(self.dist_accel_))
-                self.get_logger().info("Res operacio: " + str(self.linear_vel_ - self.init_vel_))
+                # self.get_logger().info("Dins de desaccel | m, linear vel, init vel, dist_desaccel: " + str(self.linear_vel_) + ", " + str(self.init_vel_) + ", " + str(self.dist_accel_))
+                # self.get_logger().info("Res operacio: " + str(self.linear_vel_ - self.init_vel_))
 
                 m_desaccel_v = (self.final_vel_ - self.linear_vel_) / (self.distance_ - straight_distance)
                 n_desaccel_v = self.final_vel_ - m_desaccel_v * self.distance_
@@ -210,7 +212,7 @@ class ControllerNode(Node):
                 else:
                     w = 0
 
-                self.get_logger().info("Dins d'acceleracio | m, vl, vr: " + str(m_desaccel_v) + ", " + str(v))
+                # self.get_logger().info("Dins d'acceleracio | m, vl, vr: " + str(m_desaccel_v) + ", " + str(v))
 
                 vel_left, vel_right = self.robot.get_motor_velocities(v, w)
 
@@ -220,6 +222,7 @@ class ControllerNode(Node):
                 vel_left  = 0.0
                 vel_right = 0.0
                 self.distance_ = 0
+                self.direction_ = 1
 
                 # Publish end of movement
                 end_action = Bool()
