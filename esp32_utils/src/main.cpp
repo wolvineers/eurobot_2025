@@ -131,6 +131,80 @@ PID_Motor_params motor_params4 = {
 
 
 // We create the motor object
+<<<<<<< HEAD
+PID_Motor motorL(motor_paramsl);
+PID_Motor motorR(motor_paramsr);
+PID_Motor motor3(motor_params3);
+PID_Motor motor4(motor_params4);
+
+
+
+
+void setup() {
+
+
+   setupSerial();
+   Serial.begin(115200);
+
+
+ // If the driver has to be enabled, do it here
+ pinMode(22, OUTPUT);
+ digitalWrite(22, 0);
+
+
+ // Create a speed curve, that will move the motor 2050 pulses, at a maximum speed of 50 pulses / cycle, and with an acceleration of 10 pulses / cycle^2 (example)
+ //motorR.move_distance(4000, 0, 50, 10);
+ //motorL.move_distance(4000, 0, 50, 10);
+
+
+ // Start the motor timer, which starts the speed control
+ motorR.initialize_timer();
+ motorL.initialize_timer();
+ motor3.initialize_timer();
+ motor4.initialize_timer();
+}
+
+
+void loop() {
+    //Read the message recibed and split the content in 3 different variables
+   String message = readMessage();  
+   if (message.length() > 0) {
+       int firstComma = message.indexOf(',');
+       int secondComma = message.indexOf(',', firstComma + 1);
+       if (firstComma != -1 && secondComma != -1) {
+           String motorNumberStr = message.substring(2, firstComma);
+           String motorAngleStr = message.substring(firstComma + 1, secondComma);
+           String checksumStr = message.substring(secondComma + 1);
+           int motorNumber = motorNumberStr.toInt();
+           int motorPower = motorAngleStr.toInt(); 
+           int checksum = checksumStr.toInt();
+
+            //Check the motor number and set the power for the selected motor
+           if (motorNumber >= 1 && motorNumber < 5){
+             Serial.println("Motor Number: " + String(motorNumber));
+             Serial.println("Motor %: " + String(motorPower));
+             Serial.println("Checksum: " + String(checksum));
+
+
+             if (motorNumber == 1) {
+                 motorL.setpoint = motorPower; 
+             } else if (motorNumber == 2) {
+                 motorR.setpoint = motorPower; 
+             }
+             else if (motorNumber == 3) {
+                 motor3.setpoint = motorPower; 
+             }
+             else if (motorNumber == 4) {
+                 motor4.setpoint = motorPower; 
+             }
+         } else {
+             Serial.println("Error: Invalid servo number");
+         }
+           } else{
+             Serial.println("Error: Invalid message format");
+       }
+   }
+}
 PID_Motor motor1(motor_params1);
 PID_Motor motor2(motor_params2);
 PID_Motor motorR(motor_params3);
@@ -204,5 +278,5 @@ void loop() {
         }
     }
 
-    delay(20); /// Receive 100 messages per second
+    delay(20); /// Receive 10 messages per second
 }

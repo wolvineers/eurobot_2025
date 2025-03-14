@@ -1,0 +1,6 @@
+Invoking command in '/wolvi/src/build/computation_zone': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/wolvi/install/lidar:/opt/ros/humble /usr/bin/cmake /wolvi/src/computation_zone -DCMAKE_INSTALL_PREFIX=/wolvi/src/install/computation_zone
+Invoked command in '/wolvi/src/build/computation_zone' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/wolvi/install/lidar:/opt/ros/humble /usr/bin/cmake /wolvi/src/computation_zone -DCMAKE_INSTALL_PREFIX=/wolvi/src/install/computation_zone
+Invoking command in '/wolvi/src/build/computation_zone': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/wolvi/install/lidar:/opt/ros/humble /usr/bin/cmake --build /wolvi/src/build/computation_zone -- -j8 -l8
+Invoked command in '/wolvi/src/build/computation_zone' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/wolvi/install/lidar:/opt/ros/humble /usr/bin/cmake --build /wolvi/src/build/computation_zone -- -j8 -l8
+Invoking command in '/wolvi/src/build/computation_zone': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/wolvi/install/lidar:/opt/ros/humble /usr/bin/cmake --install /wolvi/src/build/computation_zone
+Invoked command in '/wolvi/src/build/computation_zone' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/wolvi/install/lidar:/opt/ros/humble /usr/bin/cmake --install /wolvi/src/build/computation_zone

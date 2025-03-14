@@ -123,12 +123,11 @@ def read_message(serial_port):
         # If a message is received
         if message:
             print(f"Received message: {message}")
-
             # Verify the integrity of the message
             if verify_serial_message(message):
                 # print("Correct checksum.")
                 return message
-    
+
     except KeyboardInterrupt:
         print("Read operation interrupted.")
     

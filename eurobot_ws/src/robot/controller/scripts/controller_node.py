@@ -52,6 +52,7 @@ class ControllerNode(Node):
         self.movement_sub_      = self.create_subscription(Vector3, '/movement', self.movement_callback, 10)
         self.t_action_sub_      = self.create_subscription(Int32, '/t_action', self.t_action_callback, 10)
         self.i_action_sub_      = self.create_subscription(Int32, '/i_action', self.i_action_callback, 10)
+        self.opponent_detected  = self.create_subscription(Bool, '/lidar', self.opponent_detected_callback, 10)
 
         # Timers
         self.controller_tim_ = self.create_timer(self.timer_period_, self.control_velocities)
@@ -149,6 +150,22 @@ class ControllerNode(Node):
 
         self.num_action_i_ = num_action.data
         self.state_action_ = 0
+        
+
+    def opponent_detected_callback(self, opponent):
+        """
+        Gets the bool data of the leader if an opponent is too close.
+
+        Args:
+            opponent (Bool): The message recived by the subscriber, containing a Bool data.
+
+            *
+            * True : Continue forward
+            * False: STOP
+            *
+        """
+
+        self.opponent_detected = opponent.data
 
 
     def control_velocities(self):
