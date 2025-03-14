@@ -78,10 +78,10 @@ class FirstDriverNode(Node):
             encoder_msg.data = encoder_value
 
             if encoder == "EL":
-                if encoder_msg.data != 0:
-                    encoder_msg.data *= -1
                 self.encoder_left_pub_.publish(encoder_msg)
             elif encoder == "ER":
+                if encoder_msg.data != 0:
+                    encoder_msg.data *= -1
                 self.encoder_right_pub_.publish(encoder_msg)
 
 
