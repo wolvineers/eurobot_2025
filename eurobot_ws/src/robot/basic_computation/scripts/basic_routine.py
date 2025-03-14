@@ -3,7 +3,7 @@
 import rclpy
 
 from rclpy.node import Node
-from std_msgs.msg import Int32, Bool
+from std_msgs.msg import Int32, Bool, Float32
 from geometry_msgs.msg import Vector3
 
 
@@ -26,6 +26,7 @@ class BasicRoutineNode(Node):
         # Attributes
         self.timer_period_ = 1
         self.end_order_    = True
+        self.encoder_left_ = 0
 
         ''' --- LIST ELEMENTS ---
         * 
@@ -38,12 +39,14 @@ class BasicRoutineNode(Node):
         *   - action number
         '''
         self.movements_list_ = [
-            #('m', (30.0, 0.0, 3.0)),
-            #('m', (0.0, 100.0, 4.0)),
-            ('a', 2),
-            ('a', 3),
-            ('a', 2),
-            ('a', 3)
+            # ('m', (30.0, 0.0, 3.0)),
+            ('m', (20.0, 0.0, 200.0)),
+            # ('m', (0.0, 100.0, 40.0)),
+            # ('m', (10.0, 0.0, 50.0)),
+            # ('a', 2),
+            # ('a', 3),
+            # ('a', 2),
+            # ('a', 3)
         ]
 
         # Publishers
@@ -52,7 +55,8 @@ class BasicRoutineNode(Node):
         self.insomnious_act_pub = self.create_publisher(Int32, '/i_action', 10)
 
         # Subscribers
-        self.end_order_sub_  = self.create_subscription(Bool, '/controller/end_order', self.end_order_callback, 10)
+        self.end_order_sub_    = self.create_subscription(Bool, '/controller/end_order', self.end_order_callback, 10)
+        self.encoder_left_sub_ = self.create_subscription(Float32, '/controller/encoder_left', self.encoder_left_callback, 10)
 
         # Timers
         self.movement_tim_ = self.create_timer(self.timer_period_, self.add_movement)
@@ -70,12 +74,24 @@ class BasicRoutineNode(Node):
         #self.get_logger().info("End order callback: " + str(end_order.data))
 
 
+    def encoder_left_callback(self, encoder_left):
+        """
+        Gets the value of encoder_left and save it to encoder_left_.
+
+        Args:
+            encoder_left (Float32): The message received by the subscriber, containing encoder data.
+        """
+
+        self.encoder_left_ = encoder_left.data
+        self.get_logger().info("Encoder left value: " + str(self.encoder_left_))
+
+
     def add_movement(self):
         """
         At each elapsed time, if the last order is finished, publishes the first order in the array and removes it after publishing.
         """
 
-        if self.end_order_ and self.movements_list_:
+        if self.end_order_ and self.movements_list_ and self.encoder_left_ == 0:
             
             if self.movements_list_[0][0] == 'm':
                 movement_msg = Vector3()

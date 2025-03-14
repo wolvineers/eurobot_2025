@@ -15,6 +15,9 @@ def open_serial_port(port, baudrate, timeout=0.01):
 
     try:
         serial_port = serial.Serial(port, baudrate, timeout=timeout)
+        serial_port.reset_input_buffer()
+        serial_port.reset_output_buffer()
+
         print(f"Serial port {port} opened successfully.")
         return serial_port
     except serial.SerialException as e:
@@ -114,26 +117,22 @@ def read_message(serial_port):
     """
 
     try:
-        # Read messages until one is received
-        while True:
-            # Read a message from the serial port
-            message = read_serial_data(serial_port)
+        # Read a message from the serial port
+        message = read_serial_data(serial_port)
 
-            # If a message is received
-            if message:
-                print(f"Received message: {message}")
+        # If a message is received
+        if message:
+            print(f"Received message: {message}")
 
-                # Verify the integrity of the message
-                if verify_serial_message(message):
-                    # print("Correct checksum.")
-                    return message
-                else:
-                    print("Incorrect checksum.")
-                    return None
+            # Verify the integrity of the message
+            if verify_serial_message(message):
+                # print("Correct checksum.")
+                return message
     
     except KeyboardInterrupt:
         print("Read operation interrupted.")
-        return None
+    
+    return None
 
 
 def send_message(serial_port, message):

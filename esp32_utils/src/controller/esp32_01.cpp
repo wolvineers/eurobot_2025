@@ -170,9 +170,15 @@
 
 //     /// Send less messages per second to avoid delays in communication
 //     loop_counter ++;
-//     if (loop_counter % 15 == 0) {   
+//     if (loop_counter % 12 == 0) {   
 //         sendMessage(encoder_l);
 //         sendMessage(encoder_r);
+//     }
+
+//     /// Restart pulses at the end of the move
+//     if (power_left == 0 && power_right == 0) {
+//         motorR.restart_pulses();
+//         motorL.restart_pulses();
 //     }
 
 
