@@ -41,6 +41,12 @@ def generate_launch_description():
             output='screen'
         ),
         launch_ros.actions.Node(
+            package='controller',  
+            executable='driver_02_node.py',       
+            name='driver01',          
+            output='screen'
+        ),
+        launch_ros.actions.Node(
             package='basic_computation',  
             executable='basic_routine.py',       
             name='basic_routine',          
