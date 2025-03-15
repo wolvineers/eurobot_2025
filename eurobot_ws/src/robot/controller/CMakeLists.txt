@@ -19,6 +19,7 @@ ament_python_install_package(${PROJECT_NAME})
 install( PROGRAMS
   scripts/controller_node.py
   scripts/driver_01_node.py
+  scripts/driver_02_node.py
   scripts/differential_drive.py
   DESTINATION lib/${PROJECT_NAME}
 )
