@@ -24,7 +24,7 @@ class FirstDriverNode(Node):
 
 
         # Attributes
-        self.port        = '/dev/ttyUSB0'
+        self.port        = '/dev/ttyUSB1'
         self.baudrate    = 115200
         self.serial_port = open_serial_port(self.port, self.baudrate)
 

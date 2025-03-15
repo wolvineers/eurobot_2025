@@ -181,7 +181,7 @@ class ControllerNode(Node):
         vel_left = 0
         vel_right = 0
 
-        if self.distance_ != 0:
+        if self.distance_ != 0 and self.opponent_detected:
 
             distance_moved    = (abs(self.encoder_left_) + abs(self.encoder_right_)) / 2
             self.get_logger().info("Distance moved: " + str(distance_moved))
