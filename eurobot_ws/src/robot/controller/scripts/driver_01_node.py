@@ -28,7 +28,7 @@ class FirstDriverNode(Node):
         self.baudrate    = 115200
         self.serial_port = open_serial_port(self.port, self.baudrate)
 
-        self.timer_period_ = 0.1
+        self.timer_period_ = 0.05
 
         # Subscribers
         self.motors_pow_sub_ = self.create_subscription(Twist, '/controller/motors_pow', self.move_callback, 10)
@@ -80,6 +80,8 @@ class FirstDriverNode(Node):
             if encoder == "EL":
                 self.encoder_left_pub_.publish(encoder_msg)
             elif encoder == "ER":
+                if encoder_msg.data != 0:
+                    encoder_msg.data *= -1
                 self.encoder_right_pub_.publish(encoder_msg)
 
 
