@@ -44,8 +44,14 @@ checkbox_states = {"Insomnious": False, "Torete": False}
 
 def update_checkbox_image(canvas, selected_id, other_id):
     for checkbox_id in [selected_id, other_id]:
+        found_items = canvas.find_withtag(checkbox_id)
+        print(found_items)
+        if not found_items:
+            print(f"Error: No checkbox found with tag {checkbox_id}")
+            continue  # Skip updating if not found
+
         image_to_display = ImageTk.PhotoImage(selected_checkbox_image if checkbox_states[checkbox_id] else empty_checkbox_image)
-        canvas.itemconfig(canvas.find_withtag(checkbox_id)[0], image=image_to_display)
+        canvas.itemconfig(found_items[0], image=image_to_display)
         canvas.image_cache[checkbox_id] = image_to_display  # Prevent garbage collection
 
 def toggle_checkbox(selected_id, canvas):

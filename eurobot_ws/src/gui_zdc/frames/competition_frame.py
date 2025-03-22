@@ -4,8 +4,15 @@ from PIL import Image, ImageTk
 from frames.strategy_frame import strategy_frame
 from frames.trajectory_frame import trajectory_frame
 from frames.welcome_frame import welcome_frame
+from frames.first_initialize_frame import first_initialize_frame
 # Set the global variables
 current_directory = os.path.dirname(os.path.abspath(__file__))
+
+def on_time_up():
+    """
+    Función que se ejecuta cuando el contador llega a 0
+    """
+    print("¡Tiempo agotado! Ejecutando función...")
 
 def competition_frame(canvas):
     """ 
@@ -21,13 +28,13 @@ def competition_frame(canvas):
     screen_width = window.winfo_screenwidth()
     screen_height = window.winfo_screenheight()
 
-    font_1 = tkFont.Font(family="Courier", size=24)
+    font_1 = tkFont.Font(family="Courier", size=46)
     font_2 = tkFont.Font(family="Courier", size=18)
-    font_3 = tkFont.Font(family="Courier", size=16)
+    font_3 = tkFont.Font(family="Courier", size=36)
     font_4 = tkFont.Font(family="Courier", size=14)
     font_title = tkFont.Font(family="Courier", size=64)
     numbers = tkFont.Font(family="Orbitron", size=64)
-    font_points = tkFont.Font(family="Orbitron", size=164)
+    font_points = tkFont.Font(family="Orbitron", size=290)
 
     button_path = os.path.join(current_directory, "../img/white-button.png")
     button_image = Image.open(button_path)
@@ -49,26 +56,32 @@ def competition_frame(canvas):
     img_back = canvas.create_image(24, 24, image=back_photo, anchor="nw")
 
     # Create and place images and text on the canvas
-    canvas.create_text(602, 100, text="COMPETITION", font=font_title, fill="White", anchor="center")
+    canvas.create_text(602, 225, text="000", font=font_points, fill="White", anchor="center")
 
-    canvas.create_text(602, 275, text="000", font=font_points, fill="White", anchor="center")
-
-    canvas.create_text(602, 400, text="POINTS", font=font_1, fill="White", anchor="center")
-
-    img_traj = canvas.create_image(300, 550, image=button_photo, anchor="center")
-    txt_traj = canvas.create_text(300, 550, text="SEE TRAJECTORY", font=font_2, fill="White", anchor="center")
+    canvas.create_text(602, 450, text="POINTS", font=font_1, fill="White", anchor="center")
 
     #TO-DO: PROGRAM FUNCTIONALITY
-    canvas.create_image(600, 550, image=button_photo, anchor="center")
-    canvas.create_text(600, 550, text="INITIALIZE", font=font_2, fill="White", anchor="center")
+    img_initialize = canvas.create_image(600, 50, image=button_photo, anchor="center")
+    txt_initialize = canvas.create_text(600, 54, text="INITIALIZE", font=font_2, fill="White", anchor="center")
 
-    img_strategy = canvas.create_image(900, 550, image=button_photo, anchor="center")
-    txt_strategy = canvas.create_text(900, 550, text="CHANGE STRATEGY", font=font_2, fill="White", anchor="center")
+    global timer_text
+    timer_text = canvas.create_text(600, 530, text="TIME REST: 01:40", font=font_3, fill="White", anchor="center")
 
-    canvas.tag_bind(img_traj, "<Button-1>", lambda e: switch_frame(trajectory_frame))
-    canvas.tag_bind(txt_traj, "<Button-1>", lambda e: switch_frame(trajectory_frame))
+    # Función para manejar el contador regresivo
+    def countdown(time_left):
+        if time_left >= 0:
+            minutes = time_left // 60
+            seconds = time_left % 60
+            time_display = f"{minutes:02}:{seconds:02}"
+            canvas.itemconfig(timer_text, text=f"TIME REST: {time_display}")
+            canvas.after(1000, lambda: countdown(time_left - 1))  # Llama a la función cada segundo
+        else:
+            on_time_up()  # Llama a la función cuando llegue a 0
 
-    canvas.tag_bind(img_strategy, "<Button-1>", lambda e: switch_frame(trajectory_frame))
-    canvas.tag_bind(txt_strategy, "<Button-1>", lambda e: switch_frame(strategy_frame))
+    # Guarda la función en el canvas para poder llamarla desde otros frames
+    canvas.countdown = countdown
 
     canvas.tag_bind(img_back, "<Button-1>", lambda e: switch_frame(welcome_frame))
+
+    canvas.tag_bind(img_initialize, "<Button-1>", lambda e: switch_frame(first_initialize_frame, True))
+    canvas.tag_bind(txt_initialize, "<Button-1>", lambda e: switch_frame(first_initialize_frame, True))

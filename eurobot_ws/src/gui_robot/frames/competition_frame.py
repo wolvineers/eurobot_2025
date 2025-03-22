@@ -7,6 +7,12 @@ from frames.welcome_frame import welcome_frame
 # Set the global variables
 current_directory = os.path.dirname(os.path.abspath(__file__))
 
+def on_time_up():
+    """
+    Función que se ejecuta cuando el contador llega a 0
+    """
+    print("¡Tiempo agotado! Ejecutando función...")
+
 def competition_frame(canvas):
     """ 
     Set the function to design the Competition Frame
@@ -53,22 +59,34 @@ def competition_frame(canvas):
 
     canvas.create_text(602, 450, text="POINTS", font=font_1, fill="White", anchor="center")
 
-    img_traj = canvas.create_image(300, 50, image=button_photo, anchor="center")
-    txt_traj = canvas.create_text(300, 54, text="SEE TRAJECTORY", font=font_2, fill="White", anchor="center")
+    img_traj = canvas.create_image(450, 50, image=button_photo, anchor="center")
+    txt_traj = canvas.create_text(450, 54, text="SEE TRAJECTORY", font=font_2, fill="White", anchor="center")
 
     #TO-DO: PROGRAM FUNCTIONALITY
-    canvas.create_image(600, 50, image=button_photo, anchor="center")
-    canvas.create_text(600, 54, text="INITIALIZE", font=font_2, fill="White", anchor="center")
+    img_initialize = canvas.create_image(750, 50, image=button_photo, anchor="center")
+    txt_initialize = canvas.create_text(750, 54, text="INITIALIZE", font=font_2, fill="White", anchor="center")
 
-    img_strategy = canvas.create_image(900, 50, image=button_photo, anchor="center")
-    txt_strategy = canvas.create_text(900, 54, text="CHANGE STRATEGY", font=font_2, fill="White", anchor="center")
+    global timer_text
+    timer_text = canvas.create_text(600, 530, text="TIME REST: 01:40", font=font_3, fill="White", anchor="center")
 
-    canvas.create_text(600, 530, text="TIME REST: xx:xx", font=font_3, fill="White", anchor="center")
+    # Función para manejar el contador regresivo
+    def countdown(time_left):
+        if time_left >= 0:
+            minutes = time_left // 60
+            seconds = time_left % 60
+            time_display = f"{minutes:02}:{seconds:02}"
+            canvas.itemconfig(timer_text, text=f"TIME REST: {time_display}")
+            canvas.after(1000, lambda: countdown(time_left - 1))  # Llama a la función cada segundo
+        else:
+            on_time_up()  # Llama a la función cuando llegue a 0
+
+    # Guarda la función en el canvas para poder llamarla desde otros frames
+    canvas.countdown = countdown
 
     canvas.tag_bind(img_traj, "<Button-1>", lambda e: switch_frame(trajectory_frame))
     canvas.tag_bind(txt_traj, "<Button-1>", lambda e: switch_frame(trajectory_frame))
 
-    canvas.tag_bind(img_strategy, "<Button-1>", lambda e: switch_frame(trajectory_frame))
-    canvas.tag_bind(txt_strategy, "<Button-1>", lambda e: switch_frame(strategy_frame))
-
     canvas.tag_bind(img_back, "<Button-1>", lambda e: switch_frame(welcome_frame))
+
+    canvas.tag_bind(img_initialize, "<Button-1>", lambda e: switch_frame(strategy_frame))
+    canvas.tag_bind(txt_initialize, "<Button-1>", lambda e: switch_frame(strategy_frame))
