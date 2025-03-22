@@ -1,0 +1,25 @@
+[0.634s] Invoking command in '/wolvi/src/lidar': PYTHONPATH=/wolvi/src/build/lidar/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/wolvi/src/install/lidar/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/lidar build --build-base /wolvi/src/build/lidar/build install --record /wolvi/src/build/lidar/install.log --single-version-externally-managed install_data
+[0.773s] running egg_info
+[0.775s] writing ../build/lidar/lidar.egg-info/PKG-INFO
+[0.775s] writing dependency_links to ../build/lidar/lidar.egg-info/dependency_links.txt
+[0.775s] writing entry points to ../build/lidar/lidar.egg-info/entry_points.txt
+[0.775s] writing requirements to ../build/lidar/lidar.egg-info/requires.txt
+[0.775s] writing top-level names to ../build/lidar/lidar.egg-info/top_level.txt
+[0.777s] reading manifest file '../build/lidar/lidar.egg-info/SOURCES.txt'
+[0.778s] writing manifest file '../build/lidar/lidar.egg-info/SOURCES.txt'
+[0.778s] running build
+[0.778s] running build_py
+[0.778s] copying lidar/lidar_subscriber.py -> /wolvi/src/build/lidar/build/lib/lidar
+[0.778s] running install
+[0.779s] running install_lib
+[0.780s] copying /wolvi/src/build/lidar/build/lib/lidar/lidar_subscriber.py -> /wolvi/src/install/lidar/lib/python3.10/site-packages/lidar
+[0.781s] byte-compiling /wolvi/src/install/lidar/lib/python3.10/site-packages/lidar/lidar_subscriber.py to lidar_subscriber.cpython-310.pyc
+[0.781s] running install_data
+[0.782s] running install_egg_info
+[0.784s] removing '/wolvi/src/install/lidar/lib/python3.10/site-packages/lidar-0.0.0-py3.10.egg-info' (and everything under it)
+[0.784s] Copying ../build/lidar/lidar.egg-info to /wolvi/src/install/lidar/lib/python3.10/site-packages/lidar-0.0.0-py3.10.egg-info
+[0.784s] running install_scripts
+[0.800s] Installing lidar_node script to /wolvi/src/install/lidar/lib/lidar
+[0.800s] Installing lidar_subscriber_node script to /wolvi/src/install/lidar/lib/lidar
+[0.800s] writing list of installed files to '/wolvi/src/build/lidar/install.log'
+[0.820s] Invoked command in '/wolvi/src/lidar' returned '0': PYTHONPATH=/wolvi/src/build/lidar/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/wolvi/src/install/lidar/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/lidar build --build-base /wolvi/src/build/lidar/build install --record /wolvi/src/build/lidar/install.log --single-version-externally-managed install_data

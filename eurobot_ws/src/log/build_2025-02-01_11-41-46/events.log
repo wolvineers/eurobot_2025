@@ -1,0 +1,6 @@
+[0.000000] (-) TimerEvent: {}
+[0.000181] (-) JobUnselected: {'identifier': 'computation_zone'}
+[0.000201] (-) JobUnselected: {'identifier': 'robot_01'}
+[0.000213] (-) JobUnselected: {'identifier': 'tests'}
+[0.000224] (-) JobUnselected: {'identifier': 'utils'}
+[0.000366] (-) EventReactorShutdown: {}

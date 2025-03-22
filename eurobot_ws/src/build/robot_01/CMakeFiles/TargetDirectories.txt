@@ -1,0 +1,9 @@
+/wolvi/src/build/robot_01/CMakeFiles/uninstall.dir
+/wolvi/src/build/robot_01/CMakeFiles/robot_01_uninstall.dir
+/wolvi/src/build/robot_01/CMakeFiles/test.dir
+/wolvi/src/build/robot_01/CMakeFiles/edit_cache.dir
+/wolvi/src/build/robot_01/CMakeFiles/rebuild_cache.dir
+/wolvi/src/build/robot_01/CMakeFiles/list_install_components.dir
+/wolvi/src/build/robot_01/CMakeFiles/install.dir
+/wolvi/src/build/robot_01/CMakeFiles/install/local.dir
+/wolvi/src/build/robot_01/CMakeFiles/install/strip.dir
