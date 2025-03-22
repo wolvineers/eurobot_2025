@@ -16,6 +16,7 @@ current_directory = os.path.dirname(os.path.abspath(__file__))
 window = tk.Tk()
 window.title("Interfaz con fondo y transparencias")
 window.geometry("1204x600")
+    #window.attributes('-fullscreen', True)
 
 #Set the shape of the window
 screen_width = window.winfo_screenwidth()
