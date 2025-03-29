@@ -33,11 +33,10 @@ ENV PYTHONPATH=/wolvi/src:/usr/local/lib/python3.8/site-packages
 COPY courier /usr/share/fonts/truetype/courier 
 
 RUN echo "source /opt/ros/humble/setup.bash" >> /root/.bashrc && \
-    echo "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> /root/.bashrc && \
-    echo "source /wolvi/install/setup.bash" >> /root/.bashrc
+    echo "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> /root/.bashrc
 
 CMD ["bash", "-c", "\
     source /opt/ros/humble/setup.bash && \
     source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash && \
-    source /wolvi/install/setup.bash && \
     exec bash"]
+

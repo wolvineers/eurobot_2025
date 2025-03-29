@@ -10,6 +10,3 @@ eurobot_ws/*
 # Ignore other unnecessary files that may be generated in various directories
 **/*.pyc
 **/*.o
-
-# Ignore venv
-eurobot_ws/src/gui/venv/*
