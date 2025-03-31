@@ -2,20 +2,18 @@ import tkinter.font as tkFont
 import tkinter as tk
 import os
 from PIL import Image, ImageTk
+import threading
+from frames.gui_node import get_node  # Aquest import assumeix que la instància de gui_node és global
 
 # Set the global variables
 current_directory = os.path.dirname(os.path.abspath(__file__))
 
 def start_competition(canvas):
-    '''
-    TODO: ROS 
-    Botó per inicialitzar tots els actuadors del robot. Per fer-ho cal publicar un missatge del tipus Int32 de ROS al topic /i_action
-    
-    '''
     from frames.main_frame import switch_frame
     from frames.second_initialize_frame import second_initialize_frame
-
-    switch_frame(second_initialize_frame, True)  # Change to the competition frame
+    ros_node = get_node()  # Exemples d'ús del node ROS des de la interfície
+    ros_node.initialize_robot(1)
+    switch_frame(second_initialize_frame, True)
 
 def first_initialize_frame(canvas):
     """ 

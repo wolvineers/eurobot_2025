@@ -2,19 +2,42 @@ import tkinter as tk
 import tkinter.font as tkFont
 from PIL import Image, ImageTk
 import os
+import threading
 from frames.competition_frame import competition_frame
 from frames.welcome_frame import welcome_frame
 from frames.panel_frame import panel_frame
 from frames.net_status_frame import net_status_frame
 from frames.strategy_frame import strategy_frame
 from frames.trajectory_frame import trajectory_frame
-from frames.camera_1_frame import camera_1_frame,camera_open_1, close_camera_1
+from frames.camera_1_frame import camera_1_frame, camera_open_1, close_camera_1
 from frames.camera_2_frame import camera_2_frame, camera_open_2, close_camera_2
 from frames.control_zone_frame import control_zone_frame
 from frames.cameras_frame import cameras_frame, camera_open, close_camera
 
-os.system("clear")
 current_directory = os.path.dirname(os.path.abspath(__file__))
+
+# Import ROS Node Initialization
+from frames.gui_node import init_gui_node  
+
+ros_initialized_event = threading.Event()
+
+def ros_thread():
+    """
+    Function to initialize the ROS node in a separate thread
+    """
+    init_gui_node()  # Initialize the ROS node
+    ros_initialized_event.set()  # Notify that ROS is initialized
+
+def start_ros_thread():
+    # Start ROS thread
+    threading.Thread(target=ros_thread, daemon=True).start()
+
+
+
+
+
+
+
 
 #Start the window for the interface
 window = tk.Tk()
@@ -134,5 +157,8 @@ window.bind("<Escape>", close_program)
 
 main_frame()
 switch_frame(welcome_frame)
+
+# Start ROS thread
+start_ros_thread()
 
 window.mainloop()

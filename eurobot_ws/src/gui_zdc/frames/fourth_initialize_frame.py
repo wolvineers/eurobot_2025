@@ -5,19 +5,25 @@ from PIL import Image, ImageTk
 
 # Set the global variables
 current_directory = os.path.dirname(os.path.abspath(__file__))
+from frames.gui_node import get_node  # Aquest import assumeix que la instància de gui_node és global
 
+# Set the global variables
+current_directory = os.path.dirname(os.path.abspath(__file__))
+    
 def start_competition(canvas):
-    '''
-    TODO: ROS 
-    Botó al centre que permeti iniciar la ronda. El botó executarà un fitxer start.py que estarà a l’escriptori de la raspberry pi i tot seguit mostrarà la pantalla de puntuació amb temps. Els punts es llegiran a traves d’un subscriber amb el missatge de tipus Int32 i del topic /points
-Missatge bool topic /start
-/start false
-
-    '''
     from frames.main_frame import switch_frame
     from frames.competition_frame import competition_frame
 
+    ros_node = get_node()  # Exemples d'ús del node ROS des de la interfície
+    ros_node.start_robot(True)
+    
+    '''
+    from frames.start_program import start
+    start()
+    print("start program executed!")
+    '''
     switch_frame(competition_frame, True)  # Change to the competition frame
+    
 
 def fourth_initialize_frame(canvas):
     """ 
