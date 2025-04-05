@@ -76,35 +76,33 @@ def panel_frame(canvas):
     numbers_big = tkFont.Font(family="Orbitron", size=96)
 
     canvas.create_text(750, 100, text="PANEL", font=font_title, fill="White", anchor="center")
+    canvas.create_text(600, 170, text="SENSORS", font=font_1, fill="White", anchor="e")
+    canvas.create_text(600, 200, text="Sensors 1", font=font_3, fill="White", anchor="e")
+    canvas.create_text(600, 220, text="Sensors 1", font=font_3, fill="White", anchor="e")
+    canvas.create_text(600, 240, text="Sensors 1", font=font_3, fill="White", anchor="e")
+    canvas.create_text(600, 260, text="Sensors 1", font=font_3, fill="White", anchor="e")
 
-    canvas.create_text(600, 160, text="SENSORS", font=font_1, fill="White", anchor="e")
-    canvas.create_text(600, 190, text="Sensors 1", font=font_3, fill="White", anchor="e")
-    canvas.create_text(600, 210, text="Sensors 1", font=font_3, fill="White", anchor="e")
-    canvas.create_text(600, 230, text="Sensors 1", font=font_3, fill="White", anchor="e")
-    canvas.create_text(600, 250, text="Sensors 1", font=font_3, fill="White", anchor="e")
+    canvas.create_image(625, 200, image=green_photo, anchor="w")
+    canvas.create_image(625, 220, image=red_photo, anchor="w")
+    canvas.create_image(625, 240, image=red_photo, anchor="w")
+    canvas.create_image(625, 260, image=red_photo, anchor="w")
 
-    canvas.create_image(625, 190, image=green_photo, anchor="w")
-    canvas.create_image(625, 210, image=red_photo, anchor="w")
-    canvas.create_image(625, 230, image=red_photo, anchor="w")
-    canvas.create_image(625, 250, image=red_photo, anchor="w")
+    canvas.create_text(600, 320, text="BUTTONS", font=font_1, fill="White", anchor="e")
+    canvas.create_text(600, 350, text="Stop", font=font_3, fill="White", anchor="e")
+    canvas.create_image(625, 350, image=red_photo, anchor="w")
+    canvas.create_text(600, 370, text="Button 2", font=font_3, fill="White", anchor="e")
+    canvas.create_image(625, 370, image=red_photo, anchor="w")
 
-    canvas.create_text(600, 310, text="BUTTONS", font=font_1, fill="White", anchor="e")
-    canvas.create_text(600, 340, text="Stop", font=font_3, fill="White", anchor="e")
-    canvas.create_image(625, 340, image=red_photo, anchor="w")
-    canvas.create_text(600, 360, text="Button 2", font=font_3, fill="White", anchor="e")
-    canvas.create_image(625, 360, image=red_photo, anchor="w")
+    canvas.create_text(600, 420, text="SIMA", font=font_1, fill="White", anchor="e")
+    canvas.create_text(600, 450, text="Sima 1", font=font_3, fill="White", anchor="e")
+    canvas.create_text(600, 470, text="Sima 2", font=font_3, fill="White", anchor="e")
+    canvas.create_text(600, 490, text="Sima 3", font=font_3, fill="White", anchor="e")
+    canvas.create_text(600, 510, text="Sima 4", font=font_3, fill="White", anchor="e")
 
-    canvas.create_text(600, 410, text="SIMA", font=font_1, fill="White", anchor="e")
-    canvas.create_text(600, 440, text="Sima 1", font=font_3, fill="White", anchor="e")
-    canvas.create_text(600, 460, text="Sima 2", font=font_3, fill="White", anchor="e")
-    canvas.create_text(600, 480, text="Sima 3", font=font_3, fill="White", anchor="e")
-    canvas.create_text(600, 500, text="Sima 4", font=font_3, fill="White", anchor="e")
-
-    canvas.create_image(625, 440, image=green_photo, anchor="w")
-    canvas.create_image(625, 460, image=red_photo, anchor="w")
-    canvas.create_image(625, 480, image=red_photo, anchor="w")
-    canvas.create_image(625, 500, image=red_photo, anchor="w")
-
+    canvas.create_image(625, 450, image=green_photo, anchor="w")
+    canvas.create_image(625, 470, image=red_photo, anchor="w")
+    canvas.create_image(625, 490, image=red_photo, anchor="w")
+    canvas.create_image(625, 510, image=red_photo, anchor="w")
     frame_path = os.path.join(current_directory, "../img/frame.png")
     frame_image = Image.open(frame_path)
     frame_image = frame_image.resize((300, 275), Image.LANCZOS)
@@ -113,7 +111,7 @@ def panel_frame(canvas):
 
     data_text = tk.Text(
     canvas,
-    width=34, height=14, font=font_4, wrap=tk.WORD, fg="white", bg="black")
+    width=33, height=14, font=font_4, wrap=tk.WORD, fg="white", bg="black")
     data_text.config(state='disabled')  # Start as read-only
     canvas.create_window(725, 165, window=data_text, anchor="nw")
 
