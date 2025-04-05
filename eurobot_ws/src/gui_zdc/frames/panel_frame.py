@@ -88,34 +88,34 @@ def panel_frame(canvas):
     canvas.create_image(625, 230, image=red_photo, anchor="w")
     canvas.create_image(625, 250, image=red_photo, anchor="w")
 
-    canvas.create_text(600, 300, text="BUTTONS", font=font_1, fill="White", anchor="e")
-    canvas.create_text(600, 330, text="Stop", font=font_3, fill="White", anchor="e")
-    canvas.create_image(625, 330, image=red_photo, anchor="w")
-    canvas.create_text(600, 350, text="Button 2", font=font_3, fill="White", anchor="e")
-    canvas.create_image(625, 350, image=red_photo, anchor="w")
+    canvas.create_text(600, 310, text="BUTTONS", font=font_1, fill="White", anchor="e")
+    canvas.create_text(600, 340, text="Stop", font=font_3, fill="White", anchor="e")
+    canvas.create_image(625, 340, image=red_photo, anchor="w")
+    canvas.create_text(600, 360, text="Button 2", font=font_3, fill="White", anchor="e")
+    canvas.create_image(625, 360, image=red_photo, anchor="w")
 
-    canvas.create_text(600, 390, text="SIMA", font=font_1, fill="White", anchor="e")
-    canvas.create_text(600, 420, text="Sima 1", font=font_3, fill="White", anchor="e")
-    canvas.create_text(600, 440, text="Sima 2", font=font_3, fill="White", anchor="e")
-    canvas.create_text(600, 460, text="Sima 3", font=font_3, fill="White", anchor="e")
-    canvas.create_text(600, 480, text="Sima 4", font=font_3, fill="White", anchor="e")
+    canvas.create_text(600, 410, text="SIMA", font=font_1, fill="White", anchor="e")
+    canvas.create_text(600, 440, text="Sima 1", font=font_3, fill="White", anchor="e")
+    canvas.create_text(600, 460, text="Sima 2", font=font_3, fill="White", anchor="e")
+    canvas.create_text(600, 480, text="Sima 3", font=font_3, fill="White", anchor="e")
+    canvas.create_text(600, 500, text="Sima 4", font=font_3, fill="White", anchor="e")
 
-    canvas.create_image(625, 420, image=green_photo, anchor="w")
-    canvas.create_image(625, 440, image=red_photo, anchor="w")
+    canvas.create_image(625, 440, image=green_photo, anchor="w")
     canvas.create_image(625, 460, image=red_photo, anchor="w")
     canvas.create_image(625, 480, image=red_photo, anchor="w")
+    canvas.create_image(625, 500, image=red_photo, anchor="w")
 
     frame_path = os.path.join(current_directory, "../img/frame.png")
     frame_image = Image.open(frame_path)
     frame_image = frame_image.resize((300, 275), Image.LANCZOS)
     frame_photo = ImageTk.PhotoImage(frame_image)
-    canvas.create_image(665, 150, image=frame_photo, anchor="nw")
+    canvas.create_image(710, 150, image=frame_photo, anchor="nw")
 
     data_text = tk.Text(
     canvas,
-    width=37, height=14, font=font_4, wrap=tk.WORD, fg="white", bg="black")
+    width=34, height=14, font=font_4, wrap=tk.WORD, fg="white", bg="black")
     data_text.config(state='disabled')  # Start as read-only
-    canvas.create_window(680, 165, window=data_text, anchor="nw")
+    canvas.create_window(725, 165, window=data_text, anchor="nw")
 
     # Start the ROS2 monitor loop
     run_ros2_commands(data_text)
