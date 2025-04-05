@@ -107,7 +107,7 @@ def panel_frame(canvas):
 
     frame_path = os.path.join(current_directory, "../img/frame.png")
     frame_image = Image.open(frame_path)
-    frame_image = frame_image.resize((320, 195), Image.LANCZOS)
+    frame_image = frame_image.resize((320, 250), Image.LANCZOS)
     frame_photo = ImageTk.PhotoImage(frame_image)
     canvas.create_image(665, 140, image=frame_photo, anchor="nw")
 
