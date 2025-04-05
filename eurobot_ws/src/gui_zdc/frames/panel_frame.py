@@ -70,7 +70,7 @@ def panel_frame(canvas):
     
     font_1 = tkFont.Font(family="Courier", size=32)
     font_2 = tkFont.Font(family="Courier", size=28)
-    font_3 = tkFont.Font(family="Courier", size=18)
+    font_3 = tkFont.Font(family="Courier", size=16)
     font_4 = tkFont.Font(family="Courier", size=10)
     font_title = tkFont.Font(family="Courier", size=64)
     numbers_big = tkFont.Font(family="Orbitron", size=96)
@@ -83,13 +83,13 @@ def panel_frame(canvas):
     canvas.create_text(600, 230, text="Sensors 1", font=font_3, fill="White", anchor="e")
     canvas.create_text(600, 250, text="Sensors 1", font=font_3, fill="White", anchor="e")
 
-    canvas.create_image(625, 180, image=green_photo, anchor="w")
+    canvas.create_image(625, 190, image=green_photo, anchor="w")
     canvas.create_image(625, 210, image=red_photo, anchor="w")
     canvas.create_image(625, 230, image=red_photo, anchor="w")
     canvas.create_image(625, 250, image=red_photo, anchor="w")
 
     canvas.create_text(600, 300, text="BUTTONS", font=font_1, fill="White", anchor="e")
-    canvas.create_text(600, 330, text="STOP", font=font_3, fill="White", anchor="e")
+    canvas.create_text(600, 330, text="Stop", font=font_3, fill="White", anchor="e")
     canvas.create_image(625, 330, image=red_photo, anchor="w")
     canvas.create_text(600, 350, text="Button 2", font=font_3, fill="White", anchor="e")
     canvas.create_image(625, 350, image=red_photo, anchor="w")
@@ -113,7 +113,7 @@ def panel_frame(canvas):
 
     data_text = tk.Text(
     canvas,
-    width=48, height=17, font=font_4, wrap=tk.WORD, fg="white", bg="black")
+    width=48, height=14, font=font_4, wrap=tk.WORD, fg="white", bg="black")
     data_text.config(state='disabled')  # Start as read-only
     canvas.create_window(675, 160, window=data_text, anchor="nw")
 
