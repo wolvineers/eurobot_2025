@@ -107,13 +107,13 @@ def panel_frame(canvas):
     frame_image = Image.open(frame_path)
     frame_image = frame_image.resize((300, 275), Image.LANCZOS)
     frame_photo = ImageTk.PhotoImage(frame_image)
-    canvas.create_image(710, 150, image=frame_photo, anchor="nw")
+    canvas.create_image(760, 150, image=frame_photo, anchor="nw")
 
     data_text = tk.Text(
     canvas,
     width=33, height=14, font=font_4, wrap=tk.WORD, fg="white", bg="black")
     data_text.config(state='disabled')  # Start as read-only
-    canvas.create_window(725, 165, window=data_text, anchor="nw")
+    canvas.create_window(775, 165, window=data_text, anchor="nw")
 
     # Start the ROS2 monitor loop
     run_ros2_commands(data_text)
