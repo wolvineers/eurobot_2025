@@ -9,6 +9,40 @@ green_photo = None
 red_photo = None
 green_square_photo = None
 
+import subprocess
+import threading
+import time
+
+def run_ros2_commands(text_widget):
+    """Run ROS2 commands every 15 seconds and update the text widget."""
+    def loop():
+        while True:
+            try:
+                node_cmd = "ros2 node list"
+                topic_cmd = "ros2 topic list"
+
+                node_output = subprocess.getoutput(node_cmd)
+                topic_output = subprocess.getoutput(topic_cmd)
+
+                output = f"$ {node_cmd}\n{node_output}\n\n$ {topic_cmd}\n{topic_output}"
+
+                # Safely update the text widget in the main thread
+                text_widget.after(0, lambda: update_text_widget(text_widget, output))
+
+            except Exception as e:
+                output = f"Error running commands:\n{e}"
+                text_widget.after(0, lambda: update_text_widget(text_widget, output))
+
+            time.sleep(15)
+
+    threading.Thread(target=loop, daemon=True).start()
+
+def update_text_widget(widget, text):
+    widget.config(state='normal')
+    widget.delete(1.0, "end")
+    widget.insert("end", text)
+    widget.config(state='disabled')
+
 
 def panel_frame(canvas):
     """ 
@@ -71,28 +105,6 @@ def panel_frame(canvas):
     canvas.create_image(625, 450, image=red_photo, anchor="w")
     canvas.create_image(625, 470, image=red_photo, anchor="w")
 
-    canvas.create_text(775, 380, text="SIMA", font=font_1, fill="White", anchor="e")
-    canvas.create_text(775, 410, text="Sima 1", font=font_3, fill="White", anchor="e")
-    canvas.create_text(775, 430, text="Sima 2", font=font_3, fill="White", anchor="e")
-    canvas.create_text(775, 450, text="Sima 3", font=font_3, fill="White", anchor="e")
-    canvas.create_text(775, 470, text="Sima 4", font=font_3, fill="White", anchor="e")
-
-    canvas.create_image(800, 410, image=green_photo, anchor="w")
-    canvas.create_image(800, 430, image=red_photo, anchor="w")
-    canvas.create_image(800, 450, image=red_photo, anchor="w")
-    canvas.create_image(800, 470, image=red_photo, anchor="w")
-
-    canvas.create_text(950, 380, text="SIMA", font=font_1, fill="White", anchor="e")
-    canvas.create_text(950, 410, text="Sima 1", font=font_3, fill="White", anchor="e")
-    canvas.create_text(950, 430, text="Sima 2", font=font_3, fill="White", anchor="e")
-    canvas.create_text(950, 450, text="Sima 3", font=font_3, fill="White", anchor="e")
-    canvas.create_text(950, 470, text="Sima 4", font=font_3, fill="White", anchor="e")
-
-    canvas.create_image(975, 410, image=green_photo, anchor="w")
-    canvas.create_image(975, 430, image=red_photo, anchor="w")
-    canvas.create_image(975, 450, image=red_photo, anchor="w")
-    canvas.create_image(975, 470, image=red_photo, anchor="w")
-
     frame_path = os.path.join(current_directory, "../img/frame.png")
     frame_image = Image.open(frame_path)
     frame_image = frame_image.resize((320, 195), Image.LANCZOS)
@@ -100,7 +112,10 @@ def panel_frame(canvas):
     canvas.create_image(665, 140, image=frame_photo, anchor="nw")
 
     data_text = tk.Text(
-        canvas,
-        width=48, height=17, font=font_4, wrap=tk.WORD, fg="white", bg="black")
-    
+    canvas,
+    width=48, height=17, font=font_4, wrap=tk.WORD, fg="white", bg="black")
+    data_text.config(state='disabled')  # Start as read-only
     canvas.create_window(675, 150, window=data_text, anchor="nw")
+
+    # Start the ROS2 monitor loop
+    run_ros2_commands(data_text)
