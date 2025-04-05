@@ -113,7 +113,7 @@ def panel_frame(canvas):
 
     data_text = tk.Text(
     canvas,
-    width=20, height=14, font=font_4, wrap=tk.WORD, fg="white", bg="black")
+    width=37, height=14, font=font_4, wrap=tk.WORD, fg="white", bg="black")
     data_text.config(state='disabled')  # Start as read-only
     canvas.create_window(680, 165, window=data_text, anchor="nw")
 
