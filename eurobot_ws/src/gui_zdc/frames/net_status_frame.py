@@ -6,24 +6,17 @@ import subprocess
 
 # Set the global variables
 current_directory = os.path.dirname(os.path.abspath(__file__))
-import socket
+from ping3 import ping
 
 def check_ping(host):
-    """Check if the host is reachable via ping (returns True if reachable)."""
+    """Ping using ICMP (returns True if reachable)."""
     try:
-        # First, resolve the hostname to make sure it's valid
-        socket.gethostbyname(host)
-
-        # Now, run the ping command with timeout and 1 packet
-        output = subprocess.run(
-            ["ping", "-c", "1", "-W", "1", host],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL
-        )
-        return output.returncode == 0
+        response = ping(host, timeout=1)
+        return response is not None
     except Exception as e:
-        print(f"Ping failed for {host}: {e}")
+        print(f"ICMP ping failed for {host}: {e}")
         return False
+    
 def net_status_frame(canvas):
     """Design the NET STATUS frame with dynamic ping results."""
 
