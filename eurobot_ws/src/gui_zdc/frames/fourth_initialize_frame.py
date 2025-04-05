@@ -17,11 +17,10 @@ def start_competition(canvas):
     ros_node = get_node()  # Exemples d'ús del node ROS des de la interfície
     ros_node.start_robot(True)
     
-    '''
-    from frames.start_program import start
+    from frames.startup import start
     start()
     print("start program executed!")
-    '''
+
     switch_frame(competition_frame, True)  # Change to the competition frame
     
 
