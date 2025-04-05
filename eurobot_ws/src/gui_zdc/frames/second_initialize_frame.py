@@ -52,12 +52,12 @@ def second_initialize_frame(canvas):
     img_back = canvas.create_image(24, 24, image=back_photo, anchor="nw")
     canvas.tag_bind(img_back, "<Button-1>", lambda e: switch_frame(first_initialize_frame))
 
-    img_forward = canvas.create_image(1176, 24, image=forward_photo, anchor="ne")
+    img_forward = canvas.create_image(1128, 24, image=forward_photo, anchor="ne")
     canvas.tag_bind(img_forward, "<Button-1>", lambda e: start_competition(canvas))
 
 
     canvas.create_text(600, 50, text="● ● ○ ○", font=font_title, fill="White", anchor="center")
-    canvas.create_text(600, 110, text="TRAJECTORY", font=font_title, fill="White", anchor="center")
+    canvas.create_text(600, 125, text="TRAJECTORY", font=font_title, fill="White", anchor="center")
     
     # Set the variable that contains the path of the image
     field_path = os.path.join(current_directory, "../img/field.png")
@@ -71,8 +71,8 @@ def second_initialize_frame(canvas):
     frame_photo = ImageTk.PhotoImage(frame_image)
 
     # Display all the content (text and images) on the frame
-    canvas.create_image(600, 340, image=field_photo, anchor="center")
-    canvas.create_image(600, 340, image=frame_photo, anchor="center")
+    canvas.create_image(600, 355, image=field_photo, anchor="center")
+    canvas.create_image(600, 355, image=frame_photo, anchor="center")
 
     button_path = os.path.join(current_directory, "../img/white-button.png")
     button_image = Image.open(button_path)

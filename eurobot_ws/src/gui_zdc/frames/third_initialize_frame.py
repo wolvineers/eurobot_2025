@@ -84,12 +84,12 @@ def third_initialize_frame(canvas):
     canvas.tag_bind(img_back, "<Button-1>", lambda e: switch_frame(second_initialize_frame))
 
     forward_photo = ImageTk.PhotoImage(back_image.rotate(180))
-    img_forward = canvas.create_image(1176, 24, image=forward_photo, anchor="ne")
+    img_forward = canvas.create_image(1128, 24, image=forward_photo, anchor="ne")
     canvas.tag_bind(img_forward, "<Button-1>", lambda e: start_competition(canvas))
 
 
     canvas.create_text(600, 50, text="● ● ● ○", font=font_title, fill="White", anchor="center")
-    canvas.create_text(600, 110, text="STRATEGY", font=font_title, fill="White", anchor="center")
+    canvas.create_text(600, 125, text="STRATEGY", font=font_title, fill="White", anchor="center")
 
 
 

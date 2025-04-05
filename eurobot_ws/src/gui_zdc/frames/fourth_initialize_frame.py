@@ -65,7 +65,7 @@ def fourth_initialize_frame(canvas):
 
 
     canvas.create_text(600, 50, text="● ● ● ●", font=font_title, fill="White", anchor="center")
-    canvas.create_text(600, 110, text="END INITIALIZATION", font=font_title, fill="White", anchor="center")
+    canvas.create_text(600, 125, text="END INITIALIZATION", font=font_title, fill="White", anchor="center")
    
     button_path = os.path.join(current_directory, "../img/white-button.png")
     button_image = Image.open(button_path)
