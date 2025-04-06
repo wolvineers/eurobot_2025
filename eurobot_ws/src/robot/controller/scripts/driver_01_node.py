@@ -24,7 +24,7 @@ class FirstDriverNode(Node):
 
 
         # Attributes
-        self.port        = '/dev/ttyUSB1'
+        self.port        = '/dev/ttyUSB0'
         self.baudrate    = 115200
         self.serial_port = open_serial_port(self.port, self.baudrate)
 
@@ -55,8 +55,9 @@ class FirstDriverNode(Node):
         motors_pow_01 = motor_pow.linear.y
         motors_pow_02 = motor_pow.linear.z
 
-        send_message(self.serial_port, f"ML,{(motors_pow_01)}")
-        send_message(self.serial_port, f"MR,{(motors_pow_02)}")
+        send_message(self.serial_port, f"ML,{(motors_pow_01)},MR,{(motors_pow_02)}")
+        self.get_logger().info('Message sended')
+        # send_message(self.serial_port, f"MR,{(motors_pow_02)}")
 
 
     def encoders_timer(self):
@@ -67,22 +68,29 @@ class FirstDriverNode(Node):
         encoder_msg = read_message(self.serial_port)
         
         if encoder_msg != None:
-            # Separates the message into the three parts marked by commas and saves the values
-            encoder_parts  = encoder_msg.split(",")
-            encoder        = encoder_parts[0]
-            encoder_value  = float(encoder_parts[1])
+            # Separates the message into the parts marked by commas and saves the values excluding the checksum
+            encoder_parts  = encoder_msg.split(",")[:-1]
+            self.get_logger().info('Taula missatge: ' + str(encoder_parts))
 
-            # Prepare and publish the message
-            self.get_logger().info('Encoder: ' + str(encoder_value))
-            encoder_msg      = Float32()
-            encoder_msg.data = encoder_value
+            encoder_msg = Float32()
 
-            if encoder == "EL":
-                self.encoder_left_pub_.publish(encoder_msg)
-            elif encoder == "ER":
-                if encoder_msg.data != 0:
-                    encoder_msg.data *= -1
-                self.encoder_right_pub_.publish(encoder_msg)
+            for i_encoder_parts in range(0, len(encoder_parts), 2):
+                encoder        = encoder_parts[i_encoder_parts]
+                encoder_value  = float(encoder_parts[i_encoder_parts + 1])
+
+                # Prepare and publish the message
+                self.get_logger().info('Encoder: ' + str(encoder_value))
+                encoder_msg.data = encoder_value
+
+                if encoder == "EL":
+                    self.encoder_left_pub_.publish(encoder_msg)
+                elif encoder == "ER":
+                    if encoder_msg.data != 0:
+                        encoder_msg.data *= -1
+                    self.encoder_right_pub_.publish(encoder_msg)
+            
+
+            
 
 
 ## *************************
