@@ -8,7 +8,7 @@ find_package(OpenCV REQUIRED)
 include_directories(${OPENCV_INCLUDE_DIRS})
 
 set(exec
-    t_basic_aruco_detection.cpp
+    t_basic_calibration.cpp
 )
 
 add_executable(t_aruco_detection ${exec})

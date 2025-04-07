@@ -13,7 +13,7 @@ int main() {
     // -- READING THE IMAGE -- 
 
     // Save the possible paths of the image
-    string path_docker = "/wolvi/src/computing_zone/aruco_detection/assets/playmat.mp4";
+    string path_docker = "/wolvi/src/computing_zone/aruco_detection/assets/photo2.png";
 
     // Read the image
     Mat playmat = imread(path_docker);

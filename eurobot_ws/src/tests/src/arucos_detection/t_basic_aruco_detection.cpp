@@ -14,7 +14,7 @@ int main() {
 
     // Save the possible paths of the image
     string path_aida = "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/eurobot_ws/src/tests/src/arucos_detection/assets/photo_8.png";
-    string path_docker = "/wolvi/src/tests/src/arucos_detection/assets/photo_1.png";
+    string path_docker = "/wolvi/src/tests/src/arucos_detection/assets/photo_2.png";
 
     // Read the image
     Mat playmat = imread(path_docker);
@@ -28,12 +28,12 @@ int main() {
     // -- CAMERA CALIBRATION MATRIX --
 
     // Camera matrix (3x3)
-    Mat cameraMatrix = (Mat_<double>(3, 3) << 892.0741812, 0, 826.51502968,
-                                             0, 881.01427636, 554.99886337,
-                                             0, 0, 1);
+    Mat cameraMatrix = (Mat_<double>(3, 3) <<   855.27002522941973, 0, 818.8764721871803,
+                                                0, 620.42735926362684, 610.03945537227833,
+                                                0, 0, 1);
 
     // Distortion coefficients (5 elements)
-    Mat distCoeffs = (Mat_<double>(1, 5) << -0.34043579, 0.14535852, 0.00743814, -0.00275169, -0.03219138);
+    Mat distCoeffs = (Mat_<double>(1, 5) << -0.05054966095567924, -0.019693483343539691, 0.017186018478991826, -0.036140541114984, 0.004796921435149485);
 
 
     // -- UNDISTORT THE IMAGE --
