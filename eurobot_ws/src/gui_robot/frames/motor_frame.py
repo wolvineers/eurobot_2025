@@ -208,7 +208,7 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 # Now import from utils
-from utils.src.serial_communication import open_serial_port, send_message
+from utils.scripts.serial_communication import open_serial_port, send_message
 
 # Limpiar terminal (no necesario si no se está usando)
 os.system("clear")
