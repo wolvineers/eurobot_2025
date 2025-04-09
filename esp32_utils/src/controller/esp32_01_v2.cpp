@@ -5,6 +5,9 @@
 #include <vector>
 #include <sstream>
 
+#define MAX_RPM 300
+#define MAX_PWM 255
+
 ESP32Encoder encoderC;
 ESP32Encoder encoderD;
 
@@ -51,6 +54,30 @@ void motor_left(int speed, bool dir) {
 
     digitalWrite(GPIO_IND1,dir);
     ledcWrite(ledChannelD, real_speed);
+}
+
+int velocity_to_pwm(int velocity) {
+    /*
+      Converts the desired velocity (m/s) to a PWM value (0–255).
+
+      Arguments:
+        velocity (int): Desired robot velocity in meters per second.
+
+      Returns:
+        int: PWM value (0 to MAX_PWM).
+    */
+
+    // Convert the velocity to rpm
+    float desired_rpm = (velocity * 60.0) / (2 * PI * (DIAMETRE_RODES_MM / 2));
+
+    // Convert the rpm to pwm
+    float pwm = (desired_rpm / MAX_RPM) * MAX_PWM;
+
+    // Clamp the result between 0 and MAX_PWM
+    if (pwm > MAX_PWM) pwm = MAX_PWM;
+    if (pwm < 0) pwm = 0;
+
+    return (int)pwm;
 }
 
 
@@ -133,19 +160,20 @@ void loop() {
         // Process command pairs
         for (int i = 0; i < message_parts.size(); i += 2) {
             std::string motor = message_parts[i];
-            int power = stoi(message_parts[i+1]);
-            int dir   = 0;
+            int vel = stoi(message_parts[i+1]);
+            int pwm = velocity_to_pwm(abs(vel));
+            int dir = 0;
 
             if (motor == "M01") {
                 // Handle motor M01
             } else if (motor == "M02") {
                 // Handle motor M02
             } else if (motor == "ML") {
-                if (power < 0) { dir = 1; }
-                motor_left(abs(power), dir);
+                if (vel < 0) { dir = 1; }
+                motor_left(pwm, dir);
             } else if (motor == "MR") {
-                if (power > 0) { dir = 1; }
-                motor_right(abs(power), dir);
+                if (vel > 0) { dir = 1; }
+                motor_right(pwm, dir);
             }
         }
     }
