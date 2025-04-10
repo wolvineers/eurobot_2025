@@ -2,10 +2,10 @@ import tkinter.font as tkFont
 import tkinter as tk
 import os
 from PIL import Image, ImageTk
+import threading
 
 # Set the global variables
 current_directory = os.path.dirname(os.path.abspath(__file__))
-from frames.gui_node import get_node  # Aquest import assumeix que la instància de gui_node és global
 
 # Set the global variables
 current_directory = os.path.dirname(os.path.abspath(__file__))
@@ -13,17 +13,24 @@ current_directory = os.path.dirname(os.path.abspath(__file__))
 def start_competition(canvas):
     from frames.main_frame import switch_frame
     from frames.competition_frame import competition_frame
+    from frames.waiting_frame import waiting_frame
+    from frames.startup_robot import start
 
-    ros_node = get_node()  # Exemples d'ús del node ROS des de la interfície
-    ros_node.start_robot(True)
-    
-    '''
-    from frames.start_program import start
-    start()
-    print("start program executed!")
-    '''
-    switch_frame(competition_frame, True)  # Change to the competition frame
-    
+    switch_frame(waiting_frame, True)  # Mostra el frame d'espera
+
+    def wait_and_continue():
+        start()  # Espera que es deixi de prémer el final de carrera
+        print("start program executed!")
+
+        if hasattr(canvas, 'countdown'):
+            canvas.after(100, lambda: canvas.countdown(100))
+
+        # Canvia de frame un cop ha acabat l'espera
+        canvas.after(100, lambda: switch_frame(competition_frame, True))
+
+    # Llança l'espera en un fil separat
+    thread = threading.Thread(target=wait_and_continue)
+    thread.start()
 
 def fourth_initialize_frame(canvas):
     """ 
