@@ -15,13 +15,15 @@
 // }
 
 // void loop() {
-//     String message = "S03,0,345";
+//     String message = readMessage();
 
 //     if (message.length() > 0) {
 //         int partsCount = 0;
 //         String parts[10];
 //         int startIndex = 0;
 //         int commaIndex = message.indexOf(',');
+
+//         Serial.println(message);
 
 //         while (commaIndex != -1 && partsCount < 10) {
 //             parts[partsCount++] = message.substring(startIndex, commaIndex);
@@ -44,19 +46,19 @@
 //                 if (servoIdStr.startsWith("S")) {
 //                     int servoNumber = servoIdStr.substring(1).toInt() - 1;
 
-//                     if (servoNumber + 1 == 6) {
+//                     if (servoNumber + 1 == 1) {     // VENTOSA ESQUERRA
+//                         servos[servoNumber].write(value == "0" ? 120 : 180);
+//                     }
+//                     else if (servoNumber + 1 == 2) { // PINÇA
+//                         servos[servoNumber].write(value == "0" ? 0 : 65);
+//                     }
+//                     else if (servoNumber + 1 == 3) { // PALA DRETA
 //                         servos[servoNumber].write(value == "0" ? 120 : 0);
 //                     }
-//                     else if (servoNumber + 1 == 3) {
+//                     else if (servoNumber + 1 == 4) { // PALA ESQUERRA
 //                         servos[servoNumber].write(value == "0" ? 0 : 120);
 //                     }
 //                     else if (servoNumber + 1 == 5) {
-//                         servos[servoNumber].write(value == "0" ? 180 : 90);
-//                     }
-//                     else if (servoNumber + 1 == 7) {
-//                         servos[servoNumber].write(value == "0" ? 0 : 90);
-//                     }
-//                     else if (servoNumber + 1 == 8) {
 //                         servos[servoNumber].write(value == "0" ? 0 : 90);
 //                     }
 //                     else {
@@ -66,7 +68,7 @@
 //             }
 
 //         } else {
-//             Serial.println("Error: Formato del mensaje no válido.");
+//             Serial.println("Error: Invalid message format");
 //         }
 //     }
 // }
