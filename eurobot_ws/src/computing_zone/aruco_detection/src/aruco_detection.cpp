@@ -1,6 +1,7 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/aruco.hpp>
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <map>
 
@@ -8,22 +9,137 @@ using namespace cv;
 using namespace std;
 using namespace aruco;
 
+
+// *************************
+// FUNCTIONS
+// *************************
+
+Mat parseCameraMatrix(istream& in) {
+    /*
+        Parses the camera matrix from the input stream and stores the values in a 3x3 matrix.
+    
+        Arguments:
+            in (istream&): The input stream containing the camera matrix data.
+    
+        Returns:
+            Mat: The 3x3 matrix containing the camera matrix values.
+    */
+
+    // Create an initialize the matrix and variables
+    Mat mat(3, 3, CV_64F);
+    string line;
+    int row = 0;
+    bool started = false;
+
+    // Read the stream line by line
+    while (getline(in, line)) {
+
+        // Skip lines until we find the beginning of the matrix (indicated by a '[' character)
+        if (!started && line.find('[') == string::npos) continue;
+        started = true;
+
+        // Remove brackets if present
+        line.erase(remove(line.begin(), line.end(), '['), line.end());
+        line.erase(remove(line.begin(), line.end(), ']'), line.end());
+
+        // Use stringstream to extract numerical values from the cleaned line
+        stringstream ss(line);
+        double val;
+        int col = 0;
+
+        // Read values separated by spaces, commas, or semicolons
+        while (ss >> val) {
+            cout << "VAL: " << val << endl;
+            mat.at<double>(row, col++) = val;
+            if (ss.peek() == ',' || ss.peek() == ';') ss.ignore();
+        }
+        
+        row++;
+    }
+
+    return mat;
+}
+
+Mat parseDistCoeffs(istream& in) {
+    /*
+        Parses the distortion coefficients from the input stream and stores the values in a 1x5 matrix.
+    
+        Arguments:
+            in (istream&): The input stream containing the distortion coefficients data.
+    
+        Returns:
+            Mat: The 1x5 matrix containing the distortion coefficients.
+    */
+    
+    // Create an initialize the matrix and variables
+    Mat distCoeffs(1, 5, CV_64F);
+    string line;
+
+    // Read the stream line by line
+    while (getline(in, line)) {
+
+        // Find the positions of the opening and closing brackets
+        size_t start = line.find('[');
+        size_t end = line.find(']');
+
+        // If both brackets are found in the line, extract the data between them
+        if (start != string::npos && end != string::npos) {
+
+            // Extract substring between brackets
+            line = line.substr(start + 1, end - start - 1);
+            stringstream ss(line);
+
+            double val;
+            int col = 0;
+
+            // Read each number and assign it to the matrix
+            while (ss >> val) {
+                distCoeffs.at<double>(0, col++) = val;
+                if (ss.peek() == ',' || ss.peek() == ';') ss.ignore();
+            }
+        }
+    }
+
+    return distCoeffs;
+}
+
+
+
+// *************************
+// MAIN CODE
+// *************************
+
 int main() {
     
     // -- READING THE IMAGE -- 
 
-    // Save the possible paths of the image
-    string path_docker = "/wolvi/src/computing_zone/aruco_detection/assets/photo2.png";
+    // Load test image
+    Mat img = imread("/wolvi/src/computing_zone/aruco_detection/assets/playmat_02/photo_2.png");
+    int h = img.rows;
+    int w = img.cols;
 
-    // Read the image
-    Mat playmat = imread(path_docker);
+    // Read the values of the camera calibration
+    ifstream mtx_file("/wolvi/src/computing_zone/aruco_detection/calibration_values/camera_matrix_output.txt");
+    Mat mtx = parseCameraMatrix(mtx_file);
+    mtx_file.close();
 
-    // Read the video
-    VideoCapture cap(path_docker);
+    ifstream dits_file("/wolvi/src/computing_zone/aruco_detection/calibration_values/distortion_coefficients_output.txt");
+    Mat dist = parseDistCoeffs(dits_file);
+    dits_file.close();
 
-    // Throw error in case the image is empty
-    if (!cap.isOpened()) {
-        cerr << "Error: Unable to open the video!" << endl;
+    // Calculare the optimal camera matrix
+    Mat newCameraMatrix; Rect roi;
+    newCameraMatrix = getOptimalNewCameraMatrix(mtx, dist, Size(w, h), 1, Size(w, h), &roi);
+
+    // Undistort the image
+    Mat dst;
+    undistort(img, dst, mtx, dist, newCameraMatrix);
+
+    // Crop the image
+    dst = dst(roi);
+
+    if (dst.empty()) {
+        cerr << "Error: Camera matrix or distortion coefficients are empty!" << endl;
         return -1;
     }
 
@@ -33,43 +149,36 @@ int main() {
     // Set the dictionary
     Ptr<Dictionary> opencvDict = getPredefinedDictionary(DICT_4X4_100);
 
-    // Detect the arucos in every frame
-    Mat frame;
+    // Declare result variables
+    vector<int> ids;
+    vector<vector<Point2f>> corners;
 
-    while (true) {
-        // Check if the video has ended
-        if (!cap.read(frame)) {
-            cerr << "End of video." << endl;
-            break;
+    // Detect arucos
+    detectMarkers(dst, opencvDict, corners, ids);
+
+
+    // -- ARUCO DRAWING --
+
+    // Draw all the corners
+    if (!ids.empty()) {
+        drawDetectedMarkers(dst, corners, ids);
+        for (size_t i = 0; i < ids.size(); i++) {
+            // cout << "ID detected: " << ids[i] << " with vectors in the coordenates: " << endl;
+            // for (const auto& point : corners[i]) cout << point << endl;
         }
-
-        // Declare result variables
-        vector<int> ids;
-        vector<vector<Point2f>> corners;
-
-        // Detect arucos
-        detectMarkers(frame, opencvDict, corners, ids);
-
-
-        // -- ARUCO DRAWING --
-
-        // Draw all the corners
-        if (!ids.empty()) {
-            drawDetectedMarkers(frame, corners, ids);
-            for (size_t i = 0; i < ids.size(); i++) {
-                // cout << "ID detected: " << ids[i] << " with vectors in the coordenates: " << endl;
-                // for (const auto& point : corners[i]) cout << point << endl;
-            }
-        } else {
-            cout << "Not arucos detected." << endl;
-        }
-
-        // Show image with the results
-        imshow("Arucos detector", frame);
-        if (waitKey(20) == 'q') break;
+    } else {
+        cout << "Not arucos detected." << endl;
     }
 
-    cap.release();
+    // Show image with the results
+    imshow("Arucos detector", dst);
+    
+    while (true) {
+        char key = (char)waitKey(1);
+        if (key == 'q' || key == 'Q') break;
+    }
+    
+   
     destroyAllWindows();
     return 0;
 }

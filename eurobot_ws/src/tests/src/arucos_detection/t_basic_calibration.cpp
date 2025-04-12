@@ -65,7 +65,7 @@ int main() {
     calibrateCamera(objpoints, imgpoints, gray.size(), mtx, dist, rvecs, tvecs);
 
     // Save calibration parameters to a text file
-    ofstream calibFile("/wolvi/src/tests/src/arucos_detection/calibration_values/calibration_output.txt");
+    ofstream calibFile("/wolvi/src/tests/src/arucos_detection/calibration_values/camera_matrix_output.txt");
 
     if (calibFile.is_open()) {
         calibFile << "Camera Matrix (mtx):\n" << mtx << "\n\n";

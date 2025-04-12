@@ -64,28 +64,16 @@ int main() {
     vector<Mat> rvecs, tvecs;
     calibrateCamera(objpoints, imgpoints, gray.size(), mtx, dist, rvecs, tvecs);
 
-    // Save calibration parameters to a text file
-    ofstream calibFile("/wolvi/src/computing_zone/aruco_detection/calibration_values/calibration_output.txt");
+    // Save calibration parameters to different text files
+    ofstream calibFileCM("/wolvi/src/computing_zone/aruco_detection/calibration_values/camera_matrix_output.txt");
 
-    if (calibFile.is_open()) {
-        calibFile << "Camera Matrix (mtx):\n" << mtx << "\n\n";
-        calibFile << "Distortion Coefficients (dist):\n" << dist << "\n\n";
+    if (calibFileCM.is_open()) { calibFileCM << "Camera Matrix (mtx):\n" << mtx << "\n"; } 
+    else { cerr << "Unable to open file for writing calibration data." << endl; }
 
-        calibFile << "Rotation Vectors (rvecs):\n";
-        for (size_t i = 0; i < rvecs.size(); ++i) {
-            calibFile << "rvec[" << i << "]:\n" << rvecs[i] << "\n";
-        }
+    ofstream calibFileDC("/wolvi/src/computing_zone/aruco_detection/calibration_values/distortion_coefficients_output.txt");
 
-        calibFile << "\nTranslation Vectors (tvecs):\n";
-        for (size_t i = 0; i < tvecs.size(); ++i) {
-            calibFile << "tvec[" << i << "]:\n" << tvecs[i] << "\n";
-        }
-
-        calibFile.close();
-        cout << "Calibration data saved to calibration_output.txt" << endl;
-    } else {
-        cerr << "Unable to open file for writing calibration data." << endl;
-    }
+    if (calibFileDC.is_open()) { calibFileDC << "Distortion Coefficients (dist):\n" << dist << "\n"; } 
+    else { cerr << "Unable to open file for writing calibration data." << endl; }
 
     return 0;
 }
