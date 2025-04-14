@@ -32,14 +32,15 @@ class ControllerNode(Node):
         self.num_action_i_ = 0
         self.state_action_ = 0
 
-        self.dist_accel_    = 7.0
-        self.dist_desaccel_ = 10.0
-        self.init_vel_      = 5.0
-        self.final_vel_     = 15.0
-        self.linear_vel_    = 0.0
-        self.angular_vel_   = 0.0
-        self.distance_      = 0.0
-        self.direction_     = 1
+        self.dist_accel_      = 7.0
+        self.dist_desaccel_   = 10.0
+        self.init_vel_        = 0.15
+        self.final_vel_       = 0.15
+        self.linear_vel_      = 0.0
+        self.angular_vel_     = 0.0
+        self.distance_        = 0.0
+        self.direction_       = 1
+        self.const_corretion_ = 0.02
 
         # Publishers
         self.velocities_pub_ = self.create_publisher(Twist, '/controller/motors_pow', 10)
@@ -60,7 +61,7 @@ class ControllerNode(Node):
         self.action_tim_i_   = self.create_timer(1.0, self.control_actuators_i)
 
         # Differential drive object
-        self.robot = DifferentialWheel(l=0.25, radius=0.0475)
+        self.robot = DifferentialWheel(l=0.23, radius=0.0475)
 
     
     def encoder_left_callback(self, encoder_left):
@@ -183,8 +184,8 @@ class ControllerNode(Node):
 
         if self.distance_ != 0 and self.opponent_detected:
 
-            distance_moved    = (abs(self.encoder_left_) + abs(self.encoder_right_)) / 2
-            self.get_logger().info("Distance moved: " + str(distance_moved))
+            distance_moved = (abs(self.encoder_left_) + abs(self.encoder_right_)) / 2
+            # self.get_logger().info("Distance moved: " + str(distance_moved))
 
             straight_distance = self.distance_ - self.dist_accel_ - self.dist_desaccel_
 
@@ -246,6 +247,17 @@ class ControllerNode(Node):
                 end_action.data = True
                 self.end_order_pub_.publish(end_action)
 
+            # Adjust difference between encoders
+            if distance_moved < self.distance_ and self.angular_vel_ == 0.0:
+                encoder_left_abs  = abs(self.encoder_left_)
+                encoder_right_abs = abs(self.encoder_right_)
+                correction_factor = int(abs(encoder_left_abs - encoder_right_abs) / 2 + 1) * self.const_corretion_ 
+
+                if abs(self.encoder_left_) < abs(self.encoder_right_):
+                    vel_left += (correction_factor * self.direction_)
+                elif abs(self.encoder_left_) > abs(self.encoder_right_):
+                    vel_right += (correction_factor * self.direction_)                
+
         # Publish the message with each motor power
         motor_vel_msg = Twist()
 
@@ -254,7 +266,7 @@ class ControllerNode(Node):
 
         #self.get_logger().info("Velocity left: " + str(vel_left) + " | Velocity right: " + str(vel_right))
         
-        self.velocities_pub_.publish(motor_vel_msg)   
+        self.velocities_pub_.publish(motor_vel_msg)
 
 
     def control_actuators_t(self):

@@ -22,7 +22,6 @@ class FirstDriverNode(Node):
 
         super().__init__('first_driver')
 
-
         # Attributes
         self.port        = '/dev/ttyUSB0'
         self.baudrate    = 115200
@@ -56,7 +55,7 @@ class FirstDriverNode(Node):
         motors_pow_02 = motor_pow.linear.z
 
         send_message(self.serial_port, f"ML,{(motors_pow_01)},MR,{(motors_pow_02)}")
-        self.get_logger().info('Message sended')
+        # self.get_logger().info('Message sended')
         # send_message(self.serial_port, f"MR,{(motors_pow_02)}")
 
 
@@ -85,8 +84,6 @@ class FirstDriverNode(Node):
                 if encoder == "EL":
                     self.encoder_left_pub_.publish(encoder_msg)
                 elif encoder == "ER":
-                    if encoder_msg.data != 0:
-                        encoder_msg.data *= -1
                     self.encoder_right_pub_.publish(encoder_msg)
             
 
