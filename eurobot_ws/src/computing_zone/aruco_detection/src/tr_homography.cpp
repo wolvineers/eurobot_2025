@@ -161,15 +161,85 @@ int main() {
 
     std::map<int, cv::Point2f> markerCenters;
 
-    // Draw all the corners
+    // Calculate the corners center
     if (!ids.empty()) {
-        drawDetectedMarkers(dst, corners, ids);
+        for (size_t i = 0; i < ids.size(); i++) {
+            Point2f center(0, 0);
+            for (const auto& point : corners[i]) { center += point; }  // Sum all the corners
+            center *= 0.25f;  // Corners average
+
+            // Store the center with its ID
+            markerCenters[ids[i]] = center;
+
+            cout << "ID: " << ids[i] << " - Center: " << center << endl;
+        }
     } else {
         cout << "Not arucos detected." << endl;
     }
 
     // Show the image with the transformed (warped) perspective
-    imshow("Aruco Image", dst);
+    imshow("Playmat Image", dst);
+    waitKey(0);
+
+    
+    // -- HOMOGRAPHY TRANSFORMATION --
+
+    // Store the world points
+    map<int, cv::Point2f> boardPointsMM = {
+        {20, {600, 1400}},
+        {21, {2400, 1400}},
+        {22, {600, 600}},
+        {23, {2400, 600}}
+    };
+
+    // Store the image points from the centers calculated before
+    set<int> referenceIDs = {20, 21, 22, 23};
+
+    vector<cv::Point2f> imagePoints;
+    vector<cv::Point2f> boardPoints;
+
+    for (const auto& [id, center] : markerCenters) {
+        if (referenceIDs.count(id) && boardPointsMM.count(id)) {
+            imagePoints.push_back(center);
+            boardPoints.push_back(boardPointsMM[id]);
+        }
+    }
+
+    // Homography computation
+    Mat H = cv::findHomography(imagePoints, boardPoints);
+    cout << "H:\n" << H << endl;
+
+    // Add offset to homography to avois cuts
+    int offsetX = 500;
+    int offsetY = 500;
+
+    // Create the translation matrix
+    Mat T = (cv::Mat_<double>(3,3) <<
+        1, 0, offsetX,
+        0, 1, offsetY,
+        0, 0, 1);
+
+    // Compute the new homography
+    Mat H_adjusted = T * H;
+    Size outputSize(3000 + offsetX, 2000 + offsetY);
+
+    // Create the matrix to flip the result
+    Mat flipX = (cv::Mat_<double>(3,3) <<
+        -1, 0, outputSize.width,   // Inverteix X i compensa el desplaçament
+        0, 1, 0,
+        0, 0, 1);
+
+    // Compute the final homography
+    Mat H_final = flipX * H_adjusted;
+
+    // Warp the result
+    Mat warped;
+    warpPerspective(dst, warped, H_final, outputSize);
+
+    // Show the result
+    Mat warped_resized;
+    resize(warped, warped_resized, Size(), 0.2, 0.2);
+    imshow("Imatge projectada", warped_resized);
     waitKey(0);
 
     destroyAllWindows();
