@@ -8,7 +8,7 @@ find_package(OpenCV REQUIRED)
 include_directories(${OPENCV_INCLUDE_DIRS})
 
 set(exec
-    src/aruco_detection.cpp
+    src/pose_estimation.cpp
 )
 
 add_executable(t_aruco_detection ${exec})
