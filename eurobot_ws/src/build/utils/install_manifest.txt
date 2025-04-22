@@ -1,0 +1,17 @@
+/wolvi/src/install/utils/lib/utils/serial_communication.py
+/wolvi/src/install/utils/lib/utils/__pycache__/serial_communication.cpython-310.pyc
+/wolvi/src/install/utils/share/ament_index/resource_index/package_run_dependencies/utils
+/wolvi/src/install/utils/share/ament_index/resource_index/parent_prefix_path/utils
+/wolvi/src/install/utils/share/utils/environment/ament_prefix_path.sh
+/wolvi/src/install/utils/share/utils/environment/ament_prefix_path.dsv
+/wolvi/src/install/utils/share/utils/environment/path.sh
+/wolvi/src/install/utils/share/utils/environment/path.dsv
+/wolvi/src/install/utils/share/utils/local_setup.bash
+/wolvi/src/install/utils/share/utils/local_setup.sh
+/wolvi/src/install/utils/share/utils/local_setup.zsh
+/wolvi/src/install/utils/share/utils/local_setup.dsv
+/wolvi/src/install/utils/share/utils/package.dsv
+/wolvi/src/install/utils/share/ament_index/resource_index/packages/utils
+/wolvi/src/install/utils/share/utils/cmake/utilsConfig.cmake
+/wolvi/src/install/utils/share/utils/cmake/utilsConfig-version.cmake
+/wolvi/src/install/utils/share/utils/package.xml

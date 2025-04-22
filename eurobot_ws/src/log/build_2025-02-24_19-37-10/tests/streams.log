@@ -1,0 +1,20 @@
+[0.021s] Invoking command in '/wolvi/src/build/tests': AMENT_PREFIX_PATH=/wolvi/src/install/utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/wolvi/src/install/utils:/wolvi/install/tests:/wolvi/install/controller:/wolvi/install/utils:/wolvi/install/rplidar_ros:/wolvi/install/robot_01:/wolvi/install/computation_zone:/wolvi/install/lidar:/opt/ros/humble /usr/bin/cmake --build /wolvi/src/build/tests -- -j8 -l8
+[0.060s] Invoked command in '/wolvi/src/build/tests' returned '0': AMENT_PREFIX_PATH=/wolvi/src/install/utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/wolvi/src/install/utils:/wolvi/install/tests:/wolvi/install/controller:/wolvi/install/utils:/wolvi/install/rplidar_ros:/wolvi/install/robot_01:/wolvi/install/computation_zone:/wolvi/install/lidar:/opt/ros/humble /usr/bin/cmake --build /wolvi/src/build/tests -- -j8 -l8
+[0.061s] Invoking command in '/wolvi/src/build/tests': AMENT_PREFIX_PATH=/wolvi/src/install/utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/wolvi/src/install/utils:/wolvi/install/tests:/wolvi/install/controller:/wolvi/install/utils:/wolvi/install/rplidar_ros:/wolvi/install/robot_01:/wolvi/install/computation_zone:/wolvi/install/lidar:/opt/ros/humble /usr/bin/cmake --install /wolvi/src/build/tests
+[0.067s] -- Install configuration: ""
+[0.067s] -- Up-to-date: /wolvi/src/install/tests/share/ament_index/resource_index/package_run_dependencies/tests
+[0.067s] -- Up-to-date: /wolvi/src/install/tests/share/ament_index/resource_index/parent_prefix_path/tests
+[0.067s] -- Up-to-date: /wolvi/src/install/tests/share/tests/environment/ament_prefix_path.sh
+[0.067s] -- Up-to-date: /wolvi/src/install/tests/share/tests/environment/ament_prefix_path.dsv
+[0.067s] -- Up-to-date: /wolvi/src/install/tests/share/tests/environment/path.sh
+[0.067s] -- Up-to-date: /wolvi/src/install/tests/share/tests/environment/path.dsv
+[0.067s] -- Up-to-date: /wolvi/src/install/tests/share/tests/local_setup.bash
+[0.067s] -- Up-to-date: /wolvi/src/install/tests/share/tests/local_setup.sh
+[0.067s] -- Up-to-date: /wolvi/src/install/tests/share/tests/local_setup.zsh
+[0.068s] -- Up-to-date: /wolvi/src/install/tests/share/tests/local_setup.dsv
+[0.068s] -- Installing: /wolvi/src/install/tests/share/tests/package.dsv
+[0.068s] -- Up-to-date: /wolvi/src/install/tests/share/ament_index/resource_index/packages/tests
+[0.068s] -- Up-to-date: /wolvi/src/install/tests/share/tests/cmake/testsConfig.cmake
+[0.068s] -- Up-to-date: /wolvi/src/install/tests/share/tests/cmake/testsConfig-version.cmake
+[0.068s] -- Up-to-date: /wolvi/src/install/tests/share/tests/package.xml
+[0.070s] Invoked command in '/wolvi/src/build/tests' returned '0': AMENT_PREFIX_PATH=/wolvi/src/install/utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/wolvi/src/install/utils:/wolvi/install/tests:/wolvi/install/controller:/wolvi/install/utils:/wolvi/install/rplidar_ros:/wolvi/install/robot_01:/wolvi/install/computation_zone:/wolvi/install/lidar:/opt/ros/humble /usr/bin/cmake --install /wolvi/src/build/tests
