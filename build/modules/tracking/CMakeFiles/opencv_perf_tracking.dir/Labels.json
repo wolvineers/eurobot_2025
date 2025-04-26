@@ -1,0 +1,42 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv_contrib-4.x/modules/tracking/perf/perf_main.cpp",
+			"labels" : 
+			[
+				"Extra",
+				"opencv_tracking",
+				"PerfTest"
+			]
+		},
+		{
+			"file" : "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv_contrib-4.x/modules/tracking/perf/perf_trackers.cpp",
+			"labels" : 
+			[
+				"Extra",
+				"opencv_tracking",
+				"PerfTest"
+			]
+		},
+		{
+			"file" : "/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv_contrib-4.x/modules/tracking/perf/perf_precomp.hpp",
+			"labels" : 
+			[
+				"Extra",
+				"opencv_tracking",
+				"PerfTest"
+			]
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"Extra",
+			"opencv_tracking",
+			"PerfTest"
+		],
+		"name" : "opencv_perf_tracking"
+	}
+}

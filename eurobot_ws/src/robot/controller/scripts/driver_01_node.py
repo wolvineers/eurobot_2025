@@ -7,6 +7,7 @@ from std_msgs.msg import Float32, Bool
 from geometry_msgs.msg import Twist
 from msgs.msg import JointActionPoint
 
+
 from utils.scripts.serial_communication import open_serial_port, send_message, read_message
 
 
@@ -23,9 +24,9 @@ class FirstDriverNode(Node):
 
         super().__init__('first_driver')
 
-
         # Attributes
         self.port        = '/dev/ttyUSB1'
+
         self.baudrate    = 115200
         self.serial_port = open_serial_port(self.port, self.baudrate)
 
@@ -35,14 +36,16 @@ class FirstDriverNode(Node):
         self.motors_pow_sub_      = self.create_subscription(Twist, '/controller/motors_pow', self.move_callback, 10)
         self.action_commands_sub_ = self.create_subscription(JointActionPoint, '/controller/action_commands', self.actions_commands_callback, 10)
 
+
         # Publishers
         self.encoder_left_pub_  = self.create_publisher(Float32, '/controller/encoder_left', 10)
         self.encoder_right_pub_ = self.create_publisher(Float32, '/controller/encoder_right', 10)
-        self.end_action_pub_ = self.create_publisher(Bool, "controller/end_action", 10)
+        self.end_action_pub_ = self.create_publisher(Bool, "/controller/end_action", 10)
 
         # Timers
         # self.encoders_tim_ = self.create_timer(self.timer_period_, self.encoders_timer)
         self.message_tim_ = self.create_timer(self.timer_period_, self.message_timer_)
+
 
 
     def move_callback(self, motor_pow):
@@ -59,8 +62,7 @@ class FirstDriverNode(Node):
         motors_pow_01 = motor_pow.linear.y
         motors_pow_02 = motor_pow.linear.z
 
-        send_message(self.serial_port, f"ML,{(motors_pow_01)}")
-        send_message(self.serial_port, f"MR,{(motors_pow_02)}")
+        send_message(self.serial_port, f"ML,{(motors_pow_01)},MR,{(motors_pow_02)}")
 
     
     def actions_commands_callback(self, action_commands):

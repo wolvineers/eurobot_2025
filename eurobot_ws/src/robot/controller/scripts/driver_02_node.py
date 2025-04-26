@@ -36,10 +36,11 @@ class SecondDriverNode(Node):
 
         # Publishers
         self.end_motor_action_pub_  = self.create_publisher(Bool, '/controller/motor_action', 10)
-        self.end_action_pub_ = self.create_publisher(Bool, "controller/end_action", 10)
+        self.end_action_pub_ = self.create_publisher(Bool, "/controller/end_action", 10)
 
         # Timers
         self.motor_action_tim_ = self.create_timer(self.timer_period_, self.end_action_timer)
+
 
 
     def actions_commands_callback(self, action_commands):

@@ -1,8 +1,0 @@
-source;share/computation_zone/hook/cmake_prefix_path.ps1
-source;share/computation_zone/hook/cmake_prefix_path.dsv
-source;share/computation_zone/hook/cmake_prefix_path.sh
-source;share/computation_zone/local_setup.bash
-source;share/computation_zone/local_setup.dsv
-source;share/computation_zone/local_setup.ps1
-source;share/computation_zone/local_setup.sh
-source;share/computation_zone/local_setup.zsh

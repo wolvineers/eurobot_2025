@@ -99,4 +99,8 @@
 //     }
 
 //     delay(20);
+<<<<<<< HEAD
 // }
+=======
+// }
+>>>>>>> eur-34-implement-gyro-in-the-movement

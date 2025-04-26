@@ -1,0 +1,17 @@
+# Target labels
+ Extra
+ opencv_signal
+ PerfTest
+# Source files and their labels
+/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv_contrib-4.x/modules/signal/perf/perf_main.cpp
+ Extra
+ opencv_signal
+ PerfTest
+/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv_contrib-4.x/modules/signal/perf/perf_resample.cpp
+ Extra
+ opencv_signal
+ PerfTest
+/home/aida/Desktop/robotica/eurobot_2025/eurobot_2025/opencv_contrib-4.x/modules/signal/perf/perf_precomp.hpp
+ Extra
+ opencv_signal
+ PerfTest

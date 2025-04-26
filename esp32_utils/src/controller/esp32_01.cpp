@@ -165,14 +165,27 @@
 //     // Send messages
 
 //     /// Prepare the message to send with the encoder value expressed in centimeters
+<<<<<<< HEAD
 //     char encoder_l[20]; snprintf(encoder_l, sizeof(encoder_l), "EL,%ld", (int)(motorL.get_pulses() / MOTOR_POLSOS_PER_CM));
 //     char encoder_r[20]; snprintf(encoder_r, sizeof(encoder_r), "ER,%ld", (int)(motorR.get_pulses() / MOTOR_POLSOS_PER_CM));
+=======
+//     char encoders_msg[50]; snprintf(
+//         encoders_msg, sizeof(encoders_msg),
+//         "EL,%ld,ER,%ld",
+//         (int)(motorL.get_pulses() / MOTOR_POLSOS_PER_CM),
+//         (int)(motorR.get_pulses() / MOTOR_POLSOS_PER_CM)
+//     );
+>>>>>>> eur-34-implement-gyro-in-the-movement
 
 //     /// Send less messages per second to avoid delays in communication
 //     loop_counter ++;
 //     if (loop_counter % 12 == 0) {   
+<<<<<<< HEAD
 //         sendMessage(encoder_l);
 //         sendMessage(encoder_r);
+=======
+//         sendMessage(encoders_msg);
+>>>>>>> eur-34-implement-gyro-in-the-movement
 //     }
 
 //     /// Restart pulses at the end of the move
