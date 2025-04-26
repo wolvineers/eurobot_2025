@@ -66,17 +66,6 @@ class SecondDriverNode(Node):
         positions_msg += f"AP,{action_commands.activate}"
 
 
-        motors_msg = ""
-
-        for i, motor in enumerate(action_commands.motors_names):
-            motors_msg += f"{motor},"
-            motors_msg += f"{action_commands.velocity[i]},"
-
-        motors_msg = motors_msg[:-1]
-
-        send_message(self.serial_port, positions_msg)
-
-
     def end_action_timer(self):
         """
         Reads the message sended by Esp32 containing the encoders value and publish this data.
