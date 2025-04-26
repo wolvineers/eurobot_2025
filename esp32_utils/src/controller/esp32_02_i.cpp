@@ -1,4 +1,4 @@
-// #include <Wire.h>
+// // #include <Wire.h>
 // #include <Arduino.h>
 // #include <ESP32Servo.h>
 // #include "serial_utils/serial_utils.h"
@@ -78,11 +78,11 @@
 //                 Wire.endTransmission();
 //             }
             
-//             else if (element_id == "S01") { servos[0].write(value == 0 ? 120 : 180); } // LEFT SUCTION GRIPPER
-//             else if (element_id == "S02") { servos[1].write(value == 0 ? 0 : 65); }    // PINCER
-//             else if (element_id == "S03") { servos[2].write(value == 0 ? 120 : 0); }   // RIGHT SHOVEL
-//             else if (element_id == "S04") { servos[3].write(value == 0 ? 0 : 120); }   // LEFT SHOVEL
-//             else if (element_id == "S05") { servos[4].write(value == 0 ? 0 : 90); }    // RIGHT SUCTION GRIPPER.
+//             else if (element_id == "S01") { servos[6].write(value == 0 ? 163 : 100); } // PINCER
+//             else if (element_id == "S02") { servos[1].write(value == 0 ? 140 : 179); } // LEFT SUCTION GRIPPER
+//             else if (element_id == "S03") { servos[4].write(value == 0 ? 45 : 10); }   // RIGHT SUCTION GRIPPER
+//             else if (element_id == "S04") { servos[0].write(value == 0 ? 70 : 140); }  // LEFT SHOVEL
+//             else if (element_id == "S05") { servos[2].write(value == 0 ? 120 : 40); }  // RIGHT SHOVEL
 //         }
 
 
@@ -99,8 +99,4 @@
 //     }
 
 //     delay(20);
-<<<<<<< HEAD
 // }
-=======
-// }
->>>>>>> eur-34-implement-gyro-in-the-movement

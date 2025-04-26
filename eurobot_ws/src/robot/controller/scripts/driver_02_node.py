@@ -66,6 +66,10 @@ class SecondDriverNode(Node):
 
         positions_msg += f"AP,{action_commands.activate}"
 
+        self.get_logger().info(positions_msg)
+
+        send_message(self.serial_port, positions_msg)
+
 
     def end_action_timer(self):
         """
@@ -77,6 +81,8 @@ class SecondDriverNode(Node):
         
         if end_action_msg != None:
 
+            self.get_logger().info(end_action_msg)
+
             # Separates the message into the three parts marked by commas and saves the values
             message_parts = end_action_msg.split(",")
             end_action    = int(message_parts[1])
@@ -84,6 +90,7 @@ class SecondDriverNode(Node):
             # Prepare and publish the message
 
             if end_action == 1:
+
                 end_msg = Bool()
                 end_msg.data = True
 
