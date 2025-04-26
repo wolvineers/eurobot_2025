@@ -1,0 +1,6 @@
+setup.py
+camera_robot/__init__.py
+camera_robot.egg-info/PKG-INFO
+camera_robot.egg-info/SOURCES.txt
+camera_robot.egg-info/dependency_links.txt
+camera_robot.egg-info/top_level.txt

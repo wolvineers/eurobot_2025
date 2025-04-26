@@ -1,0 +1,6 @@
+Invoking command in '/wolvi/src/camera_robot/build/camera_robot': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /wolvi/src/camera_robot -DCMAKE_INSTALL_PREFIX=/wolvi/src/camera_robot/install/camera_robot
+Invoked command in '/wolvi/src/camera_robot/build/camera_robot' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /wolvi/src/camera_robot -DCMAKE_INSTALL_PREFIX=/wolvi/src/camera_robot/install/camera_robot
+Invoking command in '/wolvi/src/camera_robot/build/camera_robot': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /wolvi/src/camera_robot/build/camera_robot -- -j8 -l8
+Invoked command in '/wolvi/src/camera_robot/build/camera_robot' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /wolvi/src/camera_robot/build/camera_robot -- -j8 -l8
+Invoking command in '/wolvi/src/camera_robot/build/camera_robot': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /wolvi/src/camera_robot/build/camera_robot
+Invoked command in '/wolvi/src/camera_robot/build/camera_robot' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /wolvi/src/camera_robot/build/camera_robot

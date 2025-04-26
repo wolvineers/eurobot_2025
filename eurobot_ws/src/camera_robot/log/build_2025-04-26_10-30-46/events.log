@@ -1,0 +1,125 @@
+[0.000000] (-) TimerEvent: {}
+[0.000338] (camera_robot) JobQueued: {'identifier': 'camera_robot', 'dependencies': OrderedDict()}
+[0.000478] (camera_robot) JobStarted: {'identifier': 'camera_robot'}
+[0.011489] (camera_robot) JobProgress: {'identifier': 'camera_robot', 'progress': 'cmake'}
+[0.015120] (camera_robot) Command: {'cmd': ['/usr/bin/cmake', '/wolvi/src/camera_robot', '-DCMAKE_INSTALL_PREFIX=/wolvi/src/camera_robot/install/camera_robot'], 'cwd': '/wolvi/src/camera_robot/build/camera_robot', 'env': OrderedDict([('HOSTNAME', 'dcf7560b9998'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('OLDPWD', '/wolvi/src'), ('ROS_PYTHON_VERSION', '3'), ('COLCON_PREFIX_PATH', '/wolvi/install'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm'), ('ROS_LOCALHOST_ONLY', '0'), ('QT_X11_NO_MITSHM', '1'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', '/private/tmp/com.apple.launchd.DTI56EmGSd/org.xquartz:0'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/wolvi/install/tests:/wolvi/install/utils:/wolvi/install/robot_01:/wolvi/install/computation_zone:/opt/ros/humble'), ('PWD', '/wolvi/src/camera_robot/build/camera_robot'), ('QT_QPA_PLATFORM', 'xcb'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/wolvi/src:/usr/local/lib/python3.8/site-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/wolvi/install/tests:/wolvi/install/utils:/wolvi/install/robot_01:/wolvi/install/computation_zone:/opt/ros/humble')]), 'shell': False}
+[0.081018] (camera_robot) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.098169] (-) TimerEvent: {}
+[0.141087] (camera_robot) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.149887] (camera_robot) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.199157] (-) TimerEvent: {}
+[0.239039] (camera_robot) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.250077] (camera_robot) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.251438] (camera_robot) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.251914] (camera_robot) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.257178] (camera_robot) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.300163] (-) TimerEvent: {}
+[0.354425] (camera_robot) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.365540] (camera_robot) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.366443] (camera_robot) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.367738] (camera_robot) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.381012] (camera_robot) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.401114] (-) TimerEvent: {}
+[0.502453] (-) TimerEvent: {}
+[0.513457] (camera_robot) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[0.603149] (-) TimerEvent: {}
+[0.704135] (-) TimerEvent: {}
+[0.758453] (camera_robot) StdoutLine: {'line': b'-- Found rclcpp: 16.0.11 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[0.806175] (-) TimerEvent: {}
+[0.911182] (-) TimerEvent: {}
+[0.929952] (camera_robot) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[0.959028] (camera_robot) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[0.991301] (camera_robot) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[1.012132] (-) TimerEvent: {}
+[1.027784] (camera_robot) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.080037] (camera_robot) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.113108] (-) TimerEvent: {}
+[1.214165] (-) TimerEvent: {}
+[1.243562] (camera_robot) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[1.258220] (camera_robot) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[1.315137] (-) TimerEvent: {}
+[1.401121] (camera_robot) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[1.416151] (-) TimerEvent: {}
+[1.433523] (camera_robot) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[1.486805] (camera_robot) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[1.517100] (-) TimerEvent: {}
+[1.534001] (camera_robot) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[1.618148] (-) TimerEvent: {}
+[1.625946] (camera_robot) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[1.627833] (camera_robot) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[1.718676] (camera_robot) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[1.720338] (-) TimerEvent: {}
+[1.721054] (camera_robot) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[1.821327] (-) TimerEvent: {}
+[1.834309] (camera_robot) StdoutLine: {'line': b'-- Found rclpy: 3.3.15 (/opt/ros/humble/share/rclpy/cmake)\n'}
+[1.920514] (camera_robot) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[1.921536] (-) TimerEvent: {}
+[2.022168] (-) TimerEvent: {}
+[2.123150] (-) TimerEvent: {}
+[2.188772] (camera_robot) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[2.189327] (camera_robot) StdoutLine: {'line': b'-- Configured cppcheck include dirs: \n'}
+[2.189602] (camera_robot) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[2.205386] (camera_robot) StdoutLine: {'line': b"-- Added test 'flake8' to check Python code syntax and style conventions\n"}
+[2.224122] (-) TimerEvent: {}
+[2.235054] (camera_robot) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[2.251917] (camera_robot) StdoutLine: {'line': b"-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257\n"}
+[2.325124] (-) TimerEvent: {}
+[2.364674] (camera_robot) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[2.365054] (camera_robot) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[2.382234] (camera_robot) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[2.398274] (camera_robot) StdoutLine: {'line': b'-- Configuring done\n'}
+[2.426167] (-) TimerEvent: {}
+[2.447735] (camera_robot) StdoutLine: {'line': b'-- Generating done\n'}
+[2.468327] (camera_robot) StdoutLine: {'line': b'-- Build files have been written to: /wolvi/src/camera_robot/build/camera_robot\n'}
+[2.475079] (camera_robot) CommandEnded: {'returncode': 0}
+[2.475865] (camera_robot) JobProgress: {'identifier': 'camera_robot', 'progress': 'build'}
+[2.477403] (camera_robot) Command: {'cmd': ['/usr/bin/cmake', '--build', '/wolvi/src/camera_robot/build/camera_robot', '--', '-j8', '-l8'], 'cwd': '/wolvi/src/camera_robot/build/camera_robot', 'env': OrderedDict([('HOSTNAME', 'dcf7560b9998'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('OLDPWD', '/wolvi/src'), ('ROS_PYTHON_VERSION', '3'), ('COLCON_PREFIX_PATH', '/wolvi/install'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm'), ('ROS_LOCALHOST_ONLY', '0'), ('QT_X11_NO_MITSHM', '1'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', '/private/tmp/com.apple.launchd.DTI56EmGSd/org.xquartz:0'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/wolvi/install/tests:/wolvi/install/utils:/wolvi/install/robot_01:/wolvi/install/computation_zone:/opt/ros/humble'), ('PWD', '/wolvi/src/camera_robot/build/camera_robot'), ('QT_QPA_PLATFORM', 'xcb'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/wolvi/src:/usr/local/lib/python3.8/site-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/wolvi/install/tests:/wolvi/install/utils:/wolvi/install/robot_01:/wolvi/install/computation_zone:/opt/ros/humble')]), 'shell': False}
+[2.523896] (camera_robot) StdoutLine: {'line': b'Built target ament_cmake_python_copy_camera_robot\n'}
+[2.527133] (-) TimerEvent: {}
+[2.628122] (-) TimerEvent: {}
+[2.673457] (camera_robot) StdoutLine: {'line': b'running egg_info\n'}
+[2.674411] (camera_robot) StdoutLine: {'line': b'creating camera_robot.egg-info\n'}
+[2.675220] (camera_robot) StdoutLine: {'line': b'writing camera_robot.egg-info/PKG-INFO\n'}
+[2.675849] (camera_robot) StdoutLine: {'line': b'writing dependency_links to camera_robot.egg-info/dependency_links.txt\n'}
+[2.676905] (camera_robot) StdoutLine: {'line': b'writing top-level names to camera_robot.egg-info/top_level.txt\n'}
+[2.677771] (camera_robot) StdoutLine: {'line': b"writing manifest file 'camera_robot.egg-info/SOURCES.txt'\n"}
+[2.680488] (camera_robot) StdoutLine: {'line': b"reading manifest file 'camera_robot.egg-info/SOURCES.txt'\n"}
+[2.681765] (camera_robot) StdoutLine: {'line': b"writing manifest file 'camera_robot.egg-info/SOURCES.txt'\n"}
+[2.702182] (camera_robot) StdoutLine: {'line': b'Built target ament_cmake_python_build_camera_robot_egg\n'}
+[2.709337] (camera_robot) CommandEnded: {'returncode': 0}
+[2.711721] (camera_robot) JobProgress: {'identifier': 'camera_robot', 'progress': 'install'}
+[2.718236] (camera_robot) Command: {'cmd': ['/usr/bin/cmake', '--install', '/wolvi/src/camera_robot/build/camera_robot'], 'cwd': '/wolvi/src/camera_robot/build/camera_robot', 'env': OrderedDict([('HOSTNAME', 'dcf7560b9998'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('OLDPWD', '/wolvi/src'), ('ROS_PYTHON_VERSION', '3'), ('COLCON_PREFIX_PATH', '/wolvi/install'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm'), ('ROS_LOCALHOST_ONLY', '0'), ('QT_X11_NO_MITSHM', '1'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', '/private/tmp/com.apple.launchd.DTI56EmGSd/org.xquartz:0'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/wolvi/install/tests:/wolvi/install/utils:/wolvi/install/robot_01:/wolvi/install/computation_zone:/opt/ros/humble'), ('PWD', '/wolvi/src/camera_robot/build/camera_robot'), ('QT_QPA_PLATFORM', 'xcb'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/wolvi/src:/usr/local/lib/python3.8/site-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/wolvi/install/tests:/wolvi/install/utils:/wolvi/install/robot_01:/wolvi/install/computation_zone:/opt/ros/humble')]), 'shell': False}
+[2.723668] (camera_robot) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[2.724212] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/lib/camera_robot\n'}
+[2.726085] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/lib/camera_robot/cameraRobot.py\n'}
+[2.729123] (-) TimerEvent: {}
+[2.730311] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/share/camera_robot/environment/pythonpath.sh\n'}
+[2.732955] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/share/camera_robot/environment/pythonpath.dsv\n'}
+[2.735291] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/local/lib/python3.10/dist-packages/camera_robot-0.0.0-py3.10.egg-info\n'}
+[2.737697] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/local/lib/python3.10/dist-packages/camera_robot-0.0.0-py3.10.egg-info/PKG-INFO\n'}
+[2.739795] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/local/lib/python3.10/dist-packages/camera_robot-0.0.0-py3.10.egg-info/SOURCES.txt\n'}
+[2.742347] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/local/lib/python3.10/dist-packages/camera_robot-0.0.0-py3.10.egg-info/top_level.txt\n'}
+[2.744531] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/local/lib/python3.10/dist-packages/camera_robot-0.0.0-py3.10.egg-info/dependency_links.txt\n'}
+[2.747192] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/local/lib/python3.10/dist-packages/camera_robot\n'}
+[2.748958] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/local/lib/python3.10/dist-packages/camera_robot/__init__.py\n'}
+[2.779152] (camera_robot) StdoutLine: {'line': b"Listing '/wolvi/src/camera_robot/install/camera_robot/local/lib/python3.10/dist-packages/camera_robot'...\n"}
+[2.782531] (camera_robot) StdoutLine: {'line': b"Compiling '/wolvi/src/camera_robot/install/camera_robot/local/lib/python3.10/dist-packages/camera_robot/__init__.py'...\n"}
+[2.784151] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/share/ament_index/resource_index/package_run_dependencies/camera_robot\n'}
+[2.787192] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/share/ament_index/resource_index/parent_prefix_path/camera_robot\n'}
+[2.789968] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/share/camera_robot/environment/ament_prefix_path.sh\n'}
+[2.791954] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/share/camera_robot/environment/ament_prefix_path.dsv\n'}
+[2.794304] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/share/camera_robot/environment/path.sh\n'}
+[2.796560] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/share/camera_robot/environment/path.dsv\n'}
+[2.798906] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/share/camera_robot/local_setup.bash\n'}
+[2.801138] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/share/camera_robot/local_setup.sh\n'}
+[2.803536] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/share/camera_robot/local_setup.zsh\n'}
+[2.805795] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/share/camera_robot/local_setup.dsv\n'}
+[2.808260] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/share/camera_robot/package.dsv\n'}
+[2.811324] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/share/ament_index/resource_index/packages/camera_robot\n'}
+[2.814035] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/share/camera_robot/cmake/camera_robotConfig.cmake\n'}
+[2.816126] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/share/camera_robot/cmake/camera_robotConfig-version.cmake\n'}
+[2.818400] (camera_robot) StdoutLine: {'line': b'-- Installing: /wolvi/src/camera_robot/install/camera_robot/share/camera_robot/package.xml\n'}
+[2.822619] (camera_robot) CommandEnded: {'returncode': 0}
+[2.830091] (-) TimerEvent: {}
+[2.858793] (camera_robot) JobEnded: {'identifier': 'camera_robot', 'rc': 0}
+[2.860560] (-) EventReactorShutdown: {}
