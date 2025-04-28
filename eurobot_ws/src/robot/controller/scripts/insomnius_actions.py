@@ -18,10 +18,10 @@ def handle_action(order, action):
 
         if action == 1:
             action_msg.servos_names = ["S01", "S02", "S03", "S04", "S05"]
-            action_msg.motors_names = ["M03", "M04"]
+            action_msg.motors_names = ["M01", "M02"]
 
             action_msg.position = [0, 0, 0, 1, 1]
-            action_msg.velocity = [150.0, -150.0]
+            action_msg.velocity = [150.0, -10.0]
             action_msg.activate = 0
         
         elif action == 2:
@@ -33,9 +33,9 @@ def handle_action(order, action):
     elif order == 3:
 
         if action == 1:
-            action_msg.motors_names = ["M04"]
+            action_msg.motors_names = ["M02"]
 
-            action_msg.velocity = [-150.0]
+            action_msg.velocity = [-10.0]
             action_msg.activate = 0
 
         elif action == 2:
@@ -45,7 +45,7 @@ def handle_action(order, action):
             action_msg.activate = 1
 
         elif action == 3:
-            action_msg.motors_names  = ["M04"]
+            action_msg.motors_names  = ["M02"]
 
             action_msg.velocity = [150.0]
             action_msg.activate = 1
@@ -53,33 +53,33 @@ def handle_action(order, action):
     elif order == 4:
         
         if action == 1:
-            action_msg.motors_names = ["M04"]
+            action_msg.motors_names = ["M02"]
 
-            action_msg.velocity = [-150.0]
+            action_msg.velocity = [-10.0]
             action_msg.activate = 1
 
         elif action == 2:
-            action_msg.motors_names = ["S03"]
+            action_msg.motors_names = ["M01"]
 
             action_msg.velocity = [-150.0]
             action_msg.activate = 1
 
         elif action == 3:
-            action_msg.motors_names = ["M04"]
+            action_msg.motors_names = ["M02"]
 
             action_msg.velocity = [150.0]
             action_msg.activate = 1
 
         elif action == 4:
-            action_msg.motors_names = ["M03"]
+            action_msg.motors_names = ["M01"]
 
             action_msg.velocity = [150.0]
             action_msg.activate = 1
 
         elif action == 5:
-            action_msg.motors_names = ["M04"]
+            action_msg.motors_names = ["M02"]
 
-            action_msg.velocity = [-150.0]
+            action_msg.velocity = [-10.0]
             action_msg.activate = 1
 
         elif action == 6:
