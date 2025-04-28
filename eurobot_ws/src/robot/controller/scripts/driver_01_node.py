@@ -40,7 +40,7 @@ class FirstDriverNode(Node):
         # Publishers
         self.encoder_left_pub_  = self.create_publisher(Float32, '/controller/encoder_left', 10)
         self.encoder_right_pub_ = self.create_publisher(Float32, '/controller/encoder_right', 10)
-        self.end_action_pub_ = self.create_publisher(Bool, "/controller/end_action", 10)
+        self.end_action_pub_ = self.create_publisher(Bool, "/controller/end_action_01", 10)
 
         # Timers
         # self.encoders_tim_ = self.create_timer(self.timer_period_, self.encoders_timer)
@@ -67,17 +67,11 @@ class FirstDriverNode(Node):
     
     def actions_commands_callback(self, action_commands):
         """
-        Gets the servos positions and sends all to the ESP32.
+        Gets the motors positions and if the array is not null sends them to the ESP32.
 
         Args:
             action_commands (JointTrajectory): The message received by the subscriber, containing the servos positions.
         """
-
-        ''' --- SERVOS POSITIONS MESSAGE ---
-        *   
-        *
-        *
-        '''
 
         # Motors message
         motors_msg = ""
@@ -86,68 +80,44 @@ class FirstDriverNode(Node):
             motors_msg += f"{motor},"
             motors_msg += f"{action_commands.velocity[i]},"
 
-        motors_msg = motors_msg[:-1]
+        if motors_msg:
+            motors_msg = motors_msg[:-1]
 
-        send_message(self.serial_port, motors_msg)
+            send_message(self.serial_port, motors_msg)
 
 
     def message_timer(self):
         """
-        Reads the message sended by Esp32 containing the encoders value and publish this data.
+        Reads the message sended by Esp32 containing the encoders or the end action value and publish this data.
         """
-        
+
         received_msg = read_message(self.serial_port)
         
         if received_msg != None:
-            # Separates the message into the three parts marked by commas and saves the values
-            msg_parts   = received_msg.split(",")
-            msg_element = msg_parts[0]
-            msg_value   = float(msg_parts[1])
+            # Split the message into parts separated by commas and remove the last part (checksum)
+            msg_parts  = received_msg.split(",")[:-1]
+            self.get_logger().info('Taula missatge: ' + str(msg_parts))
 
-            if msg_element == "EA":
-                # Publish the end action message
-                end_msg = Bool()
-                end_msg.data = True
+            # Process command pairs
+            for i_msg_parts in range(0, len(msg_parts), 2):
+                msg_element = msg_parts[i_msg_parts]
+                msg_value   = float(msg_parts[i_msg_parts + 1])
 
-                self.end_action_pub_.publish(end_msg)
-            else:
-                # Prepare and publish the encoders message
-                self.get_logger().info('Encoder: ' + str(msg_value))
-                encoder_msg      = Float32()
-                encoder_msg.data = msg_value
+                if msg_element == "EA":
+                    end_msg = Bool()
+                    end_msg.data = True
 
-                if msg_element == "EL":
-                    self.encoder_left_pub_.publish(encoder_msg)
-                elif msg_element == "ER":
-                    if encoder_msg.data != 0:
-                        encoder_msg.data *= -1
-                    self.encoder_right_pub_.publish(encoder_msg)
+                    self.end_action_pub_.publish(end_msg)
+                else:
+                    self.get_logger().info('Encoder: ' + str(msg_value))
+                    encoder_msg = Float32()
+                    encoder_msg.data = msg_value
 
+                    if msg_element == "EL":
+                        self.encoder_left_pub_.publish(encoder_msg)
+                    elif msg_element == "ER":
+                        self.encoder_right_pub_.publish(encoder_msg)
 
-    # def encoders_timer(self):
-    #     """
-    #     Reads the message sended by Esp32 containing the encoders value and publish this data.
-    #     """
-        
-    #     encoder_msg = read_message(self.serial_port)
-        
-    #     if encoder_msg != None:
-    #         # Separates the message into the three parts marked by commas and saves the values
-    #         encoder_parts  = encoder_msg.split(",")
-    #         encoder        = encoder_parts[0]
-    #         encoder_value  = float(encoder_parts[1])
-
-    #         # Prepare and publish the message
-    #         self.get_logger().info('Encoder: ' + str(encoder_value))
-    #         encoder_msg      = Float32()
-    #         encoder_msg.data = encoder_value
-
-    #         if encoder == "EL":
-    #             self.encoder_left_pub_.publish(encoder_msg)
-    #         elif encoder == "ER":
-    #             if encoder_msg.data != 0:
-    #                 encoder_msg.data *= -1
-    #             self.encoder_right_pub_.publish(encoder_msg)
 
 
 ## *************************

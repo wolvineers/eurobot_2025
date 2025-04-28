@@ -35,8 +35,7 @@ class SecondDriverNode(Node):
         self.action_commands_sub_  = self.create_subscription(JointActionPoint, '/controller/action_commands', self.actions_commands_callback, 10)
 
         # Publishers
-        self.end_motor_action_pub_  = self.create_publisher(Bool, '/controller/motor_action', 10)
-        self.end_action_pub_ = self.create_publisher(Bool, "/controller/end_action", 10)
+        self.end_action_pub_ = self.create_publisher(Bool, "/controller/end_action_02", 10)
 
         # Timers
         self.motor_action_tim_ = self.create_timer(self.timer_period_, self.end_action_timer)

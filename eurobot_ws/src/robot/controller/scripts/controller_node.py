@@ -31,10 +31,11 @@ class ControllerNode(Node):
         
         self.timer_period_ = 0.05
 
-        self.num_action_t_ = 0
-        self.num_order_i = 0
-        self.state_action_ = 0
-        self.end_action_   = False
+        self.num_action_t_  = 0
+        self.num_order_i    = 0
+        self.state_action_  = 0
+        self.end_action_01_ = True
+        self.end_action_02_ = True
 
         self.dist_accel_    = 7.0
         self.dist_desaccel_ = 10.0
@@ -59,7 +60,8 @@ class ControllerNode(Node):
         self.t_action_sub_      = self.create_subscription(Int32, '/t_action', self.t_action_callback, 10)
         self.i_action_sub_      = self.create_subscription(Int32, '/i_action', self.i_action_callback, 10)
         self.opponent_detected  = self.create_subscription(Bool, '/lidar', self.opponent_detected_callback, 10)
-        self.end_action_sub_    = self.create_subscription(Bool, '/controller/end_action', self.end_action_callback, 10)
+        self.end_action_01_sub_ = self.create_subscription(Bool, '/controller/end_action_01', self.end_action_01_callback, 10)
+        self.end_action_02_sub_ = self.create_subscription(Bool, '/controller/end_action_02', self.end_action_02_callback, 10)
 
 
         # Timers
@@ -178,16 +180,30 @@ class ControllerNode(Node):
         self.opponent_detected = opponent.data
 
     
-    def end_action_callback(self, end_action):
+    def end_action_01_callback(self, end_action):
         """
-        When the action before has finished so it gets true, add one to the state action.
+        When the previous first drive action has finished so it gets true, add one to the state action.
 
         Args:
             end_order (Bool): The message received by the subscriber, containing the state of the last action.
         """
 
-        self.end_action_ = not end_action.data
-        self.state_action_ += 1
+        self.end_action_01_ = end_action.data
+        # self.state_action_ += 1
+
+        self.get_logger().info("Action ended. New action: " + str(self.state_action_))
+
+
+    def end_action_02_callback(self, end_action):
+        """
+        When the previous second drive action has finished so it gets true, add one to the state action.
+
+        Args:
+            end_order (Bool): The message received by the subscriber, containing the state of the last action.
+        """
+
+        self.end_action_02_ = end_action.data
+        # self.state_action_ += 1
 
         self.get_logger().info("Action ended. New action: " + str(self.state_action_))
 
@@ -375,33 +391,27 @@ class ControllerNode(Node):
     
     def control_actuators_i(self):
         """
-        Every second gets the Insomnius action number and publishes the action to do.
+        Every second gets the Insomnius order number and publishes the action to do.
         """
 
         ''' --- ACTUATORS MESSAGE ---
-        * Joint Action  
-        *   - header (header) --> description of the action
-        *   - names (string []) --> list of the names of the action
-        *   - points (JointActionPoint []) --> list the points of the action
         *
         * Joint Action Point
-        *   - position (int32 [])  --> servos values (each element of the array corresponds to each servo)
-        *   - velocity (float32 []) --> motors values (the same as the servos)
-        *   - activate (bool) --> air pump
-
-        * PROPOSTA  
         *   - servos_names (string [])
         *   - motors_names (string [])
         *
-        *   - position (int32 [])
-        *   - velocity (float32 [])
-        *   - activate (bool)
+        *   - position (int32 [])   --> servos values (each element of the array corresponds to each servo name)
+        *   - velocity (float32 []) --> motors values (each element of the array corresponds to each motor name)
+        *   - activate (bool)       --> air pump
+        *   
         '''
 
         self.get_logger().info("Dins control actuators --> Num order: " + str(self.num_order_i) + " | End action:" + str(self.end_action_))
 
-        if self.num_order_i > 0 and not self.end_action_:
-            self.end_action_ = True
+        if self.num_order_i > 0 and self.end_action_01_ and self.end_action_02_:
+            self.end_action_01_ = False
+            self.end_action_02_ = False
+            self.state_action_ += 1
 
             action_msg = JointActionPoint()
             action_msg = handle_action(self.num_order_i, self.state_action_)
@@ -410,18 +420,22 @@ class ControllerNode(Node):
             self.get_logger().info("Motors: " + str(action_msg.motors_names))
 
             if action_msg.servos_names or action_msg.motors_names:
-                # Missatge ple per publicar
+                # No empty message
                 self.get_logger().info("Publishing message")
                 self.action_pub_.publish(action_msg)
+                
+                # Check if there is any motor to move
+                if not action_msg.motors_names:
+                    self.end_action_01_ = True
 
             else:
-                # Missatge buit i per tant ordre acabada
+                # Empty message so end of the order
                 end_action = Bool()
                 end_action.data = True
                 self.end_order_pub_.publish(end_action)
 
                 self.num_order_i = 0
-                self.end_action_ = False
+                self.end_action_ = True
                 
                 self.get_logger().info("Order " + str(self.num_order_i) + " ended")
 

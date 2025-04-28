@@ -2,12 +2,29 @@ from msgs.msg import JointActionPoint
 
 def handle_action(order, action):
     """
-    Function description.
+    Returns a JointActionPoint with the corresponding action.
 
     Args:
-        order (Integer): Argument description.
-        action (Integer): Argument description.
+        order (Integer): Order number.
+        action (Integer): Order action number.
+
+    Returns:
+        JointActionPoint: The corresponding action data.
     """
+
+    ''' --- POSSIBLE VALUES ---
+        *
+        * The servos_names / motors_names array will be empty if no servo/motor has to move
+        *
+        * - position:
+        *   - 0: closed position
+        *   - 1: open position
+        *  
+        * - velocity:
+        *   - >0: forward
+        *   - <0: backward
+        *   
+        '''
 
     action_msg = JointActionPoint()
 
