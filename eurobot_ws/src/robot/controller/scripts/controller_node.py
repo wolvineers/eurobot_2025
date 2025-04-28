@@ -5,8 +5,11 @@ import rclpy, time
 from rclpy.node import Node
 from std_msgs.msg import Float32, Int32, Bool
 from geometry_msgs.msg import Vector3, Twist
-from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from differential_drive import DifferentialWheel
+from msgs.msg import JointActionPoint
+from robot.controller.scripts.insomnius_actions import handle_action
+
+from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
 
 ## *************************
@@ -28,24 +31,27 @@ class ControllerNode(Node):
         
         self.timer_period_ = 0.05
 
-        self.num_action_t_ = 0
-        self.num_action_i_ = 0
-        self.state_action_ = 0
+        self.num_action_t_  = 0
+        self.num_order_i    = 0
+        self.state_action_  = 0
+        self.end_action_01_ = True
+        self.end_action_02_ = True
 
-        self.dist_accel_      = 7.0
-        self.dist_desaccel_   = 10.0
-        self.init_vel_        = 0.15
-        self.final_vel_       = 0.15
-        self.linear_vel_      = 0.0
-        self.angular_vel_     = 0.0
-        self.distance_        = 0.0
-        self.direction_       = 1
-        self.const_corretion_ = 0.02
+        self.dist_accel_    = 7.0
+        self.dist_desaccel_ = 10.0
+        self.init_vel_      = 5.0
+        self.final_vel_     = 15.0
+        self.linear_vel_    = 0.0
+        self.angular_vel_   = 0.0
+        self.distance_      = 0.0
+        self.direction_     = 1
+
 
         # Publishers
         self.velocities_pub_ = self.create_publisher(Twist, '/controller/motors_pow', 10)
         self.end_order_pub_  = self.create_publisher(Bool, '/controller/end_order', 10)
-        self.action_pub_     = self.create_publisher(JointTrajectory, '/controller/action_commands', 10)
+        self.action_pub_     = self.create_publisher(JointActionPoint, '/controller/action_commands', 10)
+
 
         # Subscribers
         self.encoder_left_sub_  = self.create_subscription(Float32, '/controller/encoder_left', self.encoder_left_callback, 10)
@@ -54,6 +60,9 @@ class ControllerNode(Node):
         self.t_action_sub_      = self.create_subscription(Int32, '/t_action', self.t_action_callback, 10)
         self.i_action_sub_      = self.create_subscription(Int32, '/i_action', self.i_action_callback, 10)
         self.opponent_detected  = self.create_subscription(Bool, '/lidar', self.opponent_detected_callback, 10)
+        self.end_action_01_sub_ = self.create_subscription(Bool, '/controller/end_action_01', self.end_action_01_callback, 10)
+        self.end_action_02_sub_ = self.create_subscription(Bool, '/controller/end_action_02', self.end_action_02_callback, 10)
+
 
         # Timers
         self.controller_tim_ = self.create_timer(self.timer_period_, self.control_velocities)
@@ -149,9 +158,11 @@ class ControllerNode(Node):
         *
         '''
 
-        self.num_action_i_ = num_action.data
-        self.state_action_ = 0
-        
+        self.get_logger().info("Order received")
+
+        self.num_order_i = num_action.data
+        self.state_action_ = 1
+
 
     def opponent_detected_callback(self, opponent):
         """
@@ -168,6 +179,34 @@ class ControllerNode(Node):
 
         self.opponent_detected = opponent.data
 
+    
+    def end_action_01_callback(self, end_action):
+        """
+        When the previous first drive action has finished so it gets true, add one to the state action.
+
+        Args:
+            end_order (Bool): The message received by the subscriber, containing the state of the last action.
+        """
+
+        self.end_action_01_ = end_action.data
+        # self.state_action_ += 1
+
+        self.get_logger().info("Action ended. New action: " + str(self.state_action_))
+
+
+    def end_action_02_callback(self, end_action):
+        """
+        When the previous second drive action has finished so it gets true, add one to the state action.
+
+        Args:
+            end_order (Bool): The message received by the subscriber, containing the state of the last action.
+        """
+
+        self.end_action_02_ = end_action.data
+        # self.state_action_ += 1
+
+        self.get_logger().info("Action ended. New action: " + str(self.state_action_))
+
 
     def control_velocities(self):
         """
@@ -183,7 +222,6 @@ class ControllerNode(Node):
         vel_right = 0
 
         if self.distance_ != 0 and self.opponent_detected:
-
             distance_moved = (abs(self.encoder_left_) + abs(self.encoder_right_)) / 2
             # self.get_logger().info("Distance moved: " + str(distance_moved))
 
@@ -353,68 +391,53 @@ class ControllerNode(Node):
     
     def control_actuators_i(self):
         """
-        Every second gets the Torete action number and publishes the action to do.
+        Every second gets the Insomnius order number and publishes the action to do.
         """
 
         ''' --- ACTUATORS MESSAGE ---
-        *   
-        * 
         *
+        * Joint Action Point
+        *   - servos_names (string [])
+        *   - motors_names (string [])
+        *
+        *   - position (int32 [])   --> servos values (each element of the array corresponds to each servo name)
+        *   - velocity (float32 []) --> motors values (each element of the array corresponds to each motor name)
+        *   - activate (bool)       --> air pump
+        *   
         '''
 
-        action_msg = JointTrajectory()
-        point      = JointTrajectoryPoint()
+        self.get_logger().info("Dins control actuators --> Num order: " + str(self.num_order_i) + " | End action:" + str(self.end_action_))
 
-        if self.num_action_i_ == 1:
-            ...
+        if self.num_order_i > 0 and self.end_action_01_ and self.end_action_02_:
+            self.end_action_01_ = False
+            self.end_action_02_ = False
+            self.state_action_ += 1
 
-        elif self.num_action_i_ == 2: # Pick up material
+            action_msg = JointActionPoint()
+            action_msg = handle_action(self.num_order_i, self.state_action_)
 
-            if self.state_action_ == 0: # Raise platforms
-                point.positions = [-1.0]
+            self.get_logger().info("Servos: " + str(action_msg.servos_names))
+            self.get_logger().info("Motors: " + str(action_msg.motors_names))
 
-                action_msg.joint_names = ["M01"]
-                action_msg.points.append(point)
-
+            if action_msg.servos_names or action_msg.motors_names:
+                # No empty message
+                self.get_logger().info("Publishing message")
                 self.action_pub_.publish(action_msg)
+                
+                # Check if there is any motor to move
+                if not action_msg.motors_names:
+                    self.end_action_01_ = True
 
-                self.state_action_ += 1
-                self.get_logger().info("Raising platforms")
-            
-            elif self.state_action_ == 1: # Take columns
-                ...
-
-            else:   # End action
-                self.num_action_i_ = 0
-
+            else:
+                # Empty message so end of the order
                 end_action = Bool()
                 end_action.data = True
                 self.end_order_pub_.publish(end_action)
-                self.get_logger().info("Action 2 (pick up material) ended")
 
-        elif self.num_action_i_ == 3: # Build tribune
-            
-            if self.state_action_ == 0: # Leave columns
-                point.positions = [150.0, 125.0]
-
-                action_msg.joint_names = ["S07", "S08"]
-                action_msg.points.append(point)
-
-                self.action_pub_.publish(action_msg)
-
-                self.state_action_ += 1
-                self.get_logger().info("Leaving columns")
-            
-            elif self.state_action_ == 1: # Leave platform
-                ...
-
-            else:   # End action
-                self.num_action_i_ = 0
-
-                end_action = Bool()
-                end_action.data = True
-                self.end_order_pub_.publish(end_action)
-                self.get_logger().info("Action 3 (build tribune) ended")
+                self.num_order_i = 0
+                self.end_action_ = True
+                
+                self.get_logger().info("Order " + str(self.num_order_i) + " ended")
 
 
 

@@ -1,4 +1,4 @@
-from utils.src.serial_communication import open_serial_port, send_message, read_message
+from utils.scripts.serial_communication import open_serial_port, send_message, read_message
 import time
 
 def main():

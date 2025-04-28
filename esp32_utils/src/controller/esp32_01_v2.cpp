@@ -24,23 +24,128 @@
 // // Counter for managing messages frequency
 // int loop_counter;
 
+// // Motor horizontal lift variables
+// bool m_horizontal_state;
+// bool ls_horizontal_outside;
+// bool ls_horizontal_inside;
+// int m_horizontal_velocity;
+// int m_horizontal_direction;
+// unsigned long m_horizontal_start_time = 0;
+// unsigned long m_horizontal_duration = 0;
+
+// // Motor vertical list variables
+// bool m_vertical_state;
+// bool ls_vertical_top;
+// bool ls_vertical_bottom;
+// int m_vertical_velocity;
+// int m_vertical_direction;
+// unsigned long m_vertical_start_time = 0;
+// unsigned long m_vertical_duration = 0;
 
 
-// void motA(int speed, bool dir){      // motor lift
-//     digitalWrite(GPIO_INB1,dir);
-//     ledcWrite(ledChannelB, speed);
+// void motor_horizontal_lift(int speed, bool dir) {
+//     /*
+//       Controls the horizontal lift motor depending on the limit switches values and send the end action message when finish.
+
+//       Arguments:
+//         speed (int): PWM value to control the motor speed (0-255).
+//         dir (bool): Direction of rotation: true (1) = backward; false (0) = forward.
+//     */
+   
+//     digitalWrite(GPIO_INA1, dir);
+
+//     if ( (dir == 0 && !ls_horizontal_outside) || (dir == 1 && !ls_horizontal_inside) ) {
+//         // Stop motor
+//         ledcWrite(ledChannelA, 0);
+//         m_horizontal_state = false;
+
+//         // Send end of action message
+//         char end_action[50];
+//         snprintf(end_action, sizeof(end_action),"EA,1");
+//         sendMessage(end_action);
+//     }
+//     else { ledcWrite(ledChannelA, speed); }
 // }
 
-// void motB(int speed, bool dir){      // motor lift
-//     digitalWrite(GPIO_INB1,dir);
-//     ledcWrite(ledChannelB, speed);
+// void motor_vertical_lift(int speed, bool dir){
+//     /*
+//       Controls the vertical lift motor depending on the limit switches values and send the end action message when finish.
+
+//       Arguments:
+//         speed (int): PWM value to control the motor speed (0-255).
+//         dir (bool): Direction of rotation: true (1) = down; false (0) = up.
+//     */
+   
+//     digitalWrite(GPIO_INB1, dir);
+
+//     if ( (dir == 0 && !ls_vertical_top) || (dir == 1 && !ls_vertical_bottom) ) { 
+//         // Stop motor
+//         ledcWrite(ledChannelB, 0);
+//         m_vertical_state = false;
+
+//         // Send end of action message
+//         char end_action[50];
+//         snprintf(end_action, sizeof(end_action),"EA,1");
+//         sendMessage(end_action);
+//     }
+//     else { ledcWrite(ledChannelB, speed); }
+// }
+
+// void motor_horizontal_lift_t (int speed, bool dir) {
+//     /*
+//       Controls the horizontal lift motor during the decided time and send the end action message when finish.
+
+//       Arguments:
+//         speed (int): PWM value to control the motor speed (0-255).
+//         dir (bool): Direction of rotation: true (1) = backward; false (0) = forward.
+//     */
+   
+//     digitalWrite(GPIO_INA1, dir);
+
+//     if (millis() - m_horizontal_start_time >= m_horizontal_duration) {
+//         // Stop motor
+//         ledcWrite(ledChannelA, 0);
+//         m_horizontal_state = false;
+//         m_horizontal_start_time = 0;
+
+//         // Send end of action message
+//         char end_action[50];
+//         snprintf(end_action, sizeof(end_action),"EA,1");
+//         sendMessage(end_action);
+//     }
+//     else { ledcWrite(ledChannelA, speed); }
+// }
+
+// void motor_vertical_lift_t (int speed, bool dir) {
+//     /*
+//       Controls the vertical lift motor during the decided time and send the end action message when finish.
+
+//       Arguments:
+//         speed (int): PWM value to control the motor speed (0-255).
+//         dir (bool): Direction of rotation: true (1) = down; false (0) = up.
+//     */
+   
+//     digitalWrite(GPIO_INB1, dir);
+
+//     if ( millis() - m_vertical_start_time >= m_vertical_duration ) { 
+//         // Stop motor
+//         ledcWrite(ledChannelB, 0);
+//         m_vertical_state = false;
+//         m_vertical_start_time = 0;
+
+//         // Send end of action message
+//         char end_action[50];
+//         snprintf(end_action, sizeof(end_action),"EA,1");
+//         sendMessage(end_action);
+//     }
+//     else { ledcWrite(ledChannelB, speed); }
 // }
 
 // void motor_right(int speed, bool dir) {
 //     /*
-//       Controls the right motor.
-    
-//       Arguments:
+//         Controls the right motor.
+
+//         Arguments:
 //         speed (int): PWM value to control the motor speed (0–255).
 //         dir (bool): Direction of rotation: true (1) = forward; false (0) = backward.
 //     */
@@ -93,7 +198,6 @@
 // }
 
 
-
 // void setup() {
 //     setupSerial(); 
 
@@ -117,6 +221,12 @@
 //     pinMode(GPIO_INC1, OUTPUT);
 //     pinMode(GPIO_IND1, OUTPUT);
 
+//     // Set limit switch pins as inputs
+//     pinMode(GPIO_ENCA1, INPUT_PULLUP);
+//     pinMode(GPIO_ENCA2, INPUT_PULLUP);
+//     pinMode(GPIO_ENCB1, INPUT_PULLUP);
+//     pinMode(GPIO_ENCB2, INPUT_PULLUP);
+
 
 //     // Enable motors (active low)
 //     pinMode(GPIO_DISABLE_MOTORS, OUTPUT);
@@ -132,16 +242,32 @@
 //     encoderD.setFilter(1023);
 //     encoderD.setCount(0);
 
-//     motA(0,0);
-//     motB(0,0);
+//     // Initialize motors lift variables
+//     m_horizontal_state = false;     // False = stop; True = moving
+//     m_vertical_state   = false;     // False = stop; True = movint
+
+//     m_horizontal_velocity  = 0;
+//     m_horizontal_direction = 0;
+//     m_vertical_velocity    = 0;
+//     m_vertical_direction   = 0;
 // }
+
 
 // void loop() {
 
-//     // === Send message ===
+//     // === Motors lift preparation ===
+
+//     // Read limit switches values
+//     ls_horizontal_outside = digitalRead(GPIO_ENCA1);
+//     ls_horizontal_inside  = digitalRead(GPIO_ENCA2);
+//     ls_vertical_bottom    = digitalRead(GPIO_ENCB1);
+//     ls_vertical_top       = digitalRead(GPIO_ENCB2);
+
+
+//     // === Send encoders message ===
 
 //     // Get encoder counts from both motors
-//     int64_t left_encoder_val  = encoderC.getCount() * -1;    // Pulsos invertits (endavant = enrere)
+//     int64_t left_encoder_val  = encoderC.getCount() * -1;    // Invert count (forward = backward)
 //     int64_t right_encoder_val = encoderD.getCount();
     
 //     // Format encoder values into a message string (in centimeters)
@@ -186,14 +312,52 @@
 //             int pwm = velocity_to_pwm(abs(vel));
 //             int dir = 0;
 
+//             char end_action[50];
+
 //             if (motor == "M01") {
-//                 // Handle motor M01
+//                 if (vel < 0) { m_horizontal_direction = 1; }   // Negative velocity = backward movement
+//                 m_horizontal_state = true;
+//                 m_horizontal_velocity = (int)vel;
+
+//                 // motor_horizontal_lift(int(vel), dir);
+
+//                 // snprintf(encoders_msg, sizeof(end_action),"EA,1");
+//                 // sendMessage(end_action);
+
 //             } else if (motor == "M02") {
-//                 // Handle motor M02
+//                 if (vel < 0) { m_vertical_direction = 1; }   // Negative velocity = down movement
+//                 m_vertical_state = true;
+//                 m_vertical_velocity = (int)vel;
+                
+//                 // motor_vertical_lift(int(vel), dir);
+
+//                 // snprintf(encoders_msg, sizeof(end_action),"EA,1");
+//                 // sendMessage(end_action);
+
+//             } else if (motor == "M01_t") {
+//                 if (vel < 0) { m_horizontal_direction = 1; }
+
+//                 m_horizontal_state = true;
+//                 m_horizontal_velocity = 150;
+//                 m_horizontal_start_time = millis();
+//                 m_horizontal_duration = (unsigned int)vel;
+                
+//             } else if (motor == "M02_t") {
+//                 m_vertical_state = true;
+//                 m_vertical_velocity = 150;
+//                 m_vertical_start_time = millis();
+//                 m_vertical_duration = (unsigned int)vel;
+
+//                 if (vel < 0) { 
+//                     m_vertical_direction = 1; 
+//                     m_vertical_velocity = 10;
+//                 }
+
 //             } else if (motor == "ML") {
 //                 if (vel > 0) { dir = 1; }
 //                 if (pwm == 0) { encoderC.setCount(0); }
 //                 motor_left(pwm, dir);
+
 //             } else if (motor == "MR") {
 //                 if (vel < 0) { dir = 1; }
 //                 if (pwm == 0) { encoderD.setCount(0); }
@@ -201,6 +365,15 @@
 //             }
 //         }
 //     }
+
+
+//     // === Control lift motors ===
+
+//     if (m_horizontal_state && m_horizontal_start_time == 0)      { motor_horizontal_lift(m_horizontal_velocity, m_horizontal_direction); }
+//     else if (m_horizontal_state && m_horizontal_start_time != 0) { motor_horizontal_lift_t(m_horizontal_velocity, m_horizontal_direction); }
+
+//     if (m_vertical_state && m_vertical_start_time == 0)      { motor_vertical_lift(m_vertical_velocity, m_vertical_state); }
+//     else if (m_vertical_state && m_vertical_start_time != 0) { motor_vertical_lift_t(m_vertical_velocity, m_vertical_state); }
 
 //     delay(20); // Receive 100 messages per second
 // }

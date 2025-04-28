@@ -5,7 +5,7 @@ import time
 
 from rclpy.node import Node
 from std_msgs.msg import Int32, Bool
-from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
+from msgs.msg import JointActionPoint
 
 from utils.scripts.serial_communication import open_serial_port, send_message, read_message
 
@@ -25,20 +25,21 @@ class SecondDriverNode(Node):
 
 
         # Attributes
-        self.port        = '/dev/ttyUSB2'
+        self.port        = '/dev/ttyUSB0'
         self.baudrate    = 115200
         self.serial_port = open_serial_port(self.port, self.baudrate)
 
         self.timer_period_ = 0.1
 
         # Subscribers
-        self.action_commands_sub_  = self.create_subscription(JointTrajectory, '/controller/action_commands', self.actions_commands_callback, 10)
+        self.action_commands_sub_  = self.create_subscription(JointActionPoint, '/controller/action_commands', self.actions_commands_callback, 10)
 
         # Publishers
-        self.end_motor_action_pub_  = self.create_publisher(Bool, '/controller/motor_action', 10)
+        self.end_action_pub_ = self.create_publisher(Bool, "/controller/end_action_02", 10)
 
         # Timers
-        self.motor_action_tim_ = self.create_timer(self.timer_period_, self.motor_timer)
+        self.motor_action_tim_ = self.create_timer(self.timer_period_, self.end_action_timer)
+
 
 
     def actions_commands_callback(self, action_commands):
@@ -55,48 +56,44 @@ class SecondDriverNode(Node):
         *
         '''
 
-        for i in range(len(action_commands.joint_names)):
-            # Get servo number and position
-            num_actuator = action_commands.joint_names[i]
+        # Servos message
+        positions_msg = ""
 
-            if action_commands.points[0].positions:
-                val_actuator = action_commands.points[0].positions[i]
-            else:
-                val_actuator = action_commands.points[0].velocities[i]
+        for i, servo in enumerate(action_commands.servos_names):
+            positions_msg += f"{servo},"
+            positions_msg += f"{action_commands.position[i]},"
 
-            # Send message to the ESP32
-            send_message(self.serial_port, f"{num_actuator},{val_actuator}")
+        positions_msg += f"AP,{action_commands.activate}"
 
-    def motor_timer(self):
+        self.get_logger().info(positions_msg)
+
+        send_message(self.serial_port, positions_msg)
+
+
+    def end_action_timer(self):
         """
         Reads the message sended by Esp32 containing the encoders value and publish this data.
         """
         
         # self.get_logger().info("Volta")
-        motor_msg = read_message(self.serial_port)
+        end_action_msg = read_message(self.serial_port)
         
-        end_msg = Bool()
-        end_msg.data = True
-        self.end_motor_action_pub_.publish(end_msg)
+        if end_action_msg != None:
 
-        # self.get_logger().info(str(motor_msg))
-        
-        # if motor_msg != None:
-        #     self.get_logger().info("Missatge no nul")
-        #     # Separates the message into the three parts marked by commas and saves the values
-        #     message_parts   = motor_msg.split(",")
-        #     actuator        = message_parts[0]
-        #     actuator_value  = int(message_parts[1])
+            self.get_logger().info(end_action_msg)
 
-        #     # Prepare and publish the message
-        #     end_msg = Bool()
+            # Separates the message into the three parts marked by commas and saves the values
+            message_parts = end_action_msg.split(",")
+            end_action    = int(message_parts[1])
 
-        #     if actuator == "EA" and actuator_value == 0:
-        #         end_msg.data = False
-        #     elif actuator == "EA" and actuator_value == 1:
-        #         end_msg.data = True
+            # Prepare and publish the message
 
-        #     self.end_motor_action_pub_.publish(end_msg)
+            if end_action == 1:
+
+                end_msg = Bool()
+                end_msg.data = True
+
+                self.end_action_pub_.publish(end_msg)
 
 
 ## *************************

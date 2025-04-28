@@ -11,6 +11,7 @@ find_package(rclcpp REQUIRED)
 find_package(rclpy REQUIRED)
 find_package(ament_cmake_python REQUIRED)
 find_package(utils REQUIRED)
+find_package(msgs REQUIRED)
 
 find_package(rosidl_default_generators REQUIRED)
 
@@ -21,6 +22,7 @@ install( PROGRAMS
   scripts/driver_01_node.py
   scripts/driver_02_node.py
   scripts/differential_drive.py
+  scripts/insomnius_actions.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
