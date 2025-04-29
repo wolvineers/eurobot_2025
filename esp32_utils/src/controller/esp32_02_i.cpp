@@ -1,10 +1,11 @@
 // #include <Wire.h>
 // #include <Arduino.h>
 // #include <ESP32Servo.h>
-// #include "serial_utils/serial_utils.h"
-// #include "Placa.h"
+// #include <MPU6050_light.h>
 // #include <vector>
 // #include <sstream>
+// #include "serial_utils/serial_utils.h"
+// #include "Placa.h"
 
 // // Servos declaration and initialization
 // Servo servos[8];
@@ -12,6 +13,12 @@
 
 // // Counter for managing messages frequency
 // int loop_counter = 0;
+
+// // IMU declaration
+// MPU6050 mpu(Wire);
+
+// // IMU timer
+// long timer = 0;
 
 // void setup()
 // {
@@ -36,15 +43,41 @@
 //         servos[i].attach(servoPins[i]);
 //     }
 
+//     // Sensor initialization
+//     byte status = mpu.begin();
+//     while(status!=0) {}
+    
+//     // Sensor calibration
+//     delay(1000);
+//     mpu.calcOffsets(true,true);
     
 // }
  
 // void loop()
 // {
 
-//     std::string message = readMessage().c_str();
-//     char encoders_msg[50];
+//     // === Send IMU message ===
 
+//     // Update IMU data
+//     mpu.update();
+
+//     // Get angle Z
+//     float angle_z  = mpu.getAngleZ();
+    
+//     // Format angle value into a message string
+//     char imu_msg[50]; snprintf(imu_msg, sizeof(imu_msg), "IMU,%angle_z", (angle_z));
+
+//     // Send the message only every 12 loops to reduce communication overhead
+//     loop_counter ++;
+//     if (loop_counter % 12 == 0) {   
+//         sendMessage(imu_msg);
+//     }
+
+
+//     // === Read message ===
+
+//     std::string message = readMessage().c_str();
+//     char end_action[50];
 
 //     // Get each value of the message and assign motors power
 //     if (!message.empty()) {
@@ -63,7 +96,7 @@
 //             message_parts.pop_back();
 //         }
 
-//         // // Process command pairs
+//         // Process command pairs
 //         for (int i = 0; i < message_parts.size(); i += 2) {
 //             std::string element_id = message_parts[i];
 //             int value = stoi(message_parts[i+1]);
@@ -85,17 +118,8 @@
 //             else if (element_id == "S05") { servos[2].write(value == 0 ? 120 : 40); }  // RIGHT SHOVEL
 //         }
 
-
-//         snprintf(encoders_msg, sizeof(encoders_msg),"EA,1");
-//         sendMessage(encoders_msg);
-
-//     } else {
-//         loop_counter ++;
-
-//         if (loop_counter % 100 == 0) {   
-//             snprintf(encoders_msg, sizeof(encoders_msg), "EA,0");
-//             sendMessage(encoders_msg);
-//         }
+//         snprintf(end_action, sizeof(end_action),"EA,1");
+//         sendMessage(end_action);
 //     }
 
 //     delay(20);
