@@ -58,18 +58,18 @@
 
 //     // === Send IMU message ===
 
-//     // Update IMU data
+//     //Update IMU data
 //     mpu.update();
 
 //     // Get angle Z
 //     float angle_z  = mpu.getAngleZ();
     
 //     // Format angle value into a message string
-//     char imu_msg[50]; snprintf(imu_msg, sizeof(imu_msg), "IMU,%angle_z", (angle_z));
+//     char imu_msg[50]; snprintf(imu_msg, sizeof(imu_msg), "IMU,%f", angle_z);
 
 //     // Send the message only every 12 loops to reduce communication overhead
 //     loop_counter ++;
-//     if (loop_counter % 12 == 0) {   
+//     if (loop_counter % 15 == 0) {   
 //         sendMessage(imu_msg);
 //     }
 
