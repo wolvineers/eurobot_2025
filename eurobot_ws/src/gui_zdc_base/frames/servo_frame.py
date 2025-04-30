@@ -4,27 +4,14 @@ from PIL import Image, ImageTk
 import os
 #from utils.src.serial_communication import open_serial_port, send_message
 
-import serial_communication
-
-#from serial_communication import open_serial_port, send_message
-
 os.system("clear")
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> development
 #Set the function to send the servo angle to the ESP32
 def set_servo_position(value, servo):
     '''port = '/dev/ttyUSB0'
     baudrate = 115200
 
-<<<<<<< HEAD
     serial_port = open_serial_port(port, baudrate)
-=======
-    serial_port = serial_communication.open_serial_port(port, baudrate)
->>>>>>> development
 
     if not serial_port:
         print("Could not open serial port.")
@@ -32,16 +19,7 @@ def set_servo_position(value, servo):
 
     print(f"Position {servo}: {value}°")
 
-<<<<<<< HEAD:eurobot_ws/src/gui/frames/servo_frame.py
-<<<<<<< HEAD
-    send_message(serial_port, servo+","+value)
-=======
-    serial_communication.send_message(serial_port, servo+","+value)
->>>>>>> development
-
-=======
     send_message(serial_port, servo+","+value)'''
->>>>>>> eur-35-configure-actuators:eurobot_ws/src/gui_zdc_base/frames/servo_frame.py
 
 #Set the function to design the servo_frame
 def servo_frame(canvas):

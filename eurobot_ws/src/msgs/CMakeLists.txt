@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(controller)
+project(msgs)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -7,24 +7,15 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(rclcpp REQUIRED)
-find_package(rclpy REQUIRED)
-find_package(ament_cmake_python REQUIRED)
-find_package(utils REQUIRED)
-find_package(msgs REQUIRED)
-
+find_package(std_msgs  REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
-ament_python_install_package(${PROJECT_NAME})
-
-install( PROGRAMS
-  scripts/controller_node.py
-  scripts/driver_01_node.py
-  scripts/driver_02_node.py
-  scripts/differential_drive.py
-  scripts/insomnius_actions.py
-  DESTINATION lib/${PROJECT_NAME}
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/JointAction.msg"
+  "msg/JointActionPoint.msg"
+  DEPENDENCIES std_msgs
 )
+ament_export_dependencies(rosidl_default_runtime)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
