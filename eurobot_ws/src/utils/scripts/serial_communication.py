@@ -1,6 +1,6 @@
 import serial, time
 
-def open_serial_port(port, baudrate, timeout=0.01):
+def open_serial_port(port, baudrate, timeout=0.5):
     """
     Opens the serial port with the specified parameters.
     
@@ -101,7 +101,7 @@ def read_serial_data(serial_port):
 
     # If there is data read a line from the serial port, decode it from ASCII, and strip any extra whitespace
     if serial_port.in_waiting > 0:
-        return serial_port.readline().decode('utf-8').strip()
+        return serial_port.readline().decode('utf-8', errors='ignore').strip()
     
     # Otherwise return None
     return None
