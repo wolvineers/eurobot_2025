@@ -31,7 +31,7 @@ class ArucoCenterPublisher(Node):
         super().__init__('aruco_center_publisher')
         self.publisher_ = self.create_publisher(Int32, '/object_center', 10)
 
-        self.cap = cv2.VideoCapture(0)
+        self.cap = cv2.VideoCapture(0, cv2.CAP_V4L2)
         if not self.cap.isOpened():
             self.get_logger().error("Error: No se puede abrir la cámara.")
             exit(1)
