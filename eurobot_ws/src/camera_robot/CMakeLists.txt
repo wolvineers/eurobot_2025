@@ -8,6 +8,8 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(OpenCV REQUIRED)
 
 find_package(rclpy REQUIRED)
 install(
@@ -16,6 +18,10 @@ install(
 )
 ament_python_install_package(${PROJECT_NAME})
 
+add_executable(aruco_center_publisher src/aruco_center_publisher.cpp)
+ament_target_dependencies(aruco_center_publisher rclcpp std_msgs)
+target_link_libraries(aruco_center_publisher ${OpenCV_LIBS})
+install(TARGETS aruco_center_publisher DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
