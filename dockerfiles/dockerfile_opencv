@@ -1,0 +1,48 @@
+FROM ros:humble
+
+ENV QT_QPA_PLATFORM=xcb
+
+# 1. Actualiza e instala dependencias
+RUN apt-get update && apt-get install -y \
+    build-essential cmake git pkg-config \
+    libjpeg-dev libtiff-dev libpng-dev \
+    libavcodec-dev libavformat-dev libswscale-dev \
+    libv4l-dev libxvidcore-dev libx264-dev \
+    libfontconfig1-dev libcairo2-dev \
+    libgdk-pixbuf2.0-dev libgtk2.0-dev libgtk-3-dev \
+    libatlas-base-dev gfortran \
+    && rm -rf /var/lib/apt/lists/*
+
+# 2. Descarga OpenCV y OpenCV contrib
+WORKDIR /opt
+RUN git clone https://github.com/opencv/opencv.git && \
+    git clone https://github.com/opencv/opencv_contrib.git && \
+    cd opencv && git checkout 4.8.0 && \
+    cd ../opencv_contrib && git checkout 4.8.0
+
+# 3. Compila OpenCV
+RUN mkdir /opt/opencv/build
+WORKDIR /opt/opencv/build
+RUN cmake -D CMAKE_BUILD_TYPE=Release \
+          -D CMAKE_INSTALL_PREFIX=/usr/local \
+          -D OPENCV_EXTRA_MODULES_PATH=/opt/opencv_contrib/modules \
+          -D BUILD_EXAMPLES=OFF \
+          -D BUILD_opencv_python3=OFF \
+          -D BUILD_opencv_python_bindings_generator=OFF \
+          -D BUILD_TESTS=OFF \
+          -D BUILD_PERF_TESTS=OFF \
+          -D WITH_QT=OFF \
+          -D WITH_OPENGL=ON ..
+RUN make -j$(nproc) && make install && ldconfig
+
+ENV PYTHONPATH=/wolvi/src:/usr/local/lib/python3.8/site-packages
+
+RUN echo "source /opt/ros/humble/setup.bash" >> /root/.bashrc && \
+    echo "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> /root/.bashrc && \
+    echo "source /wolvi/install/setup.bash" >> /root/.bashrc
+
+CMD ["bash", "-c", "\
+    source /opt/ros/humble/setup.bash && \
+    source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash && \
+    source /wolvi/install/setup.bash && \
+    exec bash"]
