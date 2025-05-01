@@ -45,6 +45,7 @@ class ControllerNode(Node):
         self.angular_vel_   = 0.0
         self.distance_      = 0.0
         self.direction_     = 1
+        self.const_corretion_ = 0.02
 
 
         # Publishers
@@ -161,7 +162,7 @@ class ControllerNode(Node):
         self.get_logger().info("Order received")
 
         self.num_order_i = num_action.data
-        self.state_action_ = 1
+        self.state_action_ = 0
 
 
     def opponent_detected_callback(self, opponent):
@@ -406,7 +407,7 @@ class ControllerNode(Node):
         *   
         '''
 
-        self.get_logger().info("Dins control actuators --> Num order: " + str(self.num_order_i) + " | End action:" + str(self.end_action_))
+        # self.get_logger().info("Dins control actuators --> Num order: " + str(self.num_order_i) + " | End action:" + str(self.end_action_))
 
         if self.num_order_i > 0 and self.end_action_01_ and self.end_action_02_:
             self.end_action_01_ = False
@@ -435,7 +436,8 @@ class ControllerNode(Node):
                 self.end_order_pub_.publish(end_action)
 
                 self.num_order_i = 0
-                self.end_action_ = True
+                self.end_action_01_ = True
+                self.end_action_02_ = True
                 
                 self.get_logger().info("Order " + str(self.num_order_i) + " ended")
 

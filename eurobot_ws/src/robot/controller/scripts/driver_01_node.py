@@ -25,8 +25,7 @@ class FirstDriverNode(Node):
         super().__init__('first_driver')
 
         # Attributes
-        self.port        = '/dev/ttyUSB1'
-
+        self.port        = '/dev/ttyUSB0'
         self.baudrate    = 115200
         self.serial_port = open_serial_port(self.port, self.baudrate)
 
@@ -40,11 +39,11 @@ class FirstDriverNode(Node):
         # Publishers
         self.encoder_left_pub_  = self.create_publisher(Float32, '/controller/encoder_left', 10)
         self.encoder_right_pub_ = self.create_publisher(Float32, '/controller/encoder_right', 10)
-        self.end_action_pub_ = self.create_publisher(Bool, "/controller/end_action_01", 10)
+        self.end_action_pub_    = self.create_publisher(Bool, "/controller/end_action_01", 10)
 
         # Timers
         # self.encoders_tim_ = self.create_timer(self.timer_period_, self.encoders_timer)
-        self.message_tim_ = self.create_timer(self.timer_period_, self.message_timer_)
+        self.message_tim_ = self.create_timer(self.timer_period_, self.message_timer)
 
 
 
@@ -104,12 +103,14 @@ class FirstDriverNode(Node):
                 msg_value   = float(msg_parts[i_msg_parts + 1])
 
                 if msg_element == "EA":
+                    self.get_logger().info('End action received')
+
                     end_msg = Bool()
                     end_msg.data = True
 
                     self.end_action_pub_.publish(end_msg)
                 else:
-                    self.get_logger().info('Encoder: ' + str(msg_value))
+                    # self.get_logger().info('Encoder: ' + str(msg_value))
                     encoder_msg = Float32()
                     encoder_msg.data = msg_value
 
