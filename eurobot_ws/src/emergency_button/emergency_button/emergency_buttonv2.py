@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import time
 from utils.scripts.serial_communication import open_serial_port, send_message
 
-BUTTON_PIN = 40  
+BUTTON_PIN = 40 
 port01 = '/dev/ttyUSB0'
 port02 = '/dev/ttyUSB1'
 baudrate = 115200
@@ -17,6 +17,7 @@ try:
         if GPIO.input(BUTTON_PIN) == GPIO.LOW:
             send_message(serial_port01, "STOP")
             send_message(serial_port02, "STOP")
+            print("hola")
         time.sleep(0.1)
 finally:
     GPIO.cleanup()
