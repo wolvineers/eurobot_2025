@@ -280,9 +280,11 @@
 
 //     // Send the message only every 12 loops to reduce communication overhead
 //     loop_counter ++;
-//     if (loop_counter % 12 == 0) {   
+//     if (loop_counter % 15 == 0) {   
 //         sendMessage(encoders_msg);
 //     }
+
+//     motor_left(150,1);
 
 
 //     // === Read message ===
