@@ -111,7 +111,7 @@
 //                 Wire.endTransmission();
 //             }
             
-//             else if (element_id == "S01") { servos[6].write(value == 0 ? 163 : 100); } // PINCER
+//             else if (element_id == "S01") { servos[6].write(value == 0 ? 162 : 100); } // PINCER
 //             else if (element_id == "S02") { servos[1].write(value == 0 ? 140 : 179); } // LEFT SUCTION GRIPPER
 //             else if (element_id == "S03") { servos[4].write(value == 0 ? 45 : 10); }   // RIGHT SUCTION GRIPPER
 //             else if (element_id == "S04") { servos[0].write(value == 0 ? 70 : 140); }  // LEFT SHOVEL

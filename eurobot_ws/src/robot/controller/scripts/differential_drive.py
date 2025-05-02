@@ -98,7 +98,6 @@ class DifferentialWheel:
 
         self.x = mat_resultat[0][0]
         self.y = mat_resultat[1][0]
-        self.theta = mat_resultat[2][0]
 
         return v, w  
 
@@ -116,10 +115,10 @@ class DifferentialWheel:
             Tuple: The linear velocity (v) and angular velocity (w) after applying the velocity limits.
         """
         
-        v, w = self.get_velocities(wl, wr)
-        self.integrate_velocity(v, w, inc_t)
-
-        return v, w
+        v, _ = self.get_velocities(wl, wr)
+        self.integrate_velocity(v, 0.0, inc_t)
+        
+        return v, 0.0        
     
 
     def get_state(self):
@@ -131,6 +130,14 @@ class DifferentialWheel:
         """
 
         return np.array([self.x, self.y, self.theta])
+    
+
+    def set_theta(self, theta_from_gyro):
+        """
+        Updates the robot's orientation using an external sensor.
+        """
+
+        self.theta = theta_from_gyro
     
     
     def __str__(self):
