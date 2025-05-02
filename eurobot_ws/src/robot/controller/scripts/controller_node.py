@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import rclpy, math
+import rclpy, math, csv, time
 
 from rclpy.node import Node
 from std_msgs.msg import Float32, Int32, Bool
@@ -56,6 +56,19 @@ class ControllerNode(Node):
         self.trajectory_y_ = []
 
         self.imu_ = 0.0
+
+        self.start_time = time.time()
+
+        # Open files and write the header
+        self.odometry_file = open('/wolvi/src/robot/controller/csv_data/odometry.csv', 'w', newline='')
+        self.imu_file = open('/wolvi/src/robot/controller/csv_data/imu.csv', 'w', newline='')
+
+        self.odom_writer = csv.writer(self.odometry_file)
+        self.imu_writer = csv.writer(self.imu_file)
+
+        self.odom_writer.writerow(['time', 'v', 'w'])
+        self.imu_writer.writerow(['time', 'theta'])
+
 
 
         # Publishers
@@ -305,6 +318,15 @@ class ControllerNode(Node):
             self.robot.set_theta(math.radians(self.imu_))
             self.robot.update_state(wl, wr, self.timer_period_)
 
+            # Save odometry and imu data
+            current_time = time.time() - self.start_time
+            v, w = self.robot.get_velocities(wl, wr)
+            theta = self.robot.get_state()[2]
+
+            self.odom_writer.writerow([current_time, v, w])
+            self.imu_writer.writerow([current_time, theta])
+
+
             x, y, _ = self.robot.get_state()
             self.trajectory_x_.append(x)
             self.trajectory_y_.append(y)
@@ -355,6 +377,11 @@ class ControllerNode(Node):
             self.robot.set_theta(math.radians(self.imu_))
             self.robot.update_state(wl, wr, self.timer_period_)
 
+            # Save odometry and imu data
+            current_time = time.time() - self.start_time
+            v, w = self.robot.get_velocities(wl, wr)
+            theta = self.robot.get_state()[2]
+
             x, y, _ = self.robot.get_state()
             self.trajectory_x_.append(x)
             self.trajectory_y_.append(y)
@@ -379,6 +406,9 @@ class ControllerNode(Node):
           
         plt.savefig("/wolvi/src/robot/controller/scripts/robot_trajectory.png", dpi=300)
         plt.close()
+
+        self.odometry_file.close()
+        self.imu_file.close()
 
 
     def control_actuators_t(self):
