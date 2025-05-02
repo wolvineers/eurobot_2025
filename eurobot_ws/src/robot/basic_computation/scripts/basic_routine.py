@@ -31,9 +31,9 @@ class BasicRoutineNode(Node):
         ''' --- LIST ELEMENTS ---
         * 
         * Tuple key = m:
-        *   - linear_velocity    --> from 0.0 to 1.0
-        *   - angular_velocity   --> from 0.0 to 1.0 (where 1000.0 = 100.0 in linear velocity)
-        *   - movement_time
+        *   - linear_velocity               --> from 0.0 to 1.0
+        *   - angular_velocity              --> from 0.0 to 1.0
+        *   - movement_time / angle_goal    --> depending of the movement type
         *
         * Tuple key = a:
         *   - action number
@@ -56,7 +56,6 @@ class BasicRoutineNode(Node):
 
         # Subscribers
         self.end_order_sub_    = self.create_subscription(Bool, '/controller/end_order', self.end_order_callback, 10)
-        self.encoder_left_sub_ = self.create_subscription(Float32, '/controller/encoder_left', self.encoder_left_callback, 10)
 
         # Timers
         self.movement_tim_ = self.create_timer(self.timer_period_, self.add_movement)
@@ -71,19 +70,6 @@ class BasicRoutineNode(Node):
         """
         
         self.end_order_ = end_order.data
-        #self.get_logger().info("End order callback: " + str(end_order.data))
-
-
-    def encoder_left_callback(self, encoder_left):
-        """
-        Gets the value of encoder_left and save it to encoder_left_.
-
-        Args:
-            encoder_left (Float32): The message received by the subscriber, containing encoder data.
-        """
-
-        self.encoder_left_ = encoder_left.data
-        self.get_logger().info("Encoder left value: " + str(self.encoder_left_))
 
 
     def add_movement(self):
