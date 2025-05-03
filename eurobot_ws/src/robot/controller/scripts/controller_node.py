@@ -43,7 +43,7 @@ class ControllerNode(Node):
 
         self.dist_accel_    = 7.0
         self.dist_desaccel_ = 10.0
-        self.init_vel_      = 0.1
+        self.init_vel_      = 0.15
         self.final_vel_     = 0.1
         self.linear_vel_    = 0.0
         self.angular_vel_   = 0.0
@@ -247,6 +247,8 @@ class ControllerNode(Node):
         vel_left = 0
         vel_right = 0
 
+        v = 0
+
         if self.distance_ != 0 and self.opponent_detected and self.angular_vel_ == 0.0:
             
             distance_moved = (abs(self.encoder_left_) + abs(self.encoder_right_)) / 2
@@ -321,10 +323,9 @@ class ControllerNode(Node):
             # Save odometry and imu data
             current_time = time.time() - self.start_time
             v, w = self.robot.get_velocities(wl, wr)
-            theta = self.robot.get_state()[2]
 
-            self.odom_writer.writerow([current_time, v, w])
-            self.imu_writer.writerow([current_time, theta])
+            self.odom_writer.writerow([current_time, v, 0.0])
+            self.imu_writer.writerow([current_time, math.radians(self.imu_)])
 
 
             x, y, _ = self.robot.get_state()
@@ -381,6 +382,10 @@ class ControllerNode(Node):
             current_time = time.time() - self.start_time
             v, w = self.robot.get_velocities(wl, wr)
             theta = self.robot.get_state()[2]
+
+            self.odom_writer.writerow([current_time, 0.0, self.angular_vel_])
+            self.imu_writer.writerow([current_time, math.radians(self.imu_)])
+
 
             x, y, _ = self.robot.get_state()
             self.trajectory_x_.append(x)
