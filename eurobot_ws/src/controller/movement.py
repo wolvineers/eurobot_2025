@@ -1,4 +1,4 @@
-from utils.src.serial_communication import open_serial_port, send_message
+from utils.scripts.serial_communication import open_serial_port, send_message
 def move(distance, power):
    port = '/dev/ttyUSB0'
    baudrate = 115200

@@ -1,207 +1,144 @@
+#include <Wire.h>
 #include <Arduino.h>
-#include "Placa.h"
+#include <ESP32Servo.h>
+#include <MPU6050_light.h>
+#include <vector>
+#include <sstream>
 #include "serial_utils/serial_utils.h"
-#include "pid/ESP32PIDMotor.hpp"
+#include "Placa.h"
 
+// Servos declaration and initialization
+Servo servos[8];
+int servoPins[] = {GPIO_SERVO1, GPIO_SERVO2, GPIO_SERVO3, GPIO_SERVO4, GPIO_SERVO5, GPIO_SERVO6, GPIO_SERVO7, GPIO_SERVO8};
 
-// Define the PID parameters. Check the PID timer dependency for more information
-PID_params parameters = {
- .kp = 0.02,       // Proportional
- .ki = 0.008,      // Integral
- .kd = 0.002,      // Derivative
+// Counter for managing messages frequency
+int loop_counter = 0;
 
+// IMU declaration
+MPU6050 mpu(Wire);
 
- .integral_acc_saturation = -1,    // Integral saturation, used for example if a motor gets stuck, to avoid it spinning for a long time after unstucking it
- .derivative_saturation = -1,      // Derivative saturation, to limit the effects of sudden changes, for example at start
-#warning "Chance code to ignore these, should be forced"
- .enable_output_saturation = true, // Output saturation, limits PID output, as the actuator (or whatever) may only accept a range of values. The motor can only take (-1.0, 1.0)
- .output_saturation_upper = 1,     // Upper limit of the saturation, can be negative, but not less than the lower
- .output_saturation_lower = -1,    // Bottom limit of the saturation, can be positive, but not more than the upper
-};
+// IMU timer
+long timer = 0;
 
+// Emergency button state variable
+bool emergency_button_state = 0;
 
-// Example of a function to be used to control the motor PID. It's called before running the PID, and receives the current and last pulses of the encoder, that can be used to
-// calculate the current motor speed or the distance. It has to return the speed to drive the motor, in pulses per PID cycle.
-// Warning! called from interrupt context, can't take too much time, don't use delays nor serial prints.
-float set_PID_speed(int64_t current_pulses, int64_t previous_pulses){
- // The speed can be calculated by substracting the pulses
- int64_t delta_pulses = current_pulses - previous_pulses;
- // The speed in rpm depends on the PID period and the encoder pulses per revolution
- const float cycle_time = 10 / 1000;   // 10 ms
- const int pulses_per_rev = 1496;
- float rpm = delta_pulses / cycle_time * 60 / pulses_per_rev;  // Revolutions per minute
+void setup()
+{
+    Wire.setPins(21, 22);        // Set the I2C SDA and SCL pins
+    Wire.begin();                // Initialize I2C communication
 
+    setupSerial();
 
- // Return the speed, in pulses per cycle
- return 20.0;
+    // Setup for an I2C GPIO expander
+    Wire.beginTransmission(0x20);
+    Wire.write(3);              // Register address for I/O configuration
+    Wire.write(0b11111100);     // Set the last 2 pins as outputs
+    Wire.endTransmission();
+
+    Wire.beginTransmission(0x20);
+    Wire.write(1);              // Register address for output state
+    Wire.write(0b11111100);     // Initialize outputs to "off" state
+    Wire.endTransmission();
+
+    // Attach each servo object to its corresponding pin
+    for (int i = 0; i < 8; i++) {
+        servos[i].attach(servoPins[i]);
+    }
+
+    // Sensor initialization
+    byte status = mpu.begin();
+    while(status!=0) {}
+    
+    // Sensor calibration
+    delay(1000);
+    mpu.calcOffsets(true,true);
+    
 }
+ 
+void loop()
+{
+
+    // === Send IMU message ===
+
+    //Update IMU data
+    mpu.update();
+
+    // Get angle Z
+    float angle_z  = mpu.getAngleZ();
+    
+    // Format angle value into a message string
+    char imu_msg[50]; snprintf(imu_msg, sizeof(imu_msg), "IMU,%f", angle_z);
+
+    // Send the message only every 12 loops to reduce communication overhead
+    loop_counter ++;
+    if (loop_counter % 15 == 0) {   
+        sendMessage(imu_msg);
+    }
 
 
-// Variable to set the motor speed
-float motor_speed = 0.0;
+    // === Read message ===
 
+    std::string message = readMessage().c_str();
+    char end_action[50];
 
-PID_Motor_params motor_paramsl = {
- .gpio_en = (gpio_num_t) GPIO_INA1,               // Motor enable, driver input to control with PWM and turns on and off the motor.
- .gpio_ph = (gpio_num_t) GPIO_INA2,               // Motor phase, driver input to set the direction to drive the motor.
- .gpio_enc_a = (gpio_num_t) GPIO_ENCA1,            // Encoder first output
- .gpio_enc_b = (gpio_num_t) GPIO_ENCA2,             // Encoder second output
+    // Get each value of the message and assign motors power
+    if (!message.empty()) {
 
+        std::vector<std::string> message_parts;
+        std::stringstream ss(message);
+        std::string item;
 
- .motor_direction = false,                 // Motor direction, inverts the encoder and direction of the motor. For example, two motors on opposite sides.
+        // Split the message by commas and store parts
+        while (std::getline(ss, item, ',')) {
+            message_parts.push_back(item);
+        }
 
+        // Remove the last part as it's a checksum
+        if (!message_parts.empty()) {
+            message_parts.pop_back();
+        }
 
- .speed_input_var = NULL,          // The variable has to be passed as reference. Has priority over the function. When using the speed curve, it gets overriden.
- //.speed_input_function = set_PID_speed,  // The fuction that controls the speed. Has less priority than the variable. Not used in this example
- .speed_input_function = NULL,             // If not used, set the value to NULL. If both are NULL, it can be controlled directly modifying setpoint, but using the variable is recommended
+        // Process command pairs
+        for (int i = 0; i < message_parts.size(); i += 2) {
+            std::string element_id = message_parts[i];
+            int value = stoi(message_parts[i+1]);
 
+            if (element_id == "Emergency") {
+                emergency_button_state = value;
+                if (value == 1) {
+                    servos[i].detach();
+                    emergency_button_state = value;
+                }
+                else if (value == 0) {
+                    for (int i = 0; i < 8; i++) {servos[i].attach(servoPins[i]);}
+                    emergency_button_state = value;
+                }
+            }
 
- .PID_parameters = parameters,             // PID parameters, defined before
+            if (emergency_button_state == 0) {
+                
+                if (element_id == "AP") {
+                    Wire.beginTransmission(0x20);
+                    Wire.write(1);
+    
+                    if(value == 1){ Wire.write(0b11111111); } // Turn all outputs ON.
+                    else { Wire.write(0b00000000); } // Turn all outputs OFF.
+    
+                    Wire.endTransmission();
+                }
+                
+                else if (element_id == "S01") { servos[6].write(value == 0 ? 162 : 100); } // PINCER
+                else if (element_id == "S02") { servos[1].write(value == 0 ? 140 : 179); } // LEFT SUCTION GRIPPER
+                else if (element_id == "S03") { servos[4].write(value == 0 ? 45 : 10); }   // RIGHT SUCTION GRIPPER
+                else if (element_id == "S04") { servos[0].write(value == 0 ? 70 : 140); }  // LEFT SHOVEL
+                else if (element_id == "S05") { servos[2].write(value == 0 ? 120 : 40); }  // RIGHT SHOVEL
+            }
+            }
 
+        snprintf(end_action, sizeof(end_action),"EA,1");
+        sendMessage(end_action);
+    }
 
- .timer_period_us = 10 * 1000,             // PID cycle period, in us.
-};
-
-
-PID_Motor_params motor_paramsr = {
- .gpio_en = (gpio_num_t) GPIO_INB1,               // Motor enable, driver input to control with PWM and turns on and off the motor.
- .gpio_ph = (gpio_num_t) GPIO_INB2,               // Motor phase, driver input to set the direction to drive the motor.
- .gpio_enc_a = (gpio_num_t) GPIO_ENCB1,            // Encoder first output
- .gpio_enc_b = (gpio_num_t) GPIO_ENCB2,             // Encoder second output
-
-
- .motor_direction = true,                 // Motor direction, inverts the encoder and direction of the motor. For example, two motors on opposite sides.
-
-
- .speed_input_var = NULL,          // The variable has to be passed as reference. Has priority over the function. When using the speed curve, it gets overriden.
- //.speed_input_function = set_PID_speed,  // The fuction that controls the speed. Has less priority than the variable. Not used in this example
- .speed_input_function = NULL,             // If not used, set the value to NULL. If both are NULL, it can be controlled directly modifying setpoint, but using the variable is recommended
-
-
- .PID_parameters = parameters,             // PID parameters, defined before
-
-
- .timer_period_us = 10 * 1000,             // PID cycle period, in us.
-};
-
-
-PID_Motor_params motor_params3 = {
- .gpio_en = (gpio_num_t) GPIO_INC1,               // Motor enable, driver input to control with PWM and turns on and off the motor.
- .gpio_ph = (gpio_num_t) GPIO_INC2,               // Motor phase, driver input to set the direction to drive the motor.
- .gpio_enc_a = (gpio_num_t) GPIO_ENCC1,            // Encoder first output
- .gpio_enc_b = (gpio_num_t) GPIO_ENCC2,             // Encoder second output
-
-
- .motor_direction = true,                 // Motor direction, inverts the encoder and direction of the motor. For example, two motors on opposite sides.
-
-
- .speed_input_var = &motor_speed,          // The variable has to be passed as reference. Has priority over the function. When using the speed curve, it gets overriden.
- //.speed_input_function = set_PID_speed,  // The fuction that controls the speed. Has less priority than the variable. Not used in this example
- .speed_input_function = NULL,             // If not used, set the value to NULL. If both are NULL, it can be controlled directly modifying setpoint, but using the variable is recommended
-
-
- .PID_parameters = parameters,             // PID parameters, defined before
-
-
- .timer_period_us = 10 * 1000,             // PID cycle period, in us.
-};
-
-
-PID_Motor_params motor_params4 = {
- .gpio_en = (gpio_num_t) GPIO_IND1,               // Motor enable, driver input to control with PWM and turns on and off the motor.
- .gpio_ph = (gpio_num_t) GPIO_IND2,               // Motor phase, driver input to set the direction to drive the motor.
- .gpio_enc_a = (gpio_num_t) GPIO_ENCD1,            // Encoder first output
- .gpio_enc_b = (gpio_num_t) GPIO_ENCD2,             // Encoder second output
-
-
- .motor_direction = true,                 // Motor direction, inverts the encoder and direction of the motor. For example, two motors on opposite sides.
-
-
- .speed_input_var = NULL,          // The variable has to be passed as reference. Has priority over the function. When using the speed curve, it gets overriden.
- //.speed_input_function = set_PID_speed,  // The fuction that controls the speed. Has less priority than the variable. Not used in this example
- .speed_input_function = NULL,             // If not used, set the value to NULL. If both are NULL, it can be controlled directly modifying setpoint, but using the variable is recommended
-
-
- .PID_parameters = parameters,             // PID parameters, defined before
-
-
- .timer_period_us = 10 * 1000,             // PID cycle period, in us.
-};
-
-
-
-
-// We create the motor object
-PID_Motor motorL(motor_paramsl);
-PID_Motor motorR(motor_paramsr);
-PID_Motor motor3(motor_params3);
-PID_Motor motor4(motor_params4);
-
-
-
-
-void setup() {
-
-
-   setupSerial();
-   Serial.begin(115200);
-
-
- // If the driver has to be enabled, do it here
- pinMode(22, OUTPUT);
- digitalWrite(22, 0);
-
-
- // Create a speed curve, that will move the motor 2050 pulses, at a maximum speed of 50 pulses / cycle, and with an acceleration of 10 pulses / cycle^2 (example)
- //motorR.move_distance(4000, 0, 50, 10);
- //motorL.move_distance(4000, 0, 50, 10);
-
-
- // Start the motor timer, which starts the speed control
- motorR.initialize_timer();
- motorL.initialize_timer();
- motor3.initialize_timer();
- motor4.initialize_timer();
-}
-
-
-void loop() {
-    //Read the message recibed and split the content in 3 different variables
-   String message = readMessage();  
-   if (message.length() > 0) {
-       int firstComma = message.indexOf(',');
-       int secondComma = message.indexOf(',', firstComma + 1);
-       if (firstComma != -1 && secondComma != -1) {
-           String motorNumberStr = message.substring(2, firstComma);
-           String motorAngleStr = message.substring(firstComma + 1, secondComma);
-           String checksumStr = message.substring(secondComma + 1);
-           int motorNumber = motorNumberStr.toInt();
-           int motorPower = motorAngleStr.toInt(); 
-           int checksum = checksumStr.toInt();
-
-            //Check the motor number and set the power for the selected motor
-           if (motorNumber >= 1 && motorNumber < 5){
-             Serial.println("Motor Number: " + String(motorNumber));
-             Serial.println("Motor %: " + String(motorPower));
-             Serial.println("Checksum: " + String(checksum));
-
-
-             if (motorNumber == 1) {
-                 motorL.setpoint = motorPower; 
-             } else if (motorNumber == 2) {
-                 motorR.setpoint = motorPower; 
-             }
-             else if (motorNumber == 3) {
-                 motor3.setpoint = motorPower; 
-             }
-             else if (motorNumber == 4) {
-                 motor4.setpoint = motorPower; 
-             }
-         } else {
-             Serial.println("Error: Invalid servo number");
-         }
-           } else{
-             Serial.println("Error: Invalid message format");
-       }
-   }
+    delay(20);
 }

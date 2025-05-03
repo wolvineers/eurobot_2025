@@ -1,95 +1,125 @@
 // #include <Wire.h>
 // #include <Arduino.h>
 // #include <ESP32Servo.h>
-// #include "Placa.h"
-// #include "pid/ESP32PIDMotor.hpp"
+// #include <MPU6050_light.h>
+// #include <vector>
+// #include <sstream>
 // #include "serial_utils/serial_utils.h"
+// #include "Placa.h"
 
-// Servo servos[5];
-// int servoPins[] = {GPIO_SERVO3, GPIO_SERVO5, GPIO_SERVO6, GPIO_SERVO7, GPIO_SERVO8};
-// int loop_counter;
- 
+// // Servos declaration and initialization
+// Servo servos[8];
+// int servoPins[] = {GPIO_SERVO1, GPIO_SERVO2, GPIO_SERVO3, GPIO_SERVO4, GPIO_SERVO5, GPIO_SERVO6, GPIO_SERVO7, GPIO_SERVO8};
+
+// // Counter for managing messages frequency
+// int loop_counter = 0;
+
+// // IMU declaration
+// MPU6050 mpu(Wire);
+
+// // IMU timer
+// long timer = 0;
+
 // void setup()
 // {
-//     setupSerial();
-//     Serial.begin(115200);
+//     Wire.setPins(21, 22);        // Set the I2C SDA and SCL pins
+//     Wire.begin();                // Initialize I2C communication
 
-//     // Attach each servo to the pin
-//     for (int i = 0; i < 5; i++) {
+//     setupSerial();
+
+//     // Setup for an I2C GPIO expander
+//     Wire.beginTransmission(0x20);
+//     Wire.write(3);              // Register address for I/O configuration
+//     Wire.write(0b11111100);     // Set the last 2 pins as outputs
+//     Wire.endTransmission();
+
+//     Wire.beginTransmission(0x20);
+//     Wire.write(1);              // Register address for output state
+//     Wire.write(0b11111100);     // Initialize outputs to "off" state
+//     Wire.endTransmission();
+
+//     // Attach each servo object to its corresponding pin
+//     for (int i = 0; i < 8; i++) {
 //         servos[i].attach(servoPins[i]);
 //     }
 
-//     // I2C setup
-//     Wire.setPins(21, 22);
-//     Wire.begin();
-
-//     loop_counter = 0;
-
+//     // Sensor initialization
+//     byte status = mpu.begin();
+//     while(status!=0) {}
+    
+//     // Sensor calibration
+//     delay(1000);
+//     mpu.calcOffsets(true,true);
+    
 // }
- 
  
 // void loop()
 // {
-//     // Read limit switch state
 
+//     // === Send IMU message ===
+
+//     //Update IMU data
+//     mpu.update();
+
+//     // Get angle Z
+//     float angle_z  = mpu.getAngleZ();
+    
+//     // Format angle value into a message string
+//     char imu_msg[50]; snprintf(imu_msg, sizeof(imu_msg), "IMU,%f", angle_z);
+
+//     // Send the message only every 12 loops to reduce communication overhead
 //     loop_counter ++;
-
-//     Wire.beginTransmission(0x20);
-//     Wire.write(0);
-//     Wire.endTransmission();
-
-//     Wire.requestFrom(0x20, 1);
-//     uint8_t val = Wire.read();
-
-//     if (val & (1 << 1)) {
-//         // Parar motors
-//         // Serial.println("HOLA");
-//         if (loop_counter % 25 == 0) {
-//             sendMessage("EA,1"); // EA = End action; 0 = false; 1 = true
-//         }
+//     if (loop_counter % 15 == 0) {   
+//         sendMessage(imu_msg);
 //     }
 
 
-//     // Read message
+//     // === Read message ===
 
-//     String message = readMessage();
+//     std::string message = readMessage().c_str();
+//     char end_action[50];
 
-//     /// Get each value of the message and assign action
-//     if (message.length() > 0) {
-//         int firstComma = message.indexOf(',');
-//         int secondComma = message.indexOf(',', firstComma + 1);
-//         if (firstComma > 0 && secondComma > firstComma) {
-//             String actuatorStr    = message.substring(0, firstComma);
-//             String actuatorValStr = message.substring(firstComma + 1, secondComma);
+//     // Get each value of the message and assign motors power
+//     if (!message.empty()) {
 
-//             char actuator = actuatorStr.charAt(0);
-//             if (actuator == 'M') {
+//         std::vector<std::string> message_parts;
+//         std::stringstream ss(message);
+//         std::string item;
 
-//                 Serial.println("Move motors");
-
-//                 int motor = actuatorStr.substring(1).toInt();
-//                 int dir   = actuatorValStr.toInt();
-
-//                 if (motor == 1) {
-//                     // Move motor 1
-//                 } else if (motor == 2) {
-//                     // Move motor 2
-//                 }
-
-
-
-//             } else if (actuator == 'S') {
-
-//                 int servo = actuatorStr.substring(1).toInt() - 4;
-//                 int pos   = actuatorValStr.toInt();
-                
-//                 servos[servo].write(pos);
-//                 delay(20);
-
-//             } else if (actuator == 'V') {
-
-//             }
+//         // Split the message by commas and store parts
+//         while (std::getline(ss, item, ',')) {
+//             message_parts.push_back(item);
 //         }
+
+//         // Remove the last part as it's a checksum
+//         if (!message_parts.empty()) {
+//             message_parts.pop_back();
+//         }
+
+//         // Process command pairs
+//         for (int i = 0; i < message_parts.size(); i += 2) {
+//             std::string element_id = message_parts[i];
+//             int value = stoi(message_parts[i+1]);
+
+//             if (element_id == "AP") {
+//                 Wire.beginTransmission(0x20);
+//                 Wire.write(1);
+
+//                 if(value == 1){ Wire.write(0b11111111); } // Turn all outputs ON.
+//                 else { Wire.write(0b00000000); } // Turn all outputs OFF.
+
+//                 Wire.endTransmission();
+//             }
+            
+//             else if (element_id == "S01") { servos[6].write(value == 0 ? 162 : 100); } // PINCER
+//             else if (element_id == "S02") { servos[1].write(value == 0 ? 140 : 179); } // LEFT SUCTION GRIPPER
+//             else if (element_id == "S03") { servos[4].write(value == 0 ? 45 : 10); }   // RIGHT SUCTION GRIPPER
+//             else if (element_id == "S04") { servos[0].write(value == 0 ? 70 : 140); }  // LEFT SHOVEL
+//             else if (element_id == "S05") { servos[2].write(value == 0 ? 120 : 40); }  // RIGHT SHOVEL
+//         }
+
+//         snprintf(end_action, sizeof(end_action),"EA,1");
+//         sendMessage(end_action);
 //     }
 
 //     delay(20);

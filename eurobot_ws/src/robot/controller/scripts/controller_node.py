@@ -1,12 +1,19 @@
 #!/usr/bin/env python3
 
-import rclpy, time
+import rclpy, time, math
+
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 
 from rclpy.node import Node
 from std_msgs.msg import Float32, Int32, Bool
 from geometry_msgs.msg import Vector3, Twist
-from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from differential_drive import DifferentialWheel
+from msgs.msg import JointActionPoint
+from robot.controller.scripts.insomnius_actions import handle_action
+
+from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
 
 ## *************************
@@ -28,23 +35,34 @@ class ControllerNode(Node):
         
         self.timer_period_ = 0.05
 
-        self.num_action_t_ = 0
-        self.num_action_i_ = 0
-        self.state_action_ = 0
+        self.num_action_t_  = 0
+        self.num_order_i    = 0
+        self.state_action_  = 0
+        self.end_action_01_ = True
+        self.end_action_02_ = True
 
         self.dist_accel_    = 7.0
         self.dist_desaccel_ = 10.0
-        self.init_vel_      = 5.0
-        self.final_vel_     = 15.0
+        self.init_vel_      = 0.2
+        self.final_vel_     = 0.1
         self.linear_vel_    = 0.0
         self.angular_vel_   = 0.0
         self.distance_      = 0.0
+        self.angle_goal_    = 0.0
         self.direction_     = 1
+        self.const_corretion_ = 0.02
+
+        self.trajectory_x_ = []
+        self.trajectory_y_ = []
+
+        self.imu_ = 0.0
+
 
         # Publishers
         self.velocities_pub_ = self.create_publisher(Twist, '/controller/motors_pow', 10)
         self.end_order_pub_  = self.create_publisher(Bool, '/controller/end_order', 10)
-        self.action_pub_     = self.create_publisher(JointTrajectory, '/controller/action_commands', 10)
+        self.action_pub_     = self.create_publisher(JointActionPoint, '/controller/action_commands', 10)
+
 
         # Subscribers
         self.encoder_left_sub_  = self.create_subscription(Float32, '/controller/encoder_left', self.encoder_left_callback, 10)
@@ -53,14 +71,22 @@ class ControllerNode(Node):
         self.t_action_sub_      = self.create_subscription(Int32, '/t_action', self.t_action_callback, 10)
         self.i_action_sub_      = self.create_subscription(Int32, '/i_action', self.i_action_callback, 10)
         self.opponent_detected  = self.create_subscription(Bool, '/lidar', self.opponent_detected_callback, 10)
+        self.end_action_01_sub_ = self.create_subscription(Bool, '/controller/end_action_01', self.end_action_01_callback, 10)
+        self.end_action_02_sub_ = self.create_subscription(Bool, '/controller/end_action_02', self.end_action_02_callback, 10)
+        self.imu_sub_           = self.create_subscription(Float32, "/controller/imu", self.imu_callback, 10)
+
+        self.plot_traj_sub_ = self.create_subscription(Bool, '/plot_traj', self.plot_trajectory, 10)
+
 
         # Timers
-        self.controller_tim_ = self.create_timer(self.timer_period_, self.control_velocities)
+        self.controller_striaght_tim_ = self.create_timer(self.timer_period_, self.control_velocities_straight)
+        self.controller_turn_tim_     = self.create_timer(self.timer_period_, self.control_velocities_turn)
+
         self.action_tim_t_   = self.create_timer(1.0, self.control_actuators_t)
         self.action_tim_i_   = self.create_timer(1.0, self.control_actuators_i)
 
         # Differential drive object
-        self.robot = DifferentialWheel(l=0.25, radius=0.0475)
+        self.robot = DifferentialWheel(l=0.23, radius=0.0475)
 
     
     def encoder_left_callback(self, encoder_left):
@@ -104,7 +130,13 @@ class ControllerNode(Node):
 
         self.linear_vel_  = abs(movement.x)
         self.angular_vel_ = abs(movement.y)
-        self.distance_    = movement.z
+
+        if self.angular_vel_ == 0.0:
+            self.distance_ = movement.z
+            self.angle_goal_ = 0.0
+        elif self.linear_vel_ == 0.0:
+            self.angle_goal_ = movement.z
+            self.distance_ = 0.0
 
         if movement.x < 0 or movement.y < 0:
             self.direction_ = -1
@@ -112,6 +144,8 @@ class ControllerNode(Node):
         #self.vel_left, self.vel_right = self.robot.get_motor_velocities(self.linear_vel, self.angular_vel)
 
         self.get_logger().info("Movement added")
+        self.get_logger().info("Lin vel: " + str(self.linear_vel_) + " | Ang vel: " + str(self.angular_vel_))
+        self.get_logger().info("Lin goal: " + str(self.distance_) + " | Ang vel: " + str(self.angle_goal_))
 
     
     def t_action_callback(self, num_action):
@@ -148,9 +182,11 @@ class ControllerNode(Node):
         *
         '''
 
-        self.num_action_i_ = num_action.data
+        self.get_logger().info("Order received")
+
+        self.num_order_i = num_action.data
         self.state_action_ = 0
-        
+
 
     def opponent_detected_callback(self, opponent):
         """
@@ -167,71 +203,75 @@ class ControllerNode(Node):
 
         self.opponent_detected = opponent.data
 
+    
+    def imu_callback(self, imu):
+        self.imu_ = imu.data
 
-    def control_velocities(self):
+    
+    def end_action_01_callback(self, end_action):
         """
-        At each elapsed time publishes the power of each motor for the current movement to the respective topic.
+        When the previous first drive action has finished so it gets true, add one to the state action.
+
+        Args:
+            end_order (Bool): The message received by the subscriber, containing the state of the last action.
         """
 
-        ## --- TO DO ---
-        ##  - Change the robot_movement queue to an action server
-        ##  - Add the lidar detection in the first condition
-        ##  - Remove the delay to avoid shaking and control it in the basic_routine.py
+        self.end_action_01_ = end_action.data
+        # self.state_action_ += 1
 
+        self.get_logger().info("Action ended. New action: " + str(self.state_action_))
+
+
+    def end_action_02_callback(self, end_action):
+        """
+        When the previous second drive action has finished so it gets true, add one to the state action.
+
+        Args:
+            end_order (Bool): The message received by the subscriber, containing the state of the last action.
+        """
+
+        self.end_action_02_ = end_action.data
+        # self.state_action_ += 1
+
+        self.get_logger().info("Action ended. New action: " + str(self.state_action_))
+
+
+    def control_velocities_straight(self):
+        """
+        At each elapsed time publishes the power of each motor for the current straight movement to the respective topic.
+        """
+        
         vel_left = 0
         vel_right = 0
 
-        if self.distance_ != 0 and self.opponent_detected:
-
-            distance_moved    = (abs(self.encoder_left_) + abs(self.encoder_right_)) / 2
-            self.get_logger().info("Distance moved: " + str(distance_moved))
-
+        if self.distance_ != 0 and self.opponent_detected and self.angular_vel_ == 0.0:
+            
+            distance_moved = (abs(self.encoder_left_) + abs(self.encoder_right_)) / 2
+            
             straight_distance = self.distance_ - self.dist_accel_ - self.dist_desaccel_
 
             # Acceleration
             if distance_moved < self.dist_accel_:
-                # self.get_logger().info("Dins d'acceleracio | linear vel, init vel, dist_accel: " + str(self.linear_vel_) + ", " + str(self.init_vel_) + ", " + str(self.dist_accel_))
-                # self.get_logger().info("Res operacio: " + str(self.linear_vel_ - self.init_vel_))
-
-                n_accel   = self.init_vel_
+                n_accel_v = self.init_vel_
                 m_accel_v = (self.linear_vel_ - self.init_vel_) / self.dist_accel_
-                m_accel_w = (self.angular_vel_ - self.init_vel_) / self.dist_accel_
 
-                v = ((m_accel_v * distance_moved) + n_accel) * self.direction_
-                w = ((m_accel_w * distance_moved) + n_accel) * self.direction_
+                v = ((m_accel_v * distance_moved) + n_accel_v) * self.direction_
+                w = 0.0
 
                 vel_left, vel_right = self.robot.get_motor_velocities(v, w)
-
-                # self.get_logger().info("Dins d'acceleracio | m, vl, vr: " + str(m_accel_v) + ", " + str(vel_left) + ", " + str(vel_right))
 
             # Straight
             elif distance_moved < straight_distance:
-                # self.get_logger().info("Dins de straight")
-                vel_left, vel_right = self.robot.get_motor_velocities(self.linear_vel_ * self.direction_, self.angular_vel_ * self.direction_)
+                vel_left, vel_right = self.robot.get_motor_velocities(self.linear_vel_ * self.direction_, 0.0)
 
             # Desacceleration
             elif distance_moved < self.distance_:
-                # self.get_logger().info("Dins de desaccel | m, linear vel, init vel, dist_desaccel: " + str(self.linear_vel_) + ", " + str(self.init_vel_) + ", " + str(self.dist_accel_))
-                # self.get_logger().info("Res operacio: " + str(self.linear_vel_ - self.init_vel_))
-
                 m_desaccel_v = (self.final_vel_ - self.linear_vel_) / (self.distance_ - straight_distance)
                 n_desaccel_v = self.final_vel_ - m_desaccel_v * self.distance_
-                m_desaccel_w = (self.final_vel_ - self.angular_vel_) / (self.distance_ - straight_distance)
-                n_desaccel_w = self.final_vel_ - m_desaccel_w * self.distance_
 
-                if self.linear_vel_ != 0:
-                    v = (m_desaccel_v * distance_moved + n_desaccel_v) * self.direction_
-                else:
-                    v = 0
+                v = (m_desaccel_v * distance_moved + n_desaccel_v) * self.direction_
 
-                if self.angular_vel_ != 0:
-                    w = (m_desaccel_w * distance_moved + n_desaccel_w) * self.direction_
-                else:
-                    w = 0
-
-                # self.get_logger().info("Dins d'acceleracio | m, vl, vr: " + str(m_desaccel_v) + ", " + str(v))
-
-                vel_left, vel_right = self.robot.get_motor_velocities(v, w)
+                vel_left, vel_right = self.robot.get_motor_velocities(v, 0.0)
 
             elif distance_moved >= self.distance_:
                 self.get_logger().info("Parant")
@@ -246,15 +286,216 @@ class ControllerNode(Node):
                 end_action.data = True
                 self.end_order_pub_.publish(end_action)
 
+            # Adjust difference between encoders
+            if distance_moved < self.distance_:
+                encoder_left_abs  = abs(self.encoder_left_)
+                encoder_right_abs = abs(self.encoder_right_)
+
+                correction_factor = int(abs(encoder_left_abs - encoder_right_abs) / 2) * self.const_corretion_ 
+
+                if abs(self.encoder_left_) < abs(self.encoder_right_):
+                    vel_left += (correction_factor * self.direction_)
+                elif abs(self.encoder_left_) > abs(self.encoder_right_):
+                    vel_right += (correction_factor * self.direction_)  
+        
+        if self.angular_vel_ == 0.0:
+            # Publish the message with each motor power
+            motor_vel_msg = Twist()
+
+            motor_vel_msg.linear.y = float(vel_left)
+            motor_vel_msg.linear.z = float(vel_right)
+        
+            self.velocities_pub_.publish(motor_vel_msg)
+        
+            # self.get_logger().info("v left: " + str(vel_left) + " | v right: " + str(vel_right))
+
+            # Assume that vel_left and vel_right are in m/s -> Convert to rad/s
+            wl = vel_left / self.robot.radius
+            wr = vel_right / self.robot.radius
+
+            # Update robot state using the computed wheel speeds and time increment
+            self.robot.set_theta(math.radians(self.imu_))
+            self.robot.update_state(wl, wr, self.timer_period_)
+
+            x, y, _ = self.robot.get_state()
+            self.trajectory_x_.append(x)
+            self.trajectory_y_.append(y)
+
+    def control_velocities_turn(self):
+        """
+        At each elapsed time publishes the power of each motor for the current turn movement to the respective topic.
+        """
+
+        vel_left = 0
+        vel_right = 0
+
+        if self.angle_goal_ != 0 and self.opponent_detected and self.linear_vel_ == 0.0:
+
+            self.get_logger().info("angle goal: " + str(self.angle_goal_))
+
+            self.direction_ = 1 if self.imu_ < self.angle_goal_ else -1
+
+            if self.imu_ < self.angle_goal_ - 2 or self.imu_ > self.angle_goal_ + 2:
+                vel_left, vel_right = self.robot.get_motor_velocities(0.0, self.angular_vel_ * self.direction_)
+
+            else:
+                self.get_logger().info("Parant")
+                # If the time has finished set powers to 0.0
+                vel_left  = 0.0
+                vel_right = 0.0
+                self.angle_goal_ = 0
+                self.direction_ = 1
+
+                # Publish end of movement
+                end_action = Bool()
+                end_action.data = True
+                self.end_order_pub_.publish(end_action) 
+        
+        if self.linear_vel_ == 0.0:
+            # Publish the message with each motor power
+            motor_vel_msg = Twist()
+
+            motor_vel_msg.linear.y = float(vel_left) * 10.0
+            motor_vel_msg.linear.z = float(vel_right) * 10.0
+            
+            self.velocities_pub_.publish(motor_vel_msg)
+
+            # self.get_logger().info("v left: " + str(vel_left) + " | v right: " + str(vel_right))
+
+            # Assume that vel_left and vel_right are in m/s -> Convert to rad/s
+            wl = vel_left / self.robot.radius
+            wr = vel_right / self.robot.radius
+
+            # Update robot state using the computed wheel speeds and time increment
+            self.robot.set_theta(math.radians(self.imu_))
+            self.robot.update_state(wl, wr, self.timer_period_)
+
+            x, y, _ = self.robot.get_state()
+            self.trajectory_x_.append(x)
+            self.trajectory_y_.append(y)
+
+
+    ''' def control_velocities(self):
+        """
+        At each elapsed time publishes the power of each motor for the current movement to the respective topic.
+        """
+
+        ## --- TO DO ---
+        ##  - Change the robot_movement queue to an action server
+        ##  - Add the lidar detection in the first condition
+        ##  - Remove the delay to avoid shaking and control it in the basic_routine.py
+
+        vel_left = 0
+        vel_right = 0
+
+        if self.distance_ != 0 and self.opponent_detected:
+            
+            distance_moved = (abs(self.encoder_left_) + abs(self.encoder_right_)) / 2
+            # self.get_logger().info("Distance moved: " + str(distance_moved))
+
+            straight_distance = self.distance_ - self.dist_accel_ - self.dist_desaccel_
+
+            # Acceleration
+            if distance_moved < self.dist_accel_:
+
+                n_accel_v = self.init_vel_
+                m_accel_v = (self.linear_vel_ - self.init_vel_) / self.dist_accel_
+                n_accel_w = self.init_vel_ * 1
+                m_accel_w = (self.angular_vel_ - self.init_vel_ * 1) / self.dist_accel_
+
+                v = (((m_accel_v * distance_moved) + n_accel_v) * self.direction_) if self.linear_vel_ != 0 else 0.0
+                w = (((m_accel_w * distance_moved) + n_accel_w) * self.direction_) if self.angular_vel_ != 0 else 0.0
+
+                vel_left, vel_right = self.robot.get_motor_velocities(v, w)
+
+                vel_left = vel_left if self.linear_vel_ != 0 else float(vel_left) * 10.0
+                vel_right = vel_right if self.linear_vel_ != 0 else float(vel_right) * 10.0
+
+            # Straight
+            elif distance_moved < straight_distance:
+                self.get_logger().info("recte")
+                vel_left, vel_right = self.robot.get_motor_velocities(self.linear_vel_ * self.direction_, self.angular_vel_ * self.direction_)
+
+            # Desacceleration
+            elif distance_moved < self.distance_:
+                self.get_logger().info("desaccel")
+
+                m_desaccel_v = (self.final_vel_ - self.linear_vel_) / (self.distance_ - straight_distance)
+                n_desaccel_v = self.final_vel_ - m_desaccel_v * self.distance_
+
+                m_desaccel_w = ((self.final_vel_ * 1) - self.angular_vel_) / (self.distance_ - straight_distance)
+                n_desaccel_w = (self.final_vel_ * 1) - m_desaccel_w * self.distance_
+
+                v = (m_desaccel_v * distance_moved + n_desaccel_v) * self.direction_ if self.linear_vel_ != 0 else 0.0
+                w = (m_desaccel_w * distance_moved + n_desaccel_w) * self.direction_ if self.angular_vel_ != 0 else 0.0
+
+                vel_left, vel_right = self.robot.get_motor_velocities(v, w)
+
+                # vel_left = vel_left if self.linear_vel_ != 0 else float(vel_left) * 10.0
+                # vel_right = vel_right if self.linear_vel_ != 0 else float(vel_right) * 10.0
+
+            elif distance_moved >= self.distance_:
+                self.get_logger().info("Parant")
+                # If the time has finished set powers to 0.0
+                vel_left  = 0.0
+                vel_right = 0.0
+                self.distance_ = 0
+                self.direction_ = 1
+
+                # Publish end of movement
+                end_action = Bool()
+                end_action.data = True
+                self.end_order_pub_.publish(end_action)
+
+            # Adjust difference between encoders
+            if distance_moved < self.distance_ and self.angular_vel_ == 0.0:
+                encoder_left_abs  = abs(self.encoder_left_)
+                encoder_right_abs = abs(self.encoder_right_)
+
+                correction_factor = int(abs(encoder_left_abs - encoder_right_abs) / 2) * self.const_corretion_ 
+
+                if abs(self.encoder_left_) < abs(self.encoder_right_):
+                    vel_left += (correction_factor * self.direction_)
+                elif abs(self.encoder_left_) > abs(self.encoder_right_):
+                    vel_right += (correction_factor * self.direction_)  
+        
         # Publish the message with each motor power
         motor_vel_msg = Twist()
 
-        motor_vel_msg.linear.y = float(vel_left)
-        motor_vel_msg.linear.z = float(vel_right)
-
-        #self.get_logger().info("Velocity left: " + str(vel_left) + " | Velocity right: " + str(vel_right))
+        motor_vel_msg.linear.y = float(vel_left) if self.linear_vel_ != 0 else float(vel_left) * 10.0
+        motor_vel_msg.linear.z = float(vel_right) if self.linear_vel_ != 0 else float(vel_right) * 10.0
         
-        self.velocities_pub_.publish(motor_vel_msg)   
+        self.velocities_pub_.publish(motor_vel_msg)
+
+        
+        self.get_logger().info("v left: " + str(vel_left) + " | v right: " + str(vel_right))
+
+        # Assume that vel_left and vel_right are in m/s -> Convert to rad/s
+        wl = vel_left / self.robot.radius
+        wr = vel_right / self.robot.radius
+
+        # Update robot state using the computed wheel speeds and time increment
+        self.robot.update_state(wl, wr, self.timer_period_)
+
+        x, y, _ = self.robot.get_state()
+        self.trajectory_x_.append(x)
+        self.trajectory_y_.append(y)
+    '''
+        
+    
+    def plot_trajectory(self, msg):
+        self.get_logger().info("Plotting trajectory... " + str(msg.data))
+
+        plt.plot(self.trajectory_x_, self.trajectory_y_)
+        plt.xlabel("X (m)")
+        plt.ylabel("Y (m)")
+        plt.title("Trajectòria ROS 2")
+        plt.grid(True)
+        plt.axis("equal")
+          
+        plt.savefig("/wolvi/src/robot/controller/scripts/robot_trajectory.png", dpi=300)
+        plt.close()
+
 
 
     def control_actuators_t(self):
@@ -341,68 +582,54 @@ class ControllerNode(Node):
     
     def control_actuators_i(self):
         """
-        Every second gets the Torete action number and publishes the action to do.
+        Every second gets the Insomnius order number and publishes the action to do.
         """
 
         ''' --- ACTUATORS MESSAGE ---
-        *   
-        * 
         *
+        * Joint Action Point
+        *   - servos_names (string [])
+        *   - motors_names (string [])
+        *
+        *   - position (int32 [])   --> servos values (each element of the array corresponds to each servo name)
+        *   - velocity (float32 []) --> motors values (each element of the array corresponds to each motor name)
+        *   - activate (bool)       --> air pump
+        *   
         '''
 
-        action_msg = JointTrajectory()
-        point      = JointTrajectoryPoint()
+        # self.get_logger().info("Dins control actuators --> Num order: " + str(self.num_order_i) + " | End action:" + str(self.end_action_))
 
-        if self.num_action_i_ == 1:
-            ...
+        if self.num_order_i > 0 and self.end_action_01_ and self.end_action_02_:
+            self.end_action_01_ = False
+            self.end_action_02_ = False
+            self.state_action_ += 1
 
-        elif self.num_action_i_ == 2: # Pick up material
+            action_msg = JointActionPoint()
+            action_msg = handle_action(self.num_order_i, self.state_action_)
 
-            if self.state_action_ == 0: # Raise platforms
-                point.positions = [-1.0]
+            self.get_logger().info("Servos: " + str(action_msg.servos_names))
+            self.get_logger().info("Motors: " + str(action_msg.motors_names))
 
-                action_msg.joint_names = ["M01"]
-                action_msg.points.append(point)
-
+            if action_msg.servos_names or action_msg.motors_names:
+                # No empty message
+                self.get_logger().info("Publishing message")
                 self.action_pub_.publish(action_msg)
+                
+                # Check if there is any motor to move
+                if not action_msg.motors_names:
+                    self.end_action_01_ = True
 
-                self.state_action_ += 1
-                self.get_logger().info("Raising platforms")
-            
-            elif self.state_action_ == 1: # Take columns
-                ...
-
-            else:   # End action
-                self.num_action_i_ = 0
-
+            else:
+                # Empty message so end of the order
                 end_action = Bool()
                 end_action.data = True
                 self.end_order_pub_.publish(end_action)
-                self.get_logger().info("Action 2 (pick up material) ended")
 
-        elif self.num_action_i_ == 3: # Build tribune
-            
-            if self.state_action_ == 0: # Leave columns
-                point.positions = [150.0, 125.0]
-
-                action_msg.joint_names = ["S07", "S08"]
-                action_msg.points.append(point)
-
-                self.action_pub_.publish(action_msg)
-
-                self.state_action_ += 1
-                self.get_logger().info("Leaving columns")
-            
-            elif self.state_action_ == 1: # Leave platform
-                ...
-
-            else:   # End action
-                self.num_action_i_ = 0
-
-                end_action = Bool()
-                end_action.data = True
-                self.end_order_pub_.publish(end_action)
-                self.get_logger().info("Action 3 (build tribune) ended")
+                self.num_order_i = 0
+                self.end_action_01_ = True
+                self.end_action_02_ = True
+                
+                self.get_logger().info("Order " + str(self.num_order_i) + " ended")
 
 
 
