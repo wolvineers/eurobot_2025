@@ -39,10 +39,10 @@ class BasicRoutineNode(Node):
         *   - action number
         '''
         self.movements_list_ = [
-            # ('m', (0.2, 0.0, 80.0)),
-            # ('m', (0.3, 0.0, 25.0)),
+            ('m', (0.2, 0.0, 80.0)),
+            ('m', (0.3, 0.0, 35.0)),
             # ('m', (0.0, 0.1, 45.0)),
-            # ('m', (0.2, 0.0, 30.0)),
+            ('m', (0.2, 0.0, 30.0)),
             # ('m', (10.0, 0.0, 50.0)),
             # ('a', 2),
             # ('a', 3),
@@ -51,13 +51,13 @@ class BasicRoutineNode(Node):
         ]
 
         # Publishers
-        self.robot_mov_pub_     = self.create_publisher(Vector3, '/movement', 10)
-        self.torete_act_pub_    = self.create_publisher(Int32, '/t_action', 10)
-        self.insomnious_act_pub = self.create_publisher(Int32, '/i_action', 10)
+        self.robot_mov_pub_     = self.create_publisher(Vector3, '/movement', 5)
+        self.torete_act_pub_    = self.create_publisher(Int32, '/t_action', 5)
+        self.insomnious_act_pub = self.create_publisher(Int32, '/i_action', 5)
 
         # Subscribers
-        self.end_order_sub_    = self.create_subscription(Bool, '/controller/end_order', self.end_order_callback, 10)
-        self.encoder_left_sub_ = self.create_subscription(Float32, '/controller/encoder_left', self.encoder_left_callback, 10)
+        self.end_order_sub_    = self.create_subscription(Bool, '/controller/end_order', self.end_order_callback, 5)
+        self.encoder_left_sub_ = self.create_subscription(Float32, '/controller/encoder_left', self.encoder_left_callback, 5)
 
         # Timers
         self.movement_tim_ = self.create_timer(self.timer_period_, self.add_movement)

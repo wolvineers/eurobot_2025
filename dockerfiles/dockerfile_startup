@@ -30,6 +30,8 @@ RUN apt install -y python3.10-venv
 
 RUN apt install -y python3-rpi.gpio
 
+RUN pip install matplotlib
+
 ENV PYTHONPATH=/wolvi/src:/usr/local/lib/python3.8/site-packages
 
 COPY courier /usr/share/fonts/truetype/courier  

@@ -58,7 +58,7 @@ class LidarSubscriberNode(Node):
 
             elif distance_cm < self.min_stop_distance:
                 obstacle_detected = True
-                self.get_logger().error(f"Obstacle detected at {angle_deg:.2f}° - Distance: {distance_cm:.2f} cm")
+                self.get_logger().warn(f"Obstacle detected at {angle_deg:.2f}° - Distance: {distance_cm:.2f} cm")
                 break
         
         """
