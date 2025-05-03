@@ -42,9 +42,6 @@ int m_vertical_direction;
 unsigned long m_vertical_start_time = 0;
 unsigned long m_vertical_duration = 0;
 
-// Emergency Button state variable
-bool emergency_button_state = 0;
-
 
 void motor_horizontal_lift(int speed, bool dir) {
     /*
@@ -270,32 +267,28 @@ void loop() {
     // === Send encoders message ===
 
     // Get encoder counts from both motors
-    // int64_t left_encoder_val  = encoderC.getCount() * -1;    // Invert count (forward = backward)
-    // int64_t right_encoder_val = encoderD.getCount();
+    int64_t left_encoder_val  = encoderC.getCount() * -1;    // Invert count (forward = backward)
+    int64_t right_encoder_val = encoderD.getCount();
     
-    // // Format encoder values into a message string (in centimeters)
-    // char encoders_msg[50]; snprintf(
-    //     encoders_msg, sizeof(encoders_msg),
-    //     "EL,%ld,ER,%ld",
-    //     (int)(left_encoder_val / MOTOR_POLSOS_PER_CM),
-    //     (int)(right_encoder_val / MOTOR_POLSOS_PER_CM)
-    // );
+    // Format encoder values into a message string (in centimeters)
+    char encoders_msg[50]; snprintf(
+        encoders_msg, sizeof(encoders_msg),
+        "EL,%ld,ER,%ld",
+        (int)(left_encoder_val / MOTOR_POLSOS_PER_CM),
+        (int)(right_encoder_val / MOTOR_POLSOS_PER_CM)
+    );
 
-    // // Send the message only every 12 loops to reduce communication overhead
-    // loop_counter ++;
-    // if (loop_counter % 15 == 0) {   
-    //     sendMessage(encoders_msg);
-    // }
+    // Send the message only every 12 loops to reduce communication overhead
+    loop_counter ++;
+    if (loop_counter % 15 == 0) {   
+        sendMessage(encoders_msg);
+    }
+
 
 
     // === Read message ===
 
     std::string message = readMessage().c_str();
-
-    Serial.print("Message: "); Serial.println(message.c_str());
-
-    // String msg = "Emergency,1,100";
-    // std::string message = msg.c_str();
 
     // Get each value of the message and assign motors power
     if (!message.empty()) {
@@ -322,76 +315,55 @@ void loop() {
 
             char end_action[50];
 
-            Serial.print("Motor: "); Serial.println(motor.c_str());
+            if (motor == "M01") {
+                if (vel < 0) { m_horizontal_direction = 1; }   // Negative velocity = backward movement
+                m_horizontal_state = true;
+                m_horizontal_velocity = (int)vel;
 
-            if (motor == "Emergency") {
-                Serial.print("Emergency: "); Serial.println(vel);
-                emergency_button_state = vel;
-                if (vel == 1) {
-                    Serial.println("STOP");
-                    motor_left(0, 0);
-                    motor_right(0, 0);
-                    emergency_button_state = vel;
-                }
-                else if (vel == 0) {
-                    emergency_button_state = vel;
-                }
-            }
+                // motor_horizontal_lift(int(vel), dir);
 
-            if (emergency_button_state == 0) {
-                Serial.println("MOU");
-                if (motor == "M01") {    
-                    if (vel < 0) { m_horizontal_direction = 1; }   // Negative velocity = backward movement
-                    m_horizontal_state = true;
-                    m_horizontal_velocity = (int)vel;
-    
-                    // motor_horizontal_lift(int(vel), dir);
-    
-                    // snprintf(encoders_msg, sizeof(end_action),"EA,1");
-                    // sendMessage(end_action);
-    
-                } else if (motor == "M02") {
-                    if (vel < 0) { m_vertical_direction = 1; }   // Negative velocity = down movement
-                    m_vertical_state = true;
-                    m_vertical_velocity = (int)vel;
-                    
-                    // motor_vertical_lift(int(vel), dir);
-    
-                    // snprintf(encoders_msg, sizeof(end_action),"EA,1");
-                    // sendMessage(end_action);
-    
-                } else if (motor == "M01_t") {
-                    if (vel < 0) { m_horizontal_direction = 1; }
-    
-                    m_horizontal_state = true;
-                    m_horizontal_velocity = 150;
-                    m_horizontal_start_time = millis();
-                    m_horizontal_duration = (unsigned int)vel;
-                    
-                } else if (motor == "M02_t") {
-                    m_vertical_state = true;
-                    m_vertical_velocity = 150;
-                    m_vertical_start_time = millis();
-                    m_vertical_duration = (unsigned int)vel;
-    
-                    if (vel < 0) { 
-                        m_vertical_direction = 1; 
-                        m_vertical_velocity = 10;
-                    }
-    
-                } else if (motor == "ML") {
-                    if (vel > 0) { dir = 1; }
-                    if (pwm == 0) { encoderC.setCount(0); }
-                    motor_left(pwm, dir);
-    
-                } else if (motor == "MR") {
-                    if (vel < 0) { dir = 1; }
-                    if (pwm == 0) { encoderD.setCount(0); }
-                    motor_right(pwm, dir);
+                // snprintf(encoders_msg, sizeof(end_action),"EA,1");
+                // sendMessage(end_action);
+
+            } else if (motor == "M02") {
+                if (vel < 0) { m_vertical_direction = 1; }   // Negative velocity = down movement
+                m_vertical_state = true;
+                m_vertical_velocity = (int)vel;
                 
-                }
-            }
+                // motor_vertical_lift(int(vel), dir);
 
+                // snprintf(encoders_msg, sizeof(end_action),"EA,1");
+                // sendMessage(end_action);
+
+            } else if (motor == "M01_t") {
+                if (vel < 0) { m_horizontal_direction = 1; }
+
+                m_horizontal_state = true;
+                m_horizontal_velocity = 150;
+                m_horizontal_start_time = millis();
+                m_horizontal_duration = (unsigned int)vel;
+                
+            } else if (motor == "M02_t") {
+                m_vertical_state = true;
+                m_vertical_velocity = 150;
+                m_vertical_start_time = millis();
+                m_vertical_duration = (unsigned int)vel;
+
+                if (vel < 0) { 
+                    m_vertical_direction = 1; 
+                    m_vertical_velocity = 10;
+                }
+
+            } else if (motor == "ML") {
+                if (vel > 0) { dir = 1; }
+                if (pwm == 0) { encoderC.setCount(0); }
+                motor_left(pwm, dir);
+
+            } else if (motor == "MR") {
+                if (vel < 0) { dir = 1; }
+                if (pwm == 0) { encoderD.setCount(0); }
+                motor_right(pwm, dir);
+            }
         }
     }
 

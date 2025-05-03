@@ -43,7 +43,7 @@ class ControllerNode(Node):
 
         self.dist_accel_    = 7.0
         self.dist_desaccel_ = 10.0
-        self.init_vel_      = 0.1
+        self.init_vel_      = 0.2
         self.final_vel_     = 0.1
         self.linear_vel_    = 0.0
         self.angular_vel_   = 0.0

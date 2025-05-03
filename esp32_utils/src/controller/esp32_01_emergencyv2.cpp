@@ -292,7 +292,6 @@
 
 //     std::string message = readMessage().c_str();
 
-//     Serial.print("Message: "); Serial.println(message.c_str());
 
 //     // String msg = "Emergency,1,100";
 //     // std::string message = msg.c_str();
@@ -322,15 +321,15 @@
 
 //             char end_action[50];
 
-//             Serial.print("Motor: "); Serial.println(motor.c_str());
-
 //             if (motor == "Emergency") {
-//                 Serial.print("Emergency: "); Serial.println(vel);
 //                 emergency_button_state = vel;
 //                 if (vel == 1) {
 //                     Serial.println("STOP");
 //                     motor_left(0, 0);
 //                     motor_right(0, 0);
+//                     motor_horizontal_lift(0, 0);
+//                     motor_vertical_lift(0, 0);
+//                     motor_horizontal_lift_t(0, 0);
 //                     emergency_button_state = vel;
 //                 }
 //                 else if (vel == 0) {
@@ -339,7 +338,7 @@
 //             }
 
 //             if (emergency_button_state == 0) {
-//                 Serial.println("MOU");
+//                 Serial.println("CONTINUE");
 //                 if (motor == "M01") {    
 //                     if (vel < 0) { m_horizontal_direction = 1; }   // Negative velocity = backward movement
 //                     m_horizontal_state = true;
