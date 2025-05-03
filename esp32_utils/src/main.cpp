@@ -48,7 +48,7 @@ void setup()
     while(status!=0) {}
     
     // Sensor calibration
-    delay(2000);
+    delay(1000);
     mpu.calcOffsets(true,true);
     
 }
