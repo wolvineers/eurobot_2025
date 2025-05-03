@@ -58,6 +58,12 @@ def generate_launch_description():
             name='lidar_subscriber',          
             output='screen'
         ),
+        launch_ros.actions.Node(
+            package='emergency_button',  
+            executable='emergency_button',       
+            name='emergency_button',          
+            output='screen'
+        ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(rplidar_launch_file)
         )

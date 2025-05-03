@@ -42,4 +42,5 @@ CMD ["bash", "-c", "\
     source /opt/ros/humble/setup.bash && \
     source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash && \
     source /wolvi/install/setup.bash && \
+    python3 /wolvi/src/startup/startup.py && \
     exec bash"]
