@@ -270,31 +270,27 @@
 //     // === Send encoders message ===
 
 //     // Get encoder counts from both motors
-//     // int64_t left_encoder_val  = encoderC.getCount() * -1;    // Invert count (forward = backward)
-//     // int64_t right_encoder_val = encoderD.getCount();
+//     int64_t left_encoder_val  = encoderC.getCount() * -1;    // Invert count (forward = backward)
+//     int64_t right_encoder_val = encoderD.getCount();
     
-//     // // Format encoder values into a message string (in centimeters)
-//     // char encoders_msg[50]; snprintf(
-//     //     encoders_msg, sizeof(encoders_msg),
-//     //     "EL,%ld,ER,%ld",
-//     //     (int)(left_encoder_val / MOTOR_POLSOS_PER_CM),
-//     //     (int)(right_encoder_val / MOTOR_POLSOS_PER_CM)
-//     // );
+//     // Format encoder values into a message string (in centimeters)
+//     char encoders_msg[50]; snprintf(
+//         encoders_msg, sizeof(encoders_msg),
+//         "EL,%ld,ER,%ld",
+//         (int)(left_encoder_val / MOTOR_POLSOS_PER_CM),
+//         (int)(right_encoder_val / MOTOR_POLSOS_PER_CM)
+//     );
 
-//     // // Send the message only every 12 loops to reduce communication overhead
-//     // loop_counter ++;
-//     // if (loop_counter % 15 == 0) {   
-//     //     sendMessage(encoders_msg);
-//     // }
+//     // Send the message only every 12 loops to reduce communication overhead
+//     loop_counter ++;
+//     if (loop_counter % 15 == 0) {   
+//         sendMessage(encoders_msg);
+//     }
 
 
 //     // === Read message ===
 
 //     std::string message = readMessage().c_str();
-
-
-//     // String msg = "Emergency,1,100";
-//     // std::string message = msg.c_str();
 
 //     // Get each value of the message and assign motors power
 //     if (!message.empty()) {
@@ -324,21 +320,15 @@
 //             if (motor == "Emergency") {
 //                 emergency_button_state = vel;
 //                 if (vel == 1) {
-//                     Serial.println("STOP");
 //                     motor_left(0, 0);
 //                     motor_right(0, 0);
 //                     motor_horizontal_lift(0, 0);
 //                     motor_vertical_lift(0, 0);
 //                     motor_horizontal_lift_t(0, 0);
-//                     emergency_button_state = vel;
-//                 }
-//                 else if (vel == 0) {
-//                     emergency_button_state = vel;
 //                 }
 //             }
 
 //             if (emergency_button_state == 0) {
-//                 Serial.println("CONTINUE");
 //                 if (motor == "M01") {    
 //                     if (vel < 0) { m_horizontal_direction = 1; }   // Negative velocity = backward movement
 //                     m_horizontal_state = true;
