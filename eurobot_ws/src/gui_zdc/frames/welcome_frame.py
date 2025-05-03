@@ -53,16 +53,8 @@ def welcome_frame(canvas):
     # Center the Clock
     canvas.create_text(750, 200, text=time.strftime("%H:%M"), font=numbers_big, fill="White", anchor="center")
 
-    # Show Local Battery (Left Side)
-    canvas.create_image(500, 350, image=battery_photo, anchor="center")
-    canvas.create_text(530, 350, text=f"{get_battery_percentage()} (R)", font=font_1, fill="White", anchor="w")
-    
-    # Show ZDC Battery (Right Side)
-    canvas.create_image(850, 350, image=battery_photo, anchor="center")
-    canvas.create_text(880, 350, text=f"xx% (ZDC)", font=font_1, fill="White", anchor="w")
-
     # Show IP Address (Centered Below Batteries)
     canvas.create_image(650, 470, image=ip_photo, anchor="center")
-    canvas.create_text(680, 470, text=get_local_ip(), font=font_1, fill="White", anchor="w")
+    canvas.create_text(680, 470, text="192.168.0.30", font=font_1, fill="White", anchor="w")
 
     
