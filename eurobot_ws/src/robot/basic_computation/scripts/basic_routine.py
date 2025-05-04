@@ -39,13 +39,14 @@ class BasicRoutineNode(Node):
         *   - action number
         '''
         self.movements_list_ = [
-            ('m', (0.2, 0.0, 30.0)),
-            ('m', (0.0, 0.1, 45.0)),
-            ('m', (0.2, 0.0, 30.0)),
+            # ('m', (0.2, 0.0, 80.0)),
+            # ('m', (0.3, 0.0, 25.0)),
+            # ('m', (0.0, 0.1, 45.0)),
+            # ('m', (0.2, 0.0, 30.0)),
             # ('m', (10.0, 0.0, 50.0)),
             # ('a', 2),
             # ('a', 3),
-            # ('a', 2),
+            ('a', 2),
             # ('a', 3)
         ]
 
@@ -97,7 +98,7 @@ class BasicRoutineNode(Node):
 
                 self.get_logger().info("Action publisher: " + str(action_msg.data))
 
-                self.torete_act_pub_.publish(action_msg)
+                self.insomnious_act_pub.publish(action_msg)
 
             self.movements_list_.pop(0)
             self.end_order_ = False
