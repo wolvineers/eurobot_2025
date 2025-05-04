@@ -209,11 +209,13 @@ int main() {
     Mat board_trans = (Mat_<double>(3,1) << board_tvec.at<double>(0), board_tvec.at<double>(1), board_tvec.at<double>(2));
     Mat camera_pos = -board_rot_t * board_trans;
 
+    cout << "Camera position (mm): X=" << camera_pos.at<double>(0) << ", Y=" << camera_pos.at<double>(1) << ", Z=" << camera_pos.at<double>(2) << endl;
+
 
     // -- ROBOT POSE TRANSFORMATION --
 
     // Read image where is the robot
-    Mat robot_img = imread("/wolvi/src/computing_zone/aruco_detection/assets/playmat_02/photo_5.png");
+    Mat robot_img = imread("/wolvi/src/computing_zone/aruco_detection/assets/playmat_02/photo_2.png");
 
     // Detect arucos codes  
     vector<int> robot_ids;
