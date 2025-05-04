@@ -6,6 +6,7 @@
 // #include <sstream>
 // #include "serial_utils/serial_utils.h"
 // #include "Placa.h"
+// #include <Adafruit_NeoPixel.h>
 
 // // Servos declaration and initialization
 // Servo servos[8];
@@ -22,6 +23,7 @@
 
 // // Emergency button state variable
 // bool emergency_button_state = 0;
+
 
 // void setup()
 // {
@@ -129,8 +131,8 @@
 //                 }
                 
 //                 else if (element_id == "S01") { servos[6].write(value == 0 ? 162 : 100); } // PINCER
-//                 else if (element_id == "S02") { servos[1].write(value == 0 ? 140 : 179); } // LEFT SUCTION GRIPPER
-//                 else if (element_id == "S03") { servos[4].write(value == 0 ? 45 : 10); }   // RIGHT SUCTION GRIPPER
+//                 else if (element_id == "S02") { servos[1].write(value == 0 ? 115 : 165); } // LEFT SUCTION GRIPPER
+//                 else if (element_id == "S03") { servos[4].write(value == 0 ? 75 : 12); }   // RIGHT SUCTION GRIPPER
 //                 else if (element_id == "S04") { servos[0].write(value == 0 ? 70 : 140); }  // LEFT SHOVEL
 //                 else if (element_id == "S05") { servos[2].write(value == 0 ? 120 : 40); }  // RIGHT SHOVEL
 //             }

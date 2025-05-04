@@ -94,7 +94,7 @@
 //         if (dir == 1) { real_speed = 255; }
 //         ledcWrite(ledChannelB, real_speed);
 //         m_vertical_state = false;
-//         end_action_h = 1;
+//         end_action_v = 1;
 //     }
 //     else { 
 //         int real_speed = speed;
@@ -116,16 +116,19 @@
 
 //     if (millis() - m_horizontal_start_time >= m_horizontal_duration) {
 //         // Stop motor
-//         ledcWrite(ledChannelA, 0);
 //         m_horizontal_state = false;
 //         m_horizontal_start_time = 0;
-
-//         // Send end of action message
-//         char end_action[50];
-//         snprintf(end_action, sizeof(end_action),"EA,1");
-//         sendMessage(end_action);
+//         int real_speed = 0;
+//         if (dir == 1) { real_speed = 255; }
+//         ledcWrite(ledChannelA, real_speed);
+    
+       
 //     }
-//     else { ledcWrite(ledChannelA, speed); }
+//     else {
+//         int real_speed = speed;
+//         if (dir == 1) { real_speed = 255 - real_speed; }
+//         ledcWrite(ledChannelA, real_speed); 
+//     }
 // }
 
 // void motor_vertical_lift_t (int speed, bool dir) {
@@ -141,16 +144,24 @@
 
 //     if ( millis() - m_vertical_start_time >= m_vertical_duration ) { 
 //         // Stop motor
-//         ledcWrite(ledChannelB, 0);
+//         int real_speed = 0;
 //         m_vertical_state = false;
 //         m_vertical_start_time = 0;
+//         if (dir == 1) { real_speed = 255; }
+//         ledcWrite(ledChannelB, real_speed);
+
+
 
 //         // Send end of action message
 //         char end_action[50];
 //         snprintf(end_action, sizeof(end_action),"EA,1");
 //         sendMessage(end_action);
 //     }
-//     else { ledcWrite(ledChannelB, speed); }
+//     else { 
+//         int real_speed = speed;
+//         if (dir == 1) { real_speed = 255 - real_speed; }
+//         ledcWrite(ledChannelB, real_speed); 
+//     }
 // }
 
 // void motor_right(int speed, bool dir) {
@@ -299,9 +310,11 @@
 
 //     // === Read message ===
 
-//     std::string message = readMessage().c_str();
-//     // String msg = "M01,-150";
-//     // std::string message = msg.c_str();
+//     String msg = "M01_t,-1000";
+//     std::string message = msg.c_str();
+
+
+//     // std::string message = readMessage().c_str();
 
 //     // Get each value of the message and assign motors power
 //     if (!message.empty()) {
@@ -367,17 +380,18 @@
     
 //                 } else if (motor == "M01_t") {
 //                     if (vel < 0) { m_horizontal_direction = 1; }
+//                     else {m_horizontal_direction = 0;}
     
 //                     m_horizontal_state = true;
-//                     m_horizontal_velocity = 150;
+//                     m_horizontal_velocity = 100;
 //                     m_horizontal_start_time = millis();
-//                     m_horizontal_duration = (unsigned int)vel;
+//                     m_horizontal_duration = (unsigned int)abs(vel);
                     
 //                 } else if (motor == "M02_t") {
 //                     m_vertical_state = true;
-//                     m_vertical_velocity = 150;
+//                     m_vertical_velocity = 100;
 //                     m_vertical_start_time = millis();
-//                     m_vertical_duration = (unsigned int)vel;
+//                     m_vertical_duration = (unsigned int)abs(vel);
     
 //                     if (vel < 0) { 
 //                         m_vertical_direction = 1; 
@@ -398,8 +412,8 @@
 //             }
 
 //         }
-//         if (!is_action_h) {end_action_h = 1;}
-//         else if (!is_action_v) {end_action_v = 1;}
+//         if (!is_action_h && end_action_v) {end_action_h = 1;}
+//         if (!is_action_v && end_action_h) {end_action_v = 1;}
 //     }
 
 
@@ -411,8 +425,8 @@
 //     if (m_vertical_state && m_vertical_start_time == 0)      { motor_vertical_lift(m_vertical_velocity, m_vertical_direction); }
 //     else if (m_vertical_state && m_vertical_start_time != 0) { motor_vertical_lift_t(m_vertical_velocity, m_vertical_direction); }
 
-//     if (end_action_h && end_action_v == 1) {
-//         delay(20);
+
+//     if (end_action_h == 1 && end_action_v == 1) {
 //         end_action_h = end_action_v = 0;
 //         is_action_h = is_action_v = 0;
 //         char end_action[50];
