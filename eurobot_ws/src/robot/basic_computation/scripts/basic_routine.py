@@ -24,7 +24,7 @@ class BasicRoutineNode(Node):
         super().__init__('basic_routine')
 
         # Attributes
-        self.timer_period_ = 1
+        self.timer_period_ = 0.1
         self.end_order_    = True
         self.encoder_left_ = 0
 
