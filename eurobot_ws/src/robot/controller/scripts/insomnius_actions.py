@@ -19,7 +19,7 @@ def handle_action(order, action):
         * - position:
         *   - 0: closed position
         *   - 1: open position
-        *  
+        *   
         * - velocity:
         *   - >0: forward
         *   - <0: backward
@@ -35,17 +35,17 @@ def handle_action(order, action):
 
         if action == 1:
             action_msg.servos_names = ["S01", "S02", "S03", "S04", "S05"]
-            action_msg.motors_names = ["M01", "M02"]
+            action_msg.motors_names = ["M01"]
 
             action_msg.position = [0, 0, 0, 1, 1]
-            action_msg.velocity = [150.0, -10.0]
+            action_msg.velocity = [-200.0]
             action_msg.activate = 0
         
         elif action == 2:
-            action_msg.servos_names = ["S01"]
+            action_msg.servos_names = ["S05"]   
 
-            action_msg.position = [1]
-            action_msg.activate = 0
+            action_msg.position = [0]
+            action_msg.activate = 0 
 
     elif order == 3:
 
@@ -102,7 +102,7 @@ def handle_action(order, action):
         elif action == 6:
             action_msg.servos_names = ["S01"]
 
-            action_msg.position = [1]
+            action_msg.position = [0]
             action_msg.activate = 0
 
     return action_msg

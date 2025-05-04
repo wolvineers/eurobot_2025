@@ -45,6 +45,11 @@
 // // Emergency Button state variable
 // bool emergency_button_state = 0;
 
+// // End action state variables
+// bool end_action_v = false;
+// bool end_action_h = false;
+// bool is_action_v = false;
+// bool is_action_h = false;
 
 // void motor_horizontal_lift(int speed, bool dir) {
 //     /*
@@ -59,15 +64,17 @@
 
 //     if ( (dir == 0 && !ls_horizontal_outside) || (dir == 1 && !ls_horizontal_inside) ) {
 //         // Stop motor
-//         ledcWrite(ledChannelA, 0);
+//         int real_speed = 0;
+//         if (dir == 1) { real_speed = 255; }
+//         ledcWrite(ledChannelA, real_speed);
 //         m_horizontal_state = false;
-
-//         // Send end of action message
-//         char end_action[50];
-//         snprintf(end_action, sizeof(end_action),"EA,1");
-//         sendMessage(end_action);
+//         end_action_h = 1;
 //     }
-//     else { ledcWrite(ledChannelA, speed); }
+//     else {
+//         int real_speed = speed;
+//         if (dir == 1) { real_speed = 255 - real_speed; }
+//         ledcWrite(ledChannelA, real_speed); 
+//     }
 // }
 
 // void motor_vertical_lift(int speed, bool dir){
@@ -76,22 +83,24 @@
 
 //       Arguments:
 //         speed (int): PWM value to control the motor speed (0-255).
-//         dir (bool): Direction of rotation: true (1) = down; false (0) = up.
+//         dir (bool): Direction of rotation: true (1) = up; false (0) = down.
 //     */
    
 //     digitalWrite(GPIO_INB1, dir);
 
-//     if ( (dir == 0 && !ls_vertical_top) || (dir == 1 && !ls_vertical_bottom) ) { 
+//     if ( (dir == 1 && !ls_vertical_top) || (dir == 0 && !ls_vertical_bottom) ) { 
 //         // Stop motor
-//         ledcWrite(ledChannelB, 0);
+//         int real_speed = 0;
+//         if (dir == 1) { real_speed = 255; }
+//         ledcWrite(ledChannelB, real_speed);
 //         m_vertical_state = false;
-
-//         // Send end of action message
-//         char end_action[50];
-//         snprintf(end_action, sizeof(end_action),"EA,1");
-//         sendMessage(end_action);
+//         end_action_h = 1;
 //     }
-//     else { ledcWrite(ledChannelB, speed); }
+//     else { 
+//         int real_speed = speed;
+//         if (dir == 1) { real_speed = 255 - real_speed; }
+//         ledcWrite(ledChannelB, real_speed); 
+//     }
 // }
 
 // void motor_horizontal_lift_t (int speed, bool dir) {
@@ -291,6 +300,8 @@
 //     // === Read message ===
 
 //     std::string message = readMessage().c_str();
+//     // String msg = "M01,-150";
+//     // std::string message = msg.c_str();
 
 //     // Get each value of the message and assign motors power
 //     if (!message.empty()) {
@@ -329,10 +340,12 @@
 //             }
 
 //             if (emergency_button_state == 0) {
-//                 if (motor == "M01") {    
+//                 if (motor == "M01") {
+//                     is_action_h = 1;    
 //                     if (vel < 0) { m_horizontal_direction = 1; }   // Negative velocity = backward movement
+//                     else { m_horizontal_direction = 0; }
 //                     m_horizontal_state = true;
-//                     m_horizontal_velocity = (int)vel;
+//                     m_horizontal_velocity = abs((int)vel);
     
 //                     // motor_horizontal_lift(int(vel), dir);
     
@@ -340,9 +353,12 @@
 //                     // sendMessage(end_action);
     
 //                 } else if (motor == "M02") {
-//                     if (vel < 0) { m_vertical_direction = 1; }   // Negative velocity = down movement
+//                     is_action_v = 1;
+//                     if (vel < 0) { m_vertical_direction = 0;}   // Negative velocity = down movement
+//                     else { m_vertical_direction = 1; }
 //                     m_vertical_state = true;
-//                     m_vertical_velocity = (int)vel;
+//                     m_vertical_start_time = 0;
+//                     m_vertical_velocity = abs((int)vel);
                     
 //                     // motor_vertical_lift(int(vel), dir);
     
@@ -382,6 +398,8 @@
 //             }
 
 //         }
+//         if (!is_action_h) {end_action_h = 1;}
+//         else if (!is_action_v) {end_action_v = 1;}
 //     }
 
 
@@ -390,8 +408,19 @@
 //     if (m_horizontal_state && m_horizontal_start_time == 0)      { motor_horizontal_lift(m_horizontal_velocity, m_horizontal_direction); }
 //     else if (m_horizontal_state && m_horizontal_start_time != 0) { motor_horizontal_lift_t(m_horizontal_velocity, m_horizontal_direction); }
 
-//     if (m_vertical_state && m_vertical_start_time == 0)      { motor_vertical_lift(m_vertical_velocity, m_vertical_state); }
-//     else if (m_vertical_state && m_vertical_start_time != 0) { motor_vertical_lift_t(m_vertical_velocity, m_vertical_state); }
+//     if (m_vertical_state && m_vertical_start_time == 0)      { motor_vertical_lift(m_vertical_velocity, m_vertical_direction); }
+//     else if (m_vertical_state && m_vertical_start_time != 0) { motor_vertical_lift_t(m_vertical_velocity, m_vertical_direction); }
+
+//     if (end_action_h && end_action_v == 1) {
+//         delay(20);
+//         end_action_h = end_action_v = 0;
+//         is_action_h = is_action_v = 0;
+//         char end_action[50];
+//         snprintf(end_action, sizeof(end_action),"EA,1");
+//         sendMessage(end_action);
+//     }
+
+
 
 //     delay(20); // Receive 100 messages per second
 // }
