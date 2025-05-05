@@ -3,7 +3,7 @@
 
 // Definicions físiques
 // Rodes
-#define DIAMETRE_RODES_MM       65.0
+#define DIAMETRE_RODES_MM       96.0
 #define PERIMETRE_RODES_CM      (DIAMETRE_RODES_MM/10.0*3.14159265358979323846)
 // Motors
 //Configuration for 350RP 12V Motors
