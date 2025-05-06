@@ -1,4 +1,4 @@
-// #include <Arduino.h>
+// // #include <Arduino.h>
 // #include "Placa.h"
 // #include "serial_utils/serial_utils.h"
 // #include "pid/ESP32PIDMotor.hpp"
@@ -121,8 +121,8 @@
 //         int real_speed = 0;
 //         if (dir == 1) { real_speed = 255; }
 //         ledcWrite(ledChannelA, real_speed);
-    
-       
+
+//         end_action_h = 1;
 //     }
 //     else {
 //         int real_speed = speed;
@@ -137,7 +137,7 @@
 
 //       Arguments:
 //         speed (int): PWM value to control the motor speed (0-255).
-//         dir (bool): Direction of rotation: true (1) = down; false (0) = up.
+//         dir (bool): Direction of rotation: true (0) = down; false (1) = up.
 //     */
    
 //     digitalWrite(GPIO_INB1, dir);
@@ -150,12 +150,7 @@
 //         if (dir == 1) { real_speed = 255; }
 //         ledcWrite(ledChannelB, real_speed);
 
-
-
-//         // Send end of action message
-//         char end_action[50];
-//         snprintf(end_action, sizeof(end_action),"EA,1");
-//         sendMessage(end_action);
+//         end_action_v = 1;
 //     }
 //     else { 
 //         int real_speed = speed;
@@ -310,11 +305,7 @@
 
 //     // === Read message ===
 
-//     String msg = "M01_t,-1000";
-//     std::string message = msg.c_str();
-
-
-//     // std::string message = readMessage().c_str();
+//     std::string message = readMessage().c_str();
 
 //     // Get each value of the message and assign motors power
 //     if (!message.empty()) {
@@ -381,21 +372,27 @@
 //                 } else if (motor == "M01_t") {
 //                     if (vel < 0) { m_horizontal_direction = 1; }
 //                     else {m_horizontal_direction = 0;}
+
+//                     is_action_h = 1; 
     
 //                     m_horizontal_state = true;
-//                     m_horizontal_velocity = 100;
+//                     m_horizontal_velocity = 200;
 //                     m_horizontal_start_time = millis();
 //                     m_horizontal_duration = (unsigned int)abs(vel);
                     
 //                 } else if (motor == "M02_t") {
+//                     is_action_v = 1;
+
 //                     m_vertical_state = true;
-//                     m_vertical_velocity = 100;
 //                     m_vertical_start_time = millis();
 //                     m_vertical_duration = (unsigned int)abs(vel);
-    
-//                     if (vel < 0) { 
+
+//                     if (vel < 0) {  
+//                         m_vertical_direction = 0; 
+//                         m_vertical_velocity = 200;
+//                     } else {
 //                         m_vertical_direction = 1; 
-//                         m_vertical_velocity = 10;
+//                         m_vertical_velocity = 250;
 //                     }
     
 //                 } else if (motor == "ML") {
