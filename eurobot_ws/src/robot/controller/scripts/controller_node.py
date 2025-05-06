@@ -82,9 +82,9 @@ class ControllerNode(Node):
 
 
         # Timers
-        # self.controller_striaght_tim_ = self.create_timer(self.timer_period_, self.control_velocities_straight)
+        self.controller_striaght_tim_ = self.create_timer(self.timer_period_, self.control_velocities_straight)
         self.controller_turn_tim_     = self.create_timer(self.timer_period_, self.control_velocities_turn)
-        # self.controller_time_tim_     = self.create_timer(self.timer_period_, self.control_velocities_tim)
+        self.controller_time_tim_     = self.create_timer(self.timer_period_, self.control_velocities_tim)
 
         self.action_tim_t_   = self.create_timer(1.0, self.control_actuators_t)
         self.action_tim_i_   = self.create_timer(1.0, self.control_actuators_i)
@@ -352,6 +352,8 @@ class ControllerNode(Node):
             now = self.get_clock().now()
             elapsed_time = (now - self.start_time_).nanoseconds * 1e-9
 
+            self.get_logger().info("DINS")
+
             if elapsed_time < self.time_mov_:
                 vel_left, vel_right = self.robot.get_motor_velocities(self.linear_vel_ * self.direction_, 0.0)
 
@@ -418,13 +420,11 @@ class ControllerNode(Node):
 
             remaining_angle = abs(self.imu_ - self.angle_goal_)
 
-            if remaining_angle >= (self.angle_goal_ - 10.0):
+            if remaining_angle > 30.0:
                 vel_left, vel_right = self.robot.get_motor_velocities(0.0, self.angular_vel_ * self.direction_)
-                self.get_logger().info("RAPID")
 
             elif remaining_angle > 5:
                 vel_left, vel_right = self.robot.get_motor_velocities(0.0, 0.25 * self.direction_)
-                self.get_logger().info("LENT")
 
             else:
                 self.get_logger().info("Parant")
@@ -439,7 +439,7 @@ class ControllerNode(Node):
                 end_action.data = True
                 self.end_order_pub_.publish(end_action) 
         
-        if self.angle_goal_ != 0 and self.linear_vel_ == 0.0 and self.time_mov_ == 0.0:
+        if self.linear_vel_ == 0.0 and self.time_mov_ == 0.0:
             # Publish the message with each motor power
             motor_vel_msg = Twist()
 
