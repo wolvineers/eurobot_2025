@@ -1,1 +1,1 @@
-/wolvi/install/robot_01:/opt/ros/humble
+/wolvi/install/tests:/wolvi/install/safety:/wolvi/install/controller:/wolvi/install/utils:/wolvi/install/startup:/wolvi/install/rplidar_ros:/wolvi/install/robot_01:/wolvi/install/msgs:/wolvi/install/lidar:/wolvi/install/launch_file:/wolvi/install/control:/wolvi/install/computation_zone:/wolvi/install/basic_computation:/opt/ros/humble
