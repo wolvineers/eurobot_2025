@@ -346,6 +346,8 @@ class ControllerNode(Node):
         vel_left = 0
         vel_right = 0
 
+        self.get_logger().info("time mov: " + str(self.time_mov_))
+
         if self.time_mov_ != 0 and self.opponent_detected and self.distance_ == 0.0 and self.angular_vel_ == 0.0:
             
             # Convert time in seconds
