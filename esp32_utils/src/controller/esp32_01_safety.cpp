@@ -5,7 +5,7 @@
 // #include <vector>
 // #include <sstream>
 
-// #define MAX_RPM 300
+// #define MAX_RPM 350
 // #define MAX_PWM 255
 
 // ESP32Encoder encoderC;
