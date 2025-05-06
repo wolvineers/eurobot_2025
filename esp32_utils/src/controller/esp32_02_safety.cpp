@@ -152,20 +152,5 @@
 //         sendMessage(end_action);
 //     }
 
-//     if (!state){
-//         Serial.println("DINS");
-//         state=true;
-
-//         while (i2c_busy);  // Espera que el bus estigui lliure
-//         i2c_busy = true;
-//         Wire.beginTransmission(0x20);
-//         Wire.write(1);
-
-//         Wire.write(0b00000000);
-//         Wire.endTransmission();
-
-//         i2c_busy = false;
-//     }
-
 //     delay(20);
 // }
