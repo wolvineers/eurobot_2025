@@ -20,6 +20,7 @@
 
 // // IMU timer
 // long timer = 0;
+// volatile bool i2c_busy = false;
 
 // // Emergency button state variable
 // bool emergency_button_state = 0;
@@ -57,6 +58,8 @@
 //     mpu.calcOffsets(true,true);
     
 // }
+
+// bool state = false;
  
 // void loop()
 // {
@@ -64,7 +67,7 @@
 //     // === Send IMU message ===
 
 //     //Update IMU data
-//     mpu.update();
+//     if (!i2c_busy) { i2c_busy = true; mpu.update(); i2c_busy = false; }
 
 //     // Get angle Z
 //     float angle_z  = mpu.getAngleZ();
@@ -121,6 +124,9 @@
 //             if (emergency_button_state == 0) {
                 
 //                 if (element_id == "AP") {
+//                     while (i2c_busy);  // Espera que el bus estigui lliure
+//                     i2c_busy = true;
+
 //                     Wire.beginTransmission(0x20);
 //                     Wire.write(1);
     
@@ -128,18 +134,37 @@
 //                     else { Wire.write(0b00000000); } // Turn all outputs OFF.
     
 //                     Wire.endTransmission();
+
+//                     i2c_busy = false;
 //                 }
                 
 //                 else if (element_id == "S01") { servos[6].write(value == 0 ? 162 : 100); } // PINCER
-//                 else if (element_id == "S02") { servos[1].write(value == 0 ? 115 : 165); } // LEFT SUCTION GRIPPER
-//                 else if (element_id == "S03") { servos[4].write(value == 0 ? 75 : 12); }   // RIGHT SUCTION GRIPPER
+//                 else if (element_id == "S02") { servos[1].write(value == 0 ? 130 : 165); } // LEFT SUCTION GRIPPER
+//                 else if (element_id == "S03") { servos[4].write(value == 0 ? 45 : 12); }   // RIGHT SUCTION GRIPPER
 //                 else if (element_id == "S04") { servos[0].write(value == 0 ? 70 : 140); }  // LEFT SHOVEL
 //                 else if (element_id == "S05") { servos[2].write(value == 0 ? 120 : 40); }  // RIGHT SHOVEL
 //             }
 //             }
 
+        
+
 //         snprintf(end_action, sizeof(end_action),"EA,1");
 //         sendMessage(end_action);
+//     }
+
+//     if (!state){
+//         Serial.println("DINS");
+//         state=true;
+
+//         while (i2c_busy);  // Espera que el bus estigui lliure
+//         i2c_busy = true;
+//         Wire.beginTransmission(0x20);
+//         Wire.write(1);
+
+//         Wire.write(0b00000000);
+//         Wire.endTransmission();
+
+//         i2c_busy = false;
 //     }
 
 //     delay(20);
