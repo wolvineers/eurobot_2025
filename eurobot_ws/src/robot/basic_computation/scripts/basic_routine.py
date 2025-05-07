@@ -40,13 +40,18 @@ class BasicRoutineNode(Node):
         *   - angular_velocity              --> always 0.0
         *   - movement_time                 --> depending of the movement type
         *
+        * Tuple key = t:
+        *   - left_motor_vel                --> from 0.0 to 1.0
+        *   - right_motor_vel               --> from 0.0 to 1.0
+        *   - movement_distance             --> depending of the movement type
+        *
         * Tuple key = a:
         *   - action number
         '''
         self.movements_list_ = [
-            # ('m', (0.3, 0.0, 120.0)),
+            ('m', (0.0, 0.4, 10.0)),
             # ('m', (0.3, 0.0, 25.0)),
-            ('m', (0.0, 0.4, 90.0)),
+            # ('m', (0.0, 0.4, 90.0)),
             # ('m', (0.2, 0.0, 30.0)),
             # ('m', (10.0, 0.0, 50.0)),
             # ('a', 1),
@@ -56,10 +61,11 @@ class BasicRoutineNode(Node):
         ]
 
         # Publishers
-        self.robot_mov_pub_     = self.create_publisher(Vector3, '/movement', 10)
-        self.robot_mov_tim_pub_ = self.create_publisher(Vector3, '/movement_tim', 10)
-        self.torete_act_pub_    = self.create_publisher(Int32, '/t_action', 10)
-        self.insomnious_act_pub = self.create_publisher(Int32, '/i_action', 10)
+        self.robot_mov_str_pub_  = self.create_publisher(Vector3, '/movement/straight', 10)
+        self.robot_mov_tim_pub_  = self.create_publisher(Vector3, '/movement/time', 10)
+        self.robot_mov_turn_pub_ = self.create_publisher(Vector3, '/movement/turn', 10)
+        self.torete_act_pub_     = self.create_publisher(Int32, '/t_action', 10)
+        self.insomnious_act_pub  = self.create_publisher(Int32, '/i_action', 10)
 
         # Subscribers
         self.end_order_sub_    = self.create_subscription(Bool, '/controller/end_order', self.end_order_callback, 10)
@@ -95,7 +101,7 @@ class BasicRoutineNode(Node):
 
                 self.get_logger().info("Movement publisher (x, y, z): (" + str(movement_msg.x) + ", " + str(movement_msg.y) + ", " + str(movement_msg.z) + ")")
                 
-                self.robot_mov_pub_.publish(movement_msg)
+                self.robot_mov_str_pub_.publish(movement_msg)
 
             elif self.movements_list_[0][0] == 'm_t':
                 movement_msg = Vector3()
@@ -107,6 +113,17 @@ class BasicRoutineNode(Node):
                 self.get_logger().info("Movement time publisher (x, y, z): (" + str(movement_msg.x) + ", " + str(movement_msg.y) + ", " + str(movement_msg.z) + ")")
                 
                 self.robot_mov_tim_pub_.publish(movement_msg)
+
+            elif self.movements_list_[0][0] == 't':
+                movement_msg = Vector3()
+
+                movement_msg.x = self.movements_list_[0][1][0]
+                movement_msg.y = self.movements_list_[0][1][1]
+                movement_msg.z = self.movements_list_[0][1][2]
+
+                self.get_logger().info("Movement time publisher (x, y, z): (" + str(movement_msg.x) + ", " + str(movement_msg.y) + ", " + str(movement_msg.z) + ")")
+                
+                self.robot_mov_turn_pub_.publish(movement_msg)
 
             elif self.movements_list_[0][0] == 'a':
                 action_msg = Int32()
