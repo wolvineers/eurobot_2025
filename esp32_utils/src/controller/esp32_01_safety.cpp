@@ -376,7 +376,7 @@
 //                     is_action_h = 1; 
     
 //                     m_horizontal_state = true;
-//                     m_horizontal_velocity = 150;
+//                     m_horizontal_velocity = 200;
 //                     m_horizontal_start_time = millis();
 //                     m_horizontal_duration = (unsigned int)abs(vel);
                     
@@ -389,7 +389,7 @@
 
 //                     if (vel < 0) {  
 //                         m_vertical_direction = 0; 
-//                         m_vertical_velocity = 100;
+//                         m_vertical_velocity = 200;
 //                     } else {
 //                         m_vertical_direction = 1; 
 //                         m_vertical_velocity = 250;
