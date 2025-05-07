@@ -93,7 +93,7 @@
 
 // void motor_horizontal_lift_t (int speed, bool dir) {
 //     /*
-//       Controls the horizontal lift motor during the decided time and send the end action message when finish.
+//       Controls the horizontal lift motor during the desired time and send the end action message when finish.
 
 //       Arguments:
 //         speed (int): PWM value to control the motor speed (0-255).
@@ -118,7 +118,7 @@
 
 // void motor_vertical_lift_t (int speed, bool dir) {
 //     /*
-//       Controls the vertical lift motor during the decided time and send the end action message when finish.
+//       Controls the vertical lift motor during the desired time and send the end action message when finish.
 
 //       Arguments:
 //         speed (int): PWM value to control the motor speed (0-255).
@@ -127,7 +127,7 @@
    
 //     digitalWrite(GPIO_INB1, dir);
 
-//     if ( millis() - m_vertical_start_time >= m_vertical_duration ) { 
+//     if (millis() - m_vertical_start_time >= m_vertical_duration) { 
 //         // Stop motor
 //         ledcWrite(ledChannelB, 0);
 //         m_vertical_state = false;
@@ -278,13 +278,11 @@
 //         (int)(right_encoder_val / MOTOR_POLSOS_PER_CM)
 //     );
 
-//     // Send the message only every 12 loops to reduce communication overhead
+//     // Send the message only every 15 loops to reduce communication overhead
 //     loop_counter ++;
 //     if (loop_counter % 15 == 0) {   
 //         sendMessage(encoders_msg);
 //     }
-
-//     motor_left(150,1);
 
 
 //     // === Read message ===
@@ -321,20 +319,10 @@
 //                 m_horizontal_state = true;
 //                 m_horizontal_velocity = (int)vel;
 
-//                 // motor_horizontal_lift(int(vel), dir);
-
-//                 // snprintf(encoders_msg, sizeof(end_action),"EA,1");
-//                 // sendMessage(end_action);
-
 //             } else if (motor == "M02") {
 //                 if (vel < 0) { m_vertical_direction = 1; }   // Negative velocity = down movement
 //                 m_vertical_state = true;
 //                 m_vertical_velocity = (int)vel;
-                
-//                 // motor_vertical_lift(int(vel), dir);
-
-//                 // snprintf(encoders_msg, sizeof(end_action),"EA,1");
-//                 // sendMessage(end_action);
 
 //             } else if (motor == "M01_t") {
 //                 if (vel < 0) { m_horizontal_direction = 1; }
