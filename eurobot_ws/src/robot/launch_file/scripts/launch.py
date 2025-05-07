@@ -86,9 +86,9 @@ def generate_launch_description():
             period=1.0,
             actions=[
                 launch_ros.actions.Node(
-                    package='emergency_button',
-                    executable='emergency_button',
-                    name='emergency_button',
+                    package='safety',
+                    executable='safety_node.py',
+                    name='safety_node',
                     output='screen'
                 )
             ]

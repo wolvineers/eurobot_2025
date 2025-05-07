@@ -43,8 +43,8 @@ class ControllerNode(Node):
 
         self.dist_accel_    = 7.0
         self.dist_desaccel_ = 10.0
-        self.init_vel_      = 0.2
-        self.final_vel_     = 0.1
+        self.init_vel_      = 0.3
+        self.final_vel_     = 0.25
         self.linear_vel_    = 0.0
         self.angular_vel_   = 0.0
         self.distance_      = 0.0
@@ -346,7 +346,6 @@ class ControllerNode(Node):
         vel_left = 0
         vel_right = 0
 
-        self.get_logger().info("time mov: " + str(self.time_mov_))
 
         if self.time_mov_ != 0 and self.opponent_detected and self.distance_ == 0.0 and self.angular_vel_ == 0.0:
             

@@ -308,7 +308,7 @@
 //     std::string message = readMessage().c_str();
 
 //     // Get each value of the message and assign motors power
-//     if (!message.empty()) {
+//     if (!message.empty() && verifyChecksum(message.c_str())) {
 //         std::vector<std::string> message_parts;
 //         std::stringstream ss(message);
 //         std::string item;
