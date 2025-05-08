@@ -145,14 +145,14 @@
 //                 else if (element_id == "S02") { servos[1].write(value == 0 ? 130 : 165); } // LEFT SUCTION GRIPPER
 //                 else if (element_id == "S03") { servos[4].write(value == 0 ? 45 : 12); }   // RIGHT SUCTION GRIPPER
 //                 else if (element_id == "S04") { 
-//                     if value == 0 servos[0].write(70); 
-//                     if value == 1 servos[0].write(140); 
-//                     if value == 1 servos[0].write(50); 
+//                     if (value == 0) servos[0].write(70); 
+//                     if (value == 1) servos[0].write(140); 
+//                     if (value == 2) servos[0].write(50); 
 //                 }  // LEFT SHOVEL
 //                 else if (element_id == "S05") { 
-//                     if value == 0 servos[0].write(120); 
-//                     if value == 1 servos[0].write(40); 
-//                     if value == 1 servos[0].write(140);
+//                     if (value == 0) servos[2].write(120); 
+//                     if (value == 1) servos[2].write(40); 
+//                     if (value == 2) servos[2].write(140);
 //                 }  // RIGHT SHOVEL
 //             }
 //             }

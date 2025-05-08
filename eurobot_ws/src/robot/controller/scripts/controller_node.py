@@ -54,6 +54,7 @@ class ControllerNode(Node):
 
         self.left_vel_      = 0.0
         self.right_vel_     = 0.0
+        self.angle_goal_    = 0.0
         
         self.direction_     = 1
         self.const_corretion_ = 0.02
