@@ -20,12 +20,17 @@ def camera_1_frame(canvas, width=460, height=380):
     Args:
         (canvas): Variable that set the shape of the window
     """
-    global cap, update_running, frame_photo, camera_open, button, back_photo
-    from frames.main_frame import switch_frame
+    global cap, update_running, frame_photo, camera_open, button_photo, back_photo, background_photo,
+    canvas.image_cache = {}
+    from frames.main_frame import switch_frame, window
+
+    #Set the shape of the window
+    screen_width = window.winfo_screenwidth()
+    screen_height = window.winfo_screenheight()
     font_2 = tkFont.Font(family="Courier", size=20)
 
     #Get data to resize frame.png
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture('/dev/video2')
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 
@@ -42,6 +47,11 @@ def camera_1_frame(canvas, width=460, height=380):
     button_image = button_image.resize((300, 60), Image.LANCZOS)
     button_photo = ImageTk.PhotoImage(button_image)
 
+    background_path = os.path.join(current_directory, "../img/background.jpg")
+    background_image = Image.open(background_path)
+    background_image = background_image.resize((int(screen_width), int(screen_height)), Image.LANCZOS)
+    background_photo = ImageTk.PhotoImage(background_image)
+
     frame_path = os.path.join(current_directory, "../img/frame.png")
     frame_image = Image.open(frame_path)
     frame_image = frame_image.resize((int(_imgBaseSize*_imgRatio), _imgBaseSize), Image.LANCZOS)
@@ -52,7 +62,9 @@ def camera_1_frame(canvas, width=460, height=380):
     back_image = back_image.resize((48, 48), Image.LANCZOS)
     back_photo = ImageTk.PhotoImage(back_image)
 
-    img_back = canvas.create_image(425, 50, image=back_photo, anchor="nw")
+    canvas.create_image(0, 0, image=background_photo, anchor="nw")
+    
+    img_back = canvas.create_image(24, 24, image=back_photo, anchor="nw")
     canvas.tag_bind(img_back, "<Button-1>", lambda e: switch_frame(welcome_frame))
 
     canvas.create_image(465, 75, image=frame_photo, anchor="nw")
