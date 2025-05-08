@@ -13,6 +13,7 @@ from frames.camera_1_frame import camera_1_frame, camera_open_1, close_camera_1
 from frames.camera_2_frame import camera_2_frame, camera_open_2, close_camera_2
 from frames.control_zone_frame import control_zone_frame
 from frames.cameras_frame import cameras_frame, camera_open, close_camera
+from frames.homologation_frame import homologation_frame
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
 
