@@ -48,8 +48,8 @@ def net_status_frame(canvas):
     # Devices & Hosts to test
     devices = [
         ("SIMA STATUS", ["google.com", "google.com", "google.com", "google.com"]),
-        ("Robot STATUS", ["google.com"]),
-        ("ZdC STATUS", ["google.com"])
+        ("Robot STATUS", ["192.168.0.10", "192.168.0.20"]),
+        ("ZdC STATUS", ["192.168.0.30"])
     ]
 
     total_hosts = 0

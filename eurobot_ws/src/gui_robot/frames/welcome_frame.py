@@ -92,12 +92,8 @@ def welcome_frame(canvas):
     canvas.image_cache["ip"] = ip_photo
 
     canvas.create_text(750, 200, text=time.strftime("%H:%M"), font=numbers_big, fill="White", anchor="center")
-    canvas.create_image(500, 350, image=battery_photo, anchor="center")
-    canvas.create_text(530, 350, text=f"{get_battery_percentage()} (R)", font=font_1, fill="White", anchor="w")
-    canvas.create_image(850, 350, image=battery_photo, anchor="center")
-    canvas.create_text(880, 350, text="xx% (ZDC)", font=font_1, fill="White", anchor="w")
     canvas.create_image(620, 425, image=ip_photo, anchor="center")
-    canvas.create_text(650, 425, text=get_local_ip(), font=font_1, fill="White", anchor="w")
+    canvas.create_text(650, 425, text="192.168.0.10/20", font=font_1, fill="White", anchor="w")
 
     options = ["Insomnious", "Torete"]
     selected_value = load_selector_value()
