@@ -38,20 +38,21 @@ class BasicRoutineNode(Node):
         * Tuple key = a:
         *   - action number
         '''
-        self.movements_list_ = [
-            ('m', (0.3, 0.0, 50.0)),
-            ('m', (0.0, 0.15, 90.0)),
-            ('m', (0.3, 0.0, 30.0)),
-            ('m', (0.0, 0.15,180.0)),
-            ('m', (0.3, 0.0, 50.0)),
-            ('m', (0.0, 0.15, 270.0)),
-            ('m', (0.3, 0.0, 30.0)),             
-            # ('m', (10.0, 0.0, 50.0)),
-            # ('a', 2),
-            # ('a', 3),
-            # ('a', 2),
-            # ('a', 3)
+
+        self.movements_list_ = []
+
+        self.routines_list_ = [
+            "routine1.txt",
+            "routine2.txt",
+            "routine3.txt",
+            "routine4.txt",
+            "routine5.txt",
+            "routine6.txt",
+            "routine7.txt",
+            "routine8.txt"
         ]
+
+        self.read_movement()
 
         # Publishers
         self.robot_mov_pub_     = self.create_publisher(Vector3, '/movement', 10)
@@ -74,6 +75,15 @@ class BasicRoutineNode(Node):
         """
         
         self.end_order_ = end_order.data
+
+
+    def read_movement(self):
+        with open(f'src/routines/{self.routines_list_[0]}', 'r') as routine:
+            for line in routine:
+                line = line.strip(',')
+                self.movements_list_.append(line)
+                self.get_logger().info(line)
+
 
 
     def add_movement(self):

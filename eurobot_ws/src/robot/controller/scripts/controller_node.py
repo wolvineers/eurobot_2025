@@ -60,6 +60,7 @@ class ControllerNode(Node):
 
         self.imu_ = 0.0
 
+        
         self.start_time = time.time()
 
         self.real_time = datetime.now(zoneinfo.ZoneInfo("Europe/Madrid")).strftime("%H:%M:%S")
