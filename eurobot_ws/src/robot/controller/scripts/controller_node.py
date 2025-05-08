@@ -8,6 +8,9 @@ from geometry_msgs.msg import Vector3, Twist
 from differential_drive import DifferentialWheel
 from msgs.msg import JointActionPoint
 from robot.controller.scripts.insomnius_actions import handle_action
+from datetime import datetime
+import zoneinfo  
+import os
 
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
@@ -59,9 +62,15 @@ class ControllerNode(Node):
 
         self.start_time = time.time()
 
+        self.real_time = datetime.now(zoneinfo.ZoneInfo("Europe/Madrid")).strftime("%H:%M:%S")
+
+        self.folder = f'/wolvi/src/robot/controller/csv_data/competicio_{self.real_time}'
+
+        os.makedirs(self.folder, exist_ok=True)
+
         # Open files and write the header
-        self.odometry_file = open('/wolvi/src/robot/controller/csv_data/odometry.csv', 'w', newline='')
-        self.imu_file = open('/wolvi/src/robot/controller/csv_data/imu.csv', 'w', newline='')
+        self.odometry_file = open(f'{self.folder}/odometry.csv', 'w', newline='')
+        self.imu_file = open(f'{self.folder}/imu.csv', 'w', newline='')
 
         self.odom_writer = csv.writer(self.odometry_file)
         self.imu_writer = csv.writer(self.imu_file)
