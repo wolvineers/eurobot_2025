@@ -90,11 +90,10 @@ class BasicRoutineNode(Node):
 
 
     def read_movement(self):
-        with open(f'src/routines/{self.routines_list_[0]}', 'r') as routine:
+        with open(f'src/routines/{self.routines_list_[2]}', 'r') as routine:
             for line in routine:
                 line = line.strip(',')
                 self.movements_list_.append(line)
-                self.get_logger().info(line)
 
 
 
