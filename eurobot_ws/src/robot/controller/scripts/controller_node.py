@@ -11,9 +11,9 @@ from robot.controller.scripts.insomnius_actions import handle_action
 
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
+# import matplotlib
+# matplotlib.use('Agg')
+# import matplotlib.pyplot as plt
 
 
 ## *************************
@@ -84,7 +84,7 @@ class ControllerNode(Node):
         self.end_action_02_sub_ = self.create_subscription(Bool, '/controller/end_action_02', self.end_action_02_callback, 10)
         self.imu_sub_           = self.create_subscription(Float32, "/controller/imu", self.imu_callback, 10)
 
-        self.plot_traj_sub_ = self.create_subscription(Bool, '/plot_traj', self.plot_trajectory, 10)
+        # self.plot_traj_sub_ = self.create_subscription(Bool, '/plot_traj', self.plot_trajectory, 10)
 
 
         # Timers
@@ -481,25 +481,25 @@ class ControllerNode(Node):
             self.trajectory_y_.append(y)
   
     
-    def plot_trajectory(self, msg):
-        """
-        Generates the robot trajectory when the subscriber receives a message.
+    # def plot_trajectory(self, msg):
+    #     """
+    #     Generates the robot trajectory when the subscriber receives a message.
 
-        Args:
-            msg (Bool): The message received by the subscriber.
-        """
+    #     Args:
+    #         msg (Bool): The message received by the subscriber.
+    #     """
 
-        self.get_logger().info("Plotting trajectory... " + str(msg.data))
+    #     self.get_logger().info("Plotting trajectory... " + str(msg.data))
 
-        plt.plot(self.trajectory_x_, self.trajectory_y_)
-        plt.xlabel("X (m)")
-        plt.ylabel("Y (m)")
-        plt.title("Trajectòria ROS 2")
-        plt.grid(True)
-        plt.axis("equal")
+    #     plt.plot(self.trajectory_x_, self.trajectory_y_)
+    #     plt.xlabel("X (m)")
+    #     plt.ylabel("Y (m)")
+    #     plt.title("Trajectòria ROS 2")
+    #     plt.grid(True)
+    #     plt.axis("equal")
           
-        plt.savefig("/wolvi/src/robot/controller/scripts/robot_trajectory.png", dpi=300)
-        plt.close()
+    #     plt.savefig("/wolvi/src/robot/controller/scripts/robot_trajectory.png", dpi=300)
+    #     plt.close()
 
 
     def control_actuators_t(self):
