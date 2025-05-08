@@ -81,6 +81,9 @@
 //         sendMessage(imu_msg);
 //     }
 
+//     servos[0].write(50);
+//     servos[2].write(140);
+
 
 //     // === Read message ===
 
@@ -141,8 +144,16 @@
 //                 else if (element_id == "S01") { servos[6].write(value == 0 ? 162 : 100); } // PINCER
 //                 else if (element_id == "S02") { servos[1].write(value == 0 ? 130 : 165); } // LEFT SUCTION GRIPPER
 //                 else if (element_id == "S03") { servos[4].write(value == 0 ? 45 : 12); }   // RIGHT SUCTION GRIPPER
-//                 else if (element_id == "S04") { servos[0].write(value == 0 ? 70 : 140); }  // LEFT SHOVEL
-//                 else if (element_id == "S05") { servos[2].write(value == 0 ? 120 : 40); }  // RIGHT SHOVEL
+//                 else if (element_id == "S04") { 
+//                     if value == 0 servos[0].write(70); 
+//                     if value == 1 servos[0].write(140); 
+//                     if value == 1 servos[0].write(50); 
+//                 }  // LEFT SHOVEL
+//                 else if (element_id == "S05") { 
+//                     if value == 0 servos[0].write(120); 
+//                     if value == 1 servos[0].write(40); 
+//                     if value == 1 servos[0].write(140);
+//                 }  // RIGHT SHOVEL
 //             }
 //             }
 
