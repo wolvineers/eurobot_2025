@@ -71,19 +71,19 @@
    
 //     digitalWrite(GPIO_INA1, dir);
 
-//     // if ( (dir == 0 && !ls_horizontal_outside) || (dir == 1 && !ls_horizontal_inside) ) {
+//     if ( (dir == 0 && !ls_horizontal_outside) || (dir == 1 && !ls_horizontal_inside) ) {
 //         // Stop motor
 //         int real_speed = 0;
 //         if (dir == 1) { real_speed = 255; }
 //         ledcWrite(ledChannelA, real_speed);
 //         state_m_horizontal      = false;
 //         end_action_m_horizontal = true;
-//     // }
-//     // else {
-//     //     int real_speed = speed;
-//     //     if (dir == 1) { real_speed = 255 - real_speed; }
-//     //     ledcWrite(ledChannelA, real_speed); 
-//     // }
+//     }
+//     else {
+//         int real_speed = speed;
+//         if (dir == 1) { real_speed = 255 - real_speed; }
+//         ledcWrite(ledChannelA, real_speed); 
+//     }
 // }
 
 // void motor_vertical_lift(int speed, bool dir){
@@ -416,12 +416,7 @@
 
 //     // === Control lift motors ===
 
-//     if (state_m_horizontal && !state_m_horizontal_t)      { 
-//         motor_horizontal_lift(m_horizontal_velocity, m_horizontal_direction); 
-        
-        
-            
-//     }
+//     if (state_m_horizontal && !state_m_horizontal_t)      { motor_horizontal_lift(m_horizontal_velocity, m_horizontal_direction); }
 //     else if (!state_m_horizontal && state_m_horizontal_t) { motor_horizontal_lift_t(m_horizontal_velocity, m_horizontal_direction); }
 
 //     if (state_m_vertical && !state_m_vertical_t)      { motor_vertical_lift(m_vertical_velocity, m_vertical_direction); }

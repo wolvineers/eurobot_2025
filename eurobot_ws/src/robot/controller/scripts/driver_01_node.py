@@ -84,7 +84,7 @@ class FirstDriverNode(Node):
 
             self.get_logger().info('Motors message: ' + str(motors_msg))
 
-            send_message(self.serial_port, "M02,200.0")
+            send_message(self.serial_port, motors_msg)
 
 
     def message_timer(self):
