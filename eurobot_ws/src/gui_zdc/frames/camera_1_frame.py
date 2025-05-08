@@ -30,7 +30,7 @@ def camera_1_frame(canvas, width=460, height=380):
     font_2 = tkFont.Font(family="Courier", size=20)
 
     #Get data to resize frame.png
-    cap = cv2.VideoCapture('/dev/video0')
+    cap = cv2.VideoCapture('/dev/video1')
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 
