@@ -1,7 +1,7 @@
 import tkinter.font as tkFont
 import os
 from PIL import Image, ImageTk
-from frames.cameras_frame import cameras_frame
+from frames.camera_1_frame import camera_1_frame
 from frames.panel_frame import panel_frame
 from frames.net_status_frame import net_status_frame
 
@@ -48,8 +48,8 @@ def control_zone_frame(canvas):
     img_groups = canvas.create_image(750, 425, image=button_photo, anchor="center")
     txt_groups = canvas.create_text(750, 425, text="NET STATUS", font=font_1, fill="White", anchor="center")
 
-    canvas.tag_bind(img_sensors, "<Button-1>", lambda e: switch_frame(cameras_frame))
-    canvas.tag_bind(txt_sensors, "<Button-1>", lambda e: switch_frame(cameras_frame))
+    canvas.tag_bind(img_sensors, "<Button-1>", lambda e: switch_frame(camera_1_frame))
+    canvas.tag_bind(txt_sensors, "<Button-1>", lambda e: switch_frame(camera_1_frame))
 
     canvas.tag_bind(img_motors, "<Button-1>", lambda e: switch_frame(panel_frame))
     canvas.tag_bind(txt_motors, "<Button-1>", lambda e: switch_frame(panel_frame))

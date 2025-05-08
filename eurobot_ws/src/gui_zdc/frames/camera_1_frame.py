@@ -22,6 +22,7 @@ def camera_1_frame(canvas, width=460, height=380):
     """
     global cap, update_running, frame_photo, camera_open, button, back_photo
     from frames.main_frame import switch_frame
+    font_2 = tkFont.Font(family="Courier", size=20)
 
     #Get data to resize frame.png
     cap = cv2.VideoCapture(0)
@@ -38,7 +39,7 @@ def camera_1_frame(canvas, width=460, height=380):
     # Set the variable that contains the path of the image
     button_path = os.path.join(current_directory, "../img/white-button.png")
     button_image = Image.open(button_path)
-    button_image = button_image.resize((600, 60), Image.LANCZOS)
+    button_image = button_image.resize((300, 60), Image.LANCZOS)
     button_photo = ImageTk.PhotoImage(button_image)
 
     frame_path = os.path.join(current_directory, "../img/frame.png")
@@ -58,6 +59,9 @@ def camera_1_frame(canvas, width=460, height=380):
 
     update_running = True 
     print("Camera ON")
+
+    img_record = canvas.create_image(600, 525, image=button_photo, anchor="center")
+    txt_record = canvas.create_text(600, 525, text="Record", font=font_2, fill="White", anchor="center")
 
     def update_frame():
         if not update_running:
