@@ -20,7 +20,7 @@ def camera_1_frame(canvas, width=460, height=380):
     Args:
         (canvas): Variable that set the shape of the window
     """
-    global cap, update_running, frame_photo, camera_open, button_photo, back_photo, background_photo,
+    global cap, update_running, frame_photo, camera_open, button_photo, back_photo, background_photo
     canvas.image_cache = {}
     from frames.main_frame import switch_frame, window
 
