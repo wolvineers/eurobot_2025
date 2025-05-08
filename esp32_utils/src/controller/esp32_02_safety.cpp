@@ -81,10 +81,6 @@
 //         sendMessage(imu_msg);
 //     }
 
-//     servos[0].write(50);
-//     servos[2].write(140);
-
-
 //     // === Read message ===
 
 //     std::string message = readMessage().c_str();
