@@ -51,6 +51,15 @@
 // bool is_action_v = false;
 // bool is_action_h = false;
 
+// // Lift states
+// bool state_m_vertical;
+// bool state_m_vertical_t;
+// bool state_m_horizontal;
+// bool state_m_horizontal_t;
+
+// bool end_action_m_vertical;
+// bool end_action_m_horizontal;
+
 // void motor_horizontal_lift(int speed, bool dir) {
 //     /*
 //       Controls the horizontal lift motor depending on the limit switches values and send the end action message when finish.
@@ -62,19 +71,19 @@
    
 //     digitalWrite(GPIO_INA1, dir);
 
-//     if ( (dir == 0 && !ls_horizontal_outside) || (dir == 1 && !ls_horizontal_inside) ) {
+//     // if ( (dir == 0 && !ls_horizontal_outside) || (dir == 1 && !ls_horizontal_inside) ) {
 //         // Stop motor
 //         int real_speed = 0;
 //         if (dir == 1) { real_speed = 255; }
 //         ledcWrite(ledChannelA, real_speed);
-//         m_horizontal_state = false;
-//         end_action_h = 1;
-//     }
-//     else {
-//         int real_speed = speed;
-//         if (dir == 1) { real_speed = 255 - real_speed; }
-//         ledcWrite(ledChannelA, real_speed); 
-//     }
+//         state_m_horizontal      = false;
+//         end_action_m_horizontal = true;
+//     // }
+//     // else {
+//     //     int real_speed = speed;
+//     //     if (dir == 1) { real_speed = 255 - real_speed; }
+//     //     ledcWrite(ledChannelA, real_speed); 
+//     // }
 // }
 
 // void motor_vertical_lift(int speed, bool dir){
@@ -93,8 +102,8 @@
 //         int real_speed = 0;
 //         if (dir == 1) { real_speed = 255; }
 //         ledcWrite(ledChannelB, real_speed);
-//         m_vertical_state = false;
-//         end_action_v = 1;
+//         state_m_vertical      = false;
+//         end_action_m_vertical = true;
 //     }
 //     else { 
 //         int real_speed = speed;
@@ -122,7 +131,8 @@
 //         if (dir == 1) { real_speed = 255; }
 //         ledcWrite(ledChannelA, real_speed);
 
-//         end_action_h = 1;
+//         state_m_horizontal_t    = false;
+//         end_action_m_horizontal = true;
 //     }
 //     else {
 //         int real_speed = speed;
@@ -150,7 +160,8 @@
 //         if (dir == 1) { real_speed = 255; }
 //         ledcWrite(ledChannelB, real_speed);
 
-//         end_action_v = 1;
+//         state_m_vertical_t    = false;
+//         end_action_m_vertical = true;
 //     }
 //     else { 
 //         int real_speed = speed;
@@ -268,6 +279,15 @@
 //     m_horizontal_direction = 0;
 //     m_vertical_velocity    = 0;
 //     m_vertical_direction   = 0;
+
+//     // Initialize motors lift states
+//     state_m_vertical     = false;
+//     state_m_vertical_t   = false;
+//     state_m_horizontal   = false;
+//     state_m_horizontal_t = false;
+
+//     end_action_m_vertical  = false;
+//     end_action_m_horizontal = false;
 // }
 
 
@@ -345,55 +365,34 @@
 
 //             if (emergency_button_state == 0) {
 //                 if (motor == "M01") {
-//                     is_action_h = 1;    
-//                     if (vel < 0) { m_horizontal_direction = 1; }   // Negative velocity = backward movement
-//                     else { m_horizontal_direction = 0; }
-//                     m_horizontal_state = true;
-//                     m_horizontal_velocity = abs((int)vel);
-    
-//                     // motor_horizontal_lift(int(vel), dir);
-    
-//                     // snprintf(encoders_msg, sizeof(end_action),"EA,1");
-//                     // sendMessage(end_action);
+//                     state_m_horizontal = true;
+//                     m_horizontal_direction = 0;
+//                     if (vel < 0) { m_horizontal_direction = 1; }
+//                     m_horizontal_velocity = int(abs(vel));
     
 //                 } else if (motor == "M02") {
-//                     is_action_v = 1;
-//                     if (vel < 0) { m_vertical_direction = 0;}   // Negative velocity = down movement
-//                     else { m_vertical_direction = 1; }
-//                     m_vertical_state = true;
-//                     m_vertical_start_time = 0;
-//                     m_vertical_velocity = abs((int)vel);
-                    
-//                     // motor_vertical_lift(int(vel), dir);
-    
-//                     // snprintf(encoders_msg, sizeof(end_action),"EA,1");
-//                     // sendMessage(end_action);
-    
+//                     state_m_vertical = true;
+//                     m_vertical_direction = 1;
+//                     if (vel < 0) { m_horizontal_direction = 0; }
+//                     m_vertical_velocity = int(abs(vel));
+
 //                 } else if (motor == "M01_t") {
 //                     if (vel < 0) { m_horizontal_direction = 1; }
 //                     else {m_horizontal_direction = 0;}
 
-//                     is_action_h = 1; 
-    
-//                     m_horizontal_state = true;
-//                     m_horizontal_velocity = 150;
+//                     state_m_horizontal = true;
+//                     m_horizontal_velocity = 250;
 //                     m_horizontal_start_time = millis();
 //                     m_horizontal_duration = (unsigned int)abs(vel);
-                    
-//                 } else if (motor == "M02_t") {
-//                     is_action_v = 1;
 
-//                     m_vertical_state = true;
+//                 } else if (motor == "M02_t") {
+//                     if (vel < 0) { m_vertical_direction = 0; } 
+//                     else { m_vertical_direction = 1; }
+
+//                     state_m_vertical = true;
+//                     m_vertical_velocity = 200;
 //                     m_vertical_start_time = millis();
 //                     m_vertical_duration = (unsigned int)abs(vel);
-
-//                     if (vel < 0) {  
-//                         m_vertical_direction = 0; 
-//                         m_vertical_velocity = 100;
-//                     } else {
-//                         m_vertical_direction = 1; 
-//                         m_vertical_velocity = 250;
-//                     }
     
 //                 } else if (motor == "ML") {
 //                     if (vel > 0) { dir = 1; }
@@ -409,23 +408,31 @@
 //             }
 
 //         }
-//         if (!is_action_h && end_action_v) {end_action_h = 1;}
-//         if (!is_action_v && end_action_h) {end_action_v = 1;}
+
+//         if ((!state_m_horizontal && !state_m_horizontal_t) && end_action_m_vertical) { end_action_m_horizontal = true; }
+//         if ((!state_m_vertical && !state_m_vertical_t) && end_action_m_horizontal) { end_action_m_vertical = true; }
 //     }
 
 
 //     // === Control lift motors ===
 
-//     if (m_horizontal_state && m_horizontal_start_time == 0)      { motor_horizontal_lift(m_horizontal_velocity, m_horizontal_direction); }
-//     else if (m_horizontal_state && m_horizontal_start_time != 0) { motor_horizontal_lift_t(m_horizontal_velocity, m_horizontal_direction); }
+//     if (state_m_horizontal && !state_m_horizontal_t)      { 
+//         motor_horizontal_lift(m_horizontal_velocity, m_horizontal_direction); 
+        
+        
+            
+//     }
+//     else if (!state_m_horizontal && state_m_horizontal_t) { motor_horizontal_lift_t(m_horizontal_velocity, m_horizontal_direction); }
 
-//     if (m_vertical_state && m_vertical_start_time == 0)      { motor_vertical_lift(m_vertical_velocity, m_vertical_direction); }
-//     else if (m_vertical_state && m_vertical_start_time != 0) { motor_vertical_lift_t(m_vertical_velocity, m_vertical_direction); }
+//     if (state_m_vertical && !state_m_vertical_t)      { motor_vertical_lift(m_vertical_velocity, m_vertical_direction); }
+//     else if (!state_m_vertical && state_m_vertical_t) { motor_vertical_lift_t(m_vertical_velocity, m_vertical_direction); }
 
+//     // motor_vertical_lift(0, 1);
 
-//     if (end_action_h == 1 && end_action_v == 1) {
-//         end_action_h = end_action_v = 0;
-//         is_action_h = is_action_v = 0;
+//     if (end_action_m_horizontal && end_action_m_vertical) {
+//         end_action_m_horizontal = false;
+//         end_action_m_vertical   = false;
+        
 //         char end_action[50];
 //         snprintf(end_action, sizeof(end_action),"EA,1");
 //         sendMessage(end_action);

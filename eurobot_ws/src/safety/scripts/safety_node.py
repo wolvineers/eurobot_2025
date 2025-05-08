@@ -8,7 +8,7 @@ import RPi.GPIO as GPIO
 
 BUTTON_PIN = 40
 port01 = '/dev/ttyUSB0'
-port02 = '/dev/ttyUSB1'
+port02 = '/dev/ttyACM0'
 baudrate = 115200
 serial_port01 = open_serial_port(port01, baudrate)
 serial_port02 = open_serial_port(port02, baudrate)  
