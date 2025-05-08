@@ -23,7 +23,7 @@ class LidarSubscriberNode(Node):
         self.lidar_pub_ = self.create_publisher(Bool, "/lidar", 10)
         
         # Attributes (min_stop_distance = distance for close objects - max_stop_distance = distance to avoid detection of the support)
-        self.min_stop_distance = 40
+        self.min_stop_distance = 50
         self.max_stop_distance = 20
 
         # Initial message
@@ -54,6 +54,12 @@ class LidarSubscriberNode(Node):
             angle_deg = np.degrees(angle) + 180
 
             if distance_cm < self.max_stop_distance:
+                continue
+
+            elif 45 < angle_deg < 135:
+                continue
+
+            elif 225 < angle_deg < 315:
                 continue
 
             elif distance_cm < self.min_stop_distance:

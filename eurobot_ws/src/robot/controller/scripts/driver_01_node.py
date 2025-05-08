@@ -25,7 +25,7 @@ class FirstDriverNode(Node):
         super().__init__('first_driver')
 
         # Attributes
-        self.port        = '/dev/ttyUSB1'
+        self.port        = '/dev/ttyUSB0'
         self.baudrate    = 115200
         self.serial_port = open_serial_port(self.port, self.baudrate)
 
@@ -82,6 +82,8 @@ class FirstDriverNode(Node):
         if motors_msg:
             motors_msg = motors_msg[:-1]
 
+            self.get_logger().info('Motors message: ' + str(motors_msg))
+
             send_message(self.serial_port, motors_msg)
 
 
@@ -91,7 +93,7 @@ class FirstDriverNode(Node):
         """
 
         received_msg = read_message(self.serial_port)
-        
+
         if received_msg != None:
             # Split the message into parts separated by commas and remove the last part (checksum)
             msg_parts  = received_msg.split(",")[:-1]

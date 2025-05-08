@@ -14,9 +14,9 @@ import os
 
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
+# import matplotlib
+# matplotlib.use('Agg')
+# import matplotlib.pyplot as plt
 
 
 ## *************************
@@ -46,12 +46,19 @@ class ControllerNode(Node):
 
         self.dist_accel_    = 7.0
         self.dist_desaccel_ = 10.0
-        self.init_vel_      = 0.15
-        self.final_vel_     = 0.1
+        self.init_vel_      = 0.2
+        self.final_vel_     = 0.2
+        
         self.linear_vel_    = 0.0
         self.angular_vel_   = 0.0
         self.distance_      = 0.0
+        self.time_mov_      = 0.0
+        self.start_time_    = 0.0
+
+        self.left_vel_      = 0.0
+        self.right_vel_     = 0.0
         self.angle_goal_    = 0.0
+        
         self.direction_     = 1
         self.const_corretion_ = 0.02
 
@@ -90,7 +97,9 @@ class ControllerNode(Node):
         # Subscribers
         self.encoder_left_sub_  = self.create_subscription(Float32, '/controller/encoder_left', self.encoder_left_callback, 10)
         self.encoder_right_sub_ = self.create_subscription(Float32, '/controller/encoder_right', self.encoder_right_callback, 10)
-        self.movement_sub_      = self.create_subscription(Vector3, '/movement', self.movement_callback, 10)
+        self.movement_sub_      = self.create_subscription(Vector3, '/movement/straight', self.movement_callback, 10)
+        self.movement_tim_sub_  = self.create_subscription(Vector3, '/movement/time', self.movement_tim_callback, 10)
+        self.movement_turn_sub_ = self.create_subscription(Vector3, '/movement/turn', self.movement_turn_callback, 10)
         self.t_action_sub_      = self.create_subscription(Int32, '/t_action', self.t_action_callback, 10)
         self.i_action_sub_      = self.create_subscription(Int32, '/i_action', self.i_action_callback, 10)
         self.opponent_detected  = self.create_subscription(Bool, '/lidar', self.opponent_detected_callback, 10)
@@ -98,12 +107,13 @@ class ControllerNode(Node):
         self.end_action_02_sub_ = self.create_subscription(Bool, '/controller/end_action_02', self.end_action_02_callback, 10)
         self.imu_sub_           = self.create_subscription(Float32, "/controller/imu", self.imu_callback, 10)
 
-        self.plot_traj_sub_ = self.create_subscription(Bool, '/plot_traj', self.plot_trajectory, 10)
+        # self.plot_traj_sub_ = self.create_subscription(Bool, '/plot_traj', self.plot_trajectory, 10)
 
 
         # Timers
         self.controller_striaght_tim_ = self.create_timer(self.timer_period_, self.control_velocities_straight)
         self.controller_turn_tim_     = self.create_timer(self.timer_period_, self.control_velocities_turn)
+        self.controller_time_tim_     = self.create_timer(self.timer_period_, self.control_velocities_tim)
 
         self.action_tim_t_   = self.create_timer(1.0, self.control_actuators_t)
         self.action_tim_i_   = self.create_timer(1.0, self.control_actuators_i)
@@ -138,27 +148,69 @@ class ControllerNode(Node):
 
     def movement_callback(self, movement):
         """
-        Gets the values of movement and and stores them int the robot_movement queue.
+        Gets the values of movement and stores them int the robot_movement queue.
 
         Args:
             movement (Vector3): The message received by the subscriber, containing movement data.
                 * Vector3 message params:
                 *   x --> linear velocity
                 *   y --> angular velocity
-                *   z --> movement time / angle goal
+                *   z --> movement distance
         """
 
         self.linear_vel_  = abs(movement.x)
         self.angular_vel_ = abs(movement.y)
 
-        if self.angular_vel_ == 0.0:
-            self.distance_ = movement.z
-            self.angle_goal_ = 0.0
-        elif self.linear_vel_ == 0.0:
-            self.angle_goal_ = movement.z
-            self.distance_ = 0.0
+        self.distance_   = movement.z
+        self.angle_goal_ = 0.0
+        self.time_mov_   = 0.0
 
         if movement.x < 0 or movement.y < 0:
+            self.direction_ = -1       
+
+
+    def movement_tim_callback(self, movement_tim):
+        """
+        Gets the values of movement timer and stores them int the robot_movement queue.
+
+        Args:
+            movement (Vector3): The message received by the subscriber, containing movement data.
+                * Vector3 message params:
+                *   x --> linear velocity
+                *   y --> angular velocity (0)
+                *   z --> movement time
+        """
+
+        self.get_logger().info("Moviment rebut")
+
+        self.linear_vel_ = abs(movement_tim.x)
+        self.time_mov_   = movement_tim.z
+        self.start_time_ = self.get_clock().now()
+
+        if movement_tim.x < 0:
+            self.direction_ = -1
+
+    
+    def movement_turn_callback(self, movement):
+        """
+        Gets the values of movement and stores them int the robot_movement queue.
+
+        Args:
+            movement (Vector3): The message received by the subscriber, containing movement data.
+                * Vector3 message params:
+                *   x --> motor left velocity
+                *   y --> motor right velocity
+                *   z --> movement distance
+        """
+
+        self.angular_vel_ = 1.0
+
+        self.distance_   = movement.z
+        self.left_vel_   = movement.x
+        self.right_vel_  = movement.y
+        self.time_mov_   = 0.0
+
+        if movement.y:
             self.direction_ = -1
 
     
@@ -257,9 +309,7 @@ class ControllerNode(Node):
         vel_left = 0
         vel_right = 0
 
-        v = 0
-
-        if self.distance_ != 0 and self.opponent_detected and self.angular_vel_ == 0.0:
+        if self.distance_ != 0 and self.opponent_detected and self.angular_vel_ == 0.0 and self.time_mov_ == 0.0:
             
             distance_moved = (abs(self.encoder_left_) + abs(self.encoder_right_)) / 2
             
@@ -313,7 +363,75 @@ class ControllerNode(Node):
                 elif abs(self.encoder_left_) > abs(self.encoder_right_):
                     vel_right += (correction_factor * self.direction_)  
         
-        if self.angular_vel_ == 0.0:
+        if self.angular_vel_ == 0.0 and self.time_mov_ == 0.0:
+            # Publish the message with each motor power
+            motor_vel_msg = Twist()
+
+            motor_vel_msg.linear.y = float(vel_left)
+            motor_vel_msg.linear.z = float(vel_right)
+        
+            self.velocities_pub_.publish(motor_vel_msg)
+        
+            # Assume that vel_left and vel_right are in m/s -> Convert to rad/s
+            wl = vel_left / self.robot.radius
+            wr = vel_right / self.robot.radius
+
+            # Update robot state using the computed wheel speeds and time increment
+            self.robot.set_theta(math.radians(self.imu_))
+            self.robot.update_state(wl, wr, self.timer_period_)
+
+            x, y, _ = self.robot.get_state()
+            self.trajectory_x_.append(x)
+            self.trajectory_y_.append(y)
+
+
+    def control_velocities_tim(self):
+        """
+        At each elapsed time publishes the power of each motor for the current straight movement to the respective topic.
+        """
+        
+        vel_left = 0
+        vel_right = 0
+
+        if self.time_mov_ != 0 and self.opponent_detected and self.distance_ == 0.0 and self.angular_vel_ == 0.0:
+            
+            # Convert time in seconds
+            now = self.get_clock().now()
+            elapsed_time = (now - self.start_time_).nanoseconds * 1e-9
+
+            self.get_logger().info("Moving during time")
+
+            if elapsed_time < self.time_mov_:
+                vel_left, vel_right = self.robot.get_motor_velocities(self.linear_vel_ * self.direction_, 0.0)
+
+            else:
+                self.get_logger().info("Parant")
+                # If the time has finished set powers to 0.0
+                vel_left         = 0.0
+                vel_right        = 0.0
+                self.time_mov_   = 0.0
+                self.start_time_ = 0.0
+                self.direction_  = 1
+
+                # Publish end of movement
+                end_action = Bool()
+                end_action.data = True
+                self.end_order_pub_.publish(end_action)
+
+            # Adjust difference between encoders
+            if elapsed_time < self.time_mov_:
+                encoder_left_abs  = abs(self.encoder_left_)
+                encoder_right_abs = abs(self.encoder_right_)
+
+                correction_factor = int(abs(encoder_left_abs - encoder_right_abs) / 2) * self.const_corretion_ 
+
+                if abs(self.encoder_left_) < abs(self.encoder_right_):
+                    vel_left += (correction_factor * self.direction_)
+                elif abs(self.encoder_left_) > abs(self.encoder_right_):
+                    vel_right += (correction_factor * self.direction_)  
+        
+
+        if self.distance_ == 0.0 and self.angular_vel_ == 0.0:
             # Publish the message with each motor power
             motor_vel_msg = Twist()
 
@@ -351,12 +469,10 @@ class ControllerNode(Node):
         vel_left = 0
         vel_right = 0
 
-        if self.angle_goal_ != 0 and self.opponent_detected and self.linear_vel_ == 0.0:
+        if self.angle_goal_ != 0 and self.opponent_detected and self.linear_vel_ == 0.0 and self.time_mov_ == 0.0:
 
-            self.direction_ = 1 if self.imu_ < self.angle_goal_ else -1
-
-            if self.imu_ < self.angle_goal_ - 2 or self.imu_ > self.angle_goal_ + 2:
-                vel_left, vel_right = self.robot.get_motor_velocities(0.0, self.angular_vel_ * self.direction_)
+            if self.encoder_right_ < self.angle_goal_:
+                vel_right = self.angular_vel_ * self.direction_
 
             else:
                 self.get_logger().info("Parant")
@@ -371,12 +487,15 @@ class ControllerNode(Node):
                 end_action.data = True
                 self.end_order_pub_.publish(end_action) 
         
-        if self.linear_vel_ == 0.0:
+        if self.linear_vel_ == 0.0 and self.time_mov_ == 0.0:
             # Publish the message with each motor power
             motor_vel_msg = Twist()
 
-            motor_vel_msg.linear.y = float(vel_left) * 10.0
-            motor_vel_msg.linear.z = float(vel_right) * 10.0
+            # motor_vel_msg.linear.y = float(vel_left) * 10.0
+            # motor_vel_msg.linear.z = float(vel_right) * 10.0
+
+            motor_vel_msg.linear.y = 0.0
+            motor_vel_msg.linear.z = float(vel_right)
             
             self.velocities_pub_.publish(motor_vel_msg)
 
@@ -402,25 +521,25 @@ class ControllerNode(Node):
             self.trajectory_y_.append(y)
   
     
-    def plot_trajectory(self, msg):
-        """
-        Generates the robot trajectory when the subscriber receives a message.
+    # def plot_trajectory(self, msg):
+    #     """
+    #     Generates the robot trajectory when the subscriber receives a message.
 
-        Args:
-            msg (Bool): The message received by the subscriber.
-        """
+    #     Args:
+    #         msg (Bool): The message received by the subscriber.
+    #     """
 
-        self.get_logger().info("Plotting trajectory... " + str(msg.data))
+    #     self.get_logger().info("Plotting trajectory... " + str(msg.data))
 
-        plt.plot(self.trajectory_x_, self.trajectory_y_)
-        plt.xlabel("X (m)")
-        plt.ylabel("Y (m)")
-        plt.title("Trajectòria ROS 2")
-        plt.grid(True)
-        plt.axis("equal")
+    #     plt.plot(self.trajectory_x_, self.trajectory_y_)
+    #     plt.xlabel("X (m)")
+    #     plt.ylabel("Y (m)")
+    #     plt.title("Trajectòria ROS 2")
+    #     plt.grid(True)
+    #     plt.axis("equal")
           
-        plt.savefig("/wolvi/src/robot/controller/scripts/robot_trajectory.png", dpi=300)
-        plt.close()
+    #     plt.savefig("/wolvi/src/robot/controller/scripts/robot_trajectory.png", dpi=300)
+    #     plt.close()
 
         self.odometry_file.close()
         self.imu_file.close()

@@ -2,7 +2,7 @@ FROM ros:humble
 
 RUN apt update && \
     apt install -y software-properties-common && \
-    apt install -y ros-humble-demo-nodes-cpp && \
+    apt install  -y ros-humble-demo-nodes-cpp && \
     apt install -y python3-colcon-common-extensions && \
     apt upgrade -y
 
@@ -31,6 +31,7 @@ RUN apt install -y python3.10-venv
 RUN pip install matplotlib
 
 RUN sudo apt install -y libopencv-dev
+RUN apt install -y python3-rpi.gpio
 
 ENV PYTHONPATH=/wolvi/src:/usr/local/lib/python3.8/site-packages
 
