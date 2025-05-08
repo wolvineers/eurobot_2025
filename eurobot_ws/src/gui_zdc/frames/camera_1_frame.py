@@ -30,7 +30,7 @@ def camera_1_frame(canvas, width=460, height=380):
     font_2 = tkFont.Font(family="Courier", size=20)
 
     #Get data to resize frame.png
-    cap = cv2.VideoCapture('/dev/video1')
+    cap = cv2.VideoCapture('/dev/video0')
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 
@@ -39,7 +39,7 @@ def camera_1_frame(canvas, width=460, height=380):
     _img = Image.fromarray(_frame)
     _imgW, _imgH = _img.size
     _imgRatio = _imgW/_imgH
-    _imgBaseSize = 450
+    _imgBaseSize = 435
 
     # Set the variable that contains the path of the image
     button_path = os.path.join(current_directory, "../img/white-button.png")
@@ -67,7 +67,7 @@ def camera_1_frame(canvas, width=460, height=380):
     img_back = canvas.create_image(24, 24, image=back_photo, anchor="nw")
     canvas.tag_bind(img_back, "<Button-1>", lambda e: switch_frame(welcome_frame))
 
-    canvas.create_image(465, 75, image=frame_photo, anchor="nw")
+    canvas.create_image(335, 35, image=frame_photo, anchor="nw")
 
     update_running = True 
     print("Camera ON")
@@ -87,7 +87,7 @@ def camera_1_frame(canvas, width=460, height=380):
             imgBaseSize = 400
             img = img.resize((int(imgBaseSize*imgRatio), imgBaseSize))
             imgtk = ImageTk.PhotoImage(image=img)
-            canvas.create_image(500, 100, anchor=tk.NW, image=imgtk)
+            canvas.create_image(350, 55, anchor=tk.NW, image=imgtk)
             canvas.image = imgtk
         canvas.after(10, update_frame)
 
