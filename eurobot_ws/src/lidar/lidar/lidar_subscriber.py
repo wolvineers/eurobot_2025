@@ -3,6 +3,7 @@ import numpy as np
 from rclpy.node import Node
 from sensor_msgs.msg import LaserScan
 from std_msgs.msg import Bool
+from utils.scripts.serial_communication import send_message, open_serial_port
 
 ## ***************
 ## LIDAR CLASS
@@ -15,6 +16,10 @@ class LidarSubscriberNode(Node):
         """
 
         super().__init__("lidar_subscriber")
+
+        self.port        = '/dev/ttyUSB0'
+        self.baudrate    = 115200
+        self.serial_port = open_serial_port(self.port, self.baudrate)
 
         # Subscriber
         self.subscriber_ = self.create_subscription(LaserScan, "/scan", self.callback_lidar, 10)
@@ -56,12 +61,6 @@ class LidarSubscriberNode(Node):
             if distance_cm < self.max_stop_distance:
                 continue
 
-            elif 45 < angle_deg < 135:
-                continue
-
-            elif 225 < angle_deg < 315:
-                continue
-
             elif distance_cm < self.min_stop_distance:
                 obstacle_detected = True
                 self.get_logger().error(f"Obstacle detected at {angle_deg:.2f}° - Distance: {distance_cm:.2f} cm")
@@ -78,6 +77,8 @@ class LidarSubscriberNode(Node):
         msg = Bool()
         msg.data = not obstacle_detected  
         self.lidar_pub_.publish(msg)
+        send_message(self.serial_port, "{msg.data}")
+
 
 
 ## *************************
