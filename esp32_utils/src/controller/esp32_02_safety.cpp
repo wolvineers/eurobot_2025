@@ -6,6 +6,7 @@
 // #include <sstream>
 // #include "serial_utils/serial_utils.h"
 // #include "Placa.h"
+// #include <Adafruit_NeoPixel.h>
 
 // // Servos declaration and initialization
 // Servo servos[8];
@@ -19,6 +20,11 @@
 
 // // IMU timer
 // long timer = 0;
+// volatile bool i2c_busy = false;
+
+// // Emergency button state variable
+// bool emergency_button_state = 0;
+
 
 // void setup()
 // {
@@ -52,6 +58,8 @@
 //     mpu.calcOffsets(true,true);
     
 // }
+
+// bool state = false;
  
 // void loop()
 // {
@@ -59,7 +67,7 @@
 //     // === Send IMU message ===
 
 //     //Update IMU data
-//     mpu.update();
+//     if (!i2c_busy) { i2c_busy = true; mpu.update(); i2c_busy = false; }
 
 //     // Get angle Z
 //     float angle_z  = mpu.getAngleZ();
@@ -72,7 +80,6 @@
 //     if (loop_counter % 15 == 0) {   
 //         sendMessage(imu_msg);
 //     }
-
 
 //     // === Read message ===
 
@@ -101,23 +108,52 @@
 //             std::string element_id = message_parts[i];
 //             int value = stoi(message_parts[i+1]);
 
-//             if (element_id == "AP") {
-//                 Wire.beginTransmission(0x20);
-//                 Wire.write(1);
-
-//                 if(value == 1){ Wire.write(0b11111111); } // Turn all outputs ON.
-//                 else { Wire.write(0b00000000); } // Turn all outputs OFF.
-
-//                 Wire.endTransmission();
+//             if (element_id == "Emergency") {
+//                 emergency_button_state = value;
+//                 if (value == 1) {
+//                     servos[i].detach();
+//                     emergency_button_state = value;
+//                 }
+//                 else if (value == 0) {
+//                     for (int i = 0; i < 8; i++) {servos[i].attach(servoPins[i]);}
+//                     emergency_button_state = value;
+//                 }
 //             }
-            
-//             else if (element_id == "S01") { servos[6].write(value == 0 ? 162 : 100); } // PINCER
-//             else if (element_id == "S02") { servos[1].write(value == 0 ? 140 : 179); } // LEFT SUCTION GRIPPER
-//             else if (element_id == "S03") { servos[4].write(value == 0 ? 45 : 10); }   // RIGHT SUCTION GRIPPER
-//             else if (element_id == "S04") { servos[0].write(value == 0 ? 70 : 140); }  // LEFT SHOVEL
-//             else if (element_id == "S05") { servos[2].write(value == 0 ? 120 : 40); }  // RIGHT SHOVEL
-//             else if (element_id == "STOP") { for (int i = 0; i < 8; i++) { servos[i].detach(); } Serial.end(); }
-//         }
+
+//             if (emergency_button_state == 0) {
+                
+//                 if (element_id == "AP") {
+//                     while (i2c_busy);  // Espera que el bus estigui lliure
+//                     i2c_busy = true;
+
+//                     Wire.beginTransmission(0x20);
+//                     Wire.write(1);
+    
+//                     if(value == 1){ Wire.write(0b11111111); } // Turn all outputs ON.
+//                     else { Wire.write(0b00000000); } // Turn all outputs OFF.
+    
+//                     Wire.endTransmission();
+
+//                     i2c_busy = false;
+//                 }
+                
+//                 else if (element_id == "S01") { servos[6].write(value == 0 ? 162 : 100); } // PINCER
+//                 else if (element_id == "S02") { servos[1].write(value == 0 ? 130 : 165); } // LEFT SUCTION GRIPPER
+//                 else if (element_id == "S03") { servos[4].write(value == 0 ? 45 : 12); }   // RIGHT SUCTION GRIPPER
+//                 else if (element_id == "S04") { 
+//                     if (value == 0) servos[0].write(70); 
+//                     if (value == 1) servos[0].write(140); 
+//                     if (value == 2) servos[0].write(50); 
+//                 }  // LEFT SHOVEL
+//                 else if (element_id == "S05") { 
+//                     if (value == 0) servos[2].write(120); 
+//                     if (value == 1) servos[2].write(40); 
+//                     if (value == 2) servos[2].write(140);
+//                 }  // RIGHT SHOVEL
+//             }
+//             }
+
+        
 
 //         snprintf(end_action, sizeof(end_action),"EA,1");
 //         sendMessage(end_action);

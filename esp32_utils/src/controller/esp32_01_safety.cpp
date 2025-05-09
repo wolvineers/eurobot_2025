@@ -1,11 +1,11 @@
-#include <Arduino.h>
+// // #include <Arduino.h>
 // #include "Placa.h"
 // #include "serial_utils/serial_utils.h"
 // #include "pid/ESP32PIDMotor.hpp"
 // #include <vector>
 // #include <sstream>
 
-// #define MAX_RPM 300
+// #define MAX_RPM 350
 // #define MAX_PWM 255
 
 // ESP32Encoder encoderC;
@@ -42,6 +42,23 @@
 // unsigned long m_vertical_start_time = 0;
 // unsigned long m_vertical_duration = 0;
 
+// // Emergency Button state variable
+// bool emergency_button_state = 0;
+
+// // End action state variables
+// bool end_action_v = false;
+// bool end_action_h = false;
+// bool is_action_v = false;
+// bool is_action_h = false;
+
+// // Lift states
+// bool state_m_vertical;
+// bool state_m_vertical_t;
+// bool state_m_horizontal;
+// bool state_m_horizontal_t;
+
+// bool end_action_m_vertical;
+// bool end_action_m_horizontal;
 
 // void motor_horizontal_lift(int speed, bool dir) {
 //     /*
@@ -56,15 +73,17 @@
 
 //     if ( (dir == 0 && !ls_horizontal_outside) || (dir == 1 && !ls_horizontal_inside) ) {
 //         // Stop motor
-//         ledcWrite(ledChannelA, 0);
-//         m_horizontal_state = false;
-
-//         // Send end of action message
-//         char end_action[50];
-//         snprintf(end_action, sizeof(end_action),"EA,1");
-//         sendMessage(end_action);
+//         int real_speed = 0;
+//         if (dir == 1) { real_speed = 255; }
+//         ledcWrite(ledChannelA, real_speed);
+//         state_m_horizontal      = false;
+//         end_action_m_horizontal = true;
 //     }
-//     else { ledcWrite(ledChannelA, speed); }
+//     else {
+//         int real_speed = speed;
+//         if (dir == 1) { real_speed = 255 - real_speed; }
+//         ledcWrite(ledChannelA, real_speed); 
+//     }
 // }
 
 // void motor_vertical_lift(int speed, bool dir){
@@ -73,22 +92,24 @@
 
 //       Arguments:
 //         speed (int): PWM value to control the motor speed (0-255).
-//         dir (bool): Direction of rotation: true (1) = down; false (0) = up.
+//         dir (bool): Direction of rotation: true (1) = up; false (0) = down.
 //     */
    
 //     digitalWrite(GPIO_INB1, dir);
 
-//     if ( (dir == 0 && !ls_vertical_top) || (dir == 1 && !ls_vertical_bottom) ) { 
+//     if ( (dir == 1 && !ls_vertical_top) || (dir == 0 && !ls_vertical_bottom) ) { 
 //         // Stop motor
-//         ledcWrite(ledChannelB, 0);
-//         m_vertical_state = false;
-
-//         // Send end of action message
-//         char end_action[50];
-//         snprintf(end_action, sizeof(end_action),"EA,1");
-//         sendMessage(end_action);
+//         int real_speed = 0;
+//         if (dir == 1) { real_speed = 255; }
+//         ledcWrite(ledChannelB, real_speed);
+//         state_m_vertical      = false;
+//         end_action_m_vertical = true;
 //     }
-//     else { ledcWrite(ledChannelB, speed); }
+//     else { 
+//         int real_speed = speed;
+//         if (dir == 1) { real_speed = 255 - real_speed; }
+//         ledcWrite(ledChannelB, real_speed); 
+//     }
 // }
 
 // void motor_horizontal_lift_t (int speed, bool dir) {
@@ -104,16 +125,20 @@
 
 //     if (millis() - m_horizontal_start_time >= m_horizontal_duration) {
 //         // Stop motor
-//         ledcWrite(ledChannelA, 0);
 //         m_horizontal_state = false;
 //         m_horizontal_start_time = 0;
+//         int real_speed = 0;
+//         if (dir == 1) { real_speed = 255; }
+//         ledcWrite(ledChannelA, real_speed);
 
-//         // Send end of action message
-//         char end_action[50];
-//         snprintf(end_action, sizeof(end_action),"EA,1");
-//         sendMessage(end_action);
+//         state_m_horizontal_t    = false;
+//         end_action_m_horizontal = true;
 //     }
-//     else { ledcWrite(ledChannelA, speed); }
+//     else {
+//         int real_speed = speed;
+//         if (dir == 1) { real_speed = 255 - real_speed; }
+//         ledcWrite(ledChannelA, real_speed); 
+//     }
 // }
 
 // void motor_vertical_lift_t (int speed, bool dir) {
@@ -122,23 +147,27 @@
 
 //       Arguments:
 //         speed (int): PWM value to control the motor speed (0-255).
-//         dir (bool): Direction of rotation: true (1) = down; false (0) = up.
+//         dir (bool): Direction of rotation: true (0) = down; false (1) = up.
 //     */
    
 //     digitalWrite(GPIO_INB1, dir);
 
 //     if ( millis() - m_vertical_start_time >= m_vertical_duration ) { 
 //         // Stop motor
-//         ledcWrite(ledChannelB, 0);
+//         int real_speed = 0;
 //         m_vertical_state = false;
 //         m_vertical_start_time = 0;
+//         if (dir == 1) { real_speed = 255; }
+//         ledcWrite(ledChannelB, real_speed);
 
-//         // Send end of action message
-//         char end_action[50];
-//         snprintf(end_action, sizeof(end_action),"EA,1");
-//         sendMessage(end_action);
+//         state_m_vertical_t    = false;
+//         end_action_m_vertical = true;
 //     }
-//     else { ledcWrite(ledChannelB, speed); }
+//     else { 
+//         int real_speed = speed;
+//         if (dir == 1) { real_speed = 255 - real_speed; }
+//         ledcWrite(ledChannelB, real_speed); 
+//     }
 // }
 
 // void motor_right(int speed, bool dir) {
@@ -250,6 +279,15 @@
 //     m_horizontal_direction = 0;
 //     m_vertical_velocity    = 0;
 //     m_vertical_direction   = 0;
+
+//     // Initialize motors lift states
+//     state_m_vertical     = false;
+//     state_m_vertical_t   = false;
+//     state_m_horizontal   = false;
+//     state_m_horizontal_t = false;
+
+//     end_action_m_vertical  = false;
+//     end_action_m_horizontal = false;
 // }
 
 
@@ -290,7 +328,7 @@
 //     std::string message = readMessage().c_str();
 
 //     // Get each value of the message and assign motors power
-//     if (!message.empty()) {
+//     if (!message.empty() && verifyChecksum(message.c_str())) {
 //         std::vector<std::string> message_parts;
 //         std::stringstream ss(message);
 //         std::string item;
@@ -314,71 +352,87 @@
 
 //             char end_action[50];
 
-//             if (motor == "M01") {
-//                 if (vel < 0) { m_horizontal_direction = 1; }   // Negative velocity = backward movement
-//                 m_horizontal_state = true;
-//                 m_horizontal_velocity = (int)vel;
-
-//                 // motor_horizontal_lift(int(vel), dir);
-
-//                 // snprintf(encoders_msg, sizeof(end_action),"EA,1");
-//                 // sendMessage(end_action);
-
-//             } else if (motor == "M02") {
-//                 if (vel < 0) { m_vertical_direction = 1; }   // Negative velocity = down movement
-//                 m_vertical_state = true;
-//                 m_vertical_velocity = (int)vel;
-                
-//                 // motor_vertical_lift(int(vel), dir);
-
-//                 // snprintf(encoders_msg, sizeof(end_action),"EA,1");
-//                 // sendMessage(end_action);
-
-//             } else if (motor == "M01_t") {
-//                 if (vel < 0) { m_horizontal_direction = 1; }
-
-//                 m_horizontal_state = true;
-//                 m_horizontal_velocity = 150;
-//                 m_horizontal_start_time = millis();
-//                 m_horizontal_duration = (unsigned int)vel;
-                
-//             } else if (motor == "M02_t") {
-//                 m_vertical_state = true;
-//                 m_vertical_velocity = 150;
-//                 m_vertical_start_time = millis();
-//                 m_vertical_duration = (unsigned int)vel;
-
-//                 if (vel < 0) { 
-//                     m_vertical_direction = 1; 
-//                     m_vertical_velocity = 10;
+//             if (motor == "Emergency") {
+//                 emergency_button_state = vel;
+//                 if (vel == 1) {
+//                     motor_left(0, 0);
+//                     motor_right(0, 0);
+//                     motor_horizontal_lift(0, 0);
+//                     motor_vertical_lift(0, 0);
+//                     motor_horizontal_lift_t(0, 0);
 //                 }
-
-//             } else if (motor == "ML") {
-//                 if (vel > 0) { dir = 1; }
-//                 if (pwm == 0) { encoderC.setCount(0); }
-//                 motor_left(pwm, dir);
-
-//             } else if (motor == "MR") {
-//                 if (vel < 0) { dir = 1; }
-//                 if (pwm == 0) { encoderD.setCount(0); }
-//                 motor_right(pwm, dir);
-            
-//             } else if (motor == "STOP") {
-//                 motor_left(0, 0);
-//                 motor_right(0, 0);
-//                 Serial.end();
 //             }
+
+//             if (emergency_button_state == 0) {
+//                 if (motor == "M01") {
+//                     state_m_horizontal = true;
+//                     m_horizontal_direction = 0;
+//                     if (vel < 0) { m_horizontal_direction = 1; }
+//                     m_horizontal_velocity = int(abs(vel));
+    
+//                 } else if (motor == "M02") {
+//                     state_m_vertical = true;
+//                     m_vertical_direction = 1;
+//                     if (vel < 0) { m_horizontal_direction = 0; }
+//                     m_vertical_velocity = int(abs(vel));
+
+//                 } else if (motor == "M01_t") {
+//                     if (vel < 0) { m_horizontal_direction = 1; }
+//                     else {m_horizontal_direction = 0;}
+
+//                     state_m_horizontal = true;
+//                     m_horizontal_velocity = 250;
+//                     m_horizontal_start_time = millis();
+//                     m_horizontal_duration = (unsigned int)abs(vel);
+
+//                 } else if (motor == "M02_t") {
+//                     if (vel < 0) { m_vertical_direction = 0; } 
+//                     else { m_vertical_direction = 1; }
+
+//                     state_m_vertical = true;
+//                     m_vertical_velocity = 200;
+//                     m_vertical_start_time = millis();
+//                     m_vertical_duration = (unsigned int)abs(vel);
+    
+//                 } else if (motor == "ML") {
+//                     if (vel > 0) { dir = 1; }
+//                     if (pwm == 0) { encoderC.setCount(0); }
+//                     motor_left(pwm, dir);
+    
+//                 } else if (motor == "MR") {
+//                     if (vel < 0) { dir = 1; }
+//                     if (pwm == 0) { encoderD.setCount(0); }
+//                     motor_right(pwm, dir);
+                
+//                 }
+//             }
+
 //         }
+
+//         if ((!state_m_horizontal && !state_m_horizontal_t) && end_action_m_vertical) { end_action_m_horizontal = true; }
+//         if ((!state_m_vertical && !state_m_vertical_t) && end_action_m_horizontal) { end_action_m_vertical = true; }
 //     }
 
 
 //     // === Control lift motors ===
 
-//     if (m_horizontal_state && m_horizontal_start_time == 0)      { motor_horizontal_lift(m_horizontal_velocity, m_horizontal_direction); }
-//     else if (m_horizontal_state && m_horizontal_start_time != 0) { motor_horizontal_lift_t(m_horizontal_velocity, m_horizontal_direction); }
+//     if (state_m_horizontal && !state_m_horizontal_t)      { motor_horizontal_lift(m_horizontal_velocity, m_horizontal_direction); }
+//     else if (!state_m_horizontal && state_m_horizontal_t) { motor_horizontal_lift_t(m_horizontal_velocity, m_horizontal_direction); }
 
-//     if (m_vertical_state && m_vertical_start_time == 0)      { motor_vertical_lift(m_vertical_velocity, m_vertical_state); }
-//     else if (m_vertical_state && m_vertical_start_time != 0) { motor_vertical_lift_t(m_vertical_velocity, m_vertical_state); }
+//     if (state_m_vertical && !state_m_vertical_t)      { motor_vertical_lift(m_vertical_velocity, m_vertical_direction); }
+//     else if (!state_m_vertical && state_m_vertical_t) { motor_vertical_lift_t(m_vertical_velocity, m_vertical_direction); }
+
+
+//     if (end_action_m_horizontal && end_action_m_vertical) {
+//         end_action_m_horizontal = false;
+//         end_action_m_vertical   = false;
+        
+//         char end_action[50];
+//         snprintf(end_action, sizeof(end_action),"EA,1");
+//         sendMessage(end_action);
+//     }
+
+
 
 //     delay(20); // Receive 100 messages per second
 // }
