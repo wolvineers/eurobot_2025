@@ -17,7 +17,7 @@ class LidarSubscriberNode(Node):
 
         super().__init__("lidar_subscriber")
 
-        self.port        = '/dev/ttyUSB0'
+        self.port        = '/dev/ttyUSB1'
         self.baudrate    = 115200
         self.serial_port = open_serial_port(self.port, self.baudrate)
 
@@ -28,7 +28,7 @@ class LidarSubscriberNode(Node):
         self.lidar_pub_ = self.create_publisher(Bool, "/lidar", 10)
         
         # Attributes (min_stop_distance = distance for close objects - max_stop_distance = distance to avoid detection of the support)
-        self.min_stop_distance = 50
+        self.min_stop_distance = 35
         self.max_stop_distance = 20
 
         # Initial message
@@ -63,21 +63,21 @@ class LidarSubscriberNode(Node):
 
             elif distance_cm < self.min_stop_distance:
                 obstacle_detected = True
-                self.get_logger().error(f"Obstacle detected at {angle_deg:.2f}° - Distance: {distance_cm:.2f} cm")
+                self.get_logger().warn(f"Obstacle detected at {angle_deg:.2f}° - Distance: {distance_cm:.2f} cm")
                 break
         
         """
         Publishes a Boolean message indicating the presence of an obstacle.
         
         True  = No danger (path is clear)
-        False = Obstacle detected too close
+        False = Obstacle detected too close 
         """
 
         
         msg = Bool()
         msg.data = not obstacle_detected  
         self.lidar_pub_.publish(msg)
-        send_message(self.serial_port, "{msg.data}")
+        send_message(self.serial_port, str(msg.data))
 
 
 
